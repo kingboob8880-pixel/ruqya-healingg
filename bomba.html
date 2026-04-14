@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
-    <title>Абу Мухаммад | Духовное исцеление</title>
-    <!-- Библиотеки для PDF -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <title>Абу Мухаммад | Духовное исцеление - Лилия</title>
     <style>
         * {
             margin: 0;
@@ -177,7 +175,7 @@
             }
         }
 
-        /* для увеличения шрифта */
+        /* Увеличение/уменьшение шрифта */
         body.font-large {
             font-size: 1.2rem;
         }
@@ -201,15 +199,78 @@
             padding: 5px 14px;
             font-weight: bold;
         }
+
+        /* Стили для ПЕЧАТИ / PDF */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+                margin: 0;
+                color: black;
+            }
+            .container {
+                max-width: 100%;
+                background: white;
+                box-shadow: none;
+                border: 1px solid #d4af37;
+                padding: 15px;
+                margin: 0;
+                border-radius: 0;
+            }
+            .sticky-bar, .font-controls {
+                display: none !important;
+            }
+            .greeting, .complaints, .analysis-box, .footer-dua {
+                background: #faf6e6;
+                color: #2c2416;
+                border-color: #c9a03d;
+                page-break-inside: avoid;
+            }
+            table {
+                background: #fff7e8;
+                box-shadow: none;
+                border: 1px solid #c9a03d;
+                page-break-inside: avoid;
+            }
+            th {
+                background: #e4b363;
+                color: #1e1a0c;
+            }
+            td {
+                border-bottom: 1px solid #e4b363;
+            }
+            h1 {
+                color: #b8860b;
+                text-shadow: none;
+            }
+            .dua-table td:first-child {
+                font-size: 1.1rem;
+            }
+            .compact-only, .detail-only {
+                display: block !important; /* чтобы печатался текущий режим, но стили режимов работают */
+            }
+            /* Принудительно показываем блоки в зависимости от режима для печати (режим фиксируется перед печатью) */
+            body.compact-mode .detail-only { display: none !important; }
+            body.compact-mode .compact-only { display: block !important; }
+            body.detail-mode .compact-only { display: none !important; }
+            body.detail-mode .detail-only { display: block !important; }
+            
+            a, button, .btn {
+                display: none;
+            }
+            .sticky-bar, .font-controls {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body class="detail-mode">
 <div class="container" id="reportContainer">
-    <!-- фиксированная панель с кнопками режима и экспорта + шрифт -->
+    <!-- фиксированная панель с кнопками -->
     <div class="sticky-bar">
         <button class="btn" id="compactBtn">📄 Компактный</button>
         <button class="btn btn-secondary" id="detailBtn">🔍 Детальный</button>
-        <button class="btn" id="exportPdfBtn">📎 Экспорт PDF</button>
+        <button class="btn" id="exportPdfBtn">📎 Сохранить PDF (печать)</button>
     </div>
     <div class="font-controls">
         <button class="font-btn" id="fontInc">🔍+ Увеличить</button>
@@ -315,39 +376,32 @@
 
 <script>
     // режимы отображения
-    const container = document.querySelector('.container');
-    const body = document.body;
+    const bodyEl = document.body;
     const compactBtn = document.getElementById('compactBtn');
     const detailBtn = document.getElementById('detailBtn');
     const exportBtn = document.getElementById('exportPdfBtn');
 
     function setCompactMode() {
-        body.classList.remove('detail-mode');
-        body.classList.add('compact-mode');
+        bodyEl.classList.remove('detail-mode');
+        bodyEl.classList.add('compact-mode');
     }
     function setDetailMode() {
-        body.classList.remove('compact-mode');
-        body.classList.add('detail-mode');
+        bodyEl.classList.remove('compact-mode');
+        bodyEl.classList.add('detail-mode');
     }
 
     compactBtn.addEventListener('click', setCompactMode);
     detailBtn.addEventListener('click', setDetailMode);
-
-    // изначально детальный режим
     setDetailMode();
 
     // управление шрифтом
     const fontInc = document.getElementById('fontInc');
     const fontDec = document.getElementById('fontDec');
     const fontReset = document.getElementById('fontReset');
-
-    let currentFontSize = 16; // px base
+    let currentFontSize = 16;
 
     function applyFontSize() {
-        body.style.fontSize = currentFontSize + 'px';
-        // настройка внутренних элементов
-        const containers = document.querySelectorAll('.container, .greeting, .complaints, .analysis-box, table, .footer-dua');
-        // мы просто задаём body основной размер, остальное наследуется
+        bodyEl.style.fontSize = currentFontSize + 'px';
     }
     fontInc.addEventListener('click', () => {
         if (currentFontSize < 24) currentFontSize += 2;
@@ -359,34 +413,18 @@
     });
     fontReset.addEventListener('click', () => {
         currentFontSize = 16;
-        body.style.fontSize = '';
+        bodyEl.style.fontSize = '';
         applyFontSize();
     });
 
-    // Экспорт в PDF с фиксацией текущего режима и шрифта
+    // Экспорт PDF через window.print (работает на смартфонах на 100%)
     exportBtn.addEventListener('click', () => {
-        const element = document.getElementById('reportContainer');
-        // Сохраняем текущие классы и стиль чтобы PDF соответствовал визуалу
-        const originalMode = body.classList.contains('compact-mode') ? 'compact' : 'detail';
-        const originalFontSize = currentFontSize;
-        
-        // опции PDF (высокое качество для мобильных)
-        const opt = {
-            margin:        [0.5, 0.5, 0.5, 0.5], // top, right, bottom, left in inches
-            filename:     'Duhovnoe_ischelenie_Lilya.pdf',
-            image:        { type: 'jpeg', quality: 0.98 },
-            html2canvas:  { scale: 2, useCORS: true, letterRendering: true },
-            jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
-        };
-        // Временно фиксируем, чтобы артефактов не было: отключаем sticky для печати? не трогаем
-        // но гарантируем полное отображение
-        html2pdf().set(opt).from(element).save();
+        // Сохраняем текущий режим перед печатью (чтобы PDF был в том же виде)
+        const isCompact = bodyEl.classList.contains('compact-mode');
+        // Небольшая подсказка пользователю
+        alert('Сейчас откроется окно печати. Выберите "Сохранить как PDF" в настройках. Дизайн останется золотистым, ин шаа Аллах.');
+        window.print();
     });
-
-    // дополнительная фиксация для избежания разрывов в PDF (стили уже адаптивные)
-    // гарантируем, что кнопки закреплены только в экране, при печати они не ломают структуру (название остаётся)
-    // также маленький фикс: sticky-bar будет внутри контейнера при экспорте, но это не страшно
-    // плюс улучшим для PDF переключение режимов: экспорт делает снимок текущего режима
 </script>
 </body>
 </html>
