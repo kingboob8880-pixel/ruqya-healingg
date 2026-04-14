@@ -2,155 +2,262 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Духовные страницы - Абу Мухаммад</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Духовный центр Абу Мухаммада | Архив рукъи</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
-            background: linear-gradient(135deg, #f5e6c4 0%, #f0dbae 100%);
-            font-family: 'Segoe UI', 'Amiri', serif;
+            background: linear-gradient(135deg, #f8f0e0 0%, #f3e5c9 100%);
+            font-family: 'Segoe UI', 'Amiri', 'Georgia', serif;
+            padding: 20px;
             min-height: 100vh;
-            padding: 40px 20px;
         }
+
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
         }
-        .header {
+
+        /* Золотая карточка приветствия */
+        .header-card {
+            background: linear-gradient(145deg, #fff6e6, #fcefcb);
+            border-radius: 48px;
+            padding: 2rem;
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.2);
+            border: 1px solid #e8d5a3;
         }
-        .logo {
-            font-size: 3rem;
-            margin-bottom: 10px;
-        }
-        h1 {
-            color: #8B5E3C;
+
+        .gold-title {
             font-size: 2rem;
-            font-weight: 600;
-            margin-bottom: 10px;
+            color: #b37b2e;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
         }
+
         .subtitle {
-            color: #6B4C2C;
+            color: #7a5a2e;
             font-size: 1.1rem;
-            border-top: 2px solid #D4AF37;
-            border-bottom: 2px solid #D4AF37;
+            border-top: 2px solid #e2c48b;
             display: inline-block;
-            padding: 8px 20px;
+            padding-top: 0.5rem;
         }
-        .card {
-            background: rgba(255, 248, 235, 0.95);
+
+        /* Список файлов */
+        .files-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 2rem;
+        }
+
+        .file-card {
+            background: rgba(255, 252, 240, 0.95);
             border-radius: 28px;
-            margin-bottom: 25px;
-            padding: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            transition: transform 0.2s, box-shadow 0.2s;
-            border: 1px solid #E8D5A3;
-        }
-        .card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-        }
-        .card-title {
-            font-size: 1.5rem;
-            color: #A67B2E;
-            margin-bottom: 8px;
+            padding: 1.2rem 1.5rem;
             display: flex;
             align-items: center;
-            gap: 12px;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+            transition: all 0.3s ease;
+            border: 1px solid #eedfa8;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.05);
         }
-        .card-icon {
-            font-size: 1.8rem;
+
+        .file-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px -10px rgba(0,0,0,0.15);
+            border-color: #d4aa5a;
         }
-        .card-desc {
-            color: #5C4B32;
-            margin: 12px 0;
-            line-height: 1.5;
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
         }
+
+        .file-icon {
+            font-size: 2.2rem;
+        }
+
+        .file-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #4a3727;
+            word-break: break-all;
+        }
+
+        .file-date {
+            font-size: 0.8rem;
+            color: #a08147;
+            margin-top: 5px;
+        }
+
         .btn-visit {
-            display: inline-block;
-            background: #C9A03D;
-            color: white;
+            background: #d4a53c;
+            color: #2c2418;
             padding: 10px 24px;
-            border-radius: 40px;
+            border-radius: 60px;
             text-decoration: none;
             font-weight: bold;
-            margin-top: 12px;
-            transition: background 0.2s;
+            transition: 0.2s;
             border: none;
             cursor: pointer;
+            font-family: inherit;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
+
         .btn-visit:hover {
-            background: #A8812E;
+            background: #c4922a;
+            transform: scale(1.02);
+            color: white;
         }
-        .file-list {
-            background: #FFF9EF;
-            border-radius: 18px;
-            padding: 12px;
-            margin-top: 12px;
-            font-size: 0.85rem;
-            color: #8B6B3E;
-        }
-        .badge {
-            background: #D4AF37;
-            color: #3D2B1A;
-            padding: 3px 10px;
-            border-radius: 30px;
-            font-size: 0.7rem;
-            font-weight: bold;
-        }
-        footer {
+
+        .empty-message {
+            background: #fff2df;
+            padding: 2rem;
+            border-radius: 32px;
             text-align: center;
-            margin-top: 50px;
-            color: #9B7B4C;
-            font-size: 0.8rem;
+            color: #8b6942;
         }
-        @media (max-width: 550px) {
-            .container { padding: 0 15px; }
-            h1 { font-size: 1.6rem; }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 2rem;
+            color: #b49463;
+            font-size: 0.85rem;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            font-size: 1.2rem;
+            color: #c9a03d;
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <div class="header">
-        <div class="logo">📿</div>
-        <h1>Абу Мухаммад</h1>
-        <div class="subtitle">Целительные страницы рукъя</div>
+    <div class="header-card">
+        <div class="gold-title">📖 Духовный центр Абу Мухаммада</div>
+        <div class="subtitle">Архив рукъя-анализов и исцеляющих страниц</div>
+        <p style="margin-top: 20px; color: #5e4a2a;">Да облегчит Аллах путь к исцелению каждого, кто откроет эти страницы</p>
     </div>
 
-    <!-- Список всех HTML файлов (добавляй вручную или автоматически) -->
-    <div class="card">
-        <div class="card-title">
-            <span class="card-icon">🌙</span>
-            <span>Рукъя — полное исцеление</span>
-        </div>
-        <div class="card-desc">
-            Комплексная духовная диагностика, таблица недугов, дуа и рекомендации.
-            Золотистый дизайн, переключение режимов, экспорт в PDF.
-        </div>
-        <div class="file-list">
-            📄 Файл: <strong>ruqya.html</strong> (или index.html)
-        </div>
-        <a href="ruqya.html" class="btn-visit">✨ Посетить страницу →</a>
+    <div id="fileListContainer" class="files-grid">
+        <div class="loading">🔍 Загрузка списка доступных страниц...</div>
     </div>
-
-    <!-- Добавь сюда другие HTML файлы, когда загрузишь -->
-    <!-- Пример для нового файла:
-    <div class="card">
-        <div class="card-title"><span>🕯️</span> Ещё одна страница</div>
-        <div class="card-desc">Описание...</div>
-        <a href="имя_файла.html" class="btn-visit">Посетить →</a>
+    
+    <div class="footer-note">
+        🤲 Да примет Аллах наше благое намерение. Каждая страница — ключ к исцелению с дозволения Всевышнего.
     </div>
-    -->
-
-    <footer>
-        ✦ Да исцелит Аллах каждого, кто ищет исцеления в Коране и Сунне ✦
-    </footer>
 </div>
+
+<script>
+    // Функция для получения списка HTML файлов из репозитория GitHub
+    async function fetchHtmlFiles() {
+        const container = document.getElementById('fileListContainer');
+        
+        // Получаем имя репозитория из текущего URL
+        const repoPath = window.location.pathname; // /ruqya-healingg/
+        const repoName = repoPath.split('/')[1]; // ruqya-healingg
+        const owner = 'kingboob8880-pixel'; // твой username
+        
+        // API GitHub для получения содержимого
+        const apiUrl = `https://api.github.com/repos/${owner}/${repoName}/contents/`;
+        
+        try {
+            const response = await fetch(apiUrl);
+            if (!response.ok) throw new Error('Не удалось загрузить список');
+            
+            const files = await response.json();
+            // Фильтруем только .html файлы, исключаем index.html (главную)
+            const htmlFiles = files.filter(file => 
+                file.name.endsWith('.html') && 
+                file.name.toLowerCase() !== 'index.html'
+            );
+            
+            if (htmlFiles.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-message">
+                        🌙 Пока нет добавленных анализов. 
+                        <br>Загрузите HTML-файлы с рукъя и они появятся здесь автоматически.
+                        <br><br>✨ Вы можете загрузить первый файл через GitHub → Add file → Upload files
+                    </div>
+                `;
+                return;
+            }
+            
+            // Сортируем по дате изменения (новые сверху)
+            htmlFiles.sort((a, b) => new Date(b.commit?.committer?.date || 0) - new Date(a.commit?.committer?.date || 0));
+            
+            // Генерируем карточки для каждого файла
+            let cardsHtml = '';
+            for (const file of htmlFiles) {
+                // Пытаемся получить дату (не всегда есть, но стараемся)
+                let dateStr = '';
+                if (file.commit?.committer?.date) {
+                    const date = new Date(file.commit.committer.date);
+                    dateStr = date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
+                }
+                
+                // Определяем иконку по названию (можно кастомизировать)
+                let icon = '📄';
+                if (file.name.includes('анализ') || file.name.includes('analysis')) icon = '🕯️';
+                if (file.name.includes('сестра') || file.name.includes('brother')) icon = '🌿';
+                if (file.name.includes('дуа') || file.name.includes('dua')) icon = '🤲';
+                
+                cardsHtml += `
+                    <div class="file-card">
+                        <div class="file-info">
+                            <div class="file-icon">${icon}</div>
+                            <div>
+                                <div class="file-name">${escapeHtml(file.name)}</div>
+                                ${dateStr ? `<div class="file-date">📅 ${dateStr}</div>` : ''}
+                            </div>
+                        </div>
+                        <a href="${file.name}" class="btn-visit" target="_blank">📖 Открыть анализ</a>
+                    </div>
+                `;
+            }
+            
+            container.innerHTML = cardsHtml;
+            
+        } catch (error) {
+            console.error('Ошибка:', error);
+            container.innerHTML = `
+                <div class="empty-message">
+                    ⚠️ Не удалось загрузить список файлов. 
+                    <br>Убедитесь, что репозиторий публичный и доступен.
+                    <br><br>💡 Альтернативно, вы можете вручную перейти к файлам по ссылке: 
+                    <br><code>https://kingboob8880-pixel.github.io/ruqya-healingg/имя_файла.html</code>
+                </div>
+            `;
+        }
+    }
+    
+    // Простая защита от XSS
+    function escapeHtml(str) {
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
+            return c;
+        });
+    }
+    
+    // Запускаем загрузку списка
+    fetchHtmlFiles();
+</script>
 </body>
 </html>
