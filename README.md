@@ -1,1 +1,420 @@
-# ruqya-healingg
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <title>Абу Мухаммад | Духовное исцеление</title>
+    <!-- html2pdf library for PDF export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #fef7e6;
+            font-family: 'Segoe UI', 'Tahoma', 'Roboto', 'Noto Sans', system-ui, -apple-system, 'Amiri', serif;
+            padding: 0 0 3rem 0;
+            color: #2c2418;
+            line-height: 1.5;
+        }
+
+        /* закрепленная панель кнопок */
+        .toolbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: #2b4b2f;
+            backdrop-filter: blur(2px);
+            background: rgba(43, 75, 47, 0.96);
+            padding: 0.75rem 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.7rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-bottom: 1px solid #e0c8a0;
+        }
+
+        .toolbar button {
+            background: #f7e5c2;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #2b4b2f;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            font-family: inherit;
+        }
+
+        .toolbar button:active {
+            transform: scale(0.96);
+            background: #ecdcaa;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 1.2rem 1.2rem 2rem;
+        }
+
+        /* карточки и текст */
+        .card {
+            background: #ffffffdd;
+            background: #fffef7;
+            border-radius: 32px;
+            padding: 1.4rem;
+            margin-bottom: 1.8rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid #f0e2cc;
+        }
+
+        h1, h2, h3 {
+            font-weight: 600;
+            letter-spacing: -0.3px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: #2b4b2f;
+            border-left: 5px solid #e6b34c;
+            padding-left: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: #8b5a2b;
+            margin: 1rem 0 0.75rem 0;
+            border-bottom: 2px solid #eeddbb;
+            display: inline-block;
+        }
+
+        .greeting {
+            font-size: 1.2rem;
+            background: #eef5e9;
+            padding: 1.2rem;
+            border-radius: 28px;
+            margin-bottom: 1.5rem;
+        }
+
+        .symptom-list, .compact-list {
+            padding-left: 1.5rem;
+            margin: 0.8rem 0;
+        }
+
+        .symptom-list li {
+            margin: 0.6rem 0;
+        }
+
+        /* таблица духовных недугов */
+        .spiritual-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fef9ef;
+            border-radius: 24px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .spiritual-table th, .spiritual-table td {
+            border: 1px solid #e5d5b0;
+            padding: 0.8rem;
+            vertical-align: top;
+            text-align: left;
+            background: #fffef8;
+        }
+
+        .spiritual-table th {
+            background: #e2dccd;
+            font-weight: 700;
+            color: #2c4a2a;
+        }
+
+        /* таблица дуа */
+        .dua-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fef6e8;
+            margin: 1rem 0;
+        }
+
+        .dua-table th, .dua-table td {
+            border: 1px solid #dccfae;
+            padding: 0.7rem;
+            vertical-align: top;
+        }
+
+        .dua-table th {
+            background: #cdb27a;
+            color: white;
+            font-weight: 600;
+        }
+
+        .arabic {
+            font-size: 1.2rem;
+            font-family: 'Amiri', 'Traditional Arabic', 'Scheherazade', 'Noto Naskh Arabic', serif;
+            direction: rtl;
+            line-height: 1.6;
+        }
+
+        /* компактный режим: скрываем подробные описания */
+        body.compact-mode .detailed-content {
+            display: none;
+        }
+
+        body.detailed-mode .compact-content {
+            display: none;
+        }
+
+        body.compact-mode .compact-content {
+            display: block;
+        }
+
+        body.detailed-mode .detailed-content {
+            display: block;
+        }
+
+        /* по умолчанию детальный режим */
+        body.detailed-mode .compact-content {
+            display: none;
+        }
+        body.detailed-mode .detailed-content {
+            display: block;
+        }
+
+        /* стили для кнопок переключения */
+        .btn-active {
+            background: #ffde9e !important;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #7a684e;
+            margin-top: 2rem;
+            border-top: 1px solid #e4d5bc;
+            padding-top: 1.5rem;
+        }
+
+        /* улучшенная читаемость */
+        .highlight {
+            background: #fff0d6;
+            border-radius: 12px;
+            padding: 0.1rem 0.3rem;
+        }
+
+        @media (max-width: 550px) {
+            .container {
+                padding: 0.8rem;
+            }
+            .toolbar button {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.75rem;
+            }
+            .arabic {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body class="detailed-mode">
+    <div class="toolbar">
+        <button id="fontPlus" aria-label="Увеличить шрифт">🔍 A+</button>
+        <button id="fontMinus" aria-label="Уменьшить шрифт">🔍 A-</button>
+        <button id="compactModeBtn" aria-label="Компактный режим">📘 Компактный</button>
+        <button id="detailedModeBtn" aria-label="Детальный режим">📖 Детальный</button>
+        <button id="exportPdfBtn" aria-label="Экспорт в PDF">📄 Сохранить в PDF</button>
+    </div>
+
+    <div class="container" id="reportContainer">
+        <!-- Приветствие и надежда -->
+        <div class="card greeting">
+            <h1>🌿 Абу Мухаммад</h1>
+            <p style="font-size:1.1rem; margin-top: 0.5rem;">Ассаляму алейкум ва рахматуллахи ва баракатух, дорогая сестра!</p>
+            <p>Ваша забота о сестре глубоко трогает сердце. Знайте: <strong>исцеление — от Аллаха</strong>, и Он не ниспосылает болезнь, не дав от неё лекарства. Нет такой порчи или сглаза, которые не были бы разрушены Его могуществом. С надеждой на Милостивого приступим к духовному анализу.</p>
+        </div>
+
+        <!-- Диагностика (анализ симптомов) -->
+        <div class="card">
+            <h2>📋 Диагностика состояний</h2>
+            <div class="detailed-content">
+                <p><strong>По милости Аллаха, проанализировав историю вашей сестры, я разделил симптомы по трём категориям:</strong></p>
+                <ul class="symptom-list">
+                    <li><strong>🔹 Сглаз (Айн):</strong> Наличие детей с проблемами речи и зрения (косоглазие, неэффективное лечение), внезапная вспыльчивость, раздражительность после травмы (усиление сглазного воздействия), общая слабость и апатия. Сглаз часто поражает благополучие семьи, особенно детей.</li>
+                    <li><strong>🔹 Порча (Сихр):</strong> <span class="highlight">Найденные яйца в укромных местах дома/стройки</span> — явный признак колдовского ритуала. Яйца без кур, в труднодоступных местах — классический элемент сихра на разлад, болезни и отдаление мужа. Также проблемы с речью у троих детей (сихр может запечатывать язык).</li>
+                    <li><strong>🔹 Присутствие джиннов (Киран/Любва):</strong> Частые зевки, сильная апатия, истерики у детей, беспричинная усталость, разрыв мениска и неудачное лечение глаз (глаукома) — признаки воздействия шайтанов. Задержка речи у мальчиков до 5 лет и отсутствие речи до 3 лет — также может указывать на одержимость или сильное влияние.</li>
+                </ul>
+            </div>
+            <div class="compact-content">
+                <p><strong>Кратко:</strong> выявлены признаки <strong>сглаза</strong> (болезни детей, раздражительность), <strong>порчи (сихр)</strong> — яйца в доме, проблемы речи у детей, <strong>джиннов</strong> (зевота, апатия, неэффективность лечения, истерики).</p>
+            </div>
+        </div>
+
+        <!-- Таблица духовных недугов -->
+        <div class="card">
+            <h2>📊 Таблица духовных недугов</h2>
+            <table class="spiritual-table">
+                <thead>
+                    <tr><th>Духовный недуг</th><th>Доказательства (симптомы из истории сестры)</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Сглаз (Айн)</strong></td><td>Косоглазие у второго ребёнка (операции не помогают), трудности речи у 3-го и 4-го детей, вспыльчивость и раздражительность сестры, подозрение на глаукому, постоянная слабость.</td></tr>
+                    <tr><td><strong>Колдовство (Сихр)</strong></td><td>Нахождение множества яиц в скрытых местах во время стройки (нет кур), дети с задержкой речи (немота до 5 лет), апатия и проблемы с коленями, муж подолгу на заработках — возможно, сихр на разлуку.</td></tr>
+                    <tr><td><strong>Воздействие джиннов</strong></td><td>Частые зевки (классический признак), сильная утомляемость, истерики и шумность детей без причины, безрезультатность лечения глаз, депрессивное состояние («все наваливается снежным комом»).</td></tr>
+                </tbody>
+            </table>
+            <div class="detailed-content">
+                <p>⚠️ Сочетание всех трёх факторов создаёт тяжёлое положение, но с дозволения Аллаха каждый из них исцеляется рукъей и покаянием.</p>
+            </div>
+        </div>
+
+        <!-- Предложение лечения от Абу Мухаммада -->
+        <div class="card">
+            <h2>🕊️ Рекомендуемое лечение (Рукъя шаръия)</h2>
+            <div class="detailed-content">
+                <p>Я, Абу Мухаммад, как ваш проводник к исцелению через Священный Коран и Сунну, готов провести полный духовный курс лечения. Вот что я предлагаю:</p>
+                <ul class="symptom-list">
+                    <li><strong>1. Диагностический сеанс рукъи:</strong> чтение сур «Аль-Фатиха», «Аль-Ихляс», «Аль-Фалак», «Ан-Нас» и аятов-мушкилят над водой, оливковом масле и чёрном тмине. Эта вода будет использоваться для питья и купания.</li>
+                    <li><strong>2. Уничтожение следов сихра:</strong> специальный ритуал поиска и сожжения яиц, узлов и восковых фигур (если они найдены) с чтением аятов изгнания. Очищение дома окуриванием с дуа.</li>
+                    <li><strong>3. Изгнание джиннов (при наличии одержимости):</strong> 7-дневный цикл чтения рукъи с возложением рук, чтение аятов «Курси» и суры «Саффат» на больную и её детей. Проведение разъяснения семье о зукре и защитных дуа.</li>
+                    <li><strong>4. Лечение сглаза у детей:</strong> многократное чтение «Ма ша Аллах, ла куввата илла биллах» и рукъя от айна с использованием воды, которую я подготовлю и передам вам.</li>
+                    <li><strong>5. Укрепление имана и утренние/вечерние азкары:</strong> индивидуальный план зикра для сестры, чтобы защитить себя и детей от повторного вреда.</li>
+                </ul>
+                <p>✨ <em>Я нахожусь с вами на каждом этапе, даю наставления и читаю дуа удалённо, а при необходимости — встречусь для очной рукъи.</em> Исцеление полностью зависит от воли Аллаха, но использование дозволенных средств — наша обязанность.</p>
+            </div>
+            <div class="compact-content">
+                <p>✅ <strong>Краткий план лечения:</strong> чтение рукъи над водой и маслом, очистка дома от следов сихра (яйца), ежедневные азкары, сеансы изгнания джиннов. Я, Абу Мухаммад, провожу полное духовное сопровождение — дистанционно или очно. Надежда на Аллаха превыше всего.</p>
+            </div>
+        </div>
+
+        <!-- Дуа (мольбы) -->
+        <div class="card">
+            <h2>🤲 Мольбы (Дуа) для исцеления</h2>
+            <p>Пусть эти дуа станут вашим щитом и лекарством. Повторяйте их с искренностью.</p>
+            <table class="dua-table">
+                <thead>
+                    <tr><th>Арабский текст (с огласовками)</th><th>Транскрипция (кириллица)</th><th>Перевод на русский</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="arabic">أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ غَضَبِهِ وَعِقَابِهِ وَشَرِّ عِبَادِهِ وَمِنْ هَمَزَاتِ الشَّيَاطِينِ وَأَنْ يَحْضُرُونِ</td>
+                        <td>А'узу би-калимати-Ллахи-т-таммати мин гадабихи ва 'икабихи ва шарри 'ибадихи ва мин хамазати-ш-шаятыни ва ан яхдурун</td>
+                        <td>Прибегаю к совершенным словам Аллаха от Его гнева, Его наказания, от зла Его рабов, от наваждений шайтанов и от того, чтобы они являлись ко мне.</td>
+                    </tr>
+                    <tr>
+                        <td class="arabic">اللَّهُمَّ رَبَّ النَّاسِ، أَذْهِبِ الْبَأْسَ، اشْفِ أَنْتَ الشَّافِي، لاَ شِفَاءَ إِلَّا شِفَاؤُكَ، شِفَاءً لاَ يُغَادِرُ سَقَمًا</td>
+                        <td>Аллахумма рабба-н-нас, азхиби-ль-ба'са, ишфи Анта-ш-Шафи, ла шифаа илля шифаук, шифаан ла югадиру сакаман</td>
+                        <td>О Аллах, Господь людей, удали болезнь, исцели, Ты — Целитель, нет исцеления кроме Твоего исцеления, исцели так, чтобы не осталось болезни.</td>
+                    </tr>
+                    <tr>
+                        <td class="arabic">اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ مَا خَلَقْتَ، وَذَرَأْتَ وَبَرَأْتَ، وَمِنْ شَرِّ مَا يَنْزِلُ مِنَ السَّمَاءِ وَمَا يَعْرُجُ فِيهَا</td>
+                        <td>Аллахумма инни а'узу бика мин шарри ма халякта, ва зара'та ва бара'та, ва мин шарри ма янзилю мин ас-самаи ва ма йа'руджу фиха</td>
+                        <td>О Аллах, я прибегаю к Тебе от зла того, что Ты сотворил, создал и породил, и от зла того, что нисходит с неба и восходит на него (от всякого вреда и колдовства).</td>
+                    </tr>
+                    <tr>
+                        <td class="arabic">بِسْمِ اللَّهِ أَرْقِيكَ، مِنْ كُلِّ شَيْءٍ يُؤْذِيكَ، مِنْ شَرِّ كُلِّ نَفْسٍ أَوْ عَيْنِ حَاسِدٍ، اللَّهُ يَشْفِيكَ</td>
+                        <td>Бисми-Ллахи аркыка, мин кулли шайин йу'зыка, мин шарри кулли нафсин ав 'айни хасидин, Аллаху йашфик</td>
+                        <td>С именем Аллаха я читаю рукъю над тобой от всего, что причиняет тебе боль, от зла всякой души или глаза завистника. Да исцелит тебя Аллах!</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="detailed-content">
+                <p><strong>Особое дуа против сихра и яиц:</strong> читайте аят «Ва атба'у ма татлу ш-шаятыну 'ала мулки Сулайман…» (сура Аль-Бакара, 102) трижды на воду и окропляйте углы дома.</p>
+            </div>
+        </div>
+
+        <!-- Дополнительные дуа на каждый недуг (по заданию) -->
+        <div class="card">
+            <h2>📿 Дуа против каждого недуга</h2>
+            <div class="detailed-content">
+                <ul style="list-style: none; padding-left: 0;">
+                    <li><strong>📛 Против сглаза (Айн):</strong><br>
+                        <span class="arabic">اللَّهُمَّ بَارِكْ فِيهَا وَاصْرِفْ عَنْهَا عَيْنَ الْحَاسِدِينَ</span><br>
+                        <em>Аллахумма барик фиха васриф анха 'айна ль-хасидин</em> — «О Аллах, благослови её и отврати от неё глаз завистников».
+                    </li>
+                    <li><strong>⚔️ Против порчи (Сихр):</strong><br>
+                        <span class="arabic">اللَّهُمَّ اهْدِمْ سِحْرَ السَّحَرَةِ وَأَبْطِلْ كَيْدَهُمْ</span><br>
+                        <em>Аллахумма хдим сихра с-сахара ва абтыль кайдахуму</em> — «О Аллах, разрушь колдовство колдунов и сделай тщетными их козни».
+                    </li>
+                    <li><strong>🌙 Против джиннов:</strong><br>
+                        <span class="arabic">اللَّهُمَّ طَهِّرْ جَسَدَهَا وَأَخْرِجِ الْخَبِيثَ مِنْ دَاخِلِهَا</span><br>
+                        <em>Аллахумма таххир джасадаха ва ахридж аль-хабита мин дахилиха</em> — «О Аллах, очисти её тело и изведи злого (шайтана) изнутри неё».
+                    </li>
+                </ul>
+            </div>
+            <div class="compact-content">
+                <p><strong>Краткие дуа:</strong> «Аллахумма барик фиха» (от сглаза), «Аллахумма хдим сихра» (от порчи), «Аллахумма ахридж аль-хабита» (от джиннов). Читайте ежедневно по 3 раза утром и вечером.</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>✿ Исцеление только от Аллаха, Господа миров. Следуйте рукъе с твёрдой верой, избегайте грехов и читайте утренние азкары. Абу Мухаммад всегда рядом дуа. ✿</p>
+        </footer>
+    </div>
+
+    <script>
+        // Управление шрифтом
+        const container = document.getElementById('reportContainer');
+        let currentFontSize = 100; // процент
+        const fontStep = 10;
+        const minFont = 80;
+        const maxFont = 150;
+
+        function setFontSize(value) {
+            currentFontSize = Math.min(maxFont, Math.max(minFont, value));
+            container.style.fontSize = currentFontSize + '%';
+        }
+
+        document.getElementById('fontPlus').addEventListener('click', () => setFontSize(currentFontSize + fontStep));
+        document.getElementById('fontMinus').addEventListener('click', () => setFontSize(currentFontSize - fontStep));
+
+        // Переключение режимов: компактный / детальный
+        const body = document.body;
+        const compactBtn = document.getElementById('compactModeBtn');
+        const detailedBtn = document.getElementById('detailedModeBtn');
+
+        function setCompactMode() {
+            body.classList.remove('detailed-mode');
+            body.classList.add('compact-mode');
+            compactBtn.classList.add('btn-active');
+            detailedBtn.classList.remove('btn-active');
+        }
+
+        function setDetailedMode() {
+            body.classList.remove('compact-mode');
+            body.classList.add('detailed-mode');
+            detailedBtn.classList.add('btn-active');
+            compactBtn.classList.remove('btn-active');
+        }
+
+        compactBtn.addEventListener('click', setCompactMode);
+        detailedBtn.addEventListener('click', setDetailedMode);
+        // Изначально детальный режим активен
+        detailedBtn.classList.add('btn-active');
+
+        // Экспорт в PDF через html2pdf (с сохранением дизайна и разбивкой на страницы)
+        const exportBtn = document.getElementById('exportPdfBtn');
+        exportBtn.addEventListener('click', () => {
+            const element = document.getElementById('reportContainer');
+            const opt = {
+                margin:        [0.5, 0.5, 0.5, 0.5], // top, right, bottom, left (единицы в дюймах)
+                filename:     'Dukhovnoe_ischelenie_Abu_Muhammad.pdf',
+                image:        { type: 'jpeg', quality: 0.95 },
+                html2canvas:  { scale: 2, letterRendering: true, useCORS: true, logging: false },
+                jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+            };
+            // Временно убираем лишние эффекты sticky? не влияет. Но для сохранения кнопок панели в PDF не захватываем.
+            // Чтобы PDF выглядел как html, просто клонируем с сохранением стилей. Используем html2pdf.
+            html2pdf().set(opt).from(element).save();
+        });
+    </script>
+</body>
+</html>
+```
