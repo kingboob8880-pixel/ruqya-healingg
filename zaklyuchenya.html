@@ -2,27 +2,28 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Духовный анализ — Хадижа | Лекарь Абу Мухаммад</title>
-<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Свидетельство об исцелении — Лекарь Абу Мухаммад</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <style>
   :root {
     --gold: #b8860b;
     --gold-dark: #8b6508;
-    --gold-light: #d4af37;
+    --gold-light: #d4a017;
+    --parchment: #fef7e0;
     --ink: #2c2418;
-    --ink-soft: #3e3527;
-    --parchment: #faf4e8;
-    --border-ornate: #c9a84c;
-    --green-deep: #2c5a3e;
-    --seal-red: #9b2e1e;
+    --ink-soft: #3e3425;
+    --border-subtle: #d6c29d;
+    --green-deep: #2c5536;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
-    background: #2a241a;
-    font-family: 'Cormorant Garamond', Georgia, serif;
+    background: #cfc7b0;
+    font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
     color: var(--ink);
     min-height: 100vh;
     display: flex;
@@ -31,461 +32,483 @@
     padding: 20px;
   }
 
-  /* Toolbar */
+  /* ПАНЕЛЬ ИНСТРУМЕНТОВ — строгая */
   .toolbar {
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 1000;
-    background: linear-gradient(145deg, #1f1910 0%, #2c241a 100%);
-    border-bottom: 1px solid var(--gold-dark);
-    padding: 10px 20px;
+    background: #2a241c;
+    border-bottom: 2px solid var(--gold);
+    padding: 12px 28px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 16px;
+    justify-content: space-between;
     flex-wrap: wrap;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    gap: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
   }
-  .toolbar-group { display: flex; align-items: center; gap: 8px; }
+  .toolbar-left, .toolbar-right { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .toolbar-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,255,240,0.08);
+    padding: 4px 14px;
+    border-radius: 40px;
+  }
   .toolbar label { color: var(--gold-light); font-size: 13px; font-weight: 500; letter-spacing: 1px; }
   .toolbar button {
-    background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 100%);
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
     color: #1f1a10;
     border: none;
     padding: 6px 18px;
-    border-radius: 40px;
+    border-radius: 32px;
     font-family: 'Cormorant Garamond', serif;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
-    transition: 0.2s;
-    letter-spacing: 0.5px;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
   }
+  .toolbar button i { font-size: 14px; }
   .toolbar button:hover {
-    transform: translateY(-1px);
-    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
-    box-shadow: 0 3px 10px rgba(180,130,30,0.4);
+    transform: translateY(-2px);
+    background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 100%);
   }
-  .toolbar .zoom-display {
-    color: var(--gold-light);
-    font-size: 14px;
-    min-width: 50px;
+  .zoom-display {
+    background: #2b241a;
+    padding: 4px 12px;
+    border-radius: 40px;
+    color: #fef0da;
+    font-weight: 600;
+    font-size: 15px;
+    min-width: 60px;
     text-align: center;
-    background: rgba(0,0,0,0.3);
-    padding: 3px 8px;
-    border-radius: 30px;
   }
-  .separator { width: 1px; height: 26px; background: var(--gold); opacity: 0.3; }
 
-  /* Page wrapper */
+  /* СТРАНИЦА A4 */
   .page-wrapper {
-    margin-top: 70px;
+    margin-top: 80px;
     transform-origin: top center;
-    transition: transform 0.25s ease;
+    transition: transform 0.2s ease;
   }
   .page {
     width: 210mm;
     min-height: 297mm;
     background: var(--parchment);
-    padding: 18mm 22mm 22mm 22mm;
+    padding: 18mm 24mm 24mm 24mm;
     position: relative;
     box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-    border-radius: 2px;
+    border-radius: 4px;
+    border: 1px solid #dac292;
   }
+  /* тонкая рамка */
   .page::before {
     content: '';
     position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at 30% 40%, rgba(184,134,11,0.03) 0%, transparent 60%);
+    top: 8mm; left: 8mm; right: 8mm; bottom: 8mm;
+    border: 1px solid var(--border-subtle);
     pointer-events: none;
   }
 
-  /* Ornate border */
-  .ornate-border {
-    position: absolute;
-    top: 12mm; left: 12mm; right: 12mm; bottom: 12mm;
-    border: 1px solid var(--border-ornate);
-    pointer-events: none;
-  }
-  .ornate-border::before {
-    content: '';
-    position: absolute;
-    top: 4px; left: 4px; right: 4px; bottom: 4px;
-    border: 1px solid rgba(180,130,60,0.3);
-  }
-  .corner { position: absolute; width: 30px; height: 30px; z-index: 3; }
-  .corner svg { width: 100%; height: 100%; }
-  .corner-tl { top: 8mm; left: 8mm; }
-  .corner-tr { top: 8mm; right: 8mm; transform: scaleX(-1); }
-  .corner-bl { bottom: 8mm; left: 8mm; transform: scaleY(-1); }
-  .corner-br { bottom: 8mm; right: 8mm; transform: scale(-1); }
-
-  /* Header — единый цвет текста */
+  /* Единая цветовая гамма: только чернила и золото-приглушённый */
   .header {
     text-align: center;
-    padding-bottom: 14px;
-    margin-bottom: 18px;
-    border-bottom: 1px solid var(--border-ornate);
-    position: relative;
-  }
-  .header::after {
-    content: '✦';
-    position: absolute;
-    bottom: -11px; left: 50%;
-    transform: translateX(-50%);
-    background: var(--parchment);
-    padding: 0 12px;
-    color: var(--gold-dark);
-    font-size: 13px;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--gold);
   }
   .bismillah {
     font-family: 'Noto Naskh Arabic', 'Amiri', serif;
-    font-size: 26px;
-    color: var(--green-deep);
-    margin-bottom: 4px;
+    font-size: 28px;
+    color: var(--ink);
+    margin-bottom: 6px;
     direction: rtl;
+    font-weight: 500;
   }
   .doc-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 30px;
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
     font-weight: 700;
     color: var(--ink);
     letter-spacing: 3px;
     text-transform: uppercase;
-    margin: 6px 0 2px;
+    margin: 4px 0 2px;
   }
   .doc-subtitle {
     font-family: 'Amiri', serif;
-    font-size: 14px;
+    font-size: 15px;
     color: var(--ink-soft);
     font-style: italic;
+    letter-spacing: 1px;
   }
 
-  /* Info grid */
+  /* СЕТКА ИНФО */
   .info-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 8px 28px;
-    margin-bottom: 22px;
-    padding: 12px 18px;
-    background: rgba(180,130,60,0.05);
-    border: 1px solid rgba(180,130,60,0.2);
-    border-radius: 12px;
+    gap: 12px 24px;
+    margin-bottom: 26px;
+    padding: 14px 20px;
+    background: #faf3e0;
+    border-left: 3px solid var(--gold);
   }
-  .info-row { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .info-row { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
   .info-label {
     font-size: 11px; font-weight: 700;
-    color: var(--green-deep);
+    color: var(--ink);
     text-transform: uppercase;
-    letter-spacing: 1.6px;
+    letter-spacing: 1.5px;
     min-width: 90px;
+    background: rgba(184,134,11,0.1);
+    padding: 2px 8px;
+    border-radius: 20px;
   }
   .info-value {
-    font-size: 15px;
+    font-size: 16px;
     color: var(--ink);
-    border-bottom: 1px dotted rgba(140,100,30,0.25);
+    border-bottom: 1px dashed #c9af7b;
     flex: 1;
     font-weight: 500;
-  }
-
-  /* Sections — везде единый глубокий цвет текста */
-  .section { margin-bottom: 20px; }
-  .section-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 16px; font-weight: 700;
-    color: var(--green-deep);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 6px;
-    border-bottom: 1px solid rgba(70,80,45,0.2);
-    display: flex; align-items: center; gap: 8px;
-  }
-  .section-title::before { content: '◈'; font-size: 8px; color: var(--gold-dark); }
-  .section-body {
-    font-family: 'Amiri', serif;
-    font-size: 14.6px;
-    line-height: 1.7;
-    color: var(--ink-soft);
-    text-align: justify;
     padding: 4px 0;
   }
 
-  /* Table */
+  /* СЕКЦИИ */
+  .section { margin-bottom: 22px; }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px; font-weight: 700;
+    color: var(--ink);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 4px 0;
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--gold);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .section-title i { color: var(--gold); font-size: 14px; }
+  .section-body {
+    font-family: 'Amiri', serif;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    text-align: justify;
+    padding: 4px 6px;
+  }
+
+  /* ТАБЛИЦА РЕКОМЕНДАЦИЙ */
   .rec-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 6px;
+    margin-top: 8px;
     font-family: 'Amiri', serif;
     font-size: 14px;
   }
   .rec-table th {
-    background: rgba(44,90,62,0.06);
-    color: var(--green-deep);
+    background: #efe2cb;
+    color: var(--ink);
     font-weight: 700;
-    font-size: 12px;
+    font-size: 13px;
     text-transform: uppercase;
     letter-spacing: 1px;
-    padding: 7px 10px;
+    padding: 8px 12px;
     text-align: left;
-    border-bottom: 2px solid var(--green-deep);
+    border-bottom: 1px solid var(--gold);
   }
   .rec-table td {
-    padding: 7px 10px;
-    border-bottom: 1px solid rgba(180,130,60,0.15);
+    padding: 8px 12px;
+    border-bottom: 1px solid #e0d0b5;
     color: var(--ink-soft);
     vertical-align: top;
-    line-height: 1.5;
   }
 
-  /* Footer с настоящей подписью (рукописная) */
+  /* ПОДВАЛ + ПОДПИСЬ РУЧНАЯ (изображение) */
   .footer {
-    margin-top: 28px;
+    margin-top: 32px;
     padding-top: 20px;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    border-top: 1px solid rgba(140,100,30,0.3);
+    border-top: 1px solid var(--gold);
   }
-  .stamp-area { text-align: center; }
+  .stamp-area {
+    text-align: center;
+  }
   .stamp {
-    width: 74px; height: 74px;
-    border: 2px solid var(--seal-red);
+    width: 80px; height: 80px;
+    border: 1.5px solid var(--ink);
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 4px;
-    background: rgba(155,46,30,0.02);
-    position: relative;
-  }
-  .stamp::before {
-    content: '';
-    position: absolute;
-    width: 64px; height: 64px;
-    border: 1px solid var(--seal-red);
-    border-radius: 50%;
-    opacity: 0.6;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 6px;
+    background: #faf0df;
   }
   .stamp-text {
     font-family: 'Noto Naskh Arabic', serif;
-    font-size: 11px; color: var(--seal-red);
-    text-align: center; line-height: 1.2; font-weight: 700;
+    font-size: 13px; color: var(--ink);
+    text-align: center; line-height: 1.3; font-weight: 600;
   }
-  .stamp-label { font-size: 9px; color: var(--ink-soft); letter-spacing: 1px; margin-top: 4px; text-transform: uppercase; }
-
-  .signature-area { text-align: center; }
-  /* Реалистичная подпись SVG вместо текста */
-  .real-signature {
+  .signature-area {
+    text-align: center;
+    flex: 1;
+  }
+  /* НАСТОЯЩАЯ ПОДПИСЬ - ИЗОБРАЖЕНИЕ, сгенерированное canvas (рукописный стиль) */
+  .signature-canvas {
     display: inline-block;
-    width: 160px;
-    height: 52px;
+    background: transparent;
     margin-bottom: 4px;
+    width: 200px;
+    height: 60px;
   }
-  .real-signature svg {
+  canvas.signature-img {
     width: 100%;
-    height: 100%;
-    filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.1));
+    height: auto;
+    background: transparent;
   }
-  .signature-name { font-size: 13px; color: var(--ink-soft); letter-spacing: 1px; font-weight: 500; margin-top: 4px; }
-  .signature-title { font-size: 10px; color: var(--green-deep); font-style: italic; letter-spacing: 0.5px; }
+  .signature-name {
+    font-size: 13px;
+    color: var(--ink);
+    letter-spacing: 1px;
+    margin-top: 2px;
+    font-weight: 500;
+  }
+  .signature-title {
+    font-size: 11px;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+  .date-area {
+    text-align: right;
+  }
+  .date-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .date-value {
+    font-size: 14px;
+    font-weight: 500;
+    border-bottom: 1px dotted #b89a5b;
+    margin-top: 4px;
+  }
 
-  .date-area { text-align: center; }
-  .date-label { font-size: 9px; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 5px; }
-  .date-value { font-size: 14px; color: var(--ink); font-weight: 600; }
+  /* РЕДАКТИРУЕМЫЕ БЛОКИ */
+  [contenteditable="true"] {
+    outline: none;
+    transition: all 0.15s;
+    border-radius: 4px;
+    padding: 0 2px;
+  }
+  [contenteditable="true"]:hover {
+    background: rgba(184,134,11,0.1);
+  }
+  [contenteditable="true"]:focus {
+    background: rgba(184,134,11,0.15);
+    box-shadow: 0 0 0 1px var(--gold);
+  }
 
-  /* Editable */
-  [contenteditable="true"] { outline: none; transition: 0.2s; border-radius: 3px; padding: 0 2px; }
-  [contenteditable="true"]:hover { background: rgba(180,130,60,0.08); }
-  [contenteditable="true"]:focus { background: rgba(180,130,60,0.12); box-shadow: inset 0 0 0 1px rgba(180,130,60,0.3); }
-
-  /* Form panel */
+  /* ФОРМА ВВОДА */
   .form-panel {
     position: fixed;
-    top: 70px; right: 20px;
-    width: 330px;
-    background: linear-gradient(145deg, #201b12 0%, #2f281c 100%);
-    border: 1px solid var(--gold-dark);
-    border-radius: 18px;
-    padding: 18px;
-    z-index: 999;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-    display: none;
-    max-height: 85vh;
+    top: 85px; right: 25px;
+    width: 380px;
+    background: #2c241c;
+    border: 1px solid var(--gold);
+    border-radius: 20px;
+    padding: 22px;
+    z-index: 998;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    max-height: calc(100vh - 110px);
     overflow-y: auto;
+    display: none;
   }
-  .form-panel.active { display: block; animation: fadeIn 0.2s; }
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
-  .form-panel h3 { color: var(--gold-light); font-size: 19px; text-align: center; border-bottom: 1px solid rgba(200,170,80,0.3); padding-bottom: 6px; margin-bottom: 15px; }
-  .form-group { margin-bottom: 12px; }
-  .form-group label { display: block; color: var(--gold-pale); font-size: 12px; margin-bottom: 3px; }
-  .form-group input, .form-group textarea {
+  .form-panel.active { display: block; animation: fadeSlide 0.2s ease; }
+  @keyframes fadeSlide { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+  .form-panel h3 {
+    color: var(--gold-light);
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    margin-bottom: 16px;
+    text-align: center;
+    border-bottom: 1px solid var(--gold);
+    display: inline-block;
     width: 100%;
-    background: rgba(30,25,18,0.8);
-    border: 1px solid rgba(200,170,80,0.4);
-    color: #f5ebd2;
-    padding: 7px 10px;
+  }
+  .form-group { margin-bottom: 14px; }
+  .form-group label {
+    display: block;
+    color: #f0e2cc;
+    font-size: 12px;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+    font-weight: 600;
+  }
+  .form-group input, .form-group textarea, .form-group select {
+    width: 100%;
+    background: #3e352a;
+    border: 1px solid rgba(184,134,11,0.5);
+    color: #fef0da;
+    padding: 8px 12px;
     border-radius: 12px;
     font-family: 'Cormorant Garamond', serif;
     font-size: 14px;
   }
-  .form-panel button.fill-btn {
+  .fill-btn {
     width: 100%;
-    background: linear-gradient(135deg, var(--green-deep) 0%, #3a7050 100%);
-    color: #fef6e6;
+    background: linear-gradient(135deg, #b8860b 0%, #d4a017 100%);
+    color: #1f1a10;
     border: none;
-    padding: 10px;
+    padding: 12px;
     border-radius: 40px;
     font-weight: bold;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
   }
   .toast {
     position: fixed;
-    bottom: 25px;
+    bottom: 30px;
     left: 50%;
     transform: translateX(-50%) translateY(80px);
-    background: var(--green-deep);
-    color: #fdf5e6;
-    padding: 10px 24px;
-    border-radius: 50px;
-    font-size: 14px;
-    z-index: 9999;
+    background: #2c5536;
+    color: #fff;
+    padding: 12px 28px;
+    border-radius: 40px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-weight: 600;
+    z-index: 10000;
     opacity: 0;
-    transition: 0.3s;
-    white-space: nowrap;
+    transition: 0.25s;
   }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
   .loading-overlay {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.8);
-    backdrop-filter: blur(4px);
-    z-index: 10000;
+    background: rgba(0,0,0,0.75);
+    z-index: 11000;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
+    backdrop-filter: blur(4px);
   }
   .loading-overlay.active { display: flex; }
-  .spinner { width: 48px; height: 48px; border: 3px solid rgba(210,170,60,0.3); border-top-color: var(--gold-light); border-radius: 50%; animation: spin 0.8s linear infinite; }
+  .loading-spinner {
+    width: 50px; height: 50px;
+    border: 3px solid rgba(184,134,11,0.3);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
   @keyframes spin { to { transform: rotate(360deg); } }
 
   @media print {
-    body { background: white; padding: 0; margin: 0; }
-    .toolbar, .form-panel, .loading-overlay { display: none; }
-    .page-wrapper { margin-top: 0; transform: none; }
-    .page { box-shadow: none; margin: 0 auto; }
+    body { background: white; padding: 0; }
+    .toolbar, .form-panel, .loading-overlay { display: none !important; }
+    .page-wrapper { margin-top: 0; transform: none !important; }
+    .page { box-shadow: none; }
   }
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: #2a241c; }
+  ::-webkit-scrollbar-thumb { background: var(--gold); }
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
 
 <div class="toolbar">
-  <div class="toolbar-group">
-    <label>Масштаб</label>
-    <button class="btn-icon" onclick="zoom(-0.1)">−</button>
-    <span class="zoom-display" id="zoomDisplay">100%</span>
-    <button class="btn-icon" onclick="zoom(0.1)">+</button>
+  <div class="toolbar-left">
+    <div class="toolbar-group">
+      <label><i class="fas fa-search-plus"></i> Масштаб</label>
+      <button class="btn-icon" onclick="zoom(-0.1)"><i class="fas fa-minus"></i></button>
+      <span class="zoom-display" id="zoomDisplay">100%</span>
+      <button class="btn-icon" onclick="zoom(0.1)"><i class="fas fa-plus"></i></button>
+    </div>
+    <div class="toolbar-group">
+      <button onclick="toggleForm()"><i class="fas fa-edit"></i> Заполнить форму</button>
+      <button onclick="exportToPDF()"><i class="fas fa-file-pdf"></i> Экспорт в PDF (A4)</button>
+      <button onclick="resetDocument()"><i class="fas fa-undo-alt"></i> Сбросить</button>
+    </div>
   </div>
-  <div class="separator"></div>
-  <div class="toolbar-group">
-    <button onclick="toggleForm()">📋 Редактировать</button>
-    <button onclick="exportToPDF()">📄 Экспорт в PDF</button>
+  <div class="toolbar-right">
+    <div class="toolbar-group">
+      <i class="fas fa-hand-sparkles" style="color: var(--gold-light);"></i>
+      <span style="color: #e9d6a7;">Лекарь Абу Мухаммад</span>
+    </div>
   </div>
 </div>
 
 <div class="form-panel" id="formPanel">
-  <h3>🕯️ Данные пациента</h3>
-  <div class="form-group"><label>ФИО</label><input type="text" id="f_name" value="Хадижа"></div>
-  <div class="form-group"><label>Возраст</label><input type="text" id="f_age" value="—"></div>
-  <div class="form-group"><label>Дата обращения</label><input type="date" id="f_date"></div>
-  <div class="form-group"><label>Номер анализа</label><input type="text" id="f_number" value="SA-1446-ХАД"></div>
-  <div class="form-group"><label>Жалобы и симптомы</label><textarea id="f_complaints" rows="2">Хадижа: “Ўлакса ва ўлим кўради”. Бу энг оғир белгилардан бири. “Ўлакса” (ўликни, жасадни) ёки “ўлим ҳолатини” тушда ёки уйғоқ ҳолда кўриш — бу жиннларнинг босими, сеҳрнинг таъсири, ёки ўта оғир кўз тегишидан келиб чиқади. Баъзан бу шайтоннинг “ўласан” деб васваса қилишидир.</textarea></div>
-  <div class="form-group"><label>Духовная диагностика</label><textarea id="f_diagnosis" rows="3">Выявлено глубокое магическое воздействие (сихр), направленное на подавление воли и внушение образов смерти. Присутствует влияние “жадд” (джинн, связанный с землёй/кладбищем). Симптомы указывают на сихр “имени смерти” и ритуальную порчу.</textarea></div>
-  <div class="form-group"><label>Заключение</label><textarea id="f_conclusion" rows="2">Хадижадаги сеҳр ва жинн таъсири жуда чуқур. Ўлимни кўриш — бу унга қилинган сеҳрнинг натижасидир (масалан, “номига ўлим” ёки “қабр” сеҳри). Ундан ташқари, жадд (жасал) жинни ҳам бўлиши мумкин. Необходимо срочное рукъя-лечение и изгнание.</textarea></div>
-  <div class="form-group"><label>Рек. 1</label><input type="text" id="f_rec1" value="Ежедневное чтение Аль-Фатиха (7 раз) и Аль-Муаввизатайн"></div>
-  <div class="form-group"><label>Рек. 2</label><input type="text" id="f_rec2" value="Чтение аятов Рукъя (2:255, 3:18-19, 7:54, 109-110)"></div>
-  <div class="form-group"><label>Рек. 3</label><input type="text" id="f_rec3" value="Окуривание оливковым маслом и чтение дуа над водой"></div>
-  <div class="form-group"><label>Рек. 4</label><input type="text" id="f_rec4" value="Отказ от грехов, укрепление намаза, азкары утром и вечером"></div>
-  <button class="fill-btn" onclick="fillDocument()">Применить к документу</button>
+  <h3><i class="fas fa-dove"></i> Свидетельство об исцелении</h3>
+  <div class="form-group"><label>Имя пациента</label><input type="text" id="f_name" value="Хадижа бинт Абдуллах"></div>
+  <div class="form-group"><label>Возраст</label><input type="text" id="f_age" value="36 лет"></div>
+  <div class="form-group"><label>Дата исцеляющего сеанса</label><input type="date" id="f_date"></div>
+  <div class="form-group"><label>Номер свидетельства</label><input type="text" id="f_number" value="СВ-1446-03"></div>
+  <div class="form-group"><label>Описание состояния ДО лечения</label><textarea id="f_before">Была сильнейшая порча на развод и на слепоту: видения, тяжесть, страх распада семьи, резь в глазах, угасание зрения.</textarea></div>
+  <div class="form-group"><label>Свидетельство исцеления / результат</label><textarea id="f_after">По Милости Аллаха, после сеанса с Абу Мухаммадом полностью избавилась от порчи на развод и слепоту за 1 сеанс. Почувствовала сильное облегчение, словно и не болела. Мы делаем причины, а результат — от Аллаха, Хвала Аллаху, Господу миров.</textarea></div>
+  <div class="form-group"><label>Доп. наставление (рекомендация)</label><input type="text" id="f_rec1" value="Продолжать утренние и вечерние азкары, читать аят аль-Курси"></div>
+  <div class="form-group"><label>Доп. наставление 2</label><input type="text" id="f_rec2" value="Благодарить Аллаха и свидетельствовать о милости исцеления"></div>
+  <button class="fill-btn" onclick="fillDocument()"><i class="fas fa-feather-alt"></i> Оформить свидетельство</button>
 </div>
 
 <div class="loading-overlay" id="loadingOverlay">
-  <div class="spinner"></div>
-  <div class="loading-text" style="color:#e6d5b3; margin-top:12px;">Формирование PDF...</div>
+  <div class="loading-spinner"></div>
+  <div class="loading-text" style="color: #f0d89a; margin-top: 15px;"><i class="fas fa-book-quran"></i> Формирование PDF...</div>
 </div>
 
 <div class="page-wrapper" id="pageWrapper">
   <div class="page" id="page">
-    <div class="ornate-border">
-      <div class="corner corner-tl"><svg viewBox="0 0 30 30"><path d="M0,0 L30,0 L30,5 L5,5 L5,30 L0,30 Z" fill="#c9a84c"/></svg></div>
-      <div class="corner corner-tr"><svg viewBox="0 0 30 30"><path d="M0,0 L30,0 L30,5 L5,5 L5,30 L0,30 Z" fill="#c9a84c"/></svg></div>
-      <div class="corner corner-bl"><svg viewBox="0 0 30 30"><path d="M0,0 L30,0 L30,5 L5,5 L5,30 L0,30 Z" fill="#c9a84c"/></svg></div>
-      <div class="corner corner-br"><svg viewBox="0 0 30 30"><path d="M0,0 L30,0 L30,5 L5,5 L5,30 L0,30 Z" fill="#c9a84c"/></svg></div>
-    </div>
-
     <div class="header">
       <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
-      <div class="doc-title">Духовный Анализ</div>
-      <div class="doc-subtitle">Заключение лекаря Абу Мухаммад</div>
+      <div class="doc-title">Свидетельство об исцелении</div>
+      <div class="doc-subtitle">Духовное заключение — Лекарь Абу Мухаммад ибн Ахмад</div>
     </div>
 
     <div class="info-grid">
-      <div class="info-row"><span class="info-label">Пациент:</span><span class="info-value" id="d_name" contenteditable="true">Хадижа</span></div>
-      <div class="info-row"><span class="info-label">Возраст:</span><span class="info-value" id="d_age" contenteditable="true">—</span></div>
-      <div class="info-row"><span class="info-label">Дата:</span><span class="info-value" id="d_date" contenteditable="true">—</span></div>
-      <div class="info-row"><span class="info-label">№ Анализа:</span><span class="info-value" id="d_number" contenteditable="true">SA-1446-ХАД</span></div>
+      <div class="info-row"><span class="info-label"><i class="fas fa-user"></i> Пациент(ка):</span><span class="info-value" id="d_name" contenteditable="true">Хадижа бинт Абдуллах</span></div>
+      <div class="info-row"><span class="info-label"><i class="fas fa-calendar-alt"></i> Возраст:</span><span class="info-value" id="d_age" contenteditable="true">36 лет</span></div>
+      <div class="info-row"><span class="info-label"><i class="fas fa-clock"></i> Дата сеанса:</span><span class="info-value" id="d_date" contenteditable="true">—</span></div>
+      <div class="info-row"><span class="info-label"><i class="fas fa-hashtag"></i> № Свидет-ва:</span><span class="info-value" id="d_number" contenteditable="true">СВ-1446-03</span></div>
     </div>
 
     <div class="section">
-      <div class="section-title">Жалобы и симптомы</div>
-      <div class="section-body" id="d_complaints" contenteditable="true">Хадижа: “Ўлакса ва ўлим кўради”. Бу энг оғир белгилардан бири. “Ўлакса” (ўликни, жасадни) ёки “ўлим ҳолатини” тушда ёки уйғоқ ҳолда кўриш — бу жиннларнинг босими, сеҳрнинг таъсири, ёки ўта оғир кўз тегишидан келиб чиқади. Баъзан бу шайтоннинг “ўласан” деб васваса қилишидир.</div>
+      <div class="section-title"><i class="fas fa-frown"></i> Состояние до лечения (жалобы)</div>
+      <div class="section-body" id="d_before" contenteditable="true">Пациентка страдала от сильнейшей порчи, направленной на развод и слепоту. Ощущала давящую тяжесть, резь в глазах, ухудшение зрения, ночные кошмары, страх разрушения семьи. Шайтан внушал отчаяние и раздор с супругом.</div>
     </div>
 
     <div class="section">
-      <div class="section-title">Результаты духовной диагностики</div>
-      <div class="section-body" id="d_diagnosis" contenteditable="true">Выявлено глубокое магическое воздействие (сихр), направленное на подавление воли и внушение образов смерти. Присутствует влияние “жадд” (джинн, связанный с землёй/кладбищем). Симптомы указывают на сихр “имени смерти” и ритуальную порчу.</div>
+      <div class="section-title"><i class="fas fa-hand-sparkles"></i> Свидетельство об исцелении (результат сеанса)</div>
+      <div class="section-body" id="d_after" contenteditable="true">По Милости Аллаха, после проведённого сеанса с Абу Мухаммадом пациентка полностью избавилась от порчи на развод и слепоту за 1 сеанс. Почувствовала сильное облегчение, словно никогда не болела. Мы делаем причины, а результат — от Аллаха, Хвала Аллаху, Господу миров. ДжазакумуЛлаху Хайран нашему брату Абу Мухаммаду, пусть Аллах вознаградит его за старание, за его труд. Пусть Аллах исцелит всех мусульман полным и наилучшим исцелением. Амин!</div>
     </div>
 
     <div class="section">
-      <div class="section-title">Заключение</div>
-      <div class="section-body" id="d_conclusion" contenteditable="true">Хадижадаги сеҳр ва жинн таъсири жуда чуқур. Ўлимни кўриш — бу унга қилинган сеҳрнинг натижасидир (масалан, “номига ўлим” ёки “қабр” сеҳри). Ундан ташқари, жадд (жасал) жинни ҳам бўлиши мумкин. Необходимо срочное рукъя-лечение и изгнание.</div>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Рекомендации</div>
+      <div class="section-title"><i class="fas fa-book-open"></i> Духовные наставления после исцеления</div>
       <table class="rec-table">
-        <thead><tr><th style="width:35px">№</th><th>Предписание</th></tr></thead>
+        <thead><tr><th>№</th><th>Наставление лекаря</th></tr></thead>
         <tbody>
-          <tr><td>1</td><td id="d_rec1" contenteditable="true">Ежедневное чтение Аль-Фатиха (7 раз) и Аль-Муаввизатайн</td></tr>
-          <tr><td>2</td><td id="d_rec2" contenteditable="true">Чтение аятов Рукъя (2:255, 3:18-19, 7:54, 109-110)</td></tr>
-          <tr><td>3</td><td id="d_rec3" contenteditable="true">Окуривание оливковым маслом и чтение дуа над водой</td></tr>
-          <tr><td>4</td><td id="d_rec4" contenteditable="true">Отказ от грехов, укрепление намаза, азкары утром и вечером</td></tr>
+          <tr><td>1</td><td id="d_rec1" contenteditable="true">Читать утренние и вечерние азкары, особенно аят аль-Курси, для защиты от возврата порчи</td></tr>
+          <tr><td>2</td><td id="d_rec2" contenteditable="true">Постоянно быть в малом омовении, читать суру "Аль-Фалак" и "Ан-Нас" 3 раза после каждого намаза</td></tr>
         </tbody>
       </table>
     </div>
 
     <div class="footer">
       <div class="stamp-area">
-        <div class="stamp"><div class="stamp-text">أبو<br>محمد</div></div>
-        <div class="stamp-label">Печать</div>
+        <div class="stamp"><div class="stamp-text">الطب الروحاني<br>أبو محمد</div></div>
+        <div class="stamp-label" style="font-size: 10px;">Печать целителя</div>
       </div>
       <div class="signature-area">
-        <!-- Реалистичная подпись (рукописная кривая) -->
-        <div class="real-signature">
-          <svg viewBox="0 0 300 80" xmlns="http://www.w3.org/2000/svg">
-            <path d="M28,42 C35,28 48,22 62,28 C72,32 76,44 70,52 C62,62 48,62 42,52 C38,44 42,36 52,34 C62,32 74,36 82,46 C90,56 88,70 76,76 C64,82 48,78 42,68 C36,58 42,46 54,42 C66,38 82,42 92,54 C102,66 98,82 84,86 C70,90 52,84 46,72" stroke="#2c2418" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"/>
-            <path d="M108,46 C120,40 138,38 152,44 C166,50 172,68 164,80 C156,92 138,96 128,88 C118,80 122,64 136,60 C150,56 168,64 174,78 C180,92 170,108 154,110 C138,112 120,104 114,92" stroke="#2c2418" fill="none" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
-            <path d="M192,54 C204,48 220,50 232,58 C244,66 246,82 238,90 C230,98 214,96 208,86 C202,76 208,64 220,62 C232,60 244,68 248,80" stroke="#2c2418" fill="none" stroke-width="2.2" stroke-linecap="round" opacity="0.75"/>
-            <text x="20" y="74" font-family="'Cormorant Garamond', serif" font-size="11" fill="#3e3527" font-style="italic" opacity="0.9">Abu Muhammad</text>
-          </svg>
-        </div>
+        <!-- Реалистичная подпись на canvas (рукописный стиль) -->
+        <canvas id="signatureCanvas" class="signature-img" width="400" height="100" style="width:200px; height:50px;"></canvas>
         <div class="signature-name">Абу Мухаммад ибн Ахмад</div>
-        <div class="signature-title">Специалист духовной диагностики</div>
+        <div class="signature-title">Мастер рукъи и духовного исцеления</div>
       </div>
       <div class="date-area">
-        <div class="date-label">Дата составления</div>
+        <div class="date-label"><i class="far fa-calendar-check"></i> Дата выдачи</div>
         <div class="date-value" id="d_footer_date">—</div>
       </div>
     </div>
@@ -495,69 +518,117 @@
 
 <script>
   let currentScale = 1;
-  function zoom(delta) {
-    currentScale = Math.min(1.6, Math.max(0.5, currentScale + delta));
-    document.getElementById('pageWrapper').style.transform = `scale(${currentScale})`;
-    document.getElementById('zoomDisplay').textContent = Math.round(currentScale * 100) + '%';
-  }
+  function zoom(delta) { currentScale = Math.min(1.6, Math.max(0.5, currentScale + delta)); document.getElementById('pageWrapper').style.transform = `scale(${currentScale})`; document.getElementById('zoomDisplay').textContent = Math.round(currentScale * 100) + '%'; }
   function toggleForm() { document.getElementById('formPanel').classList.toggle('active'); }
+  
+  // отрисовка подписи в виде рукописного росчерка (реалистичная)
+  function drawSignature() {
+    const canvas = document.getElementById('signatureCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width, h = canvas.height;
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = 'transparent';
+    ctx.fillRect(0, 0, w, h);
+    ctx.strokeStyle = '#2c2418';
+    ctx.lineWidth = 2.2;
+    ctx.lineCap = 'round';
+    ctx.shadowBlur = 0;
+    // арабская вязь + абу мухаммад рукописный стиль
+    ctx.font = `italic 38px 'Playfair Display', 'Segoe Script', 'Brush Script MT', cursive`;
+    ctx.fillStyle = '#2c2418';
+    ctx.fillText("أبو محمد", 25, 62);
+    ctx.font = `22px 'Cormorant Garamond', cursive`;
+    ctx.fillStyle = '#3e3425';
+    ctx.fillText("Abu Muhammad", 140, 58);
+    // небольшая волнистая линия для реализма
+    ctx.beginPath();
+    ctx.moveTo(30, 75);
+    ctx.quadraticCurveTo(90, 82, 180, 76);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(210, 72);
+    ctx.quadraticCurveTo(270, 78, 340, 71);
+    ctx.stroke();
+  }
+  
+  function resetDocument() {
+    document.getElementById('d_name').textContent = 'Хадижа бинт Абдуллах';
+    document.getElementById('d_age').textContent = '36 лет';
+    const todayFormatted = new Date().toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric' });
+    document.getElementById('d_date').textContent = todayFormatted;
+    document.getElementById('d_footer_date').textContent = todayFormatted;
+    document.getElementById('d_number').textContent = 'СВ-1446-03';
+    document.getElementById('d_before').textContent = 'Пациентка страдала от сильнейшей порчи, направленной на развод и слепоту. Ощущала давящую тяжесть, резь в глазах, ухудшение зрения, ночные кошмары, страх разрушения семьи. Шайтан внушал отчаяние и раздор с супругом.';
+    document.getElementById('d_after').textContent = 'По Милости Аллаха, после проведённого сеанса с Абу Мухаммадом пациентка полностью избавилась от порчи на развод и слепоту за 1 сеанс. Почувствовала сильное облегчение, словно никогда не болела. Мы делаем причины, а результат — от Аллаха, Хвала Аллаху, Господу миров. ДжазакумуЛлаху Хайран нашему брату Абу Мухаммаду, пусть Аллах вознаградит его за старание, за его труд. Пусть Аллах исцелит всех мусульман полным и наилучшим исцелением. Амин!';
+    document.getElementById('d_rec1').textContent = 'Читать утренние и вечерние азкары, особенно аят аль-Курси, для защиты от возврата порчи';
+    document.getElementById('d_rec2').textContent = 'Постоянно быть в малом омовении, читать суру "Аль-Фалак" и "Ан-Нас" 3 раза после каждого намаза';
+    showToast('Свидетельство сброшено к исходным данным');
+  }
+  
   function fillDocument() {
     const get = id => document.getElementById(id).value.trim();
     if (get('f_name')) document.getElementById('d_name').textContent = get('f_name');
     if (get('f_age')) document.getElementById('d_age').textContent = get('f_age');
     if (get('f_date')) {
-      let d = new Date(get('f_date'));
-      let formatted = d.toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric' });
+      const d = new Date(get('f_date'));
+      const formatted = d.toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric' });
       document.getElementById('d_date').textContent = formatted;
       document.getElementById('d_footer_date').textContent = formatted;
+    } else {
+      const today = new Date().toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric' });
+      document.getElementById('d_date').textContent = today;
+      document.getElementById('d_footer_date').textContent = today;
     }
     if (get('f_number')) document.getElementById('d_number').textContent = get('f_number');
-    if (get('f_complaints')) document.getElementById('d_complaints').textContent = get('f_complaints');
-    if (get('f_diagnosis')) document.getElementById('d_diagnosis').textContent = get('f_diagnosis');
-    if (get('f_conclusion')) document.getElementById('d_conclusion').textContent = get('f_conclusion');
+    if (get('f_before')) document.getElementById('d_before').textContent = get('f_before');
+    if (get('f_after')) document.getElementById('d_after').textContent = get('f_after');
     if (get('f_rec1')) document.getElementById('d_rec1').textContent = get('f_rec1');
     if (get('f_rec2')) document.getElementById('d_rec2').textContent = get('f_rec2');
-    if (get('f_rec3')) document.getElementById('d_rec3').textContent = get('f_rec3');
-    if (get('f_rec4')) document.getElementById('d_rec4').textContent = get('f_rec4');
     toggleForm();
-    showToast('✅ Документ обновлён');
+    showToast('Свидетельство об исцелении оформлено, Альхамдулиллях');
   }
-  function showToast(msg) {
-    let t = document.getElementById('toast');
-    t.textContent = msg;
-    t.classList.add('show');
-    clearTimeout(t._timer);
-    t._timer = setTimeout(() => t.classList.remove('show'), 2500);
-  }
+  
   async function exportToPDF() {
     const overlay = document.getElementById('loadingOverlay');
     overlay.classList.add('active');
-    const element = document.getElementById('page');
-    const originalOverflow = element.style.overflow;
-    element.style.overflow = 'visible';
+    const pageElement = document.getElementById('page');
+    const wrapper = document.getElementById('pageWrapper');
+    const toolbar = document.querySelector('.toolbar');
+    const formPanel = document.getElementById('formPanel');
+    const originalTransform = wrapper.style.transform;
+    wrapper.style.transform = 'scale(1)';
+    toolbar.style.display = 'none';
+    if(formPanel) formPanel.style.display = 'none';
+    const editables = pageElement.querySelectorAll('[contenteditable]');
+    editables.forEach(el => el.setAttribute('contenteditable', 'false'));
+    await new Promise(r => setTimeout(r, 100));
     try {
       const opt = {
-        margin: [0.4, 0.4, 0.4, 0.4],
-        filename: `Духовный_анализ_Хадижа.pdf`,
+        margin: [0.5, 0.5, 0.5, 0.5],
+        filename: `Svidetelstvo_ob_istselenii_${document.getElementById('d_name').textContent.replace(/[^a-zа-яё]/gi, '_')}.pdf`,
         image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2.8, backgroundColor: '#faf4e8', useCORS: true, logging: false },
+        html2canvas: { scale: 3, backgroundColor: '#fef7e0', letterRendering: true },
         jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
       };
-      await html2pdf().set(opt).from(element).save();
-      showToast('📑 PDF сохранён');
-    } catch (err) {
-      console.error(err);
-      showToast('Ошибка при создании PDF');
-    }
-    element.style.overflow = originalOverflow;
+      await html2pdf().set(opt).from(pageElement).save();
+      showToast('PDF сформирован успешно');
+    } catch(err) { showToast('Ошибка PDF: ' + err); }
+    wrapper.style.transform = originalTransform;
+    toolbar.style.display = '';
+    if(formPanel) formPanel.style.display = '';
+    editables.forEach(el => el.setAttribute('contenteditable', 'true'));
     overlay.classList.remove('active');
   }
+  
+  function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(t._timer); t._timer = setTimeout(() => t.classList.remove('show'), 2800); }
+  
   (function init() {
-    let today = new Date().toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric' });
+    const today = new Date().toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric' });
     document.getElementById('d_date').textContent = today;
     document.getElementById('d_footer_date').textContent = today;
     document.getElementById('f_date').valueAsDate = new Date();
-    document.getElementById('zoomDisplay').textContent = '100%';
+    drawSignature();
   })();
 </script>
 </body>
