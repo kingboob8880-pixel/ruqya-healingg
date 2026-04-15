@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Духовный анализ | Рукья шарийя</title>
+    <!-- Подключение шрифтов -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #fef7e8;
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            color: #2d2a1e;
+            line-height: 1.5;
+            transition: font-size 0.2s ease;
+        }
+
+        /* Контейнер контента */
+        .content-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fffef7;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            border-radius: 24px;
+            overflow: hidden;
+            padding: 20px 18px 40px;
+        }
+
+        /* Стили для арабского */
+        .arabic {
+            font-family: 'Amiri', 'Traditional Arabic', serif;
+            direction: rtl;
+            text-align: right;
+            font-size: 1.3em;
+            line-height: 1.8;
+            font-weight: 500;
+        }
+
+        /* Таблицы */
+        .spiritual-table, .dua-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .spiritual-table th, .spiritual-table td,
+        .dua-table th, .dua-table td {
+            border: 1px solid #e0d5b8;
+            padding: 10px 12px;
+            vertical-align: top;
+            background-color: #ffffff;
+        }
+
+        .spiritual-table th, .dua-table th {
+            background-color: #c9a53b;
+            color: white;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .spiritual-table td, .dua-table td {
+            color: #3e3a2b;
+        }
+
+        /* Заголовки */
+        h1, h2, h3 {
+            color: #5a3e1b;
+            margin-top: 1.2em;
+            margin-bottom: 0.6em;
+            font-weight: 600;
+        }
+
+        h2 {
+            border-left: 5px solid #c9a53b;
+            padding-left: 15px;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            margin-top: 0.8em;
+        }
+
+        /* Панель управления sticky */
+        .control-panel {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: #fef2e0;
+            backdrop-filter: blur(12px);
+            background: rgba(254, 242, 224, 0.95);
+            border-bottom: 1px solid #e6d5b3;
+            padding: 12px 16px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-radius: 0 0 20px 20px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            background: white;
+            border: 1px solid #c9a53b;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-weight: 500;
+            color: #5a3e1b;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.85rem;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        button:hover {
+            background: #c9a53b;
+            color: white;
+            border-color: #c9a53b;
+        }
+
+        .mode-active {
+            background: #c9a53b;
+            color: white;
+            border-color: #a07f2c;
+        }
+
+        /* Переключение режимов */
+        body.mode-detailed .compact-only {
+            display: none;
+        }
+
+        body.mode-compact .detailed-only {
+            display: none;
+        }
+
+        /* Модальное окно */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(6px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+
+        .modal-card {
+            background: #fffcf3;
+            border-radius: 32px;
+            padding: 30px 20px;
+            max-width: 320px;
+            width: 85%;
+            text-align: center;
+            box-shadow: 0 25px 40px rgba(0,0,0,0.2);
+            border: 1px solid #e9dbba;
+        }
+
+        .modal-card input {
+            width: 100%;
+            padding: 12px;
+            margin: 20px 0;
+            border: 1px solid #c9a53b;
+            border-radius: 60px;
+            font-size: 1.1rem;
+            text-align: center;
+            background: white;
+        }
+
+        .error-msg {
+            color: #b13e3e;
+            font-size: 0.85rem;
+            margin-top: -10px;
+            margin-bottom: 12px;
+        }
+
+        /* Класс для страниц PDF */
+        .page-break-before {
+            page-break-before: always;
+            margin-top: 20px;
+        }
+
+        @media print {
+            .control-panel, .no-print {
+                display: none !important;
+            }
+            body {
+                background: white;
+                margin: 0;
+                padding: 0;
+            }
+            .content-container {
+                box-shadow: none;
+                padding: 10px;
+                max-width: 100%;
+            }
+        }
+
+        /* Вспомогательные стили */
+        .highlight {
+            background: #fcf2db;
+            padding: 2px 6px;
+            border-radius: 12px;
+        }
+
+        hr {
+            margin: 24px 0;
+            border: 0;
+            height: 1px;
+            background: linear-gradient(to right, #e0d5b8, transparent);
+        }
+
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #a48e5c;
+            border-top: 1px solid #efe3ca;
+            padding-top: 18px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="accessModal" class="modal">
+    <div class="modal-card">
+        <h3 style="margin:0 0 8px;">🔐 Доступ к анализу</h3>
+        <p style="font-size:0.9rem;">Введите код доступа</p>
+        <input type="password" id="codeInput" placeholder="Код">
+        <div id="modalError" class="error-msg"></div>
+        <button id="submitCode">Войти</button>
+    </div>
+</div>
+
+<div id="mainContent" style="display: none;">
+    <!-- Панель управления -->
+    <div class="control-panel no-print">
+        <div class="btn-group">
+            <button id="fontMinus" title="Уменьшить шрифт">A−</button>
+            <button id="fontPlus" title="Увеличить шрифт">A+</button>
+        </div>
+        <div class="btn-group">
+            <button id="modeCompactBtn" class="mode-active">Компактный</button>
+            <button id="modeDetailedBtn">Детальный</button>
+        </div>
+        <div>
+            <button id="savePdfBtn">📄 Сохранить в PDF</button>
+        </div>
+    </div>
+
+    <div class="content-container" id="pdfContent">
+        <!-- Вступление (общее) -->
+        <div style="text-align: center; margin-bottom: 20px;">
+            <h1 style="margin-top:0;">🕌 Духовный анализ рукья шарийя</h1>
+            <p style="color:#7b6236;">от Абу Мухаммада</p>
+        </div>
+
+        <div>
+            <h2>🌿 Вступление с надеждой</h2>
+            <p><strong>Ассаламу алейкум, дорогие Дилором и Нигора!</strong> Я, Абу Мухаммад, обращаюсь к вам с теплотой и сочувствием. Ваши страдания — не напрасны, и каждый недуг по воле Аллаха станет искуплением. Всевышний сказал: <em>«А когда я заболею, Он исцеляет меня»</em> (Аш-Шуара, 26:80). Помните: исцеление — только от Аллаха, но средства (рукья, дуа, Коран) — это милость. Держитесь за вервь Аллаха, и облегчение близко, иншаАллах.</p>
+        </div>
+
+        <!-- Диагностика с режимами -->
+        <div class="page-break-before">
+            <h2>📋 Диагностика (анализ симптомов)</h2>
+            
+            <!-- Компактный блок -->
+            <div class="compact-only">
+                <div style="background: #faf3e3; border-radius: 20px; padding: 15px;">
+                    <p>🔹 <strong>Айн (сглаз):</strong> У Дилором яркий сглаз на «қомат» — поражение всей внешности и достоинства. У Нигоры явных признаков сглаза не выявлено.</p>
+                    <p>🔹 <strong>Сихр (порча):</strong> Дилором — сеҳр еган; Нигора — сеҳр мадфун (кўмилган сеҳр), особо опасный вид колдовства.</p>
+                    <p>🔹 <strong>Влияние джиннов:</strong> Дилором — «босвоган» (лёгкая форма одержимости); Нигора — «орқасига жинн ёпишган» (джинн сидит на спине).</p>
+                </div>
+            </div>
+
+            <!-- Детальный блок -->
+            <div class="detailed-only">
+                <h3>🔸 Айн (сглаз)</h3>
+                <p><strong>Дилором:</strong> «Қоматига кўз теккан» — сильный сглаз на фигуру, осанку, красоту и общее состояние. Сопровождается упадком сил, неуверенностью, чувством подавленности. Признаки: усталость, необъяснимая слабость, головные боли, изменение настроения при похвале. По сунне, пророк (мир ему) лечился от айна и велел читать аль-Фаляк и ан-Нас.</p>
+                <p><strong>Нигора:</strong> Явных признаков сглаза не выявлено, хотя косвенное влияние возможно из-за соседства с порчей.</p>
+                
+                <h3>🔸 Сихр (порча)</h3>
+                <p><strong>Дилором:</strong> «Сеҳр еган» — имеется магическое воздействие, которое отравляет тело и душу: возможны недомогания, странные боли, отвращение к близким, нарушение сна.</p>
+                <p><strong>Нигора:</strong> «Сеҳр мадфун» (зарытое колдовство) — наиболее тяжёлый тип сихра. Обычно закапывают узлы, яйца, кости, восковые фигуры на кладбищах или во дворах. Пока предмет не извлекут и не уничтожат, воздействие усиливается и может передаваться по наследству.</p>
+
+                <h3>🔸 Влияние джиннов</h3>
+                <p><strong>Дилором:</strong> «Босвоган» — лёгкая степень одержимости, выражающаяся в приступах уныния, тяжести в теле, необоснованных страхах и потере аппетита.</p>
+                <p><strong>Нигора:</strong> «Орқасига жинн ёпишган» — джинн «оседлал» спину. Признаки: постоянная боль в пояснице, плечах, тяжесть между лопаток, чувство усталости после пробуждения, невозможность долго сидеть прямо. Пророк (ﷺ) упоминал, что шайтаны могут иметь физическое воздействие на человека.</p>
+            </div>
+        </div>
+
+        <!-- Таблица духовных недугов (общая) -->
+        <div>
+            <h2>📊 Таблица духовных недугов</h2>
+            <table class="spiritual-table">
+                <thead>
+                    <tr><th>Духовный недуг</th><th>Симптомы / Диагноз из жалоб</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Сихр (порча)</td><td>Дилором — «сеҳр еган» (колдовство принято внутрь); Нигора — «сеҳр мадфун» (зарытое колдовство в земле).</td></tr>
+                    <tr><td>Айн (сглаз)</td><td>Дилором — «қоматига кўз теккан» (сглаз на фигуру, красоту, облик); Нигора — нет явного сглаза.</td></tr>
+                    <tr><td>Влияние джиннов</td><td>Дилором — «босвоган» (придавливание джинном); Нигора — «орқасига жинн ёпишган» (джинн сидит на спине, давя на позвоночник).</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Рекомендуемое лечение с двумя режимами -->
+        <div class="page-break-before">
+            <h2>💊 Рекомендуемое лечение</h2>
+            <div class="compact-only">
+                <div style="background: #f9f2e4; border-radius: 18px; padding: 12px 16px;">
+                    <p><strong>Я, Абу Мухаммад, с помощью Аллаха, советую:</strong></p>
+                    <ul style="margin-left: 20px;">
+                        <li>Чтение рукьи: суры аль-Фатиха (7 раз), Аятуль-Курси, аль-Ихляс, аль-Фаляк, ан-Нас (по 3–11 раз).</li>
+                        <li>Вода с чтением — пить натощак 40 дней.</li>
+                        <li>Чёрный тмин, оливковое масло — утром и вечером.</li>
+                        <li>Запрет на музыку, посещение колдунов, ежедневные утренние и вечерние зикры.</li>
+                        <li>Для Нигоры дополнительно: найти зарытый сихр, сжечь его, читать рукью на место.</li>
+                        <li>Для Дилором: бани с мёдом и рукья на воду 7 дней.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="detailed-only">
+                <p><strong>Я, Абу Мухаммад, да будет со мной милость Аллаха, рекомендую следующее комплексное лечение (курс 30–40 дней):</strong></p>
+                <h3>📖 Порядок чтения рукьи</h3>
+                <p>Утром после фаджр и вечером перед сном читать: аль-Фатиха (3 раза), Аятуль-Курси (1 раз), аль-Ихляс (3), аль-Фаляк (3), ан-Нас (3). Затем дуть на ладони и протирать всё тело, особенно спину и грудь. Дополнительно читать на воду 7 раз каждую суру и пить.</p>
+                <h3>💧 Подготовка воды (Шариатская рукья)</h3>
+                <p>Взять чистую воду в посуду, прочитать над ней аль-Фатиха 7 раз, аяты против сихра (аль-Бакара 102, 255), аль-Фаляк, ан-Нас — по 11 раз. Подуть на воду (слегка смачивая слюной) и пить по утрам натощак. Также обливаться этой водой после купания.</p>
+                <h3>🌿 Масло чёрного тмина и оливковое</h3>
+                <p>Пророк (ﷺ) сказал: «В чёрном тмине исцеление от всех болезней, кроме смерти». Принимать по чайной ложке с мёдом утром. Оливковое масло наносить на позвоночник и место «сидения джинна» (область спины).</p>
+                <h3>🛡️ Ежедневные зикры и защита дома</h3>
+                <p>Читать «Аузу би-калимати-Ллахи-т-таммати мин шарри ма халяка» 3 раза утром/вечером. Сура аль-Бакара читается в доме каждые три дня — изгоняет шайтанов. Окуривание дома ладаном или сиваком.</p>
+                <h3>🕯️ Специфика для Нигоры (сеҳр мадфун)</h3>
+                <p>Необходимо найти место захоронения (двор, заброшенный участок). С помощью благочестивого человека извлечь предмет и сжечь его, прочитав аят аль-Курси 10 раз. После этого пройти полное купание (гусль) и повторить рукью 7 дней.</p>
+                <h3>🪞 Для Дилором (қоматига кўз)</h3>
+                <p>Читать дуа от сглаза: «Аллахумма барик фихи» и «МА шаАллаху ла куввата илла биЛлах». Ежедневно делать рукья на оливковое масло и мазать всё тело. Избегать людей, склонных к зависти, не выставлять красоту напоказ.</p>
+                <p><strong>Курс лечения:</strong> 40 дней без пропусков, затем поддерживающая рукья раз в неделю. Ин шаа Аллах, выздоровление неизбежно.</p>
+            </div>
+        </div>
+
+        <!-- Таблица дуа (три дуа из сунны) -->
+        <div class="page-break-before">
+            <h2>📿 Таблица дуа (исцеление от недугов)</h2>
+            <table class="dua-table">
+                <thead>
+                    <tr><th>Арабский текст (с харакатами)</th><th>Транскрипция кириллицей</th><th>Перевод на русский</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="arabic">اللَّهُمَّ رَبَّ النَّاسِ، أَذْهِبِ الْبَأْسَ، اشْفِ أَنْتَ الشَّافِي، لاَ شِفَاءَ إِلاَّ شِفَاؤُكَ، شِفَاءً لاَ يُغَادِرُ سَقَمًا</td>
+                        <td>Аллахумма раббан-наси, азхибиль-ба’са, ишфи анташ-шафи, ля шифаа илля шифаука, шифаан ля югадиру сакама</td>
+                        <td>О Аллах, Господь людей, удали болезнь, исцели, ведь Ты — Исцеляющий, нет исцеления, кроме Твоего исцеления, которое не оставляет болезни.</td>
+                    </tr>
+                    <tr>
+                        <td class="arabic">اللَّهُمَّ إِنِّي أَعُوذُ بِوَجْهِكَ الْكَرِيمِ وَكَلِمَاتِكَ التَّامَّاتِ مِنْ شَرِّ مَا يَنْزِلُ مِنَ السَّمَاءِ وَمَا يَعْرُجُ فِيهَا</td>
+                        <td>Аллахумма инни а’узу би-ваджхика-ль-карим ва калиматика-т-таммат мин шарри ма янзилю мина-с-самаи ва ма я’руджу фиха</td>
+                        <td>О Аллах, я прибегаю к Твоему Благородному Лику и совершенным словам Твоим от зла того, что нисходит с неба и что восходит на него.</td>
+                    </tr>
+                    <tr>
+                        <td class="arabic">اللَّهُمَّ أَخْرِجِ السِّحْرَ وَالْجِنَّ مِنْ جَسَدِ فُلانَةَ بِنْتِ فُلانٍ، رَبَّنَا اشْفِ شِفَاءً لَا يُغَادِرُ سَقَمًا</td>
+                        <td>Аллахумма ахриджи-с-сихр ва-ль-джинна мин джасади [Дилором/Нигора] бинти [Умм], Раббана-шфи шифаан ля югадиру сакама</td>
+                        <td>О Аллах, выведи колдовство и джинна из тела рабы Твоей, Господь наш, даруй исцеление, после которого не останется болезни.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p style="font-size:0.85rem; margin-top: -10px;">*Третье дуа читается с именем пациента (вслух над больным), заменяя «фуляна бинти фулян» на имя Дилором или Нигора.</p>
+        </div>
+
+        <!-- Заключение -->
+        <div>
+            <h2>🕊️ Заключение: терпение и упование</h2>
+            <p>Дилором и Нигора, ваши диагнозы известны, и я, Абу Мухаммад, искренне верю, что после этой рукьи, после каждого аята Корана, ваше состояние облегчится. Пророк (мир ему) сказал: «Удивительно положение верующего, всё для него — благо». Сабр (терпение) и таваккуль (упование) — ваши крылья. Не оставляйте зикр, лечитесь дозволенным, и Аллах непременно дарует здоровье. Сумма лечения, упомянутая в рекомендациях, не является платой за исцеление — исцеляет только Аллах, а это лишь поддержка знающего человека. Да защитит вас Всевышний от сглаза, порчи и джиннов, и да укрепит вашу веру!</p>
+            <p style="margin-top: 12px;"><em>Ваш брат, Абу Мухаммад.</em></p>
+        </div>
+        <footer>© Духовный центр рукья шарийя — исцеление от Корана и Сунны</footer>
+    </div>
+</div>
+
+<script>
+    // Глобальные переменные
+    let currentFontSize = 16;   // px
+    let currentMode = 'compact'; // compact или detailed
+    const contentContainer = document.querySelector('.content-container');
+    const bodyEl = document.body;
+
+    function applyFontSize() {
+        contentContainer.style.fontSize = currentFontSize + 'px';
+    }
+
+    function applyMode(mode) {
+        currentMode = mode;
+        if (mode === 'compact') {
+            bodyEl.classList.remove('mode-detailed');
+            bodyEl.classList.add('mode-compact');
+            document.getElementById('modeCompactBtn').classList.add('mode-active');
+            document.getElementById('modeDetailedBtn').classList.remove('mode-active');
+        } else {
+            bodyEl.classList.remove('mode-compact');
+            bodyEl.classList.add('mode-detailed');
+            document.getElementById('modeDetailedBtn').classList.add('mode-active');
+            document.getElementById('modeCompactBtn').classList.remove('mode-active');
+        }
+    }
+
+    // Инициализация слушателей и значений
+    window.addEventListener('DOMContentLoaded', () => {
+        // Код доступа
+        const modal = document.getElementById('accessModal');
+        const submitBtn = document.getElementById('submitCode');
+        const codeInput = document.getElementById('codeInput');
+        const errorSpan = document.getElementById('modalError');
+        
+        function unlockContent() {
+            modal.style.display = 'none';
+            document.getElementById('mainContent').style.display = 'block';
+        }
+        
+        submitBtn.addEventListener('click', () => {
+            if (codeInput.value === '123') {
+                unlockContent();
+            } else {
+                errorSpan.textContent = 'Неверный код доступа. Попробуйте 123';
+            }
+        });
+        codeInput.addEventListener('keypress', (e) => {
+            if(e.key === 'Enter') submitBtn.click();
+        });
+
+        // Шрифт
+        const fontMinus = document.getElementById('fontMinus');
+        const fontPlus = document.getElementById('fontPlus');
+        fontMinus.addEventListener('click', () => {
+            if (currentFontSize > 12) {
+                currentFontSize -= 2;
+                applyFontSize();
+            }
+        });
+        fontPlus.addEventListener('click', () => {
+            if (currentFontSize < 24) {
+                currentFontSize += 2;
+                applyFontSize();
+            }
+        });
+        
+        // Кнопки режимов
+        document.getElementById('modeCompactBtn').addEventListener('click', () => applyMode('compact'));
+        document.getElementById('modeDetailedBtn').addEventListener('click', () => applyMode('detailed'));
+        
+        // Установка компактного по умолчанию
+        applyMode('compact');
+        applyFontSize();
+        
+        // PDF экспорт
+        const pdfBtn = document.getElementById('savePdfBtn');
+        pdfBtn.addEventListener('click', () => {
+            const panel = document.querySelector('.control-panel');
+            const originalPanelDisplay = panel.style.display;
+            panel.style.display = 'none';
+            
+            const element = document.getElementById('pdfContent');
+            const opt = {
+                margin: [10, 10, 15, 10],
+                filename: 'Analiz_Dilorom_Nigora.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true, scrollY: 0 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                pagebreak: { mode: ['avoid-all', 'css', 'legacy'], before: '.page-break-before', avoid: ['table', 'tr'] }
+            };
+            html2pdf().set(opt).from(element).save().then(() => {
+                panel.style.display = originalPanelDisplay;
+            }).catch(() => {
+                panel.style.display = originalPanelDisplay;
+            });
+        });
+    });
+</script>
+</body>
+</html>
