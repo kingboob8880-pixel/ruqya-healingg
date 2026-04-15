@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Анализы пациента</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        /* Ваши стили */
+        .report-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .pdf-buttons {
+            position: sticky;
+            top: 10px;
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            margin: 5px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <div class="report-container">
+        <div class="pdf-buttons">
+            <button onclick="downloadPDF()">📥 Скачать PDF</button>
+            <button onclick="sharePDF()">📤 Отправить PDF</button>
+        </div>
+
+        <!-- Весь контент анализов оберните сюда -->
+        <div id="report-content">
+            <h1>👨‍⚕️ Анализы пациента: Иван Иванов</h1>
+            <p>📅 Дата: 15.04.2026</p>
+            
+            <h2>📊 Биохимия крови</h2>
+            <ul>
+                <li>Гемоглобин: 145 г/л (норма 130-160)</li>
+                <li>Лейкоциты: 6.2 ×10⁹/л (норма 4-9)</li>
+                <li>СОЭ: 12 мм/ч (норма 2-15)</li>
+            </ul>
+            
+            <h2>📈 Динамика исцеления</h2>
+            <progress value="85" max="100" style="width:100%; height:30px;"></progress>
+            <p>85% — хороший прогресс</p>
+        </div>
+    </div>
+
+    <script>
+        async function downloadPDF() {
+            const element = document.getElementById('report-content');
+            const opt = {
+                margin: [0.5, 0.5, 0.5, 0.5],
+                filename: `analizy_${new Date().toISOString().slice(0,10)}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+            };
+            await html2pdf().set(opt).from(element).save();
+        }
+
+        async function sharePDF() {
+            const element = document.getElementById('report-content');
+            const pdfBlob = await html2pdf().from(element).outputPdf('blob');
+            
+            if (navigator.share && navigator.canShare && navigator.canShare({ files: [new File([], 'test.pdf')] })) {
+                const file = new File([pdfBlob], `analizy_${Date.now()}.pdf`, { type: 'application/pdf' });
+                try {
+                    await navigator.share({
+                        title: 'Результаты анализов',
+                        text: 'Ваши медицинские показатели',
+                        files: [file]
+                    });
+                } catch(e) {
+                    if (e.name !== 'AbortError') downloadPDF(); // fallback
+                }
+            } else {
+                downloadPDF(); // если шеринг не поддерживается
+            }
+        }
+    </script>
+</body>
+</html>
