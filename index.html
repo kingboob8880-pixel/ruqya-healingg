@@ -23,7 +23,6 @@
             margin: 0 auto;
         }
 
-        /* Золотая карточка приветствия */
         .header-card {
             background: linear-gradient(145deg, #fff6e6, #fcefcb);
             border-radius: 48px;
@@ -49,7 +48,6 @@
             padding-top: 0.5rem;
         }
 
-        /* Стили для папок и файлов */
         .files-grid {
             display: flex;
             flex-direction: column;
@@ -57,7 +55,6 @@
             margin-bottom: 2rem;
         }
 
-        /* Папка-аккордеон */
         .folder-wrapper {
             background: rgba(255, 252, 240, 0.95);
             border-radius: 28px;
@@ -65,15 +62,17 @@
             overflow: hidden;
             transition: all 0.3s ease;
             box-shadow: 0 5px 12px rgba(0,0,0,0.05);
+            margin-bottom: 8px;
         }
 
         .folder-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 1.2rem 1.5rem;
-            cursor: pointer;
+            padding: 1rem 1.5rem;
             background: #fffef5;
+            border-radius: 28px;
+            cursor: pointer;
             transition: background 0.2s;
         }
 
@@ -116,7 +115,7 @@
 
         .folder-children {
             border-top: 1px solid #f0e3c6;
-            padding: 8px 0 12px 20px;
+            padding: 12px 0 12px 24px;
             background: #fffef8;
             display: none;
         }
@@ -125,31 +124,20 @@
             display: block;
         }
 
-        .file-card, .sub-file-card {
-            background: transparent;
+        .file-card {
+            background: rgba(255, 252, 240, 0.95);
+            border: 1px solid #eedfa8;
             border-radius: 20px;
-            padding: 0.9rem 1.2rem 0.9rem 0.9rem;
+            padding: 1rem 1.5rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
             gap: 12px;
-            margin: 8px 0;
             transition: all 0.2s;
-            border-bottom: 1px solid #f3e9d2;
         }
 
-        .file-card {
-            background: rgba(255, 252, 240, 0.95);
-            border: 1px solid #eedfa8;
-            padding: 1.2rem 1.5rem;
-        }
-
-        .sub-file-card {
-            padding-left: 40px;
-        }
-
-        .file-card:hover, .sub-file-card:hover {
+        .file-card:hover {
             transform: translateX(4px);
             background: #fffae9;
         }
@@ -243,6 +231,34 @@
             font-weight: bold;
             color: #b37b2e;
         }
+
+        .sub-item {
+            margin: 8px 0;
+            background: #fff9ef;
+            border-radius: 18px;
+            padding: 8px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .sub-folder {
+            background: #fef7e8;
+            margin-left: 16px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .btn-small {
+            padding: 6px 14px;
+            font-size: 0.8rem;
+        }
     </style>
 </head>
 <body>
@@ -253,7 +269,6 @@
         <p style="margin-top: 20px; color: #5e4a2a;">Да облегчит Аллах путь к исцелению каждого, кто откроет эти страницы</p>
     </div>
 
-    <!-- Навигационная цепочка (текущая папка) -->
     <div id="breadcrumbArea" style="margin-bottom: 12px;"></div>
 
     <div id="fileListContainer" class="files-grid">
@@ -267,25 +282,23 @@
 
 <script>
     // ---------- Конфигурация репозитория ----------
-    // Автоматически получаем owner и repo из текущего URL (для страниц GitHub Pages)
-    // Пример: https://kingboob8880-pixel.github.io/ruqya-healingg/ -> owner = kingboob8880-pixel, repo = ruqya-healingg
+    // Определяем owner и repo из текущего URL GitHub Pages
     let owner = 'kingboob8880-pixel';
     let repo = 'ruqya-healingg';
     
-    // Пытаемся распарсить из window.location.pathname, если есть второй сегмент
-    const pathParts = window.location.pathname.split('/').filter(p => p);
-    if (pathParts.length >= 1) {
-        // Если путь имеет вид /ruqya-healingg/ то это имя репозитория
-        const possibleRepo = pathParts[0];
-        if (possibleRepo && !possibleRepo.includes('.')) {
-            repo = possibleRepo;
-        }
+    // Получаем базовый путь для GitHub Pages
+    // Например: https://kingboob8880-pixel.github.io/ruqya-healingg/
+    function getBasePath() {
+        // Получаем путь от корня домена до index.html
+        const pathname = window.location.pathname;
+        // Если pathname заканчивается на /index.html или просто /, убираем index.html
+        let basePath = pathname.substring(0, pathname.lastIndexOf('/') + 1);
+        // Если basePath пустой или только /, используем /
+        if (!basePath) basePath = '/';
+        return basePath;
     }
-    // Можно также указать явно, но оставляем автоматику
     
-    let currentPath = '';  // текущая папка внутри репозитория (относительно корня, без слеша в начале)
-    
-    // Кэш содержимого для ускорения навигации (key: path)
+    let currentPath = '';  // текущая папка внутри репозитория (относительно корня)
     const contentsCache = new Map();
     
     // Функция получения содержимого папки через GitHub API
@@ -296,7 +309,6 @@
         }
         
         let apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
-        // Добавляем параметр, чтобы избежать кэширования браузера
         apiUrl += `?ref=main`;
         
         try {
@@ -308,9 +320,7 @@
                 throw new Error(`GitHub API ошибка: ${response.status}`);
             }
             const data = await response.json();
-            // data — массив элементов (файлы и папки)
             if (!Array.isArray(data)) {
-                // Если это файл, а не папка, вернём пустой массив
                 return [];
             }
             contentsCache.set(cacheKey, data);
@@ -321,187 +331,23 @@
         }
     }
     
-    // Рекурсивная сборка дерева? Нет, мы используем плоскую навигацию по папкам.
-    // Отображаем содержимое currentPath: показываем папки и HTML-файлы.
-    // Для папок создаём аккордеон-заглушку, но при клике на папку мы переходим внутрь.
-    // Поскольку нам нужна возможность видеть папки и подпапки — реализуем навигацию с "открытием" папок через переход.
-    // Но можно также отобразить вложенные папки сразу рекурсивно? Запрос на API покажет только прямые вхождения.
-    // Чтобы видеть подпапки, нужно при клике на папку загружать её содержимое.
-    // Сделаем интуитивно: отображаем папки (как кликабельные элементы), при нажатии переходим внутрь.
-    
-    // Функция отрисовки текущего пути
-    async function renderCurrentDirectory() {
-        const container = document.getElementById('fileListContainer');
-        const breadcrumbDiv = document.getElementById('breadcrumbArea');
+    // Формирование правильного URL для HTML-файла
+    function getFileUrl(filePath, fileName) {
+        // Базовый URL: текущий origin + basePath (путь до репозитория на GitHub Pages)
+        const baseUrl = window.location.origin + getBasePath();
         
-        container.innerHTML = '<div class="loading">📁 Загрузка содержимого...</div>';
-        
-        try {
-            const items = await fetchRepoContents(currentPath);
-            // Фильтруем папки и html-файлы
-            const folders = items.filter(item => item.type === 'dir');
-            const htmlFiles = items.filter(item => 
-                item.type === 'file' && item.name.toLowerCase().endsWith('.html') && item.name.toLowerCase() !== 'index.html'
-            );
-            
-            if (folders.length === 0 && htmlFiles.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-message">
-                        🌙 В этой папке нет HTML-файлов или подпапок.
-                        ${currentPath ? '<br><br>⬅️ Нажмите на хлебные крошки, чтобы вернуться назад.' : ''}
-                    </div>
-                `;
-                renderBreadcrumb();
-                return;
-            }
-            
-            // Строим список
-            let contentHtml = '';
-            
-            // Отображаем папки первыми
-            for (const folder of folders) {
-                const folderName = folder.name;
-                contentHtml += `
-                    <div class="folder-wrapper" data-folder-path="${folder.path}">
-                        <div class="folder-header" data-path="${folder.path}">
-                            <div class="folder-info">
-                                <div class="folder-icon">📁</div>
-                                <div>
-                                    <div class="folder-name">${escapeHtml(folderName)}</div>
-                                    <div class="file-date">📂 папка</div>
-                                </div>
-                                <span class="folder-badge">нажмите, чтобы открыть</span>
-                            </div>
-                            <div class="folder-toggle">▼</div>
-                        </div>
-                        <div class="folder-children" id="subdir-${generateId(folder.path)}">
-                            <div class="loading" style="padding: 12px;">⏳ загрузка содержимого...</div>
-                        </div>
-                    </div>
-                `;
-            }
-            
-            // Отображаем HTML-файлы
-            for (const file of htmlFiles) {
-                let dateStr = '';
-                if (file.commit?.committer?.date) {
-                    const date = new Date(file.commit.committer.date);
-                    dateStr = date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
-                }
-                let icon = '📄';
-                if (file.name.includes('анализ') || file.name.includes('analysis')) icon = '🕯️';
-                if (file.name.includes('сестра') || file.name.includes('brother')) icon = '🌿';
-                if (file.name.includes('дуа') || file.name.includes('dua')) icon = '🤲';
-                
-                const fileUrl = `${window.location.origin}${window.location.pathname}${currentPath ? currentPath + '/' : ''}${file.name}`.replace(/\/\//g, '/');
-                contentHtml += `
-                    <div class="file-card">
-                        <div class="file-info">
-                            <div class="file-icon">${icon}</div>
-                            <div>
-                                <div class="file-name">${escapeHtml(file.name)}</div>
-                                ${dateStr ? `<div class="file-date">📅 ${dateStr}</div>` : ''}
-                            </div>
-                        </div>
-                        <a href="${fileUrl}" class="btn-visit" target="_blank">📖 Открыть анализ</a>
-                    </div>
-                `;
-            }
-            
-            container.innerHTML = contentHtml;
-            renderBreadcrumb();
-            
-            // После рендера добавляем обработчики для папок (ленивая загрузка подпапок)
-            for (const folder of folders) {
-                const folderDiv = document.querySelector(`.folder-wrapper[data-folder-path="${folder.path.replace(/"/g, '\\"')}"]`);
-                if (folderDiv) {
-                    const header = folderDiv.querySelector('.folder-header');
-                    const childrenContainer = folderDiv.querySelector('.folder-children');
-                    const toggleIcon = folderDiv.querySelector('.folder-toggle');
-                    let loaded = false;
-                    
-                    header.addEventListener('click', async (e) => {
-                        e.stopPropagation();
-                        const isOpen = childrenContainer.classList.contains('open');
-                        if (!isOpen) {
-                            // Открываем и, если не загружены, загружаем содержимое подпапки
-                            childrenContainer.classList.add('open');
-                            toggleIcon.style.transform = 'rotate(180deg)';
-                            if (!loaded) {
-                                childrenContainer.innerHTML = '<div class="loading" style="padding: 12px;">📂 загрузка подпапок...</div>';
-                                try {
-                                    const subItems = await fetchRepoContents(folder.path);
-                                    const subFolders = subItems.filter(i => i.type === 'dir');
-                                    const subHtml = subItems.filter(i => i.type === 'file' && i.name.toLowerCase().endsWith('.html'));
-                                    
-                                    if (subFolders.length === 0 && subHtml.length === 0) {
-                                        childrenContainer.innerHTML = '<div style="padding: 16px; color:#8b6942;">✨ В этой папке пока нет вложенных HTML или папок.</div>';
-                                    } else {
-                                        let subHtmlContent = '';
-                                        // Сначала подпапки второго уровня
-                                        for (const subFolder of subFolders) {
-                                            subHtmlContent += `
-                                                <div style="margin: 8px 0 8px 20px; background: #fef7e8; border-radius: 20px; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; flex-wrap:wrap;">
-                                                    <div style="display:flex; align-items:center; gap:12px;">
-                                                        <span>📁</span>
-                                                        <strong style="color:#7a582b;">${escapeHtml(subFolder.name)}</strong>
-                                                        <span style="font-size:0.7rem; background:#e2d2b0; padding:2px 10px; border-radius:30px;">подпапка</span>
-                                                    </div>
-                                                    <button class="btn-visit subfolder-nav" data-path="${subFolder.path}" style="background:#bd9a4b; padding:6px 16px;">🔽 Перейти</button>
-                                                </div>
-                                            `;
-                                        }
-                                        for (const subFile of subHtml) {
-                                            const fileUrl = `${window.location.origin}${window.location.pathname}${folder.path}/${subFile.name}`.replace(/\/\//g, '/');
-                                            subHtmlContent += `
-                                                <div style="margin: 8px 0 8px 30px; background:#fff9ef; border-radius: 18px; padding: 8px 16px; display: flex; justify-content: space-between; align-items:center; flex-wrap:wrap;">
-                                                    <span>📄 ${escapeHtml(subFile.name)}</span>
-                                                    <a href="${fileUrl}" target="_blank" class="btn-visit" style="padding:4px 14px;">Открыть</a>
-                                                </div>
-                                            `;
-                                        }
-                                        childrenContainer.innerHTML = subHtmlContent;
-                                        // добавляем обработчики для кнопок перехода в подпапки
-                                        document.querySelectorAll('.subfolder-nav').forEach(btn => {
-                                            btn.addEventListener('click', async (ev) => {
-                                                const targetPath = btn.getAttribute('data-path');
-                                                if (targetPath) {
-                                                    currentPath = targetPath;
-                                                    await renderCurrentDirectory();
-                                                }
-                                            });
-                                        });
-                                    }
-                                    loaded = true;
-                                } catch (err) {
-                                    childrenContainer.innerHTML = `<div style="padding:12px;color:#b13e3e;">⚠️ Не удалось загрузить подпапки</div>`;
-                                }
-                            }
-                        } else {
-                            childrenContainer.classList.remove('open');
-                            toggleIcon.style.transform = 'rotate(0deg)';
-                        }
-                    });
-                }
-            }
-            
-            // Добавляем возможность перехода по клику на саму папку (из хлебных крошек)
-        } catch (err) {
-            console.error(err);
-            container.innerHTML = `
-                <div class="empty-message">
-                    ⚠️ Ошибка загрузки: ${err.message || 'не удалось связаться с GitHub API'}. 
-                    <br>Проверьте, что репозиторий публичный и имя владельца (kingboob8880-pixel) и репозитория (ruqya-healingg) верны.
-                    <br><br>💡 Текущий путь: ${currentPath || 'корень'}
-                </div>
-            `;
-            renderBreadcrumb();
+        // Путь к файлу относительно корня репозитория
+        let relativeFilePath = '';
+        if (filePath) {
+            relativeFilePath = filePath + '/' + fileName;
+        } else {
+            relativeFilePath = fileName;
         }
-    }
-    
-    // Генерация id для блоков
-    function generateId(str) {
-        return str.replace(/[^a-zA-Z0-9]/g, '_');
+        
+        // Убираем двойные слеши и формируем финальный URL
+        let fullUrl = baseUrl + relativeFilePath;
+        fullUrl = fullUrl.replace(/\/\//g, '/');
+        return fullUrl;
     }
     
     // Хлебные крошки
@@ -519,7 +365,6 @@
         }
         breadDiv.innerHTML = breadHtml;
         
-        // Обработчик на корневую папку
         const rootBtn = document.getElementById('goRootBtn');
         if (rootBtn) {
             rootBtn.addEventListener('click', async () => {
@@ -527,7 +372,7 @@
                 await renderCurrentDirectory();
             });
         }
-        // обработчики для каждого сегмента
+        
         document.querySelectorAll('[data-bread-path]').forEach(el => {
             el.addEventListener('click', async (e) => {
                 const targetPath = el.getAttribute('data-bread-path');
@@ -539,7 +384,6 @@
         });
     }
     
-    // Эскейп для безопасности
     function escapeHtml(str) {
         if (!str) return '';
         return str.replace(/[&<>]/g, function(m) {
@@ -550,16 +394,211 @@
         });
     }
     
-    // Дополнительно: функция, которая проверяет, есть ли вложенные папки в текущем view, а также даёт возможность вручную перейти в любую подпапку через API.
-    // Также добавим глобальную навигацию для тех, кто хочет вернуться назад.
+    function generateId(str) {
+        return str.replace(/[^a-zA-Z0-9]/g, '_');
+    }
     
-    // На случай, если пользователь захочет увидеть содержимое папки, у нас уже есть рендер с возможностью нажатия на заголовок папки.
-    // Также в каждой папке, которая раскрывается, мы показываем подпапки и файлы (второй уровень). 
-    // Для большего удобства сделаем так, чтобы по кнопке "Перейти" внутри раскрытой подпапки можно было углубиться.
+    // Загрузка содержимого подпапки для аккордеона
+    async function loadSubfolderContent(folderPath, containerId) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        
+        try {
+            const subItems = await fetchRepoContents(folderPath);
+            const subFolders = subItems.filter(i => i.type === 'dir');
+            const subHtmlFiles = subItems.filter(i => i.type === 'file' && i.name.toLowerCase().endsWith('.html') && i.name.toLowerCase() !== 'index.html');
+            
+            if (subFolders.length === 0 && subHtmlFiles.length === 0) {
+                container.innerHTML = '<div style="padding: 16px; color:#8b6942;">✨ В этой папке пока нет вложенных HTML или папок.</div>';
+                return;
+            }
+            
+            let html = '';
+            
+            // Отображаем подпапки
+            for (const subFolder of subFolders) {
+                html += `
+                    <div class="sub-item sub-folder">
+                        <div style="display:flex; align-items:center; gap:12px;">
+                            <span>📁</span>
+                            <strong style="color:#7a582b;">${escapeHtml(subFolder.name)}</strong>
+                            <span style="font-size:0.7rem; background:#e2d2b0; padding:2px 10px; border-radius:30px;">папка</span>
+                        </div>
+                        <div class="nav-buttons">
+                            <button class="btn-visit btn-small navigate-to-folder" data-path="${subFolder.path}">🔽 Перейти</button>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // Отображаем HTML-файлы
+            for (const subFile of subHtmlFiles) {
+                const fileUrl = getFileUrl(folderPath, subFile.name);
+                let icon = '📄';
+                if (subFile.name.includes('анализ') || subFile.name.includes('analysis')) icon = '🕯️';
+                if (subFile.name.includes('сестра') || subFile.name.includes('brother')) icon = '🌿';
+                if (subFile.name.includes('дуа') || subFile.name.includes('dua')) icon = '🤲';
+                
+                html += `
+                    <div class="sub-item">
+                        <div style="display:flex; align-items:center; gap:12px;">
+                            <span>${icon}</span>
+                            <span>${escapeHtml(subFile.name)}</span>
+                        </div>
+                        <a href="${fileUrl}" target="_blank" class="btn-visit btn-small">📖 Открыть</a>
+                    </div>
+                `;
+            }
+            
+            container.innerHTML = html;
+            
+            // Обработчики для кнопок перехода в подпапки
+            document.querySelectorAll('.navigate-to-folder').forEach(btn => {
+                btn.addEventListener('click', async (ev) => {
+                    const targetPath = btn.getAttribute('data-path');
+                    if (targetPath) {
+                        currentPath = targetPath;
+                        await renderCurrentDirectory();
+                    }
+                });
+            });
+            
+        } catch (err) {
+            container.innerHTML = `<div style="padding:12px; color:#b13e3e;">⚠️ Не удалось загрузить содержимое: ${err.message}</div>`;
+        }
+    }
     
-    // Обрабатываем начальную загрузку
+    // Основная функция отображения
+    async function renderCurrentDirectory() {
+        const container = document.getElementById('fileListContainer');
+        if (!container) return;
+        
+        container.innerHTML = '<div class="loading">📁 Загрузка содержимого...</div>';
+        
+        try {
+            const items = await fetchRepoContents(currentPath);
+            const folders = items.filter(item => item.type === 'dir');
+            const htmlFiles = items.filter(item => 
+                item.type === 'file' && 
+                item.name.toLowerCase().endsWith('.html') && 
+                item.name.toLowerCase() !== 'index.html'
+            );
+            
+            if (folders.length === 0 && htmlFiles.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-message">
+                        🌙 В этой папке нет HTML-файлов или подпапок.
+                        ${currentPath ? '<br><br>⬅️ Используйте хлебные крошки для возврата.' : ''}
+                    </div>
+                `;
+                renderBreadcrumb();
+                return;
+            }
+            
+            let contentHtml = '';
+            
+            // Отображаем папки с аккордеоном для предпросмотра
+            for (const folder of folders) {
+                const childContainerId = `subfolder-${generateId(folder.path)}`;
+                contentHtml += `
+                    <div class="folder-wrapper">
+                        <div class="folder-header" data-folder-path="${folder.path}">
+                            <div class="folder-info">
+                                <div class="folder-icon">📁</div>
+                                <div>
+                                    <div class="folder-name">${escapeHtml(folder.name)}</div>
+                                    <div class="file-date">📂 папка</div>
+                                </div>
+                                <span class="folder-badge">нажмите для просмотра</span>
+                            </div>
+                            <div class="folder-toggle">▼</div>
+                        </div>
+                        <div class="folder-children" id="${childContainerId}">
+                            <div class="loading" style="padding: 12px;">⏳ загрузка содержимого...</div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // Отображаем HTML-файлы
+            for (const file of htmlFiles) {
+                let icon = '📄';
+                if (file.name.includes('анализ') || file.name.includes('analysis')) icon = '🕯️';
+                if (file.name.includes('сестра') || file.name.includes('brother')) icon = '🌿';
+                if (file.name.includes('дуа') || file.name.includes('dua')) icon = '🤲';
+                
+                const fileUrl = getFileUrl(currentPath, file.name);
+                
+                let dateStr = '';
+                if (file.commit?.committer?.date) {
+                    const date = new Date(file.commit.committer.date);
+                    dateStr = date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
+                }
+                
+                contentHtml += `
+                    <div class="file-card">
+                        <div class="file-info">
+                            <div class="file-icon">${icon}</div>
+                            <div>
+                                <div class="file-name">${escapeHtml(file.name)}</div>
+                                ${dateStr ? `<div class="file-date">📅 ${dateStr}</div>` : ''}
+                            </div>
+                        </div>
+                        <a href="${fileUrl}" class="btn-visit" target="_blank">📖 Открыть анализ</a>
+                    </div>
+                `;
+            }
+            
+            container.innerHTML = contentHtml;
+            renderBreadcrumb();
+            
+            // Добавляем обработчики для папок (аккордеон)
+            for (const folder of folders) {
+                const folderHeader = document.querySelector(`.folder-header[data-folder-path="${folder.path.replace(/"/g, '\\"')}"]`);
+                if (folderHeader) {
+                    const childrenContainer = folderHeader.closest('.folder-wrapper').querySelector('.folder-children');
+                    const toggleIcon = folderHeader.querySelector('.folder-toggle');
+                    const childContainerId = childrenContainer.id;
+                    let loaded = false;
+                    
+                    folderHeader.addEventListener('click', async (e) => {
+                        e.stopPropagation();
+                        const isOpen = childrenContainer.classList.contains('open');
+                        
+                        if (!isOpen) {
+                            childrenContainer.classList.add('open');
+                            if (toggleIcon) toggleIcon.style.transform = 'rotate(180deg)';
+                            
+                            if (!loaded) {
+                                await loadSubfolderContent(folder.path, childContainerId);
+                                loaded = true;
+                            }
+                        } else {
+                            childrenContainer.classList.remove('open');
+                            if (toggleIcon) toggleIcon.style.transform = 'rotate(0deg)';
+                        }
+                    });
+                }
+            }
+            
+        } catch (err) {
+            console.error(err);
+            container.innerHTML = `
+                <div class="empty-message">
+                    ⚠️ Ошибка загрузки: ${err.message || 'не удалось связаться с GitHub API'}. 
+                    <br><br>📌 Убедитесь, что репозиторий публичный.<br>
+                    📌 Владелец: ${owner}<br>
+                    📌 Репозиторий: ${repo}<br>
+                    📌 Текущий путь: ${currentPath || 'корень'}
+                </div>
+            `;
+            renderBreadcrumb();
+        }
+    }
+    
+    // Инициализация
     window.addEventListener('DOMContentLoaded', async () => {
-        // Попробуем определить параметр ?path= в URL для прямой навигации
+        // Пробуем определить параметр ?path= в URL
         const urlParams = new URLSearchParams(window.location.search);
         const startPath = urlParams.get('path');
         if (startPath && startPath.trim() !== '') {
@@ -567,90 +606,8 @@
         } else {
             currentPath = '';
         }
+        
         await renderCurrentDirectory();
-    });
-    
-    // Добавим возможность переходить по папкам не только через аккордеон, но и через клик на папку (полноценный переход как в файловом менеджере).
-    // Модифицируем: при клике на folder-header (основная папка) - либо переходим внутрь, либо раскрываем?
-    // Лучше: сделаем чтобы по клику на иконку или название папки происходил переход (глубже), а стрелка для раскрытия.
-    // Для удобства перепишем небольшую логику: в папке folder-header две зоны? Пока оставляем как есть, но добавим отдельную кнопку "Открыть папку".
-    // Изменим шаблон папок: добавим вторую кнопку для перехода.
-    // Обновим renderCurrentDirectory, переопределив секцию папок с двумя действиями.
-    const originalRender = renderCurrentDirectory;
-    window.renderCurrentDirectory = renderCurrentDirectory;
-    // Переопределяем, чтобы при рендере папок была кнопка перехода
-    // Но выше уже сгенерирован старый вариант, переопределим функцию для окончательной консистенции:
-    // Просто обновим оригинальную функцию рендера (перезапишем), чтобы папки были с двумя кнопками.
-    // Сделаем это до вызова, но после того как оригинал объявлен — подменим.
-    // Используем новую улучшенную версию renderCurrentDirectory с полной навигацией по папкам и подпапкам.
-    // Так как текущая функция уже почти идеальна, добавим в неё возможность перехода внутрь папки через кнопку.
-    // Я обновлю функцию на лету.
-    
-    // Заменяем renderCurrentDirectory на финальную версию с удобной навигацией.
-    // Сохраняем работоспособность.
-    const superRender = async function() {
-        const container = document.getElementById('fileListContainer');
-        const breadcrumbDiv = document.getElementById('breadcrumbArea');
-        if (!container) return;
-        container.innerHTML = '<div class="loading">📂 Загрузка содержимого...</div>';
-        try {
-            const items = await fetchRepoContents(currentPath);
-            const folders = items.filter(item => item.type === 'dir');
-            const htmlFiles = items.filter(item => item.type === 'file' && item.name.toLowerCase().endsWith('.html') && item.name.toLowerCase() !== 'index.html');
-            if (folders.length === 0 && htmlFiles.length === 0) {
-                container.innerHTML = `<div class="empty-message">🌙 В этой папке нет HTML-файлов или подпапок.${currentPath ? '<br><br>⬅️ Используйте хлебные крошки для возврата.' : ''}</div>`;
-                renderBreadcrumb();
-                return;
-            }
-            let contentHtml = '';
-            for (const folder of folders) {
-                contentHtml += `
-                    <div class="folder-wrapper" style="margin-bottom: 8px;">
-                        <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; padding: 1rem 1.5rem; background:#fffef5; border-radius:28px;">
-                            <div style="display:flex; align-items:center; gap:12px;">
-                                <span style="font-size:2rem;">📁</span>
-                                <span style="font-weight:bold; font-size:1.2rem; color:#7a582b;">${escapeHtml(folder.name)}</span>
-                                <span style="font-size:0.7rem; background:#e7d7b4; padding:4px 10px; border-radius:30px;">папка</span>
-                            </div>
-                            <div style="display:flex; gap:12px;">
-                                <button class="btn-visit open-folder-btn" data-path="${folder.path}" style="background:#b37b2e; color:white;">📂 Перейти в папку</button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }
-            for (const file of htmlFiles) {
-                let icon = '📄';
-                if (file.name.includes('анализ') || file.name.includes('analysis')) icon = '🕯️';
-                if (file.name.includes('сестра') || file.name.includes('brother')) icon = '🌿';
-                if (file.name.includes('дуа') || file.name.includes('dua')) icon = '🤲';
-                const fileUrl = `${window.location.origin}${window.location.pathname}${currentPath ? currentPath + '/' : ''}${file.name}`.replace(/\/\//g, '/');
-                contentHtml += `<div class="file-card"><div class="file-info"><div class="file-icon">${icon}</div><div><div class="file-name">${escapeHtml(file.name)}</div></div></div><a href="${fileUrl}" class="btn-visit" target="_blank">📖 Открыть анализ</a></div>`;
-            }
-            container.innerHTML = contentHtml;
-            renderBreadcrumb();
-            document.querySelectorAll('.open-folder-btn').forEach(btn => {
-                btn.addEventListener('click', async (e) => {
-                    const targetPath = btn.getAttribute('data-path');
-                    if (targetPath) {
-                        currentPath = targetPath;
-                        await superRender();
-                    }
-                });
-            });
-        } catch (err) {
-            container.innerHTML = `<div class="empty-message">⚠️ Ошибка: ${err.message}</div>`;
-            renderBreadcrumb();
-        }
-    };
-    
-    // Заменяем
-    window.renderCurrentDirectory = superRender;
-    // Инициируем
-    window.addEventListener('DOMContentLoaded', async () => {
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('path')) currentPath = urlParams.get('path');
-        await window.renderCurrentDirectory();
     });
 </script>
 </body>
