@@ -99,7 +99,8 @@
             background:var(--card-bg-solid);border:1px solid var(--border);
             padding:10px 16px;border-radius:var(--radius-xl);cursor:pointer;
             font-weight:600;color:var(--text-sec);font-family:inherit;font-size:.85rem;
-            transition:all .2s;min-height:40px;outline:none;white-space:nowrap;
+            transition:all .2s;min-height:48px;outline:none;white-space:nowrap;
+            touch-action:manipulation;
         }
         select{
             padding-right:28px;
@@ -111,7 +112,7 @@
         }
         button:hover,.btn:hover{background:var(--accent);color:white;border-color:var(--accent);box-shadow:0 4px 12px var(--accent-glow)}
         button:active{transform:scale(.97)}
-        .btn-icon{width:40px;height:40px;display:flex;align-items:center;justify-content:center;padding:0;font-size:1.1rem}
+        .btn-icon{width:48px;height:48px;display:flex;align-items:center;justify-content:center;padding:0;font-size:1.1rem}
         .btn-active{background:var(--accent)!important;color:white!important;border-color:var(--accent)!important}
         .btn-success{background:var(--success)!important;color:white!important;border-color:var(--success)!important}
         .btn-success:hover{background:#2ecc71!important;border-color:#2ecc71!important}
@@ -181,15 +182,15 @@
         .item-actions{display:flex;align-items:center;gap:2px;position:relative}
         .menu-btn{
             background:none!important;border:none!important;font-size:1.2rem;cursor:pointer;
-            padding:6px;min-width:36px;min-height:36px;border-radius:50%;
+            padding:6px;min-width:48px;min-height:48px;border-radius:50%;
             display:flex;align-items:center;justify-content:center;color:var(--text-muted);transition:all .15s;
         }
         .menu-btn:hover{background:var(--accent-soft)!important;color:var(--accent);box-shadow:none!important}
         .dropdown-menu{
-            position:absolute;right:0;top:42px;
+            position:fixed;z-index:10000;
             background:var(--card-bg-solid);border:1px solid var(--border);
             border-radius:var(--radius-md);box-shadow:0 8px 32px var(--shadow-lg);
-            z-index:100;display:none;flex-direction:column;min-width:200px;overflow:hidden;
+            display:none;flex-direction:column;min-width:200px;overflow:hidden;
             animation:fadeScaleIn .15s ease-out;
         }
         .dropdown-menu button{
@@ -198,6 +199,23 @@
         }
         .dropdown-menu button:hover{background:var(--accent)!important;color:white!important;box-shadow:none!important}
         .dropdown-menu .divider{height:1px;background:var(--border);margin:4px 0}
+        /* Мобильная версия меню (bottom sheet) */
+        @media (max-width:640px){
+            .dropdown-menu{
+                position:fixed;top:auto;bottom:0;left:0;right:0;
+                width:100%;border-radius:var(--radius-lg) var(--radius-lg) 0 0;
+                padding:8px 0 20px;box-shadow:0 -4px 20px var(--shadow-lg);
+                animation:slideUpMobile .25s ease-out;
+            }
+            .dropdown-menu button{
+                padding:14px 20px;font-size:1rem;
+            }
+            .mobile-menu-backdrop{
+                position:fixed;inset:0;background:rgba(0,0,0,0.3);
+                z-index:9999;display:none;
+            }
+            .mobile-menu-backdrop.show{display:block}
+        }
         .empty-state{text-align:center;padding:3rem 1rem;color:var(--text-muted)}
         .empty-state .empty-icon{font-size:3rem;margin-bottom:.8rem;opacity:.5}
         .empty-state .empty-text{font-size:1rem;font-weight:600;margin-bottom:.3rem}
@@ -241,6 +259,7 @@
         @keyframes fadeCardIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
         @keyframes fadeScaleIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
         @keyframes slideUp{from{opacity:0;transform:translateX(-50%) translateY(16px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+        @keyframes slideUpMobile{from{transform:translateY(100%)}to{transform:translateY(0)}}
         @keyframes fadeIn{from{opacity:0}to{opacity:1}}
         @media(max-width:640px){
             .container{padding:12px 10px 32px}
@@ -344,6 +363,8 @@
         </div>
     </div>
 </div>
+<!-- Бэкдроп для мобильного меню -->
+<div class="mobile-menu-backdrop" id="mobileMenuBackdrop"></div>
 <script>
 const CONFIG={
     owner:'kingboob8880-pixel',
@@ -525,44 +546,91 @@ function openFileUrl(url){
     var w=window.open(url,'_blank');
     if(!w||w.closed||typeof w.closed==='undefined'){window.location.href=url}
 }
+// Управление мобильным меню
+function closeAllMenus(){
+    document.querySelectorAll('.dropdown-menu').forEach(m=>m.remove());
+    document.getElementById('mobileMenuBackdrop').classList.remove('show');
+}
+// Показ меню с учётом мобильной версии
 function showDropdown(btn,data){
-    document.querySelectorAll('.dropdown-menu').forEach(function(m){m.remove()});
-    var menu=document.createElement('div');menu.className='dropdown-menu';
-    var actions=[];
+    closeAllMenus();
+    const isMobile = window.innerWidth <= 640;
+    if(isMobile){
+        showMobileActions(data);
+        return;
+    }
+    // Десктопное меню
+    const menu = document.createElement('div');
+    menu.className = 'dropdown-menu';
+    buildMenuContent(menu, data);
+    document.body.appendChild(menu);
+    // Позиционирование относительно кнопки
+    const rect = btn.getBoundingClientRect();
+    const menuWidth = menu.offsetWidth || 200;
+    let left = rect.left;
+    if (left + menuWidth > window.innerWidth) left = Math.max(8, window.innerWidth - menuWidth - 8);
+    menu.style.left = left + 'px';
+    menu.style.top = (rect.bottom + 4) + 'px';
+    menu.style.display = 'flex';
+    // Закрытие по клику вне
+    setTimeout(()=>{
+        document.addEventListener('click', function handler(e){
+            if(!menu.contains(e.target) && e.target !== btn){
+                menu.remove();
+                document.removeEventListener('click', handler);
+            }
+        });
+    },10);
+}
+function buildMenuContent(menu, data){
+    const actions=[];
     if(data.type==='file'){
-        var url=getFileUrl(data.folder,data.name);
-        var fp=data.path;
-        actions.push({label:'\uD83D\uDCD6 Открыть',act:function(){openFileUrl(url);recordOpen(fp);setTimeout(function(){renderCurrentView()},300)}});
-        actions.push({label:'\uD83D\uDCCB Копировать ссылку',act:function(){copyToClipboard(url)}});
+        const url=getFileUrl(data.folder,data.name);
+        const fp=data.path;
+        actions.push({label:'\uD83D\uDCD6 Открыть',act:()=>{openFileUrl(url);recordOpen(fp);setTimeout(renderCurrentView,300)}});
+        actions.push({label:'\uD83D\uDCCB Копировать ссылку',act:()=>copyToClipboard(url)});
         actions.push({label:'divider'});
-        actions.push({label:favorites.indexOf(fp)!==-1?'\uD83D\uDC9B Убрать из избранного':'\u2B50 В избранное',act:function(){toggleFavorite(fp);renderCurrentView()}});
-        actions.push({label:readProgress[fp]?'\u2705 Уже прочитано':'\uD83D\uDCCC Отметить прочитанным',act:function(){markRead(fp);renderCurrentView()}});
+        actions.push({label:favorites.indexOf(fp)!==-1?'\uD83D\uDC9B Убрать из избранного':'\u2B50 В избранное',act:()=>{toggleFavorite(fp);renderCurrentView()}});
+        actions.push({label:readProgress[fp]?'\u2705 Уже прочитано':'\uD83D\uDCCC Отметить прочитанным',act:()=>{markRead(fp);renderCurrentView()}});
         if(isWriteEnabled){
             actions.push({label:'divider'});
-            actions.push({label:'\u270F\uFE0F Переименовать',act:function(){var n=prompt('Новое имя:',data.name);if(n&&n!==data.name)renameItem(fp,n).then(function(){showToast('\u2705 Переименовано');renderCurrentView()}).catch(function(e){showToast(e.message,true)})}});
-            actions.push({label:'\uD83D\uDDD1\uFE0F Удалить',act:function(){if(confirm('Удалить \u00ab'+data.name+'\u00bb?'))deleteItem(fp,false).then(function(){showToast('Файл удалён');renderCurrentView()}).catch(function(e){showToast(e.message,true)})}});
+            actions.push({label:'\u270F\uFE0F Переименовать',act:()=>{let n=prompt('Новое имя:',data.name);if(n&&n!==data.name)renameItem(fp,n).then(()=>{showToast('\u2705 Переименовано');renderCurrentView()}).catch(e=>showToast(e.message,true))}});
+            actions.push({label:'\uD83D\uDDD1\uFE0F Удалить',act:()=>{if(confirm('Удалить \u00ab'+data.name+'\u00bb?'))deleteItem(fp,false).then(()=>{showToast('Файл удалён');renderCurrentView()}).catch(e=>showToast(e.message,true))}});
         }
     }else{
-        actions.push({label:'\uD83D\uDCC2 Открыть папку',act:function(){currentPath=data.path;updateUrlState();renderCurrentView()}});
-        actions.push({label:'\uD83D\uDCCB Копировать ссылку',act:function(){copyToClipboard(getFolderUrl(data.path))}});
+        actions.push({label:'\uD83D\uDCC2 Открыть папку',act:()=>{currentPath=data.path;updateUrlState();renderCurrentView()}});
+        actions.push({label:'\uD83D\uDCCB Копировать ссылку',act:()=>copyToClipboard(getFolderUrl(data.path))});
         if(isWriteEnabled){
             actions.push({label:'divider'});
-            actions.push({label:'\uD83D\uDDD1\uFE0F Удалить папку',act:function(){if(confirm('Удалить \u00ab'+data.name+'\u00bb?'))deleteItem(data.path,true).then(function(){showToast('Папка удалена');renderCurrentView()}).catch(function(e){showToast(e.message,true)})}});
+            actions.push({label:'\uD83D\uDDD1\uFE0F Удалить папку',act:()=>{if(confirm('Удалить \u00ab'+data.name+'\u00bb?'))deleteItem(data.path,true).then(()=>{showToast('Папка удалена');renderCurrentView()}).catch(e=>showToast(e.message,true))}});
         }
     }
-    actions.forEach(function(a){
-        if(a.label==='divider'){var d=document.createElement('div');d.className='divider';menu.appendChild(d);return}
-        var b=document.createElement('button');b.textContent=a.label;
-        b.onclick=function(e){e.stopPropagation();a.act();menu.remove()};
+    actions.forEach(a=>{
+        if(a.label==='divider'){let d=document.createElement('div');d.className='divider';menu.appendChild(d);return}
+        let b=document.createElement('button');b.textContent=a.label;
+        b.onclick=e=>{e.stopPropagation();a.act();closeAllMenus();};
         menu.appendChild(b);
     });
-    btn.closest('.item-actions').appendChild(menu);
-    menu.style.display='flex';
-    requestAnimationFrame(function(){
-        document.addEventListener('click',function handler(e){
-            if(!menu.contains(e.target)&&e.target!==btn){menu.remove();document.removeEventListener('click',handler)}
-        });
-    });
+}
+function showMobileActions(data){
+    const backdrop = document.getElementById('mobileMenuBackdrop');
+    const menu = document.createElement('div');
+    menu.className = 'dropdown-menu';
+    buildMenuContent(menu, data);
+    document.body.appendChild(menu);
+    backdrop.classList.add('show');
+    const closeHandler = (e) => {
+        if(e.target === backdrop || !menu.contains(e.target)){
+            menu.remove();
+            backdrop.classList.remove('show');
+            backdrop.removeEventListener('click', closeHandler);
+        }
+    };
+    backdrop.addEventListener('click', closeHandler);
+    // Закрытие при прокрутке
+    window.addEventListener('scroll', ()=>closeAllMenus(), {once:true, passive:true});
+    window.addEventListener('resize', ()=>closeAllMenus(), {once:true});
+    menu.style.display = 'flex';
 }
 function initDragDrop(card){
     card.setAttribute('draggable','true');
@@ -765,7 +833,7 @@ async function init(){
         if(e.key==='/'&&!e.ctrlKey&&!e.metaKey&&document.activeElement.tagName!=='INPUT'&&document.activeElement.tagName!=='TEXTAREA'){
             e.preventDefault();searchInput.focus();
         }
-        if(e.key==='Escape'){searchInput.blur();document.querySelectorAll('.dropdown-menu').forEach(function(m){m.remove()});closeNewHtmlModal()}
+        if(e.key==='Escape'){searchInput.blur();closeAllMenus();closeNewHtmlModal()}
     });
     searchInput.addEventListener('focus',function(){searchHint.style.display='none'});
     searchInput.addEventListener('blur',function(){if(!searchInput.value)searchHint.style.display='block'});
