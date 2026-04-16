@@ -2,613 +2,1388 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, view-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Духовный центр Абу Мухаммада | Архив рукъи</title>
+    <meta name="description" content="Архив рукъя-анализов, дуа и исцеляющих страниц. Духовный центр Абу Мухаммада.">
+    <meta name="theme-color" content="#b37b2e">
+    <!-- Open Graph -->
+    <meta property="og:title" content="Духовный центр Абу Мухаммада">
+    <meta property="og:description" content="Архив рукъя-анализов, дуа и исцеляющих страниц">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ru_RU">
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600;700&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-start: #faf5eb;
+            --bg-end: #f0e6d2;
+            --card-bg: rgba(255, 252, 245, 0.92);
+            --card-bg-solid: #fffcf5;
+            --text: #3d2e1e;
+            --text-sec: #7a5f3a;
+            --text-muted: #a08b6d;
+            --accent: #b37b2e;
+            --accent-hover: #c9922e;
+            --accent-glow: rgba(179, 123, 46, 0.15);
+            --accent-soft: rgba(179, 123, 46, 0.08);
+            --border: #e8dcc4;
+            --border-light: #f0e8d6;
+            --shadow: rgba(60, 40, 10, 0.06);
+            --shadow-lg: rgba(60, 40, 10, 0.12);
+            --danger: #c0392b;
+            --success: #27ae60;
+            --pattern-opacity: 0.03;
+            --radius-sm: 12px;
+            --radius-md: 20px;
+            --radius-lg: 28px;
+            --radius-xl: 40px;
+        }
+        body.dark {
+            --bg-start: #141824;
+            --bg-end: #0f1320;
+            --card-bg: rgba(28, 33, 50, 0.92);
+            --card-bg-solid: #1c2132;
+            --text: #e8dfd0;
+            --text-sec: #c4aa7a;
+            --text-muted: #8a7a60;
+            --accent: #d4a53c;
+            --accent-hover: #e4b84c;
+            --accent-glow: rgba(212, 165, 60, 0.12);
+            --accent-soft: rgba(212, 165, 60, 0.06);
+            --border: #2a3048;
+            --border-light: #222840;
+            --shadow: rgba(0, 0, 0, 0.25);
+            --shadow-lg: rgba(0, 0, 0, 0.4);
+            --pattern-opacity: 0.02;
+        }
+        body {
+            background: var(--bg-start);
+            font-family: 'Noto Sans', 'Noto Naskh Arabic', 'Segoe UI', sans-serif;
+            min-height: 100vh;
+            color: var(--text);
+            transition: background 0.4s ease, color 0.4s ease;
+            overflow-x: hidden;
         }
 
-        body {
-            background: linear-gradient(135deg, #f8f0e0 0%, #f3e5c9 100%);
-            font-family: 'Segoe UI', 'Amiri', 'Georgia', serif;
-            padding: 20px;
-            min-height: 100vh;
+        /* Islamic geometric background pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                radial-gradient(circle at 25% 25%, var(--accent) 1px, transparent 1px),
+                radial-gradient(circle at 75% 75%, var(--accent) 1px, transparent 1px),
+                radial-gradient(circle at 50% 50%, var(--accent) 0.5px, transparent 0.5px);
+            background-size: 60px 60px, 60px 60px, 30px 30px;
+            opacity: var(--pattern-opacity);
+            pointer-events: none;
+            z-index: 0;
+        }
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 0%, var(--bg-start) 100%);
+            opacity: 0.4;
+            pointer-events: none;
+            z-index: 0;
         }
 
         .container {
-            max-width: 900px;
+            max-width: 960px;
             margin: 0 auto;
+            padding: 20px 16px 40px;
+            position: relative;
+            z-index: 1;
         }
 
+        /* ============ HEADER ============ */
         .header-card {
-            background: linear-gradient(145deg, #fff6e6, #fcefcb);
-            border-radius: 48px;
-            padding: 2rem;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem 2rem 2rem;
             text-align: center;
-            margin-bottom: 2rem;
-            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.2);
-            border: 1px solid #e8d5a3;
+            margin-bottom: 1.2rem;
+            box-shadow: 0 8px 32px var(--shadow);
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+            animation: fadeSlideDown 0.6s ease-out;
         }
-
+        .header-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        }
         .gold-title {
+            font-family: 'Noto Naskh Arabic', serif;
             font-size: 2rem;
-            color: #b37b2e;
-            font-weight: bold;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: -0.01em;
             margin-bottom: 0.5rem;
         }
-
         .subtitle {
-            color: #7a5a2e;
-            font-size: 1.1rem;
-            border-top: 2px solid #e2c48b;
-            display: inline-block;
-            padding-top: 0.5rem;
+            color: var(--text-sec);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        .quote-box {
+            margin-top: 1.2rem;
+            padding: 0.8rem 1.2rem;
+            background: var(--accent-soft);
+            border-radius: var(--radius-sm);
+            border-left: 3px solid var(--accent);
+            font-style: italic;
+            color: var(--text-sec);
+            font-size: 0.9rem;
+            line-height: 1.6;
         }
 
+        /* ============ PROGRESS BAR ============ */
+        .progress-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 1.2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-light);
+        }
+        .progress-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+            font-weight: 600;
+        }
+        .progress-track {
+            flex: 1;
+            height: 6px;
+            background: var(--border);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+            border-radius: 3px;
+            transition: width 0.6s ease;
+        }
+        .progress-count {
+            font-size: 0.8rem;
+            color: var(--accent);
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        /* ============ CONTROLS ============ */
+        .controls-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+            align-items: center;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            padding: 10px 14px;
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border);
+            animation: fadeSlideDown 0.6s ease-out 0.1s both;
+        }
+        .search-box {
+            flex: 2;
+            min-width: 140px;
+            position: relative;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 10px 14px 10px 38px;
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border);
+            background: var(--card-bg-solid);
+            color: var(--text);
+            font-size: 0.9rem;
+            font-family: inherit;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+        }
+        .search-box input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+        .search-box::before {
+            content: '🔍';
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.85rem;
+            pointer-events: none;
+        }
+        .search-hint {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            background: var(--border);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            pointer-events: none;
+        }
+
+        /* Custom selects & buttons */
+        select, button, .btn {
+            appearance: none;
+            -webkit-appearance: none;
+            background: var(--card-bg-solid);
+            border: 1px solid var(--border);
+            padding: 10px 16px;
+            border-radius: var(--radius-xl);
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text-sec);
+            font-family: inherit;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+            min-height: 40px;
+            outline: none;
+            white-space: nowrap;
+        }
+        select {
+            padding-right: 28px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%237a5f3a'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+        }
+        button:hover, .btn:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+        button:active { transform: scale(0.97); }
+        .btn-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            font-size: 1.1rem;
+        }
+        .btn-active {
+            background: var(--accent) !important;
+            color: white !important;
+            border-color: var(--accent) !important;
+        }
+
+        /* Token accordion */
+        .token-section {
+            animation: fadeSlideDown 0.6s ease-out 0.15s both;
+        }
+        .token-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            width: 100%;
+            font-family: inherit;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .token-toggle:hover { color: var(--accent); border-color: var(--accent); }
+        .token-toggle .chevron { transition: transform 0.3s; font-size: 0.7rem; margin-left: auto; }
+        .token-toggle.open .chevron { transform: rotate(180deg); }
+        .token-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease, padding 0.35s ease;
+        }
+        .token-body.open {
+            max-height: 200px;
+        }
+        .token-body-inner {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+            background: var(--card-bg);
+            padding: 10px 14px;
+            border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+            border: 1px solid var(--border);
+            border-top: none;
+            margin-top: -6px;
+        }
+        .token-input {
+            flex: 1;
+            min-width: 180px;
+            padding: 10px 14px;
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border);
+            background: var(--card-bg-solid);
+            color: var(--text);
+            font-family: inherit;
+            font-size: 0.85rem;
+            outline: none;
+        }
+        .token-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
+        #tokenStatus {
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* ============ BREADCRUMB ============ */
+        #breadcrumbArea {
+            margin-bottom: 12px;
+            animation: fadeSlideDown 0.6s ease-out 0.2s both;
+        }
+        .breadcrumb {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-xl);
+            padding: 6px 14px;
+            font-size: 0.85rem;
+            flex-wrap: wrap;
+            border: 1px solid var(--border);
+        }
+        .breadcrumb-item, .breadcrumb-root {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: var(--radius-sm);
+            transition: background 0.15s;
+            font-weight: 500;
+        }
+        .breadcrumb-item:hover, .breadcrumb-root:hover { background: var(--accent-soft); }
+        .breadcrumb-sep { color: var(--text-muted); font-size: 0.75rem; }
+
+        /* ============ STATS ============ */
+        .stats-bar {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            animation: fadeSlideDown 0.6s ease-out 0.25s both;
+        }
+        .stat-item { display: flex; align-items: center; gap: 4px; }
+
+        /* ============ FILE GRID ============ */
         .files-grid {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 8px;
             margin-bottom: 2rem;
         }
-
-        .folder-wrapper {
-            background: rgba(255, 252, 240, 0.95);
-            border-radius: 28px;
-            border: 1px solid #eedfa8;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 12px rgba(0,0,0,0.05);
-            margin-bottom: 8px;
+        .files-grid.grid-view {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 10px;
         }
 
-        .folder-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 1rem 1.5rem;
-            background: #fffef5;
-            border-radius: 28px;
+        .file-card, .folder-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 12px 14px;
+            transition: all 0.25s ease;
+            position: relative;
             cursor: pointer;
-            transition: background 0.2s;
+            opacity: 0;
+            animation: fadeCardIn 0.4s ease-out forwards;
+        }
+        .file-card:hover, .folder-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 4px 20px var(--shadow);
+            transform: translateY(-1px);
+        }
+        .file-card.draggable { cursor: grab; }
+        .folder-card.drag-over {
+            border: 2px dashed var(--accent);
+            background: var(--accent-glow);
         }
 
-        .folder-header:hover {
-            background: #fef6e5;
-        }
-
-        .folder-info {
+        .item-row {
             display: flex;
             align-items: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .folder-icon {
-            font-size: 2rem;
-        }
-
-        .folder-name {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #8b5a2b;
-            letter-spacing: 0.3px;
-        }
-
-        .folder-badge {
-            background: #e7d7b4;
-            border-radius: 40px;
-            padding: 4px 12px;
-            font-size: 0.75rem;
-            color: #5a3e1b;
-            margin-left: 12px;
-        }
-
-        .folder-toggle {
-            font-size: 1.3rem;
-            color: #c29a47;
-            transition: transform 0.2s;
-        }
-
-        .folder-children {
-            border-top: 1px solid #f0e3c6;
-            padding: 12px 0 12px 24px;
-            background: #fffef8;
-            display: none;
-        }
-
-        .folder-children.open {
-            display: block;
-        }
-
-        .file-card {
-            background: rgba(255, 252, 240, 0.95);
-            border: 1px solid #eedfa8;
-            border-radius: 20px;
-            padding: 1rem 1.5rem;
-            display: flex;
-            align-items: center;
+            gap: 10px;
             justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 12px;
-            transition: all 0.2s;
         }
-
-        .file-card:hover {
-            transform: translateX(4px);
-            background: #fffae9;
-        }
-
-        .file-info {
+        .item-main {
             display: flex;
             align-items: center;
-            gap: 15px;
-            flex-wrap: wrap;
+            gap: 10px;
+            flex: 1;
+            min-width: 0;
         }
-
-        .file-icon {
-            font-size: 1.8rem;
+        .item-icon {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            background: var(--accent-soft);
+            border-radius: var(--radius-sm);
+            flex-shrink: 0;
         }
-
-        .file-name {
-            font-size: 1rem;
+        .item-info { flex: 1; min-width: 0; }
+        .item-name {
             font-weight: 600;
-            color: #4a3727;
+            font-size: 0.9rem;
             word-break: break-word;
+            line-height: 1.3;
         }
-
-        .file-date {
-            font-size: 0.75rem;
-            color: #a08147;
-            margin-top: 4px;
-        }
-
-        .btn-visit {
-            background: #d4a53c;
-            color: #2c2418;
-            padding: 8px 20px;
-            border-radius: 60px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: 0.2s;
-            border: none;
-            cursor: pointer;
-            font-family: inherit;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            display: inline-block;
-            font-size: 0.85rem;
-        }
-
-        .btn-visit:hover {
-            background: #c4922a;
-            transform: scale(1.02);
-            color: white;
-        }
-
-        .empty-message {
-            background: #fff2df;
-            padding: 2rem;
-            border-radius: 32px;
-            text-align: center;
-            color: #8b6942;
-        }
-
-        .footer-note {
-            text-align: center;
-            margin-top: 2rem;
-            color: #b49463;
-            font-size: 0.85rem;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 2rem;
-            font-size: 1.2rem;
-            color: #c9a03d;
-        }
-
-        .breadcrumb {
-            background: #faf1e0;
-            border-radius: 60px;
-            padding: 8px 18px;
-            margin-bottom: 18px;
-            font-size: 0.85rem;
-            display: inline-flex;
+        .item-meta {
+            display: flex;
             align-items: center;
             gap: 8px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .breadcrumb:hover {
-            background: #ecdcaa;
-        }
-
-        .repo-root-link {
-            font-weight: bold;
-            color: #b37b2e;
-        }
-
-        .sub-item {
-            margin: 8px 0;
-            background: #fff9ef;
-            border-radius: 18px;
-            padding: 8px 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            margin-top: 3px;
             flex-wrap: wrap;
-            gap: 10px;
         }
-
-        .sub-folder {
-            background: #fef7e8;
-            margin-left: 16px;
+        .item-size {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            font-weight: 500;
         }
-
-        .nav-buttons {
+        .tags { display: flex; gap: 4px; flex-wrap: wrap; }
+        .tag {
+            background: var(--accent);
+            color: white;
+            padding: 1px 8px;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+        .status-badges {
             display: flex;
-            gap: 10px;
+            gap: 4px;
             align-items: center;
         }
+        .badge {
+            font-size: 0.75rem;
+            opacity: 0.7;
+        }
+        .badge.active { opacity: 1; }
 
-        .btn-small {
-            padding: 6px 14px;
-            font-size: 0.8rem;
+        .item-actions {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+        .menu-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 6px;
+            min-width: 36px;
+            min-height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            transition: all 0.15s;
+        }
+        .menu-btn:hover { background: var(--accent-soft); color: var(--accent); box-shadow: none; }
+
+        /* Dropdown */
+        .dropdown-menu {
+            position: absolute;
+            right: 8px;
+            top: 48px;
+            background: var(--card-bg-solid);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            box-shadow: 0 8px 32px var(--shadow-lg);
+            z-index: 100;
+            display: none;
+            flex-direction: column;
+            min-width: 180px;
+            overflow: hidden;
+            animation: fadeScaleIn 0.15s ease-out;
+        }
+        .dropdown-menu button {
+            background: none;
+            border: none;
+            text-align: left;
+            padding: 10px 16px;
+            border-radius: 0;
+            width: 100%;
+            font-size: 0.85rem;
+            color: var(--text);
+            font-weight: 500;
+            min-height: auto;
+        }
+        .dropdown-menu button:hover {
+            background: var(--accent);
+            color: white;
+            box-shadow: none;
+        }
+        .dropdown-menu .divider {
+            height: 1px;
+            background: var(--border);
+            margin: 4px 0;
+        }
+
+        /* ============ EMPTY STATE ============ */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--text-muted);
+        }
+        .empty-state .empty-icon {
+            font-size: 3rem;
+            margin-bottom: 0.8rem;
+            opacity: 0.5;
+        }
+        .empty-state .empty-text {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+        .empty-state .empty-hint {
+            font-size: 0.85rem;
+        }
+
+        /* ============ LOADING ============ */
+        .loading-skeleton {
+            background: linear-gradient(90deg, var(--border) 25%, var(--card-bg) 50%, var(--border) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: var(--radius-md);
+            height: 64px;
+            margin: 6px 0;
+        }
+        @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+        /* ============ TOAST ============ */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--card-bg-solid);
+            color: var(--text);
+            padding: 12px 24px;
+            border-radius: var(--radius-xl);
+            z-index: 1000;
+            box-shadow: 0 8px 32px var(--shadow-lg);
+            border: 1px solid var(--border);
+            font-weight: 600;
+            font-size: 0.9rem;
+            animation: slideUp 0.3s ease-out;
+        }
+        .toast.error { border-color: var(--danger); color: var(--danger); }
+
+        /* ============ FOOTER ============ */
+        .footer-note {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .footer-note a, .footer-note button {
+            background: none;
+            border: none;
+            color: var(--accent);
+            cursor: pointer;
+            font-weight: 600;
+            font-family: inherit;
+            font-size: 0.85rem;
+            min-height: auto;
+            padding: 0;
+        }
+        .footer-note a:hover, .footer-note button:hover {
+            color: var(--accent-hover);
+            box-shadow: none;
+            background: none;
+        }
+
+        /* ============ ANIMATIONS ============ */
+        @keyframes fadeSlideDown {
+            from { opacity: 0; transform: translateY(-12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeCardIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeScaleIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateX(-50%) translateY(16px); }
+            to { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 640px) {
+            .container { padding: 12px 10px 32px; }
+            .header-card { padding: 1.5rem 1.2rem 1.2rem; border-radius: var(--radius-md); }
+            .gold-title { font-size: 1.5rem; }
+            .controls-bar { flex-direction: column; align-items: stretch; border-radius: var(--radius-lg); padding: 10px; }
+            .search-box { min-width: 100%; }
+            .controls-bar-row { display: flex; gap: 6px; flex-wrap: wrap; }
+            .breadcrumb-item { font-size: 0.78rem; }
+            .files-grid.grid-view { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 <div class="container">
+    <!-- ======== HEADER ======== -->
     <div class="header-card">
         <div class="gold-title">📖 Духовный центр Абу Мухаммада</div>
         <div class="subtitle">Архив рукъя-анализов и исцеляющих страниц</div>
-        <p style="margin-top: 20px; color: #5e4a2a;">Да облегчит Аллах путь к исцелению каждого, кто откроет эти страницы</p>
+        <div id="quoteContainer" class="quote-box"></div>
+        <div class="progress-section" id="progressSection" style="display:none;">
+            <span class="progress-label">📚 Прогресс чтения</span>
+            <div class="progress-track"><div class="progress-fill" id="progressFill" style="width: 0%"></div></div>
+            <span class="progress-count" id="progressCount">0/0</span>
+        </div>
     </div>
 
-    <div id="breadcrumbArea" style="margin-bottom: 12px;"></div>
+    <!-- ======== CONTROLS ======== -->
+    <div class="controls-bar">
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Поиск по файлам...">
+            <span class="search-hint" id="searchHint">/</span>
+        </div>
+        <select id="sortSelect">
+            <option value="name">По имени</option>
+            <option value="date">По дате</option>
+            <option value="type">По типу</option>
+        </select>
+        <select id="filterTags">
+            <option value="all">Все теги</option>
+            <option value="анализ">🕯 Анализ</option>
+            <option value="дуа">🤲 Дуа</option>
+            <option value="рукъя">📿 Рукъя</option>
+        </select>
+        <button id="favFilterBtn" class="btn-icon" title="Только избранное">⭐</button>
+        <button id="viewToggle" class="btn-icon" title="Вид">📋</button>
+        <button id="themeToggle" class="btn-icon" title="Тема">🌙</button>
+        <button id="createFolderBtn" style="display:none;">➕ Папка</button>
+        <button id="uploadFileBtn" style="display:none;">📤 Загрузить</button>
+    </div>
 
+    <!-- ======== TOKEN (collapsible) ======== -->
+    <div class="token-section">
+        <button class="token-toggle" id="tokenToggle">
+            🔑 Доступ для записи (GitHub Token)
+            <span class="chevron">▼</span>
+        </button>
+        <div class="token-body" id="tokenBody">
+            <div class="token-body-inner">
+                <input type="password" id="githubToken" class="token-input" placeholder="ghp_xxxx...">
+                <button id="saveTokenBtn">💾 Сохранить</button>
+                <span id="tokenStatus"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======== CONTENT ======== -->
+    <div id="breadcrumbArea"></div>
+    <div id="statsArea" class="stats-bar"></div>
     <div id="fileListContainer" class="files-grid">
-        <div class="loading">🔍 Загрузка списка файлов и папок из GitHub...</div>
+        <div class="loading-skeleton"></div>
+        <div class="loading-skeleton"></div>
+        <div class="loading-skeleton"></div>
     </div>
-    
+
+    <!-- ======== FOOTER ======== -->
     <div class="footer-note">
-        🤲 Да примет Аллах наше благое намерение. Каждая страница — ключ к исцелению с дозволения Всевышнего.
+        🤲 Да примет Аллах &nbsp;·&nbsp;
+        <button id="feedbackBtn">📬 Обратная связь</button>
     </div>
 </div>
 
 <script>
-    // ---------- Конфигурация репозитория ----------
-    // Определяем owner и repo из текущего URL GitHub Pages
-    let owner = 'kingboob8880-pixel';
-    let repo = 'ruqya-healingg';
-    
-    // Получаем базовый путь для GitHub Pages
-    // Например: https://kingboob8880-pixel.github.io/ruqya-healingg/
-    function getBasePath() {
-        // Получаем путь от корня домена до index.html
-        const pathname = window.location.pathname;
-        // Если pathname заканчивается на /index.html или просто /, убираем index.html
-        let basePath = pathname.substring(0, pathname.lastIndexOf('/') + 1);
-        // Если basePath пустой или только /, используем /
-        if (!basePath) basePath = '/';
-        return basePath;
-    }
-    
-    let currentPath = '';  // текущая папка внутри репозитория (относительно корня)
-    const contentsCache = new Map();
-    
-    // Функция получения содержимого папки через GitHub API
-    async function fetchRepoContents(path = '') {
-        const cacheKey = path;
-        if (contentsCache.has(cacheKey)) {
-            return contentsCache.get(cacheKey);
+// ======================== CONFIGURATION ========================
+const CONFIG = {
+    owner: 'kingboob8880-pixel',
+    repo: 'ruqya-healingg',
+    branch: 'main',
+    cacheExpiry: 5 * 60 * 1000, // 5 min cache
+    debounceDelay: 350,
+    maxRetries: 2,
+    retryDelay: 1500,
+};
+
+// ======================== STATE ========================
+let currentPath = '';
+let allItems = [];
+let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+let readProgress = JSON.parse(localStorage.getItem('readProgress') || '{}');
+let viewMode = localStorage.getItem('viewMode') || 'list';
+let sortBy = localStorage.getItem('sortBy') || 'name';
+let filterTag = 'all';
+let searchQuery = '';
+let showFavoritesOnly = false;
+let githubToken = localStorage.getItem('github_token') || '';
+let isWriteEnabled = false;
+let totalHtmlFiles = 0;
+
+// ======================== QUOTES ========================
+const quotes = [
+    "«С именем Аллаха, Который исцеляет» — читайте рукъю с верой.",
+    "«Ниспосылаем в Коране то, что является исцелением» (17:82)",
+    "Пророк ﷺ сказал: «Нет болезни, для которой Аллах не создал лекарства».",
+    "Чтение Аль-Фатихи — величайшее исцеление.",
+    "Дуа — оружие верующего. Просите у Аллаха исцеления."
+];
+
+// ======================== UTILITIES ========================
+function escapeHtml(str) {
+    return str.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+
+function getBasePath() {
+    let p = window.location.pathname;
+    return p.substring(0, p.lastIndexOf('/') + 1) || '/';
+}
+
+function getFileUrl(folderPath, fileName) {
+    return (window.location.origin + getBasePath() + (folderPath ? folderPath + '/' + fileName : fileName)).replace(/\/\//g, '/');
+}
+
+function getFolderUrl(folderPath) {
+    return window.location.origin + getBasePath() + '?path=' + encodeURIComponent(folderPath);
+}
+
+function formatFileSize(bytes) {
+    if (!bytes || bytes === 0) return '';
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' КБ';
+    return (bytes / 1048576).toFixed(1) + ' МБ';
+}
+
+function debounce(fn, delay) {
+    let timer;
+    return (...args) => { clearTimeout(timer); timer = setTimeout(() => fn(...args), delay); };
+}
+
+function showToast(msg, isError = false) {
+    document.querySelectorAll('.toast').forEach(t => t.remove());
+    let t = document.createElement('div');
+    t.className = 'toast' + (isError ? ' error' : '');
+    t.textContent = msg;
+    document.body.appendChild(t);
+    setTimeout(() => t.remove(), 2800);
+}
+
+// ======================== API CACHE ========================
+const apiCache = {};
+
+function getCachedData(key) {
+    const entry = apiCache[key];
+    if (!entry) return null;
+    if (Date.now() - entry.timestamp > CONFIG.cacheExpiry) { delete apiCache[key]; return null; }
+    return entry.data;
+}
+
+function setCachedData(key, data) {
+    apiCache[key] = { data, timestamp: Date.now() };
+}
+
+function invalidateCache(pathPrefix) {
+    Object.keys(apiCache).forEach(k => { if (k.includes(pathPrefix) || pathPrefix === '') delete apiCache[k]; });
+}
+
+// ======================== API ========================
+async function fetchRepoContents(path = '', retries = 0) {
+    const cacheKey = `contents:${path}`;
+    const cached = getCachedData(cacheKey);
+    if (cached) return cached;
+
+    const url = `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${path}?ref=${CONFIG.branch}`;
+    try {
+        let headers = { 'Accept': 'application/vnd.github.v3+json' };
+        if (githubToken) headers['Authorization'] = `Bearer ${githubToken}`;
+        const resp = await fetch(url, { headers });
+
+        if (resp.status === 403 && retries < CONFIG.maxRetries) {
+            showToast('⏳ Rate limit, повтор...', true);
+            await new Promise(r => setTimeout(r, CONFIG.retryDelay));
+            return fetchRepoContents(path, retries + 1);
         }
-        
-        let apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
-        apiUrl += `?ref=main`;
-        
-        try {
-            const response = await fetch(apiUrl);
-            if (!response.ok) {
-                if (response.status === 404) {
-                    throw new Error('Папка не найдена');
-                }
-                throw new Error(`GitHub API ошибка: ${response.status}`);
-            }
-            const data = await response.json();
-            if (!Array.isArray(data)) {
-                return [];
-            }
-            contentsCache.set(cacheKey, data);
-            return data;
-        } catch (err) {
-            console.error('Ошибка загрузки:', err);
-            throw err;
+        if (!resp.ok) throw new Error(`Ошибка API: ${resp.status}`);
+
+        const data = await resp.json();
+        const result = Array.isArray(data) ? data : [];
+        setCachedData(cacheKey, result);
+        return result;
+    } catch (err) {
+        if (retries < CONFIG.maxRetries) {
+            await new Promise(r => setTimeout(r, CONFIG.retryDelay));
+            return fetchRepoContents(path, retries + 1);
         }
+        throw err;
     }
-    
-    // Формирование правильного URL для HTML-файла
-    function getFileUrl(filePath, fileName) {
-        // Базовый URL: текущий origin + basePath (путь до репозитория на GitHub Pages)
-        const baseUrl = window.location.origin + getBasePath();
-        
-        // Путь к файлу относительно корня репозитория
-        let relativeFilePath = '';
-        if (filePath) {
-            relativeFilePath = filePath + '/' + fileName;
-        } else {
-            relativeFilePath = fileName;
-        }
-        
-        // Убираем двойные слеши и формируем финальный URL
-        let fullUrl = baseUrl + relativeFilePath;
-        fullUrl = fullUrl.replace(/\/\//g, '/');
-        return fullUrl;
+}
+
+async function apiRequest(method, url, body = null) {
+    let headers = { 'Accept': 'application/vnd.github.v3+json' };
+    if (githubToken) headers['Authorization'] = `Bearer ${githubToken}`;
+    if (body) headers['Content-Type'] = 'application/json';
+    let opts = { method, headers };
+    if (body) opts.body = JSON.stringify(body);
+    let resp = await fetch(url, opts);
+    if (!resp.ok) throw new Error(`GitHub API: ${resp.status}`);
+    return resp.json();
+}
+
+async function verifyToken() {
+    try { await apiRequest('GET', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}`); return true; }
+    catch { return false; }
+}
+
+async function createFolder(folderName) {
+    if (!githubToken) throw new Error('Токен не задан');
+    let folderPath = currentPath ? `${currentPath}/${folderName}` : folderName;
+    await apiRequest('PUT', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${folderPath}/.gitkeep`,
+        { message: `Создана папка ${folderName}`, content: btoa(''), branch: CONFIG.branch });
+    invalidateCache(currentPath);
+}
+
+async function moveFile(srcPath, destFolderPath, fileName) {
+    if (!githubToken) throw new Error('Токен не задан');
+    let fileData = await apiRequest('GET', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${srcPath}`);
+    let newPath = destFolderPath ? `${destFolderPath}/${fileName}` : fileName;
+    await apiRequest('PUT', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${newPath}`,
+        { message: `Перемещение ${fileName}`, content: fileData.content, branch: CONFIG.branch });
+    await apiRequest('DELETE', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${srcPath}`,
+        { message: `Удаление после перемещения`, sha: fileData.sha, branch: CONFIG.branch });
+    invalidateCache('');
+}
+
+async function deleteItem(itemPath, isFolder) {
+    if (!githubToken) throw new Error('Токен не задан');
+    if (isFolder) {
+        let keepUrl = `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${itemPath}/.gitkeep`;
+        let keepData = await apiRequest('GET', keepUrl);
+        await apiRequest('DELETE', keepUrl, { message: 'Удаление папки', sha: keepData.sha, branch: CONFIG.branch });
+    } else {
+        let fileData = await apiRequest('GET', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${itemPath}`);
+        await apiRequest('DELETE', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${itemPath}`,
+            { message: 'Удаление файла', sha: fileData.sha, branch: CONFIG.branch });
     }
-    
-    // Хлебные крошки
-    function renderBreadcrumb() {
-        const breadDiv = document.getElementById('breadcrumbArea');
-        const parts = currentPath ? currentPath.split('/') : [];
-        let breadHtml = `<div class="breadcrumb" id="goRootBtn">🏠 <span class="repo-root-link">${repo}</span></div>`;
-        
-        let accumulatedPath = '';
-        for (let i = 0; i < parts.length; i++) {
-            const part = parts[i];
-            accumulatedPath += (i === 0 ? part : '/' + part);
-            breadHtml += `<span style="margin:0 4px; color:#b8893a;">/</span>`;
-            breadHtml += `<div class="breadcrumb" data-bread-path="${accumulatedPath}" style="display:inline-flex;">📁 ${escapeHtml(part)}</div>`;
-        }
-        breadDiv.innerHTML = breadHtml;
-        
-        const rootBtn = document.getElementById('goRootBtn');
-        if (rootBtn) {
-            rootBtn.addEventListener('click', async () => {
-                currentPath = '';
-                await renderCurrentDirectory();
-            });
-        }
-        
-        document.querySelectorAll('[data-bread-path]').forEach(el => {
-            el.addEventListener('click', async (e) => {
-                const targetPath = el.getAttribute('data-bread-path');
-                if (targetPath !== undefined) {
-                    currentPath = targetPath;
-                    await renderCurrentDirectory();
-                }
-            });
-        });
-    }
-    
-    function escapeHtml(str) {
-        if (!str) return '';
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
-        });
-    }
-    
-    function generateId(str) {
-        return str.replace(/[^a-zA-Z0-9]/g, '_');
-    }
-    
-    // Загрузка содержимого подпапки для аккордеона
-    async function loadSubfolderContent(folderPath, containerId) {
-        const container = document.getElementById(containerId);
-        if (!container) return;
-        
-        try {
-            const subItems = await fetchRepoContents(folderPath);
-            const subFolders = subItems.filter(i => i.type === 'dir');
-            const subHtmlFiles = subItems.filter(i => i.type === 'file' && i.name.toLowerCase().endsWith('.html') && i.name.toLowerCase() !== 'index.html');
-            
-            if (subFolders.length === 0 && subHtmlFiles.length === 0) {
-                container.innerHTML = '<div style="padding: 16px; color:#8b6942;">✨ В этой папке пока нет вложенных HTML или папок.</div>';
-                return;
-            }
-            
-            let html = '';
-            
-            // Отображаем подпапки
-            for (const subFolder of subFolders) {
-                html += `
-                    <div class="sub-item sub-folder">
-                        <div style="display:flex; align-items:center; gap:12px;">
-                            <span>📁</span>
-                            <strong style="color:#7a582b;">${escapeHtml(subFolder.name)}</strong>
-                            <span style="font-size:0.7rem; background:#e2d2b0; padding:2px 10px; border-radius:30px;">папка</span>
-                        </div>
-                        <div class="nav-buttons">
-                            <button class="btn-visit btn-small navigate-to-folder" data-path="${subFolder.path}">🔽 Перейти</button>
-                        </div>
-                    </div>
-                `;
-            }
-            
-            // Отображаем HTML-файлы
-            for (const subFile of subHtmlFiles) {
-                const fileUrl = getFileUrl(folderPath, subFile.name);
-                let icon = '📄';
-                if (subFile.name.includes('анализ') || subFile.name.includes('analysis')) icon = '🕯️';
-                if (subFile.name.includes('сестра') || subFile.name.includes('brother')) icon = '🌿';
-                if (subFile.name.includes('дуа') || subFile.name.includes('dua')) icon = '🤲';
-                
-                html += `
-                    <div class="sub-item">
-                        <div style="display:flex; align-items:center; gap:12px;">
-                            <span>${icon}</span>
-                            <span>${escapeHtml(subFile.name)}</span>
-                        </div>
-                        <a href="${fileUrl}" target="_blank" class="btn-visit btn-small">📖 Открыть</a>
-                    </div>
-                `;
-            }
-            
-            container.innerHTML = html;
-            
-            // Обработчики для кнопок перехода в подпапки
-            document.querySelectorAll('.navigate-to-folder').forEach(btn => {
-                btn.addEventListener('click', async (ev) => {
-                    const targetPath = btn.getAttribute('data-path');
-                    if (targetPath) {
-                        currentPath = targetPath;
-                        await renderCurrentDirectory();
-                    }
-                });
-            });
-            
-        } catch (err) {
-            container.innerHTML = `<div style="padding:12px; color:#b13e3e;">⚠️ Не удалось загрузить содержимое: ${err.message}</div>`;
-        }
-    }
-    
-    // Основная функция отображения
-    async function renderCurrentDirectory() {
-        const container = document.getElementById('fileListContainer');
-        if (!container) return;
-        
-        container.innerHTML = '<div class="loading">📁 Загрузка содержимого...</div>';
-        
-        try {
-            const items = await fetchRepoContents(currentPath);
-            const folders = items.filter(item => item.type === 'dir');
-            const htmlFiles = items.filter(item => 
-                item.type === 'file' && 
-                item.name.toLowerCase().endsWith('.html') && 
-                item.name.toLowerCase() !== 'index.html'
-            );
-            
-            if (folders.length === 0 && htmlFiles.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-message">
-                        🌙 В этой папке нет HTML-файлов или подпапок.
-                        ${currentPath ? '<br><br>⬅️ Используйте хлебные крошки для возврата.' : ''}
-                    </div>
-                `;
-                renderBreadcrumb();
-                return;
-            }
-            
-            let contentHtml = '';
-            
-            // Отображаем папки с аккордеоном для предпросмотра
-            for (const folder of folders) {
-                const childContainerId = `subfolder-${generateId(folder.path)}`;
-                contentHtml += `
-                    <div class="folder-wrapper">
-                        <div class="folder-header" data-folder-path="${folder.path}">
-                            <div class="folder-info">
-                                <div class="folder-icon">📁</div>
-                                <div>
-                                    <div class="folder-name">${escapeHtml(folder.name)}</div>
-                                    <div class="file-date">📂 папка</div>
-                                </div>
-                                <span class="folder-badge">нажмите для просмотра</span>
-                            </div>
-                            <div class="folder-toggle">▼</div>
-                        </div>
-                        <div class="folder-children" id="${childContainerId}">
-                            <div class="loading" style="padding: 12px;">⏳ загрузка содержимого...</div>
-                        </div>
-                    </div>
-                `;
-            }
-            
-            // Отображаем HTML-файлы
-            for (const file of htmlFiles) {
-                let icon = '📄';
-                if (file.name.includes('анализ') || file.name.includes('analysis')) icon = '🕯️';
-                if (file.name.includes('сестра') || file.name.includes('brother')) icon = '🌿';
-                if (file.name.includes('дуа') || file.name.includes('dua')) icon = '🤲';
-                
-                const fileUrl = getFileUrl(currentPath, file.name);
-                
-                let dateStr = '';
-                if (file.commit?.committer?.date) {
-                    const date = new Date(file.commit.committer.date);
-                    dateStr = date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
-                }
-                
-                contentHtml += `
-                    <div class="file-card">
-                        <div class="file-info">
-                            <div class="file-icon">${icon}</div>
-                            <div>
-                                <div class="file-name">${escapeHtml(file.name)}</div>
-                                ${dateStr ? `<div class="file-date">📅 ${dateStr}</div>` : ''}
-                            </div>
-                        </div>
-                        <a href="${fileUrl}" class="btn-visit" target="_blank">📖 Открыть анализ</a>
-                    </div>
-                `;
-            }
-            
-            container.innerHTML = contentHtml;
-            renderBreadcrumb();
-            
-            // Добавляем обработчики для папок (аккордеон)
-            for (const folder of folders) {
-                const folderHeader = document.querySelector(`.folder-header[data-folder-path="${folder.path.replace(/"/g, '\\"')}"]`);
-                if (folderHeader) {
-                    const childrenContainer = folderHeader.closest('.folder-wrapper').querySelector('.folder-children');
-                    const toggleIcon = folderHeader.querySelector('.folder-toggle');
-                    const childContainerId = childrenContainer.id;
-                    let loaded = false;
-                    
-                    folderHeader.addEventListener('click', async (e) => {
-                        e.stopPropagation();
-                        const isOpen = childrenContainer.classList.contains('open');
-                        
-                        if (!isOpen) {
-                            childrenContainer.classList.add('open');
-                            if (toggleIcon) toggleIcon.style.transform = 'rotate(180deg)';
-                            
-                            if (!loaded) {
-                                await loadSubfolderContent(folder.path, childContainerId);
-                                loaded = true;
-                            }
-                        } else {
-                            childrenContainer.classList.remove('open');
-                            if (toggleIcon) toggleIcon.style.transform = 'rotate(0deg)';
-                        }
-                    });
-                }
-            }
-            
-        } catch (err) {
-            console.error(err);
-            container.innerHTML = `
-                <div class="empty-message">
-                    ⚠️ Ошибка загрузки: ${err.message || 'не удалось связаться с GitHub API'}. 
-                    <br><br>📌 Убедитесь, что репозиторий публичный.<br>
-                    📌 Владелец: ${owner}<br>
-                    📌 Репозиторий: ${repo}<br>
-                    📌 Текущий путь: ${currentPath || 'корень'}
-                </div>
-            `;
-            renderBreadcrumb();
-        }
-    }
-    
-    // Инициализация
-    window.addEventListener('DOMContentLoaded', async () => {
-        // Пробуем определить параметр ?path= в URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const startPath = urlParams.get('path');
-        if (startPath && startPath.trim() !== '') {
-            currentPath = startPath;
-        } else {
-            currentPath = '';
-        }
-        
-        await renderCurrentDirectory();
+    invalidateCache(currentPath);
+}
+
+async function renameItem(itemPath, newName) {
+    if (!githubToken) throw new Error('Токен не задан');
+    let parent = itemPath.substring(0, itemPath.lastIndexOf('/'));
+    let newPath = parent ? `${parent}/${newName}` : newName;
+    let fileData = await apiRequest('GET', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${itemPath}`);
+    await apiRequest('PUT', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${newPath}`,
+        { message: `Переименование в ${newName}`, content: fileData.content, branch: CONFIG.branch });
+    await apiRequest('DELETE', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${itemPath}`,
+        { message: 'Удаление старого', sha: fileData.sha, branch: CONFIG.branch });
+    invalidateCache(currentPath);
+}
+
+async function uploadFile(file) {
+    if (!githubToken) throw new Error('Токен не задан');
+    return new Promise((resolve, reject) => {
+        let reader = new FileReader();
+        reader.onload = async (e) => {
+            try {
+                let raw = e.target.result;
+                let content = raw.includes(',') ? raw.split(',')[1] : btoa(raw);
+                let filePath = currentPath ? `${currentPath}/${file.name}` : file.name;
+                await apiRequest('PUT', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${filePath}`,
+                    { message: `Загрузка ${file.name}`, content, branch: CONFIG.branch });
+                invalidateCache(currentPath);
+                resolve();
+            } catch (err) { reject(err); }
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
     });
+}
+
+// ======================== HELPERS ========================
+function extractTags(filename) {
+    let tags = [];
+    let l = filename.toLowerCase();
+    if (l.includes('анализ') || l.includes('analysis')) tags.push('анализ');
+    if (l.includes('дуа') || l.includes('dua')) tags.push('дуа');
+    if (l.includes('рукъя') || l.includes('ruqya') || l.includes('рукья')) tags.push('рукъя');
+    if (tags.length === 0) tags.push('рукъя');
+    return tags;
+}
+
+function getTagIcon(tags) {
+    if (tags.includes('анализ')) return '🕯️';
+    if (tags.includes('дуа')) return '🤲';
+    return '📄';
+}
+
+function updateProgress(totalFiles) {
+    const section = document.getElementById('progressSection');
+    const fill = document.getElementById('progressFill');
+    const count = document.getElementById('progressCount');
+    if (totalFiles === 0) { section.style.display = 'none'; return; }
+    section.style.display = 'flex';
+    const readCount = Object.keys(readProgress).length;
+    const pct = Math.min(100, Math.round((readCount / totalFiles) * 100));
+    fill.style.width = pct + '%';
+    count.textContent = `${readCount}/${totalFiles}`;
+}
+
+function updateStats(htmlFiles) {
+    const favCount = favorites.length;
+    const readCount = Object.keys(readProgress).length;
+    const area = document.getElementById('statsArea');
+    area.innerHTML = `
+        <span class="stat-item">📚 Файлов: ${htmlFiles.length}</span>
+        <span class="stat-item">⭐ Избранное: ${favCount}</span>
+        <span class="stat-item">✅ Прочитано: ${readCount}</span>
+    `;
+}
+
+function toggleFavorite(filePath) {
+    if (favorites.includes(filePath)) favorites = favorites.filter(f => f !== filePath);
+    else favorites.push(filePath);
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+}
+
+function markRead(filePath) {
+    readProgress[filePath] = true;
+    localStorage.setItem('readProgress', JSON.stringify(readProgress));
+}
+
+function recordOpen(filePath) {
+    if (localStorage.getItem('autoMarkRead') !== 'false') {
+        readProgress[filePath] = true;
+        localStorage.setItem('readProgress', JSON.stringify(readProgress));
+    }
+}
+
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => showToast('✅ Ссылка скопирована'));
+}
+
+function maskToken(token) {
+    if (!token || token.length < 8) return '****';
+    return '****' + token.slice(-4);
+}
+
+// ======================== DROPDOWN MENU ========================
+function showDropdown(btn, data) {
+    document.querySelectorAll('.dropdown-menu').forEach(m => m.remove());
+    let menu = document.createElement('div');
+    menu.className = 'dropdown-menu';
+    let actions = [];
+
+    if (data.type === 'file') {
+        let url = getFileUrl(data.folder, data.name);
+        let fp = data.path;
+        actions.push({ label: '📖 Открыть', act: () => { window.open(url, '_blank'); recordOpen(fp); renderCurrentView(); } });
+        actions.push({ label: '📋 Копировать ссылку', act: () => copyToClipboard(url) });
+        actions.push({ label: '📄 Сохранить как PDF', act: () => { window.open(url, '_blank'); setTimeout(() => showToast('Ctrl+P → Сохранить как PDF'), 600); } });
+        actions.push({ label: 'divider' });
+        actions.push({ label: favorites.includes(fp) ? '💛 Убрать из избранного' : '⭐ В избранное', act: () => { toggleFavorite(fp); renderCurrentView(); } });
+        actions.push({ label: readProgress[fp] ? '✅ Уже прочитано' : '📌 Отметить прочитанным', act: () => { markRead(fp); renderCurrentView(); } });
+        if (isWriteEnabled) {
+            actions.push({ label: 'divider' });
+            actions.push({ label: '✏️ Переименовать', act: () => { let n = prompt('Новое имя:', data.name); if (n && n !== data.name) renameItem(fp, n).then(() => renderCurrentView()).catch(e => showToast(e.message, true)); } });
+            actions.push({ label: '🗑️ Удалить', act: () => { if (confirm(`Удалить «${data.name}»?`)) deleteItem(fp, false).then(() => { showToast('Файл удалён'); renderCurrentView(); }).catch(e => showToast(e.message, true)); } });
+        }
+    } else {
+        actions.push({ label: '📂 Открыть папку', act: () => { currentPath = data.path; renderCurrentView(); } });
+        actions.push({ label: '📋 Копировать ссылку', act: () => copyToClipboard(getFolderUrl(data.path)) });
+        if (isWriteEnabled) {
+            actions.push({ label: 'divider' });
+            actions.push({ label: '🗑️ Удалить папку', act: () => { if (confirm(`Удалить «${data.name}»?`)) deleteItem(data.path, true).then(() => { showToast('Папка удалена'); renderCurrentView(); }).catch(e => showToast(e.message, true)); } });
+        }
+    }
+
+    actions.forEach(a => {
+        if (a.label === 'divider') { let d = document.createElement('div'); d.className = 'divider'; menu.appendChild(d); return; }
+        let b = document.createElement('button');
+        b.textContent = a.label;
+        b.onclick = (e) => { e.stopPropagation(); a.act(); menu.remove(); };
+        menu.appendChild(b);
+    });
+
+    btn.closest('.item-actions, [style]').appendChild(menu);
+    menu.style.display = 'flex';
+    requestAnimationFrame(() => {
+        document.addEventListener('click', function handler(e) {
+            if (!menu.contains(e.target) && e.target !== btn) { menu.remove(); document.removeEventListener('click', handler); }
+        });
+    });
+}
+
+// ======================== DRAG & DROP ========================
+function initDragDrop(card) {
+    card.setAttribute('draggable', 'true');
+    card.addEventListener('dragstart', (e) => {
+        e.dataTransfer.setData('text/plain', JSON.stringify({ filePath: card.dataset.filePath, fileName: card.dataset.fileName }));
+        e.dataTransfer.effectAllowed = 'move';
+        card.style.opacity = '0.5';
+    });
+    card.addEventListener('dragend', () => { card.style.opacity = '1'; });
+}
+
+function initFolderDrop() {
+    document.querySelectorAll('.folder-card').forEach(f => {
+        f.addEventListener('dragover', (e) => { e.preventDefault(); e.dataTransfer.dropEffect = 'move'; f.classList.add('drag-over'); });
+        f.addEventListener('dragleave', () => f.classList.remove('drag-over'));
+        f.addEventListener('drop', async (e) => {
+            e.preventDefault(); f.classList.remove('drag-over');
+            let data = JSON.parse(e.dataTransfer.getData('text/plain'));
+            if (data.filePath === f.dataset.folderPath + '/' + data.fileName) return;
+            try { await moveFile(data.filePath, f.dataset.folderPath, data.fileName); renderCurrentView(); showToast('✅ Перемещено'); }
+            catch (err) { showToast(err.message, true); }
+        });
+    });
+}
+
+// ======================== RENDER ========================
+async function renderCurrentView() {
+    const container = document.getElementById('fileListContainer');
+    container.innerHTML = '<div class="loading-skeleton"></div><div class="loading-skeleton"></div><div class="loading-skeleton"></div>';
+
+    try {
+        let items = await fetchRepoContents(currentPath);
+        allItems = items;
+
+        let folders = items.filter(i => i.type === 'dir');
+        let htmlFiles = items.filter(i => i.type === 'file' && i.name.endsWith('.html') && i.name !== 'index.html');
+
+        // Filter
+        let filteredFiles = htmlFiles.filter(f => {
+            let tags = extractTags(f.name);
+            let tagOk = filterTag === 'all' || tags.includes(filterTag);
+            let searchOk = searchQuery === '' || f.name.toLowerCase().includes(searchQuery.toLowerCase()) || tags.some(t => t.includes(searchQuery.toLowerCase()));
+            let favOk = !showFavoritesOnly || favorites.includes(currentPath ? currentPath + '/' + f.name : f.name);
+            return tagOk && searchOk && favOk;
+        });
+
+        // Sort
+        if (sortBy === 'name') filteredFiles.sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+        if (sortBy === 'date') filteredFiles.sort((a, b) => (b.size || 0) - (a.size || 0));
+        if (sortBy === 'type') filteredFiles.sort((a, b) => extractTags(a.name)[0].localeCompare(extractTags(b.name)[0]));
+
+        totalHtmlFiles = htmlFiles.length;
+        updateStats(filteredFiles);
+        updateProgress(totalHtmlFiles);
+        renderBreadcrumb();
+
+        let contentHtml = '';
+
+        // Folders
+        folders.forEach((f, i) => {
+            contentHtml += `
+                <div class="folder-card" data-folder-path="${f.path}" data-folder-name="${escapeHtml(f.name)}" style="animation-delay: ${i * 40}ms">
+                    <div class="item-row">
+                        <div class="item-main">
+                            <div class="item-icon">📁</div>
+                            <div class="item-info">
+                                <div class="item-name">${escapeHtml(f.name)}</div>
+                            </div>
+                        </div>
+                        <div class="item-actions" style="position:relative;">
+                            <button class="menu-btn" data-type="folder" data-path="${f.path}" data-name="${escapeHtml(f.name)}">⋮</button>
+                        </div>
+                    </div>
+                </div>`;
+        });
+
+        // Files
+        filteredFiles.forEach((f, i) => {
+            let tags = extractTags(f.name);
+            let icon = getTagIcon(tags);
+            let fp = currentPath ? currentPath + '/' + f.name : f.name;
+            let isFav = favorites.includes(fp);
+            let isRead = readProgress[fp];
+            let size = formatFileSize(f.size);
+            let delay = (folders.length + i) * 40;
+
+            contentHtml += `
+                <div class="file-card ${isWriteEnabled ? 'draggable' : ''}" data-file-path="${fp}" data-file-name="${escapeHtml(f.name)}" style="animation-delay: ${delay}ms">
+                    <div class="item-row">
+                        <div class="item-main">
+                            <div class="item-icon">${icon}</div>
+                            <div class="item-info">
+                                <div class="item-name">${escapeHtml(f.name)}</div>
+                                <div class="item-meta">
+                                    <div class="tags">${tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+                                    ${size ? `<span class="item-size">${size}</span>` : ''}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-actions" style="position:relative;">
+                            <div class="status-badges">
+                                ${isFav ? '<span class="badge active" title="Избранное">⭐</span>' : ''}
+                                ${isRead ? '<span class="badge active" title="Прочитано">✅</span>' : ''}
+                            </div>
+                            <button class="menu-btn" data-type="file" data-path="${fp}" data-name="${escapeHtml(f.name)}" data-folder="${currentPath}">⋮</button>
+                        </div>
+                    </div>
+                </div>`;
+        });
+
+        if (filteredFiles.length === 0 && folders.length === 0) {
+            contentHtml = `
+                <div class="empty-state">
+                    <div class="empty-icon">🌙</div>
+                    <div class="empty-text">${showFavoritesOnly ? 'Нет избранных файлов' : 'Нет файлов'}</div>
+                    <div class="empty-hint">${showFavoritesOnly ? 'Добавьте файлы в избранное через меню ⋮' : searchQuery ? 'Попробуйте изменить поисковый запрос' : 'Эта папка пуста'}</div>
+                </div>`;
+        }
+
+        container.innerHTML = contentHtml;
+        container.className = `files-grid ${viewMode === 'grid' ? 'grid-view' : ''}`;
+
+        // Event handlers
+        document.querySelectorAll('.menu-btn').forEach(btn => {
+            btn.onclick = (e) => { e.stopPropagation(); showDropdown(e.currentTarget, btn.dataset); };
+        });
+
+        // Click on file card -> open file directly
+        document.querySelectorAll('.file-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                if (e.target.closest('.menu-btn') || e.target.closest('.item-actions')) return;
+                let fp = card.dataset.filePath;
+                let name = card.dataset.fileName;
+                let folder = currentPath;
+                let url = getFileUrl(folder, name);
+                window.open(url, '_blank');
+                recordOpen(fp);
+                renderCurrentView();
+            });
+        });
+
+        document.querySelectorAll('.folder-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                if (e.target.closest('.menu-btn')) return;
+                currentPath = card.dataset.folderPath;
+                renderCurrentView();
+            });
+        });
+
+        if (isWriteEnabled) {
+            document.querySelectorAll('.file-card.draggable').forEach(card => initDragDrop(card));
+            initFolderDrop();
+        }
+
+    } catch (err) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <div class="empty-icon">⚠️</div>
+                <div class="empty-text">Ошибка загрузки</div>
+                <div class="empty-hint">${escapeHtml(err.message)}</div>
+            </div>`;
+    }
+}
+
+function renderBreadcrumb() {
+    let parts = currentPath.split('/').filter(p => p);
+    let area = document.getElementById('breadcrumbArea');
+    if (parts.length === 0) { area.innerHTML = ''; return; }
+
+    let html = `<div class="breadcrumb"><span class="breadcrumb-root" id="rootCrumb">🏠 ${CONFIG.repo}</span>`;
+    let acc = '';
+    parts.forEach((part, i) => {
+        acc += (acc ? '/' : '') + part;
+        let display = part;
+        if (i === parts.length - 1 && display.length > 18 && window.innerWidth < 640) display = display.slice(0, 12) + '…';
+        html += `<span class="breadcrumb-sep">/</span><span class="breadcrumb-item" data-path="${acc}">📁 ${escapeHtml(display)}</span>`;
+    });
+    html += '</div>';
+    area.innerHTML = html;
+
+    document.getElementById('rootCrumb')?.addEventListener('click', () => { currentPath = ''; renderCurrentView(); });
+    document.querySelectorAll('.breadcrumb-item').forEach(el => {
+        el.addEventListener('click', () => { currentPath = el.dataset.path; renderCurrentView(); });
+    });
+}
+
+// ======================== TOKEN ========================
+async function tryEnableWrite() {
+    let statusSpan = document.getElementById('tokenStatus');
+    let createBtn = document.getElementById('createFolderBtn');
+    let uploadBtn = document.getElementById('uploadFileBtn');
+
+    if (!githubToken) {
+        statusSpan.textContent = '';
+        createBtn.style.display = 'none';
+        uploadBtn.style.display = 'none';
+        isWriteEnabled = false;
+        return;
+    }
+
+    statusSpan.textContent = '⏳ Проверка...';
+    statusSpan.style.color = 'var(--text-muted)';
+    let ok = await verifyToken();
+
+    if (ok) {
+        statusSpan.innerHTML = `✅ Токен: ${maskToken(githubToken)}`;
+        statusSpan.style.color = 'var(--success)';
+        createBtn.style.display = 'inline-flex';
+        uploadBtn.style.display = 'inline-flex';
+        isWriteEnabled = true;
+    } else {
+        statusSpan.textContent = '❌ Токен недействителен';
+        statusSpan.style.color = 'var(--danger)';
+        createBtn.style.display = 'none';
+        uploadBtn.style.display = 'none';
+        isWriteEnabled = false;
+    }
+    renderCurrentView();
+}
+
+// ======================== INIT ========================
+async function init() {
+    // Theme
+    if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
+
+    // Quote
+    document.getElementById('quoteContainer').textContent = quotes[Math.floor(Math.random() * quotes.length)];
+
+    // Theme toggle
+    document.getElementById('themeToggle').onclick = () => {
+        document.body.classList.toggle('dark');
+        localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+        document.getElementById('themeToggle').textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+    };
+    if (document.body.classList.contains('dark')) document.getElementById('themeToggle').textContent = '☀️';
+
+    // View toggle
+    document.getElementById('viewToggle').onclick = () => {
+        viewMode = viewMode === 'list' ? 'grid' : 'list';
+        localStorage.setItem('viewMode', viewMode);
+        document.getElementById('viewToggle').textContent = viewMode === 'list' ? '📋' : '⊞';
+        renderCurrentView();
+    };
+    document.getElementById('viewToggle').textContent = viewMode === 'list' ? '📋' : '⊞';
+
+    // Sort
+    document.getElementById('sortSelect').value = sortBy;
+    document.getElementById('sortSelect').onchange = (e) => { sortBy = e.target.value; localStorage.setItem('sortBy', sortBy); renderCurrentView(); };
+
+    // Filter tags
+    document.getElementById('filterTags').onchange = (e) => { filterTag = e.target.value; renderCurrentView(); };
+
+    // Favorites filter
+    document.getElementById('favFilterBtn').onclick = () => {
+        showFavoritesOnly = !showFavoritesOnly;
+        document.getElementById('favFilterBtn').classList.toggle('btn-active', showFavoritesOnly);
+        renderCurrentView();
+    };
+
+    // Search with debounce
+    const debouncedSearch = debounce(() => renderCurrentView(), CONFIG.debounceDelay);
+    document.getElementById('searchInput').oninput = (e) => {
+        searchQuery = e.target.value;
+        debouncedSearch();
+    };
+
+    // Keyboard shortcut
+    window.addEventListener('keydown', (e) => {
+        if (e.key === '/' && !e.ctrlKey && !e.metaKey && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+            e.preventDefault();
+            document.getElementById('searchInput').focus();
+        }
+        if (e.key === 'Escape') {
+            document.getElementById('searchInput').blur();
+            document.querySelectorAll('.dropdown-menu').forEach(m => m.remove());
+        }
+    });
+    document.getElementById('searchInput').addEventListener('focus', () => { document.getElementById('searchHint').style.display = 'none'; });
+    document.getElementById('searchInput').addEventListener('blur', () => {
+        if (!document.getElementById('searchInput').value) document.getElementById('searchHint').style.display = 'block';
+    });
+
+    // Token accordion
+    document.getElementById('tokenToggle').onclick = () => {
+        let toggle = document.getElementById('tokenToggle');
+        let body = document.getElementById('tokenBody');
+        toggle.classList.toggle('open');
+        body.classList.toggle('open');
+    };
+
+    // Token save
+    if (githubToken) document.getElementById('githubToken').value = githubToken;
+    document.getElementById('saveTokenBtn').onclick = async () => {
+        githubToken = document.getElementById('githubToken').value.trim();
+        localStorage.setItem('github_token', githubToken);
+        await tryEnableWrite();
+    };
+
+    // Create folder
+    document.getElementById('createFolderBtn').onclick = async () => {
+        let name = prompt('Имя папки (латиница, цифры, -, _):');
+        if (name && /^[a-zA-Z0-9_-]+$/.test(name)) {
+            try { await createFolder(name); renderCurrentView(); showToast(`📁 Папка «${name}» создана`); }
+            catch (e) { showToast(e.message, true); }
+        } else if (name) { showToast('Некорректное имя папки', true); }
+    };
+
+    // Upload
+    document.getElementById('uploadFileBtn').onclick = () => {
+        if (!isWriteEnabled) { showToast('Требуется токен', true); return; }
+        let input = document.createElement('input');
+        input.type = 'file';
+        input.accept = '.html';
+        input.onchange = async (e) => {
+            if (e.target.files[0]) {
+                try { await uploadFile(e.target.files[0]); renderCurrentView(); showToast('📤 Файл загружен'); }
+                catch (err) { showToast(err.message, true); }
+            }
+        };
+        input.click();
+    };
+
+    // Feedback
+    document.getElementById('feedbackBtn').onclick = () => window.open('mailto:admin@example.com?subject=Архив рукъи — обратная связь');
+
+    // URL path param
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('path')) currentPath = urlParams.get('path');
+
+    // Token verify
+    if (githubToken) await tryEnableWrite();
+
+    // Initial render
+    await renderCurrentView();
+}
+
+window.addEventListener('DOMContentLoaded', init);
 </script>
 </body>
 </html>
