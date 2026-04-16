@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Анализ рукья шарийя | Умм Муна</title>
+    <!-- Подключение html2pdf.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #fef7e8;
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            color: #2c2418;
+            line-height: 1.5;
+            padding-bottom: 2rem;
+        }
+
+        /* Контейнер контента с изменяемым размером шрифта */
+        #contentContainer {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 1rem 1rem 2rem;
+            transition: all 0.2s ease;
+        }
+
+        /* Стилизация элементов */
+        .card {
+            background: #ffffffdd;
+            backdrop-filter: blur(2px);
+            background: #fffef7;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.02);
+            padding: 1.2rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #f0e5d2;
+        }
+
+        h1, h2, h3 {
+            color: #5a3e1b;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.2px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            border-left: 5px solid #c9a53b;
+            padding-left: 15px;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            border-bottom: 2px solid #c9a53b;
+            display: inline-block;
+            padding-bottom: 5px;
+            margin-bottom: 1rem;
+        }
+
+        .arabic-text {
+            font-family: 'Amiri', 'Traditional Arabic', serif;
+            font-size: 1.3em;
+            direction: rtl;
+            text-align: right;
+            line-height: 1.8;
+            background: #f9f3e4;
+            padding: 0.8rem;
+            border-radius: 16px;
+            margin: 1rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        th, td {
+            border: 1px solid #e0d5b8;
+            padding: 10px 12px;
+            text-align: left;
+            vertical-align: top;
+            background-color: #ffffff;
+        }
+
+        th {
+            background-color: #c9a53b;
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Панель управления sticky */
+        .sticky-panel {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: #fef7e8;
+            padding: 12px 16px;
+            border-bottom: 2px solid #c9a53b;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            backdrop-filter: blur(12px);
+            background-color: #fef7e8ee;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .btn {
+            background: #fff0df;
+            border: 1px solid #d6bd8c;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #5a3e1b;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .btn.active {
+            background: #c9a53b;
+            color: white;
+            border-color: #a07f2a;
+            box-shadow: 0 2px 6px rgba(201,165,59,0.3);
+        }
+
+        .btn-pdf {
+            background: #2c5f2d;
+            border-color: #1f4520;
+            color: white;
+        }
+
+        .btn-pdf:hover {
+            background: #1f4520;
+        }
+
+        .btn-font {
+            background: #e9dccd;
+            font-weight: bold;
+        }
+
+        /* Режимы отображения */
+        body.mode-compact .detailed-only {
+            display: none;
+        }
+        body.mode-detailed .compact-only {
+            display: none;
+        }
+
+        /* Для печати / PDF */
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            body {
+                background: white;
+                padding: 0;
+                margin: 0;
+            }
+            .card {
+                box-shadow: none;
+                border: 1px solid #ddd;
+                break-inside: avoid;
+            }
+            .sticky-panel {
+                display: none;
+            }
+            #contentContainer {
+                max-width: 100%;
+                padding: 0;
+            }
+            .page-break-before {
+                page-break-before: always;
+            }
+        }
+
+        .page-break-before {
+            margin-top: 1rem;
+        }
+
+        /* модальное окно */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            backdrop-filter: blur(6px);
+        }
+        .modal-card {
+            background: #fef7e8;
+            max-width: 320px;
+            width: 85%;
+            border-radius: 32px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            box-shadow: 0 25px 40px rgba(0,0,0,0.2);
+        }
+        .modal-card input {
+            width: 100%;
+            padding: 12px;
+            margin: 20px 0;
+            border: 1px solid #c9a53b;
+            border-radius: 60px;
+            font-size: 1.1rem;
+            text-align: center;
+            background: white;
+        }
+        .modal-card button {
+            background: #c9a53b;
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: bold;
+        }
+        .error-msg {
+            color: #b33;
+            font-size: 0.8rem;
+            margin-top: 5px;
+        }
+        footer {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #a39070;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e9dccd;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Модальное окно доступа -->
+<div class="modal" id="accessModal">
+    <div class="modal-card">
+        <h3>🔐 Доступ к анализу</h3>
+        <p style="margin:10px 0; font-size:0.9rem;">Введите код для получения персонального анализа</p>
+        <input type="password" id="accessCode" placeholder="код доступа" autocomplete="off">
+        <button id="submitCode">Войти</button>
+        <div id="modalError" class="error-msg"></div>
+        <p style="margin-top:15px; font-size:11px; color:#9b8a6e;">* Код получен от Абу Мухаммада</p>
+    </div>
+</div>
+
+<!-- Основной контент (скрыт изначально) -->
+<div id="mainContent" style="display: none;">
+    <!-- Sticky панель -->
+    <div class="sticky-panel no-print" id="stickyPanel">
+        <button class="btn btn-font" id="fontMinus">A−</button>
+        <button class="btn btn-font" id="fontPlus">A+</button>
+        <button class="btn" id="modeCompactBtn">Компактный</button>
+        <button class="btn" id="modeDetailedBtn">Детальный</button>
+        <button class="btn btn-pdf" id="savePdfBtn">📄 Сохранить в PDF</button>
+    </div>
+
+    <div id="contentContainer">
+        <!-- Вступление (общее) -->
+        <div class="card">
+            <h1>🌿 Анализ состояния &nbsp;— Умм Муна</h1>
+            <p><strong>Ассаляму аляйкум, дорогая сестра Умм Муна.</strong></p>
+            <p>Я, Абу Мухаммад, обращаюсь к тебе с надеждой на милость Аллаха. Вижу твои страдания, твою боль и тревогу. Знай, что истинное исцеление — только от Всевышнего, и Он — Лучший из целителей. Всевышний сказал: <span class="arabic-text" style="display:inline-block; font-size:1.1rem;">﴿ وَإِذَا مَرِضْتُ فَهُوَ يَشْفِينِ ﴾</span> (Сура «Аш-Шуара», 26:80). Держись за эту убеждённость, и пусть сабр (терпение) станет твоим оружием.</p>
+        </div>
+
+        <!-- 4.2 Диагностика (компактные и детальные блоки) -->
+        <div class="card page-break-before">
+            <h2>🕯 Диагностика (анализ симптомов)</h2>
+            
+            <!-- Компактный режим -->
+            <div class="compact-only">
+                <p><strong>Айн (сглаз):</strong> Признаков не выявлено (нет явных симптомов внезапной слабости после восхищения, однако возможно сочетание с сихром).</p>
+                <p><strong>Сихр (порча):</strong> Явные признаки — разлад с мужем и родителями, ощущение тяжести в желудке, нахождение иголок в доме, сны со змеями, преграды в делах и отвращение людей.</p>
+                <p><strong>Влияние джиннов:</strong> Ощущение присутствия в доме, зевота при рукье, ночное пробуждение от болей, сны с умершими, затишье с последующей активизацией.</p>
+            </div>
+            <!-- Детальный режим -->
+            <div class="detailed-only">
+                <p><strong>🌀 Айн (дурной глаз / сглаз):</strong> Хотя ты не описываешь классических признаков (резкий упадок сил после взгляда, жар в теле), но учитывая зависть со стороны родственников, нельзя исключать смешанную природу. Однако основные маркеры указывают на сильное колдовство, а не изолированный айн. Поэтому в данном случае акцент на сихре.</p>
+                <p><strong>🔥 Сихр (колдовство, порча):</strong> Налицо многочисленные признаки из сунны: Посланник Аллаха (мир ему) говорил, что сихр влияет на тело и разум. У тебя:<br>
+                - Тафрик (разлучение супругов) — сон о новом платье, резкое охлаждение мужа, развод.<br>
+                - Сихр татыль (преграды) — всё, за что берёшься, сталкивается с препятствиями, люди отворачиваются, учёба и бизнес отца рухнули.<br>
+                - Сихр на органы: тяжесть в желудке (тянет после пробуждения), боль в боку во сне, болезни суставов, выпадение волос.<br>
+                - Материальные следы сихра — иголки в стене, подозрения на родственников-колдунов. Пророк (мир ему) сказал: «Колдовство — это нашептывание и узелки» (хадис). Нахождение игл подтверждает это.</p>
+                <p><strong>👤 Влияние джиннов (одержимость / квартира):</strong> У тебя в доме «полно джиннов», разруха, реакции при рукье — зевота, онемение. Признаки заселения джиннов: необъяснимая тяжесть, отвращение к поклонению, странные сны (змея, умершая одноклассница, смерть отца). Джинны могут быть как самостоятельными мучителями, так и служить сихру. Отсутствие громких криков не отрицает их присутствие — бывает скрытое влияние, особенно при сихре татыль.</p>
+            </div>
+        </div>
+
+        <!-- 4.3 Таблица духовных недугов (общая) -->
+        <div class="card">
+            <h2>📋 Таблица духовных недугов</h2>
+            <table>
+                <thead>
+                    <tr><th>Духовный недуг</th><th>Симптомы из жалоб пациентки</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Сихр тафрик (разлучение)</td><td>Развод с мужем, холодность, сон про коричневое платье (новый муж), угрозы сестер мужа со змеей.</td></tr>
+                    <tr><td>Сихр татыль (препятствия)</td><td>Невозможность завершить дела, проблемы с учебой и ризком, ощущение негодности, люди отворачиваются.</td></tr>
+                    <tr><td>Сихр на семейные узы</td><td>Родители перестали любить, рукоприкладство, постоянные ссоры, отец винит во всём.</td></tr>
+                    <tr><td>Сихр на здоровье</td><td>Тяжесть в желудке по утрам, боли в суставах, выпадение волос, зуд кожи, боль в поджелудочной.</td></tr>
+                    <tr><td>Присутствие джиннов в доме</td><td>Ощущение разрухи, зевота при чтении Корана, реакции на рукью, сны с умершими и преследованиями.</td></tr>
+                    <tr><td>Моральная порча (отвращение)</td><td>Потеря адаба, отсутствие почтения к знающим, импульсивность, страх навредить (стала админом — боится удалить).</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 4.4 Рекомендуемое лечение (два режима) -->
+        <div class="card page-break-before">
+            <h2>📿 Рекомендуемое лечение (от Абу Мухаммада)</h2>
+            <div class="compact-only">
+                <p><strong>Краткий план:</strong><br>
+                - Утренние и вечерние зикры (аят аль-Курси, суры аль-Ихляс, аль-Фаляк, ан-Нас по 3 раза).<br>
+                - Рукья на самого себя: читать суру аль-Фатиха (7 раз), аят аль-Курси, аль-Бакара 1-5, 255, 285-286, затем суры аль-Ихляс, аль-Фаляк, ан-Нас по 11 раз.<br>
+                - Пить воду, на которую прочитаны эти суры (начитывать на воду и дуть).<br>
+                - Масло чёрного тмина (наносить на живот и больные места).<br>
+                - Чтение дуа против сихра и джиннов (приведены ниже).<br>
+                - Курс 21 день, после чего оценка состояния.</p>
+            </div>
+            <div class="detailed-only">
+                <p><strong>Я, Абу Мухаммад, с помощью Аллаха, рекомендую следующее интенсивное лечение:</strong></p>
+                <p>1️⃣ <strong>Очищение жилища и защита дома</strong> – читай аят аль-Курси, суру аль-Бакара в доме (хотя бы раз в три дня), опрыскивай углы водой, на которую прочитаны аль-Фатиха и аль-Муаввизатан. Изгони джиннов громким чтением аятов о наказании (например, аят аль-Курси с твёрдым намерением).</p>
+                <p>2️⃣ <strong>Рукья на самого себя</strong> (метод про себя + вслух):<br>
+                - Соверши малое омовение, ложись или сядь удобно.<br>
+                - Прочитай про себя «Аузу би-Лляхи мин аш-шайтанир-раджим», затем вслух – аль-Фатиха (7 раз).<br>
+                - Аят аль-Курси (3 раза), сура аль-Ихляс, аль-Фаляк, ан-Нас – по 11 раз.<br>
+                - Направляй чтение на область желудка, поджелудочную, голову, суставы. Представляй, что каждое слово пронзает колдовские узлы.<br>
+                - После чтения подуй на ладони и проведи по телу трижды.</p>
+                <p>3️⃣ <strong>Вода и масло</strong>: налей воду в чистую ёмкость, прочитай над ней вышеуказанные суры (каждую нечётное число раз, минимум 7). Затем дуй на воду. Пей натощак по стакану утром и перед сном. Этой же водой окропляй дом. Масло чёрного тмина смешай с оливковым, читай «Бисмиллях» и мажь живот, поясницу и места болей.</p>
+                <p>4️⃣ <strong>Зикры утренние и вечерние</strong> (защита от обновлений): после утреннего намаза – «Аузу би-Лляхи…», аят аль-Курси, суры аль-Ихляс, аль-Фаляк, ан-Нас по 3 раза, затем трижды «Бисмилляхи ллязи ля ядурру маа исмихи шайун…». Вечером аналогично.</p>
+                <p>5️⃣ <strong>Уничтожение следа сихра</strong>: если ты находила иглы или подозрительные предметы – сожги их, читая аят аль-Курси и суру аль-Кафирун, затем выбрось в проточную воду (река или унитаз с чтением).</p>
+                <p>6️⃣ <strong>Курс лечения</strong>: минимум 30 дней непрерывно. Поддерживай обратную связь со мной, сообщай об изменениях. Не прекращай, если симптомы усиливаются – это признак сражения (кризис исцеления).</p>
+                <p><em>Важно: перестань читать другим людям до полного завершения своего лечения, иначе рискуешь усугубить атаку джиннов (как я предупреждал). Сосредоточься на себе.</em></p>
+            </div>
+        </div>
+
+        <!-- 4.5 Таблица дуа (три дуа, общая) -->
+        <div class="card page-break-before">
+            <h2>🤲 Три достоверных дуа из Сунны</h2>
+            <table>
+                <thead>
+                    <tr><th>Арабский текст (с харакатами)</th><th>Транскрипция кириллицей</th><th>Перевод на русский</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="arabic-text" style="font-size:1.2rem;">اللَّهُمَّ أَذْهِبْ حَرَّهَا وَبَرْدَهَا وَوَصَبَهَا</td>
+                        <td>Аллахумма азхиб харраха, ва бардаха, ва васабаха</td>
+                        <td>«О Аллах, удали её жар, её холод и её боль» (дуа от сглаза/айн).</td>
+                    </tr>
+                    <tr>
+                        <td class="arabic-text" style="font-size:1.2rem;">اللَّهُمَّ بَطِّلْ سِحْرَ السَّاحِرِينَ وَأَبْطِلْ كَيْدَهُمْ</td>
+                        <td>Аллахумма баттиль сихра саахирина ва абтиль кайда-хум</td>
+                        <td>«О Аллах, сделай тщетным колдовство колдунов и уничтожь их козни» (против сихра).</td>
+                    </tr>
+                    <tr>
+                        <td class="arabic-text" style="font-size:1.2rem;">اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ هَمَزَاتِ الشَّيَاطِينِ وَأَعُوذُ بِكَ رَبِّ أَنْ يَحْضُرُونِ</td>
+                        <td>Аллахумма инни а’узу бика мин хамазати ш-шайатини ва а’узу бика рабби ан яхдурун</td>
+                        <td>«О Аллах, я прибегаю к Тебе от наваждений дьяволов и прибегаю к Тебе, Господь мой, от их присутствия» (защита от джиннов).</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 4.6 Заключение (общее) -->
+        <div class="card">
+            <h2>💚 Заключение и наставление</h2>
+            <p>Умм Муна, знай, что твой путь к исцелению лежит через полное упование на Аллаха (таваккуль) и терпение (сабр). Не позволяй шайтану сеять отчаяние в твоём сердце. Всевышний сказал: <strong>«...وَلَا تَيْأَسُوا مِن رَّوْحِ اللَّهِ...»</strong> — «Не отчаивайтесь в милости Аллаха» (Сура Юсуф, 87).</p>
+            <p>То, что ты чувствуешь — изменение характера, страх навредить, преграды — всё это следствие сихра и джиннов. Не обвиняй себя. Аллах видит твои старания. Делай лечение неукоснительно, читай дуа, которые я дал, и держи связь со мной. Исцеление близко, иншаАллах. Ты сильная, и эта болезнь лишь испытание, после которого последует облегчение. Проси у Аллаха прощения и будь тверда в поклонении.</p>
+            <p>Ваалейкум ассалям ва рахматуллахи ва баракатух.</p>
+            <p style="margin-top:1rem;"><em>— Абу Мухаммад, ваш ракый и наставник.</em></p>
+        </div>
+        <footer>© Рукья шарийя — анализ составлен на основе жалоб. Только для личного использования.</footer>
+    </div>
+</div>
+
+<script>
+    // Глобальные переменные
+    let currentFontSize = 16;   // px
+    let currentMode = "detailed"; // 'compact' or 'detailed'
+    const contentDiv = document.getElementById('contentContainer');
+    const bodyEl = document.body;
+
+    // Функция применения размера шрифта
+    function setFontSize(size) {
+        currentFontSize = Math.min(24, Math.max(12, size));
+        contentDiv.style.fontSize = currentFontSize + 'px';
+        // также арабские тексты наследуют, но для таблиц дополнительно:
+        const arabicSpans = document.querySelectorAll('.arabic-text');
+        arabicSpans.forEach(el => {
+            el.style.fontSize = (currentFontSize * 1.1) + 'px';
+        });
+    }
+
+    // Функция установки режима
+    function setMode(mode) {
+        currentMode = mode;
+        if (mode === 'compact') {
+            bodyEl.classList.remove('mode-detailed');
+            bodyEl.classList.add('mode-compact');
+            document.getElementById('modeCompactBtn').classList.add('active');
+            document.getElementById('modeDetailedBtn').classList.remove('active');
+        } else {
+            bodyEl.classList.remove('mode-compact');
+            bodyEl.classList.add('mode-detailed');
+            document.getElementById('modeDetailedBtn').classList.add('active');
+            document.getElementById('modeCompactBtn').classList.remove('active');
+        }
+    }
+
+    // Инициализация
+    function initDisplay() {
+        setFontSize(16);
+        setMode('detailed'); // по умолчанию детальный
+    }
+
+    // Обработчики
+    document.getElementById('fontPlus').addEventListener('click', () => setFontSize(currentFontSize + 2));
+    document.getElementById('fontMinus').addEventListener('click', () => setFontSize(currentFontSize - 2));
+    document.getElementById('modeCompactBtn').addEventListener('click', () => setMode('compact'));
+    document.getElementById('modeDetailedBtn').addEventListener('click', () => setMode('detailed'));
+
+    // Экспорт в PDF
+    document.getElementById('savePdfBtn').addEventListener('click', () => {
+        const panel = document.getElementById('stickyPanel');
+        const modal = document.getElementById('accessModal');
+        const originalDisplay = panel.style.display;
+        // Скрываем панель и модальное окно (если открыто, но оно закрыто)
+        panel.style.display = 'none';
+        if (modal) modal.style.display = 'none';
+        
+        const element = document.getElementById('contentContainer');
+        const opt = {
+            margin: [10, 10, 15, 10],
+            filename: 'Анализ_Умм_Муна.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2, useCORS: true, scrollY: 0 },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+            pagebreak: { mode: ['avoid-all', 'css', 'legacy'], before: '.page-break-before', avoid: ['table', 'tr', '.no-break'] }
+        };
+        html2pdf().set(opt).from(element).save().then(() => {
+            panel.style.display = originalDisplay;
+            if (modal) modal.style.display = 'flex';
+        }).catch(() => {
+            panel.style.display = originalDisplay;
+            if (modal) modal.style.display = 'flex';
+        });
+    });
+
+    // Модалка доступа (код 118 - сура аль-Фалак, или можно "рукия")
+    const modal = document.getElementById('accessModal');
+    const main = document.getElementById('mainContent');
+    const submitBtn = document.getElementById('submitCode');
+    const codeInput = document.getElementById('accessCode');
+    const errorSpan = document.getElementById('modalError');
+
+    function checkAccess() {
+        const code = codeInput.value.trim();
+        // Код "118" либо "rahmat" для простоты (по условию код должен быть)
+        if (code === "118" || code === "rahmat" || code === "Рукья") {
+            modal.style.display = 'none';
+            main.style.display = 'block';
+            initDisplay();
+        } else {
+            errorSpan.textContent = 'Неверный код доступа. Обратитесь к Абу Мухаммаду.';
+        }
+    }
+    submitBtn.addEventListener('click', checkAccess);
+    codeInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') checkAccess(); });
+    
+    // Адаптивное поведение при загрузке (модалка открыта, контент скрыт)
+    // дополнительно блокируем контент до ввода кода
+</script>
+</body>
+</html>
