@@ -6,682 +6,274 @@
     <title>Духовный центр Абу Мухаммада | Архив рукъи</title>
     <meta name="description" content="Архив рукъя-анализов, дуа и исцеляющих страниц. Духовный центр Абу Мухаммада.">
     <meta name="theme-color" content="#b37b2e">
-    <!-- Open Graph -->
     <meta property="og:title" content="Духовный центр Абу Мухаммада">
     <meta property="og:description" content="Архив рукъя-анализов, дуа и исцеляющих страниц">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="ru_RU">
-    <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600;700&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root {
-            --bg-start: #faf5eb;
-            --bg-end: #f0e6d2;
-            --card-bg: rgba(255, 252, 245, 0.92);
-            --card-bg-solid: #fffcf5;
-            --text: #3d2e1e;
-            --text-sec: #7a5f3a;
-            --text-muted: #a08b6d;
-            --accent: #b37b2e;
-            --accent-hover: #c9922e;
-            --accent-glow: rgba(179, 123, 46, 0.15);
-            --accent-soft: rgba(179, 123, 46, 0.08);
-            --border: #e8dcc4;
-            --border-light: #f0e8d6;
-            --shadow: rgba(60, 40, 10, 0.06);
-            --shadow-lg: rgba(60, 40, 10, 0.12);
-            --danger: #c0392b;
-            --success: #27ae60;
-            --pattern-opacity: 0.03;
-            --radius-sm: 12px;
-            --radius-md: 20px;
-            --radius-lg: 28px;
-            --radius-xl: 40px;
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{
+            --bg-start:#faf5eb;--bg-end:#f0e6d2;
+            --card-bg:rgba(255,252,245,0.92);--card-bg-solid:#fffcf5;
+            --text:#3d2e1e;--text-sec:#7a5f3a;--text-muted:#a08b6d;
+            --accent:#b37b2e;--accent-hover:#c9922e;
+            --accent-glow:rgba(179,123,46,0.15);--accent-soft:rgba(179,123,46,0.08);
+            --border:#e8dcc4;--border-light:#f0e8d6;
+            --shadow:rgba(60,40,10,0.06);--shadow-lg:rgba(60,40,10,0.12);
+            --danger:#c0392b;--success:#27ae60;
+            --pattern-opacity:0.03;
+            --radius-sm:12px;--radius-md:20px;--radius-lg:28px;--radius-xl:40px;
         }
-        body.dark {
-            --bg-start: #141824;
-            --bg-end: #0f1320;
-            --card-bg: rgba(28, 33, 50, 0.92);
-            --card-bg-solid: #1c2132;
-            --text: #e8dfd0;
-            --text-sec: #c4aa7a;
-            --text-muted: #8a7a60;
-            --accent: #d4a53c;
-            --accent-hover: #e4b84c;
-            --accent-glow: rgba(212, 165, 60, 0.12);
-            --accent-soft: rgba(212, 165, 60, 0.06);
-            --border: #2a3048;
-            --border-light: #222840;
-            --shadow: rgba(0, 0, 0, 0.25);
-            --shadow-lg: rgba(0, 0, 0, 0.4);
-            --pattern-opacity: 0.02;
+        body.dark{
+            --bg-start:#141824;--bg-end:#0f1320;
+            --card-bg:rgba(28,33,50,0.92);--card-bg-solid:#1c2132;
+            --text:#e8dfd0;--text-sec:#c4aa7a;--text-muted:#8a7a60;
+            --accent:#d4a53c;--accent-hover:#e4b84c;
+            --accent-glow:rgba(212,165,60,0.12);--accent-soft:rgba(212,165,60,0.06);
+            --border:#2a3048;--border-light:#222840;
+            --shadow:rgba(0,0,0,0.25);--shadow-lg:rgba(0,0,0,0.4);
+            --pattern-opacity:0.02;
         }
-        body {
-            background: var(--bg-start);
-            font-family: 'Noto Sans', 'Noto Naskh Arabic', 'Segoe UI', sans-serif;
-            min-height: 100vh;
-            color: var(--text);
-            transition: background 0.4s ease, color 0.4s ease;
-            overflow-x: hidden;
+        body{
+            background:var(--bg-start);
+            font-family:'Noto Sans','Noto Naskh Arabic','Segoe UI',sans-serif;
+            min-height:100vh;color:var(--text);
+            transition:background .4s,color .4s;overflow-x:hidden;
         }
-
-        /* Islamic geometric background pattern */
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
+        body::before{
+            content:'';position:fixed;inset:0;
             background-image:
-                radial-gradient(circle at 25% 25%, var(--accent) 1px, transparent 1px),
-                radial-gradient(circle at 75% 75%, var(--accent) 1px, transparent 1px),
-                radial-gradient(circle at 50% 50%, var(--accent) 0.5px, transparent 0.5px);
-            background-size: 60px 60px, 60px 60px, 30px 30px;
-            opacity: var(--pattern-opacity);
-            pointer-events: none;
-            z-index: 0;
-        }
-        body::after {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background: linear-gradient(180deg, transparent 0%, var(--bg-start) 100%);
-            opacity: 0.4;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .container {
-            max-width: 960px;
-            margin: 0 auto;
-            padding: 20px 16px 40px;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* ============ HEADER ============ */
-        .header-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: var(--radius-lg);
-            padding: 2.5rem 2rem 2rem;
-            text-align: center;
-            margin-bottom: 1.2rem;
-            box-shadow: 0 8px 32px var(--shadow);
-            border: 1px solid var(--border);
-            position: relative;
-            overflow: hidden;
-            animation: fadeSlideDown 0.6s ease-out;
-        }
-        .header-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, transparent, var(--accent), transparent);
-        }
-        .gold-title {
-            font-family: 'Noto Naskh Arabic', serif;
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--accent);
-            letter-spacing: -0.01em;
-            margin-bottom: 0.5rem;
-        }
-        .subtitle {
-            color: var(--text-sec);
-            font-size: 0.95rem;
-            font-weight: 500;
-        }
-        .quote-box {
-            margin-top: 1.2rem;
-            padding: 0.8rem 1.2rem;
-            background: var(--accent-soft);
-            border-radius: var(--radius-sm);
-            border-left: 3px solid var(--accent);
-            font-style: italic;
-            color: var(--text-sec);
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-
-        /* ============ PROGRESS BAR ============ */
-        .progress-section {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-top: 1.2rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--border-light);
-        }
-        .progress-label {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            white-space: nowrap;
-            font-weight: 600;
-        }
-        .progress-track {
-            flex: 1;
-            height: 6px;
-            background: var(--border);
-            border-radius: 3px;
-            overflow: hidden;
-        }
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--accent), var(--accent-hover));
-            border-radius: 3px;
-            transition: width 0.6s ease;
-        }
-        .progress-count {
-            font-size: 0.8rem;
-            color: var(--accent);
-            font-weight: 700;
-            white-space: nowrap;
-        }
-
-        /* ============ CONTROLS ============ */
-        .controls-bar {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 12px;
-            align-items: center;
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            padding: 10px 14px;
-            border-radius: var(--radius-xl);
-            border: 1px solid var(--border);
-            animation: fadeSlideDown 0.6s ease-out 0.1s both;
-        }
-        .search-box {
-            flex: 2;
-            min-width: 140px;
-            position: relative;
-        }
-        .search-box input {
-            width: 100%;
-            padding: 10px 14px 10px 38px;
-            border-radius: var(--radius-xl);
-            border: 1px solid var(--border);
-            background: var(--card-bg-solid);
-            color: var(--text);
-            font-size: 0.9rem;
-            font-family: inherit;
-            transition: border-color 0.2s, box-shadow 0.2s;
-            outline: none;
-        }
-        .search-box input:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px var(--accent-glow);
-        }
-        .search-box::before {
-            content: '🔍';
-            position: absolute;
-            left: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 0.85rem;
-            pointer-events: none;
-        }
-        .search-hint {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 0.65rem;
-            color: var(--text-muted);
-            background: var(--border);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: 600;
-            pointer-events: none;
-        }
-
-        /* Custom selects & buttons */
-        select, button, .btn {
-            appearance: none;
-            -webkit-appearance: none;
-            background: var(--card-bg-solid);
-            border: 1px solid var(--border);
-            padding: 10px 16px;
-            border-radius: var(--radius-xl);
-            cursor: pointer;
-            font-weight: 600;
-            color: var(--text-sec);
-            font-family: inherit;
-            font-size: 0.85rem;
-            transition: all 0.2s ease;
-            min-height: 40px;
-            outline: none;
-            white-space: nowrap;
-        }
-        select {
-            padding-right: 28px;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%237a5f3a'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 10px center;
-        }
-        button:hover, .btn:hover {
-            background: var(--accent);
-            color: white;
-            border-color: var(--accent);
-            box-shadow: 0 4px 12px var(--accent-glow);
-        }
-        button:active { transform: scale(0.97); }
-        .btn-icon {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0;
-            font-size: 1.1rem;
-        }
-        .btn-active {
-            background: var(--accent) !important;
-            color: white !important;
-            border-color: var(--accent) !important;
-        }
-
-        /* Token accordion */
-        .token-section {
-            animation: fadeSlideDown 0.6s ease-out 0.15s both;
-        }
-        .token-toggle {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-xl);
-            padding: 8px 16px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            width: 100%;
-            font-family: inherit;
-            font-weight: 500;
-            transition: all 0.2s;
-        }
-        .token-toggle:hover { color: var(--accent); border-color: var(--accent); }
-        .token-toggle .chevron { transition: transform 0.3s; font-size: 0.7rem; margin-left: auto; }
-        .token-toggle.open .chevron { transform: rotate(180deg); }
-        .token-body {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.35s ease, padding 0.35s ease;
-        }
-        .token-body.open {
-            max-height: 200px;
-        }
-        .token-body-inner {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            align-items: center;
-            background: var(--card-bg);
-            padding: 10px 14px;
-            border-radius: 0 0 var(--radius-lg) var(--radius-lg);
-            border: 1px solid var(--border);
-            border-top: none;
-            margin-top: -6px;
-        }
-        .token-input {
-            flex: 1;
-            min-width: 180px;
-            padding: 10px 14px;
-            border-radius: var(--radius-xl);
-            border: 1px solid var(--border);
-            background: var(--card-bg-solid);
-            color: var(--text);
-            font-family: inherit;
-            font-size: 0.85rem;
-            outline: none;
-        }
-        .token-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
-        #tokenStatus {
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        /* ============ BREADCRUMB ============ */
-        #breadcrumbArea {
-            margin-bottom: 12px;
-            animation: fadeSlideDown 0.6s ease-out 0.2s both;
-        }
-        .breadcrumb {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            border-radius: var(--radius-xl);
-            padding: 6px 14px;
-            font-size: 0.85rem;
-            flex-wrap: wrap;
-            border: 1px solid var(--border);
-        }
-        .breadcrumb-item, .breadcrumb-root {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            cursor: pointer;
-            padding: 4px 8px;
-            border-radius: var(--radius-sm);
-            transition: background 0.15s;
-            font-weight: 500;
-        }
-        .breadcrumb-item:hover, .breadcrumb-root:hover { background: var(--accent-soft); }
-        .breadcrumb-sep { color: var(--text-muted); font-size: 0.75rem; }
-
-        /* ============ STATS ============ */
-        .stats-bar {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-            margin-bottom: 16px;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            font-weight: 500;
-            animation: fadeSlideDown 0.6s ease-out 0.25s both;
-        }
-        .stat-item { display: flex; align-items: center; gap: 4px; }
-
-        /* ============ FILE GRID ============ */
-        .files-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-bottom: 2rem;
-        }
-        .files-grid.grid-view {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 10px;
-        }
-
-        .file-card, .folder-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(16px);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-md);
-            padding: 12px 14px;
-            transition: all 0.25s ease;
-            position: relative;
-            cursor: pointer;
-            opacity: 0;
-            animation: fadeCardIn 0.4s ease-out forwards;
-        }
-        .file-card:hover, .folder-card:hover {
-            border-color: var(--accent);
-            box-shadow: 0 4px 20px var(--shadow);
-            transform: translateY(-1px);
-        }
-        .file-card.draggable { cursor: grab; }
-        .folder-card.drag-over {
-            border: 2px dashed var(--accent);
-            background: var(--accent-glow);
-        }
-
-        .item-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            justify-content: space-between;
-        }
-        .item-main {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex: 1;
-            min-width: 0;
-        }
-        .item-icon {
-            width: 42px;
-            height: 42px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-            background: var(--accent-soft);
-            border-radius: var(--radius-sm);
-            flex-shrink: 0;
-        }
-        .item-info { flex: 1; min-width: 0; }
-        .item-name {
-            font-weight: 600;
-            font-size: 0.9rem;
-            word-break: break-word;
-            line-height: 1.3;
-        }
-        .item-meta {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 3px;
-            flex-wrap: wrap;
-        }
-        .item-size {
-            font-size: 0.72rem;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-        .tags { display: flex; gap: 4px; flex-wrap: wrap; }
-        .tag {
-            background: var(--accent);
-            color: white;
-            padding: 1px 8px;
-            border-radius: 20px;
-            font-size: 0.65rem;
-            font-weight: 600;
-            letter-spacing: 0.02em;
-        }
-        .status-badges {
-            display: flex;
-            gap: 4px;
-            align-items: center;
-        }
-        .badge {
-            font-size: 0.75rem;
-            opacity: 0.7;
-        }
-        .badge.active { opacity: 1; }
-
-        .item-actions {
-            display: flex;
-            align-items: center;
-            gap: 2px;
-        }
-        .menu-btn {
-            background: none;
-            border: none;
-            font-size: 1.2rem;
-            cursor: pointer;
-            padding: 6px;
-            min-width: 36px;
-            min-height: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-            transition: all 0.15s;
-        }
-        .menu-btn:hover { background: var(--accent-soft); color: var(--accent); box-shadow: none; }
-
-        /* Dropdown */
-        .dropdown-menu {
-            position: absolute;
-            right: 8px;
-            top: 48px;
-            background: var(--card-bg-solid);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-md);
-            box-shadow: 0 8px 32px var(--shadow-lg);
-            z-index: 100;
-            display: none;
-            flex-direction: column;
-            min-width: 180px;
-            overflow: hidden;
-            animation: fadeScaleIn 0.15s ease-out;
-        }
-        .dropdown-menu button {
-            background: none;
-            border: none;
-            text-align: left;
-            padding: 10px 16px;
-            border-radius: 0;
-            width: 100%;
-            font-size: 0.85rem;
-            color: var(--text);
-            font-weight: 500;
-            min-height: auto;
-        }
-        .dropdown-menu button:hover {
-            background: var(--accent);
-            color: white;
-            box-shadow: none;
-        }
-        .dropdown-menu .divider {
-            height: 1px;
-            background: var(--border);
-            margin: 4px 0;
-        }
-
-        /* ============ EMPTY STATE ============ */
-        .empty-state {
-            text-align: center;
-            padding: 3rem 1rem;
-            color: var(--text-muted);
-        }
-        .empty-state .empty-icon {
-            font-size: 3rem;
-            margin-bottom: 0.8rem;
-            opacity: 0.5;
-        }
-        .empty-state .empty-text {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 0.3rem;
-        }
-        .empty-state .empty-hint {
-            font-size: 0.85rem;
-        }
-
-        /* ============ LOADING ============ */
-        .loading-skeleton {
-            background: linear-gradient(90deg, var(--border) 25%, var(--card-bg) 50%, var(--border) 75%);
-            background-size: 200% 100%;
-            animation: shimmer 1.5s infinite;
-            border-radius: var(--radius-md);
-            height: 64px;
-            margin: 6px 0;
-        }
-        @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-
-        /* ============ TOAST ============ */
-        .toast {
-            position: fixed;
-            bottom: 24px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--card-bg-solid);
-            color: var(--text);
-            padding: 12px 24px;
-            border-radius: var(--radius-xl);
-            z-index: 1000;
-            box-shadow: 0 8px 32px var(--shadow-lg);
-            border: 1px solid var(--border);
-            font-weight: 600;
-            font-size: 0.9rem;
-            animation: slideUp 0.3s ease-out;
-        }
-        .toast.error { border-color: var(--danger); color: var(--danger); }
-
-        /* ============ FOOTER ============ */
-        .footer-note {
-            text-align: center;
-            margin-top: 1.5rem;
-            padding: 1rem;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-        .footer-note a, .footer-note button {
-            background: none;
-            border: none;
-            color: var(--accent);
-            cursor: pointer;
-            font-weight: 600;
-            font-family: inherit;
-            font-size: 0.85rem;
-            min-height: auto;
-            padding: 0;
-        }
-        .footer-note a:hover, .footer-note button:hover {
-            color: var(--accent-hover);
-            box-shadow: none;
-            background: none;
-        }
-
-        /* ============ ANIMATIONS ============ */
-        @keyframes fadeSlideDown {
-            from { opacity: 0; transform: translateY(-12px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeCardIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeScaleIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateX(-50%) translateY(16px); }
-            to { opacity: 1; transform: translateX(-50%) translateY(0); }
-        }
-
-        /* ============ RESPONSIVE ============ */
-        @media (max-width: 640px) {
-            .container { padding: 12px 10px 32px; }
-            .header-card { padding: 1.5rem 1.2rem 1.2rem; border-radius: var(--radius-md); }
-            .gold-title { font-size: 1.5rem; }
-            .controls-bar { flex-direction: column; align-items: stretch; border-radius: var(--radius-lg); padding: 10px; }
-            .search-box { min-width: 100%; }
-            .controls-bar-row { display: flex; gap: 6px; flex-wrap: wrap; }
-            .breadcrumb-item { font-size: 0.78rem; }
-            .files-grid.grid-view { grid-template-columns: 1fr; }
+                radial-gradient(circle at 25% 25%,var(--accent) 1px,transparent 1px),
+                radial-gradient(circle at 75% 75%,var(--accent) 1px,transparent 1px),
+                radial-gradient(circle at 50% 50%,var(--accent) .5px,transparent .5px);
+            background-size:60px 60px,60px 60px,30px 30px;
+            opacity:var(--pattern-opacity);pointer-events:none;z-index:0;
+        }
+        body::after{
+            content:'';position:fixed;inset:0;
+            background:linear-gradient(180deg,transparent 0%,var(--bg-start) 100%);
+            opacity:.4;pointer-events:none;z-index:0;
+        }
+        .container{max-width:960px;margin:0 auto;padding:20px 16px 40px;position:relative;z-index:1}
+        .header-card{
+            background:var(--card-bg);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+            border-radius:var(--radius-lg);padding:2.5rem 2rem 2rem;text-align:center;
+            margin-bottom:1.2rem;box-shadow:0 8px 32px var(--shadow);border:1px solid var(--border);
+            position:relative;overflow:hidden;animation:fadeSlideDown .6s ease-out;
+        }
+        .header-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,transparent,var(--accent),transparent)}
+        .gold-title{font-family:'Noto Naskh Arabic',serif;font-size:2rem;font-weight:700;color:var(--accent);margin-bottom:.5rem}
+        .subtitle{color:var(--text-sec);font-size:.95rem;font-weight:500}
+        .quote-box{margin-top:1.2rem;padding:.8rem 1.2rem;background:var(--accent-soft);border-radius:var(--radius-sm);border-left:3px solid var(--accent);font-style:italic;color:var(--text-sec);font-size:.9rem;line-height:1.6}
+        .progress-section{display:flex;align-items:center;gap:12px;margin-top:1.2rem;padding-top:1rem;border-top:1px solid var(--border-light)}
+        .progress-label{font-size:.8rem;color:var(--text-muted);white-space:nowrap;font-weight:600}
+        .progress-track{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+        .progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-hover));border-radius:3px;transition:width .6s}
+        .progress-count{font-size:.8rem;color:var(--accent);font-weight:700;white-space:nowrap}
+        .controls-bar{
+            display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;align-items:center;
+            background:var(--card-bg);backdrop-filter:blur(20px);
+            padding:10px 14px;border-radius:var(--radius-xl);border:1px solid var(--border);
+            animation:fadeSlideDown .6s ease-out .1s both;
+        }
+        .search-box{flex:2;min-width:140px;position:relative}
+        .search-box input{
+            width:100%;padding:10px 36px 10px 38px;border-radius:var(--radius-xl);
+            border:1px solid var(--border);background:var(--card-bg-solid);color:var(--text);
+            font-size:.9rem;font-family:inherit;transition:border-color .2s,box-shadow .2s;outline:none;
+        }
+        .search-box input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+        .search-box::before{content:'🔍';position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:.85rem;pointer-events:none}
+        .search-hint{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:.65rem;color:var(--text-muted);background:var(--border);padding:2px 6px;border-radius:4px;font-weight:600;pointer-events:none}
+        .search-clear{
+            position:absolute;right:12px;top:50%;transform:translateY(-50%);
+            background:none!important;border:none!important;font-size:1rem;cursor:pointer;color:var(--text-muted);
+            padding:4px;display:none;min-height:auto;line-height:1;
+        }
+        .search-clear:hover{color:var(--accent)!important;background:none!important;box-shadow:none!important}
+        select,button,.btn{
+            appearance:none;-webkit-appearance:none;
+            background:var(--card-bg-solid);border:1px solid var(--border);
+            padding:10px 16px;border-radius:var(--radius-xl);cursor:pointer;
+            font-weight:600;color:var(--text-sec);font-family:inherit;font-size:.85rem;
+            transition:all .2s;min-height:40px;outline:none;white-space:nowrap;
+        }
+        select{
+            padding-right:28px;
+            background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%237a5f3a'/%3E%3C/svg%3E");
+            background-repeat:no-repeat;background-position:right 10px center;
+        }
+        body.dark select{
+            background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23c4aa7a'/%3E%3C/svg%3E");
+        }
+        button:hover,.btn:hover{background:var(--accent);color:white;border-color:var(--accent);box-shadow:0 4px 12px var(--accent-glow)}
+        button:active{transform:scale(.97)}
+        .btn-icon{width:40px;height:40px;display:flex;align-items:center;justify-content:center;padding:0;font-size:1.1rem}
+        .btn-active{background:var(--accent)!important;color:white!important;border-color:var(--accent)!important}
+        .btn-success{background:var(--success)!important;color:white!important;border-color:var(--success)!important}
+        .btn-success:hover{background:#2ecc71!important;border-color:#2ecc71!important}
+        .btn-with-text{display:flex;align-items:center;gap:6px;padding:10px 16px}
+        .token-section{animation:fadeSlideDown .6s ease-out .15s both;margin-bottom:12px}
+        .token-toggle{
+            display:flex;align-items:center;gap:8px;
+            background:var(--card-bg);backdrop-filter:blur(20px);
+            border:1px solid var(--border);border-radius:var(--radius-xl);
+            padding:8px 16px;cursor:pointer;font-size:.85rem;color:var(--text-muted);
+            width:100%;font-family:inherit;font-weight:500;transition:all .2s;
+        }
+        .token-toggle:hover{color:var(--accent);border-color:var(--accent);box-shadow:none;background:var(--card-bg)}
+        .token-toggle .chevron{transition:transform .3s;font-size:.7rem;margin-left:auto}
+        .token-toggle.open .chevron{transform:rotate(180deg)}
+        .token-toggle .token-status-badge{font-size:.75rem;margin-left:4px}
+        .token-body{max-height:0;overflow:hidden;transition:max-height .35s ease}
+        .token-body.open{max-height:200px}
+        .token-body-inner{
+            display:flex;flex-wrap:wrap;gap:8px;align-items:center;
+            background:var(--card-bg);padding:10px 14px;
+            border-radius:0 0 var(--radius-lg) var(--radius-lg);
+            border:1px solid var(--border);border-top:none;margin-top:-6px;
+        }
+        .token-input{
+            flex:1;min-width:180px;padding:10px 14px;border-radius:var(--radius-xl);
+            border:1px solid var(--border);background:var(--card-bg-solid);
+            color:var(--text);font-family:inherit;font-size:.85rem;outline:none;
+        }
+        .token-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+        #tokenStatus{font-size:.8rem;font-weight:600}
+        #breadcrumbArea{margin-bottom:12px;animation:fadeSlideDown .6s ease-out .2s both}
+        .breadcrumb{
+            display:inline-flex;align-items:center;gap:4px;
+            background:var(--card-bg);backdrop-filter:blur(20px);
+            border-radius:var(--radius-xl);padding:6px 14px;font-size:.85rem;
+            flex-wrap:wrap;border:1px solid var(--border);
+        }
+        .breadcrumb-item,.breadcrumb-root{display:inline-flex;align-items:center;gap:4px;cursor:pointer;padding:4px 8px;border-radius:var(--radius-sm);transition:background .15s;font-weight:500}
+        .breadcrumb-item:hover,.breadcrumb-root:hover{background:var(--accent-soft)}
+        .breadcrumb-sep{color:var(--text-muted);font-size:.75rem}
+        .stats-bar{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:16px;font-size:.8rem;color:var(--text-muted);font-weight:500;animation:fadeSlideDown .6s ease-out .25s both}
+        .stat-item{display:flex;align-items:center;gap:4px}
+        .files-grid{display:flex;flex-direction:column;gap:8px;margin-bottom:2rem}
+        .files-grid.grid-view{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+        .file-card,.folder-card{
+            background:var(--card-bg);backdrop-filter:blur(16px);
+            border:1px solid var(--border);border-radius:var(--radius-md);
+            padding:12px 14px;transition:all .25s;position:relative;cursor:pointer;
+            opacity:0;animation:fadeCardIn .4s ease-out forwards;
+        }
+        .file-card:hover,.folder-card:hover{border-color:var(--accent);box-shadow:0 4px 20px var(--shadow);transform:translateY(-1px)}
+        .file-card.draggable{cursor:grab}
+        .folder-card.drag-over{border:2px dashed var(--accent);background:var(--accent-glow)}
+        .item-row{display:flex;align-items:center;gap:10px;justify-content:space-between}
+        .item-main{display:flex;align-items:center;gap:10px;flex:1;min-width:0}
+        .item-icon{width:42px;height:42px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;background:var(--accent-soft);border-radius:var(--radius-sm);flex-shrink:0}
+        .item-info{flex:1;min-width:0}
+        .item-name{font-weight:600;font-size:.9rem;word-break:break-word;line-height:1.3}
+        .item-meta{display:flex;align-items:center;gap:8px;margin-top:3px;flex-wrap:wrap}
+        .item-size{font-size:.72rem;color:var(--text-muted);font-weight:500}
+        .tags{display:flex;gap:4px;flex-wrap:wrap}
+        .tag{background:var(--accent);color:white;padding:1px 8px;border-radius:20px;font-size:.65rem;font-weight:600;letter-spacing:.02em}
+        .status-badges{display:flex;gap:4px;align-items:center}
+        .badge{font-size:.75rem;opacity:.7}
+        .badge.active{opacity:1}
+        .item-actions{display:flex;align-items:center;gap:2px;position:relative}
+        .menu-btn{
+            background:none!important;border:none!important;font-size:1.2rem;cursor:pointer;
+            padding:6px;min-width:36px;min-height:36px;border-radius:50%;
+            display:flex;align-items:center;justify-content:center;color:var(--text-muted);transition:all .15s;
+        }
+        .menu-btn:hover{background:var(--accent-soft)!important;color:var(--accent);box-shadow:none!important}
+        .dropdown-menu{
+            position:absolute;right:0;top:42px;
+            background:var(--card-bg-solid);border:1px solid var(--border);
+            border-radius:var(--radius-md);box-shadow:0 8px 32px var(--shadow-lg);
+            z-index:100;display:none;flex-direction:column;min-width:200px;overflow:hidden;
+            animation:fadeScaleIn .15s ease-out;
+        }
+        .dropdown-menu button{
+            background:none!important;border:none!important;text-align:left;padding:10px 16px;
+            border-radius:0!important;width:100%;font-size:.85rem;color:var(--text);font-weight:500;min-height:auto;
+        }
+        .dropdown-menu button:hover{background:var(--accent)!important;color:white!important;box-shadow:none!important}
+        .dropdown-menu .divider{height:1px;background:var(--border);margin:4px 0}
+        .empty-state{text-align:center;padding:3rem 1rem;color:var(--text-muted)}
+        .empty-state .empty-icon{font-size:3rem;margin-bottom:.8rem;opacity:.5}
+        .empty-state .empty-text{font-size:1rem;font-weight:600;margin-bottom:.3rem}
+        .empty-state .empty-hint{font-size:.85rem}
+        .loading-skeleton{background:linear-gradient(90deg,var(--border) 25%,var(--card-bg) 50%,var(--border) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:var(--radius-md);height:64px;margin:6px 0}
+        @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+        .toast{
+            position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+            background:var(--card-bg-solid);color:var(--text);padding:12px 24px;
+            border-radius:var(--radius-xl);z-index:1000;box-shadow:0 8px 32px var(--shadow-lg);
+            border:1px solid var(--border);font-weight:600;font-size:.9rem;animation:slideUp .3s ease-out;
+        }
+        .toast.error{border-color:var(--danger);color:var(--danger)}
+        .modal-overlay{
+            position:fixed;inset:0;background:rgba(0,0,0,.6);
+            display:flex;align-items:center;justify-content:center;
+            z-index:1100;animation:fadeIn .2s;
+        }
+        .modal-card{
+            background:var(--card-bg-solid);border-radius:var(--radius-lg);
+            padding:1.5rem;width:90%;max-width:520px;max-height:90vh;overflow-y:auto;
+            box-shadow:0 16px 64px var(--shadow-lg);border:1px solid var(--border);
+            animation:fadeScaleIn .25s ease-out;
+        }
+        .modal-title{font-size:1.1rem;font-weight:700;color:var(--accent);margin-bottom:1rem;display:flex;align-items:center;gap:8px}
+        .modal-field{margin-bottom:1rem}
+        .modal-field label{display:block;font-size:.8rem;font-weight:600;color:var(--text-sec);margin-bottom:6px}
+        .modal-field input,.modal-field textarea,.modal-field select{
+            width:100%;padding:10px 14px;border-radius:var(--radius-sm);
+            border:1px solid var(--border);background:var(--card-bg);
+            color:var(--text);font-family:inherit;font-size:.9rem;outline:none;
+        }
+        .modal-field textarea{min-height:200px;resize:vertical;font-family:'Courier New',monospace;font-size:.8rem;line-height:1.5}
+        .modal-field input:focus,.modal-field textarea:focus,.modal-field select:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+        .modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:1.2rem}
+        .modal-actions button{min-height:38px}
+        .footer-note{text-align:center;margin-top:1.5rem;padding:1rem;font-size:.85rem;color:var(--text-muted)}
+        .footer-note a,.footer-note button{background:none!important;border:none!important;color:var(--accent);cursor:pointer;font-weight:600;font-family:inherit;font-size:.85rem;min-height:auto;padding:0}
+        .footer-note a:hover,.footer-note button:hover{color:var(--accent-hover);box-shadow:none!important;background:none!important}
+        @keyframes fadeSlideDown{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes fadeCardIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes fadeScaleIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+        @keyframes slideUp{from{opacity:0;transform:translateX(-50%) translateY(16px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+        @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+        @media(max-width:640px){
+            .container{padding:12px 10px 32px}
+            .header-card{padding:1.5rem 1.2rem 1.2rem;border-radius:var(--radius-md)}
+            .gold-title{font-size:1.5rem}
+            .controls-bar{flex-direction:column;align-items:stretch;border-radius:var(--radius-lg);padding:10px}
+            .search-box{min-width:100%}
+            .breadcrumb-item{font-size:.78rem}
+            .files-grid.grid-view{grid-template-columns:1fr}
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <!-- ======== HEADER ======== -->
     <div class="header-card">
         <div class="gold-title">📖 Духовный центр Абу Мухаммада</div>
         <div class="subtitle">Архив рукъя-анализов и исцеляющих страниц</div>
         <div id="quoteContainer" class="quote-box"></div>
         <div class="progress-section" id="progressSection" style="display:none;">
             <span class="progress-label">📚 Прогресс чтения</span>
-            <div class="progress-track"><div class="progress-fill" id="progressFill" style="width: 0%"></div></div>
+            <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
             <span class="progress-count" id="progressCount">0/0</span>
         </div>
     </div>
-
-    <!-- ======== CONTROLS ======== -->
     <div class="controls-bar">
         <div class="search-box">
             <input type="text" id="searchInput" placeholder="Поиск по файлам...">
             <span class="search-hint" id="searchHint">/</span>
+            <button class="search-clear" id="searchClear" title="Очистить">✕</button>
         </div>
         <select id="sortSelect">
             <option value="name">По имени</option>
-            <option value="date">По дате</option>
+            <option value="size">По размеру</option>
             <option value="type">По типу</option>
         </select>
         <select id="filterTags">
@@ -691,16 +283,18 @@
             <option value="рукъя">📿 Рукъя</option>
         </select>
         <button id="favFilterBtn" class="btn-icon" title="Только избранное">⭐</button>
-        <button id="viewToggle" class="btn-icon" title="Вид">📋</button>
+        <button id="viewToggle" title="Переключить вид">📋 Список</button>
         <button id="themeToggle" class="btn-icon" title="Тема">🌙</button>
-        <button id="createFolderBtn" style="display:none;">➕ Папка</button>
-        <button id="uploadFileBtn" style="display:none;">📤 Загрузить</button>
     </div>
-
-    <!-- ======== TOKEN (collapsible) ======== -->
+    <div class="controls-bar" id="actionBar">
+        <button id="newHtmlBtn" class="btn-with-text" title="Создать HTML для нового пациента">➕ Новый пациент</button>
+        <button id="uploadFileBtn" class="btn-with-text" title="Загрузить HTML файл">📤 Загрузить</button>
+        <button id="createFolderBtn" class="btn-with-text" title="Создать папку">📁 Новая папка</button>
+    </div>
     <div class="token-section">
         <button class="token-toggle" id="tokenToggle">
             🔑 Доступ для записи (GitHub Token)
+            <span class="token-status-badge" id="tokenBadge"></span>
             <span class="chevron">▼</span>
         </button>
         <div class="token-body" id="tokenBody">
@@ -711,679 +305,547 @@
             </div>
         </div>
     </div>
-
-    <!-- ======== CONTENT ======== -->
     <div id="breadcrumbArea"></div>
     <div id="statsArea" class="stats-bar"></div>
     <div id="fileListContainer" class="files-grid">
-        <div class="loading-skeleton"></div>
-        <div class="loading-skeleton"></div>
-        <div class="loading-skeleton"></div>
+        <div class="loading-skeleton"></div><div class="loading-skeleton"></div><div class="loading-skeleton"></div>
     </div>
-
-    <!-- ======== FOOTER ======== -->
     <div class="footer-note">
         🤲 Да примет Аллах &nbsp;·&nbsp;
         <button id="feedbackBtn">📬 Обратная связь</button>
     </div>
 </div>
-
+<div class="modal-overlay" id="newHtmlModal" style="display:none;">
+    <div class="modal-card">
+        <div class="modal-title">➕ Новая страница пациента</div>
+        <div class="modal-field">
+            <label>Имя файла (без .html)</label>
+            <input type="text" id="newFileName" placeholder="Например: analyz-ahmad">
+        </div>
+        <div class="modal-field">
+            <label>Имя пациента</label>
+            <input type="text" id="newPatientName" placeholder="Имя пациента">
+        </div>
+        <div class="modal-field">
+            <label>Тип</label>
+            <select id="newFileType">
+                <option value="анализ">🕯 Анализ</option>
+                <option value="рукъя">📿 Рукъя</option>
+                <option value="дуа">🤲 Дуа</option>
+            </select>
+        </div>
+        <div class="modal-field">
+            <label>HTML содержимое (можно редактировать)</label>
+            <textarea id="newFileContent"></textarea>
+        </div>
+        <div class="modal-actions">
+            <button id="modalCancelBtn">Отмена</button>
+            <button id="modalSaveBtn" class="btn-success">💾 Создать и загрузить</button>
+        </div>
+    </div>
+</div>
 <script>
-// ======================== CONFIGURATION ========================
-const CONFIG = {
-    owner: 'kingboob8880-pixel',
-    repo: 'ruqya-healingg',
-    branch: 'main',
-    cacheExpiry: 5 * 60 * 1000, // 5 min cache
-    debounceDelay: 350,
-    maxRetries: 2,
-    retryDelay: 1500,
+const CONFIG={
+    owner:'kingboob8880-pixel',
+    repo:'ruqya-healingg',
+    branch:'main',
+    pagesBase:'https://kingboob8880-pixel.github.io/ruqya-healingg',
+    cacheExpiry:5*60*1000,
+    debounceDelay:350,
+    maxRetries:2,
+    retryDelay:1500,
 };
-
-// ======================== STATE ========================
-let currentPath = '';
-let allItems = [];
-let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-let readProgress = JSON.parse(localStorage.getItem('readProgress') || '{}');
-let viewMode = localStorage.getItem('viewMode') || 'list';
-let sortBy = localStorage.getItem('sortBy') || 'name';
-let filterTag = 'all';
-let searchQuery = '';
-let showFavoritesOnly = false;
-let githubToken = localStorage.getItem('github_token') || '';
-let isWriteEnabled = false;
-let totalHtmlFiles = 0;
-
-// ======================== QUOTES ========================
-const quotes = [
-    "«С именем Аллаха, Который исцеляет» — читайте рукъю с верой.",
-    "«Ниспосылаем в Коране то, что является исцелением» (17:82)",
-    "Пророк ﷺ сказал: «Нет болезни, для которой Аллах не создал лекарства».",
-    "Чтение Аль-Фатихи — величайшее исцеление.",
-    "Дуа — оружие верующего. Просите у Аллаха исцеления."
+let currentPath='';
+let allItems=[];
+let favorites=JSON.parse(localStorage.getItem('favorites')||'[]');
+let readProgress=JSON.parse(localStorage.getItem('readProgress')||'{}');
+let viewMode=localStorage.getItem('viewMode')||'list';
+let sortBy=localStorage.getItem('sortBy')||'name';
+let filterTag='all';
+let searchQuery='';
+let showFavoritesOnly=false;
+let githubToken=localStorage.getItem('github_token')||'';
+let isWriteEnabled=false;
+let totalHtmlFiles=0;
+const quotes=[
+    "\u00abС именем Аллаха, Который исцеляет\u00bb \u2014 читайте рукъю с верой.",
+    "\u00abНиспосылаем в Коране то, что является исцелением\u00bb (17:82)",
+    "Пророк \uFDFA сказал: \u00abНет болезни, для которой Аллах не создал лекарства\u00bb.",
+    "Чтение Аль-Фатихи \u2014 величайшее исцеление.",
+    "Дуа \u2014 оружие верующего. Просите у Аллаха исцеления."
 ];
-
-// ======================== UTILITIES ========================
-function escapeHtml(str) {
-    return str.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+function escapeHtml(s){return s.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]))}
+function getFileUrl(folderPath,fileName){
+    let parts=[CONFIG.pagesBase];
+    if(folderPath)parts.push(folderPath);
+    parts.push(fileName);
+    return parts.join('/');
 }
-
-function getBasePath() {
-    let p = window.location.pathname;
-    return p.substring(0, p.lastIndexOf('/') + 1) || '/';
+function getFolderUrl(folderPath){
+    return window.location.origin+window.location.pathname+'?path='+encodeURIComponent(folderPath);
 }
-
-function getFileUrl(folderPath, fileName) {
-    return (window.location.origin + getBasePath() + (folderPath ? folderPath + '/' + fileName : fileName)).replace(/\/\//g, '/');
+function formatFileSize(b){if(!b||b===0)return '';if(b<1024)return b+' B';if(b<1048576)return(b/1024).toFixed(1)+' КБ';return(b/1048576).toFixed(1)+' МБ'}
+function debounce(fn,d){let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>fn(...a),d)}}
+function showToast(msg,isErr=false){
+    document.querySelectorAll('.toast').forEach(t=>t.remove());
+    let t=document.createElement('div');t.className='toast'+(isErr?' error':'');
+    t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),2800);
 }
-
-function getFolderUrl(folderPath) {
-    return window.location.origin + getBasePath() + '?path=' + encodeURIComponent(folderPath);
-}
-
-function formatFileSize(bytes) {
-    if (!bytes || bytes === 0) return '';
-    if (bytes < 1024) return bytes + ' B';
-    if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' КБ';
-    return (bytes / 1048576).toFixed(1) + ' МБ';
-}
-
-function debounce(fn, delay) {
-    let timer;
-    return (...args) => { clearTimeout(timer); timer = setTimeout(() => fn(...args), delay); };
-}
-
-function showToast(msg, isError = false) {
-    document.querySelectorAll('.toast').forEach(t => t.remove());
-    let t = document.createElement('div');
-    t.className = 'toast' + (isError ? ' error' : '');
-    t.textContent = msg;
-    document.body.appendChild(t);
-    setTimeout(() => t.remove(), 2800);
-}
-
-// ======================== API CACHE ========================
-const apiCache = {};
-
-function getCachedData(key) {
-    const entry = apiCache[key];
-    if (!entry) return null;
-    if (Date.now() - entry.timestamp > CONFIG.cacheExpiry) { delete apiCache[key]; return null; }
-    return entry.data;
-}
-
-function setCachedData(key, data) {
-    apiCache[key] = { data, timestamp: Date.now() };
-}
-
-function invalidateCache(pathPrefix) {
-    Object.keys(apiCache).forEach(k => { if (k.includes(pathPrefix) || pathPrefix === '') delete apiCache[k]; });
-}
-
-// ======================== API ========================
-async function fetchRepoContents(path = '', retries = 0) {
-    const cacheKey = `contents:${path}`;
-    const cached = getCachedData(cacheKey);
-    if (cached) return cached;
-
-    const url = `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${path}?ref=${CONFIG.branch}`;
-    try {
-        let headers = { 'Accept': 'application/vnd.github.v3+json' };
-        if (githubToken) headers['Authorization'] = `Bearer ${githubToken}`;
-        const resp = await fetch(url, { headers });
-
-        if (resp.status === 403 && retries < CONFIG.maxRetries) {
-            showToast('⏳ Rate limit, повтор...', true);
-            await new Promise(r => setTimeout(r, CONFIG.retryDelay));
-            return fetchRepoContents(path, retries + 1);
+function maskToken(tk){if(!tk||tk.length<8)return '****';return '\u00b7\u00b7\u00b7\u00b7'+tk.slice(-4)}
+const apiCache={};
+function getCached(k){const e=apiCache[k];if(!e)return null;if(Date.now()-e.ts>CONFIG.cacheExpiry){delete apiCache[k];return null}return e.data}
+function setCache(k,d){apiCache[k]={data:d,ts:Date.now()}}
+function clearCache(){Object.keys(apiCache).forEach(k=>delete apiCache[k])}
+async function fetchRepoContents(path,retries){
+    path=path||'';retries=retries||0;
+    const ck='c:'+path;const c=getCached(ck);if(c)return c;
+    const url='https://api.github.com/repos/'+CONFIG.owner+'/'+CONFIG.repo+'/contents/'+path+'?ref='+CONFIG.branch;
+    try{
+        let h={'Accept':'application/vnd.github.v3+json'};
+        if(githubToken)h['Authorization']='Bearer '+githubToken;
+        const r=await fetch(url,{headers:h});
+        if(r.status===403&&retries<CONFIG.maxRetries){
+            showToast('\u23f3 Rate limit, повтор...',true);
+            await new Promise(x=>setTimeout(x,CONFIG.retryDelay));
+            return fetchRepoContents(path,retries+1);
         }
-        if (!resp.ok) throw new Error(`Ошибка API: ${resp.status}`);
-
-        const data = await resp.json();
-        const result = Array.isArray(data) ? data : [];
-        setCachedData(cacheKey, result);
-        return result;
-    } catch (err) {
-        if (retries < CONFIG.maxRetries) {
-            await new Promise(r => setTimeout(r, CONFIG.retryDelay));
-            return fetchRepoContents(path, retries + 1);
-        }
-        throw err;
+        if(!r.ok)throw new Error('Ошибка API: '+r.status);
+        const d=await r.json();const res=Array.isArray(d)?d:[];
+        setCache(ck,res);return res;
+    }catch(e){
+        if(retries<CONFIG.maxRetries){await new Promise(x=>setTimeout(x,CONFIG.retryDelay));return fetchRepoContents(path,retries+1)}
+        throw e;
     }
 }
-
-async function apiRequest(method, url, body = null) {
-    let headers = { 'Accept': 'application/vnd.github.v3+json' };
-    if (githubToken) headers['Authorization'] = `Bearer ${githubToken}`;
-    if (body) headers['Content-Type'] = 'application/json';
-    let opts = { method, headers };
-    if (body) opts.body = JSON.stringify(body);
-    let resp = await fetch(url, opts);
-    if (!resp.ok) throw new Error(`GitHub API: ${resp.status}`);
-    return resp.json();
+async function apiRequest(method,url,body){
+    let h={'Accept':'application/vnd.github.v3+json'};
+    if(githubToken)h['Authorization']='Bearer '+githubToken;
+    if(body)h['Content-Type']='application/json';
+    let opts={method:method,headers:h};if(body)opts.body=JSON.stringify(body);
+    let r=await fetch(url,opts);
+    if(!r.ok)throw new Error('GitHub API: '+r.status);
+    return r.json();
 }
-
-async function verifyToken() {
-    try { await apiRequest('GET', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}`); return true; }
-    catch { return false; }
+async function verifyToken(){try{await apiRequest('GET','https://api.github.com/repos/'+CONFIG.owner+'/'+CONFIG.repo);return true}catch(e){return false}}
+async function createFolder(name){
+    if(!githubToken)throw new Error('Токен не задан');
+    let fp=currentPath?currentPath+'/'+name:name;
+    await apiRequest('PUT','https://api.github.com/repos/'+CONFIG.owner+'/'+CONFIG.repo+'/contents/'+fp+'/.gitkeep',
+        {message:'Создана папка '+name,content:btoa(''),branch:CONFIG.branch});
+    clearCache();
 }
-
-async function createFolder(folderName) {
-    if (!githubToken) throw new Error('Токен не задан');
-    let folderPath = currentPath ? `${currentPath}/${folderName}` : folderName;
-    await apiRequest('PUT', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${folderPath}/.gitkeep`,
-        { message: `Создана папка ${folderName}`, content: btoa(''), branch: CONFIG.branch });
-    invalidateCache(currentPath);
+async function createHtmlFile(fileName,htmlContent){
+    if(!githubToken)throw new Error('Токен не задан');
+    let fp=currentPath?currentPath+'/'+fileName:fileName;
+    let content=btoa(unescape(encodeURIComponent(htmlContent)));
+    await apiRequest('PUT','https://api.github.com/repos/'+CONFIG.owner+'/'+CONFIG.repo+'/contents/'+fp,
+        {message:'Создан файл '+fileName,content:content,branch:CONFIG.branch});
+    clearCache();
 }
-
-async function moveFile(srcPath, destFolderPath, fileName) {
-    if (!githubToken) throw new Error('Токен не задан');
-    let fileData = await apiRequest('GET', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${srcPath}`);
-    let newPath = destFolderPath ? `${destFolderPath}/${fileName}` : fileName;
-    await apiRequest('PUT', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${newPath}`,
-        { message: `Перемещение ${fileName}`, content: fileData.content, branch: CONFIG.branch });
-    await apiRequest('DELETE', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${srcPath}`,
-        { message: `Удаление после перемещения`, sha: fileData.sha, branch: CONFIG.branch });
-    invalidateCache('');
+async function moveFile(src,dest,name){
+    if(!githubToken)throw new Error('Токен не задан');
+    let fd=await apiRequest('GET','https://api.github.com/repos/'+CONFIG.owner+'/'+CONFIG.repo+'/contents/'+src);
+    let np=dest?dest+'/'+name:name;
+    await apiRequest('PUT','https://api.github.com/repos/'+CONFIG.owner+'/'+CONFIG.repo+'/contents/'+np,{message:'Перемещение '+name,content:fd.content,branch:CONFIG.branch});
+    await apiRequest('DELETE','https://api.github.com/repos/'+CONFIG.owner+'/'+CONFIG.repo+'/contents/'+src,{message:'Удаление',sha:fd.sha,branch:CONFIG.branch});
+    clearCache();
 }
-
-async function deleteItem(itemPath, isFolder) {
-    if (!githubToken) throw new Error('Токен не задан');
-    if (isFolder) {
-        let keepUrl = `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${itemPath}/.gitkeep`;
-        let keepData = await apiRequest('GET', keepUrl);
-        await apiRequest('DELETE', keepUrl, { message: 'Удаление папки', sha: keepData.sha, branch: CONFIG.branch });
-    } else {
-        let fileData = await apiRequest('GET', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${itemPath}`);
-        await apiRequest('DELETE', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${itemPath}`,
-            { message: 'Удаление файла', sha: fileData.sha, branch: CONFIG.branch });
+async function deleteItem(path,isFolder){
+    if(!githubToken)throw new Error('Токен не задан');
+    if(isFolder){
+        let kUrl='https://api.github.com/repos/'+CONFIG.owner+'/'+CONFIG.repo+'/contents/'+path+'/.gitkeep';
+        let kd=await apiRequest('GET',kUrl);
+        await apiRequest('DELETE',kUrl,{message:'Удаление папки',sha:kd.sha,branch:CONFIG.branch});
+    }else{
+        let fd=await apiRequest('GET','https://api.github.com/repos/'+CONFIG.owner+'/'+CONFIG.repo+'/contents/'+path);
+        await apiRequest('DELETE','https://api.github.com/repos/'+CONFIG.owner+'/'+CONFIG.repo+'/contents/'+path,{message:'Удаление файла',sha:fd.sha,branch:CONFIG.branch});
     }
-    invalidateCache(currentPath);
+    clearCache();
 }
-
-async function renameItem(itemPath, newName) {
-    if (!githubToken) throw new Error('Токен не задан');
-    let parent = itemPath.substring(0, itemPath.lastIndexOf('/'));
-    let newPath = parent ? `${parent}/${newName}` : newName;
-    let fileData = await apiRequest('GET', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${itemPath}`);
-    await apiRequest('PUT', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${newPath}`,
-        { message: `Переименование в ${newName}`, content: fileData.content, branch: CONFIG.branch });
-    await apiRequest('DELETE', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${itemPath}`,
-        { message: 'Удаление старого', sha: fileData.sha, branch: CONFIG.branch });
-    invalidateCache(currentPath);
+async function renameItem(path,newName){
+    if(!githubToken)throw new Error('Токен не задан');
+    let parent=path.substring(0,path.lastIndexOf('/'));
+    let np=parent?parent+'/'+newName:newName;
+    let fd=await apiRequest('GET','https://api.github.com/repos/'+CONFIG.owner+'/'+CONFIG.repo+'/contents/'+path);
+    await apiRequest('PUT','https://api.github.com/repos/'+CONFIG.owner+'/'+CONFIG.repo+'/contents/'+np,{message:'Переименование',content:fd.content,branch:CONFIG.branch});
+    await apiRequest('DELETE','https://api.github.com/repos/'+CONFIG.owner+'/'+CONFIG.repo+'/contents/'+path,{message:'Удаление старого',sha:fd.sha,branch:CONFIG.branch});
+    clearCache();
 }
-
-async function uploadFile(file) {
-    if (!githubToken) throw new Error('Токен не задан');
-    return new Promise((resolve, reject) => {
-        let reader = new FileReader();
-        reader.onload = async (e) => {
-            try {
-                let raw = e.target.result;
-                let content = raw.includes(',') ? raw.split(',')[1] : btoa(raw);
-                let filePath = currentPath ? `${currentPath}/${file.name}` : file.name;
-                await apiRequest('PUT', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${filePath}`,
-                    { message: `Загрузка ${file.name}`, content, branch: CONFIG.branch });
-                invalidateCache(currentPath);
-                resolve();
-            } catch (err) { reject(err); }
+async function uploadFile(file){
+    if(!githubToken)throw new Error('Токен не задан');
+    return new Promise(function(resolve,reject){
+        let reader=new FileReader();
+        reader.onload=async function(e){
+            try{
+                let raw=e.target.result;
+                let content=raw.indexOf(',')!==-1?raw.split(',')[1]:btoa(raw);
+                let fp=currentPath?currentPath+'/'+file.name:file.name;
+                await apiRequest('PUT','https://api.github.com/repos/'+CONFIG.owner+'/'+CONFIG.repo+'/contents/'+fp,{message:'Загрузка '+file.name,content:content,branch:CONFIG.branch});
+                clearCache();resolve();
+            }catch(err){reject(err)}
         };
-        reader.onerror = reject;
-        reader.readAsDataURL(file);
+        reader.onerror=reject;reader.readAsDataURL(file);
     });
 }
-
-// ======================== HELPERS ========================
-function extractTags(filename) {
-    let tags = [];
-    let l = filename.toLowerCase();
-    if (l.includes('анализ') || l.includes('analysis')) tags.push('анализ');
-    if (l.includes('дуа') || l.includes('dua')) tags.push('дуа');
-    if (l.includes('рукъя') || l.includes('ruqya') || l.includes('рукья')) tags.push('рукъя');
-    if (tags.length === 0) tags.push('рукъя');
+function extractTags(fn){
+    let tags=[];let l=fn.toLowerCase();
+    if(l.indexOf('анализ')!==-1||l.indexOf('analyz')!==-1||l.indexOf('analysis')!==-1)tags.push('анализ');
+    if(l.indexOf('дуа')!==-1||l.indexOf('dua')!==-1)tags.push('дуа');
+    if(l.indexOf('рукъя')!==-1||l.indexOf('рукья')!==-1||l.indexOf('ruqya')!==-1)tags.push('рукъя');
+    if(tags.length===0)tags.push('рукъя');
     return tags;
 }
-
-function getTagIcon(tags) {
-    if (tags.includes('анализ')) return '🕯️';
-    if (tags.includes('дуа')) return '🤲';
-    return '📄';
+function getTagIcon(tags){if(tags.indexOf('анализ')!==-1)return '\uD83D\uDD6F\uFE0F';if(tags.indexOf('дуа')!==-1)return '\uD83E\uDD32';return '\uD83D\uDCC4'}
+function updateProgress(total){
+    var sec=document.getElementById('progressSection');
+    var fill=document.getElementById('progressFill');
+    var cnt=document.getElementById('progressCount');
+    if(total===0){sec.style.display='none';return}
+    sec.style.display='flex';
+    var read=Object.keys(readProgress).length;
+    var pct=Math.min(100,Math.round((read/total)*100));
+    fill.style.width=pct+'%';cnt.textContent=read+'/'+total;
 }
-
-function updateProgress(totalFiles) {
-    const section = document.getElementById('progressSection');
-    const fill = document.getElementById('progressFill');
-    const count = document.getElementById('progressCount');
-    if (totalFiles === 0) { section.style.display = 'none'; return; }
-    section.style.display = 'flex';
-    const readCount = Object.keys(readProgress).length;
-    const pct = Math.min(100, Math.round((readCount / totalFiles) * 100));
-    fill.style.width = pct + '%';
-    count.textContent = `${readCount}/${totalFiles}`;
+function updateStats(files){
+    document.getElementById('statsArea').innerHTML=
+        '<span class="stat-item">\uD83D\uDCDA Файлов: '+files.length+'</span>'+
+        '<span class="stat-item">\u2B50 Избранное: '+favorites.length+'</span>'+
+        '<span class="stat-item">\u2705 Прочитано: '+Object.keys(readProgress).length+'</span>';
 }
-
-function updateStats(htmlFiles) {
-    const favCount = favorites.length;
-    const readCount = Object.keys(readProgress).length;
-    const area = document.getElementById('statsArea');
-    area.innerHTML = `
-        <span class="stat-item">📚 Файлов: ${htmlFiles.length}</span>
-        <span class="stat-item">⭐ Избранное: ${favCount}</span>
-        <span class="stat-item">✅ Прочитано: ${readCount}</span>
-    `;
+function toggleFavorite(fp){if(favorites.indexOf(fp)!==-1)favorites=favorites.filter(function(f){return f!==fp});else favorites.push(fp);localStorage.setItem('favorites',JSON.stringify(favorites))}
+function markRead(fp){readProgress[fp]=true;localStorage.setItem('readProgress',JSON.stringify(readProgress))}
+function recordOpen(fp){readProgress[fp]=true;localStorage.setItem('readProgress',JSON.stringify(readProgress))}
+function copyToClipboard(text){navigator.clipboard.writeText(text).then(function(){showToast('\u2705 Ссылка скопирована')})}
+function updateUrlState(){
+    var url=new URL(window.location);
+    if(currentPath){url.searchParams.set('path',currentPath)}else{url.searchParams.delete('path')}
+    history.pushState({},'',url);
 }
-
-function toggleFavorite(filePath) {
-    if (favorites.includes(filePath)) favorites = favorites.filter(f => f !== filePath);
-    else favorites.push(filePath);
-    localStorage.setItem('favorites', JSON.stringify(favorites));
+function openFileUrl(url){
+    var w=window.open(url,'_blank');
+    if(!w||w.closed||typeof w.closed==='undefined'){window.location.href=url}
 }
-
-function markRead(filePath) {
-    readProgress[filePath] = true;
-    localStorage.setItem('readProgress', JSON.stringify(readProgress));
-}
-
-function recordOpen(filePath) {
-    if (localStorage.getItem('autoMarkRead') !== 'false') {
-        readProgress[filePath] = true;
-        localStorage.setItem('readProgress', JSON.stringify(readProgress));
-    }
-}
-
-function copyToClipboard(text) {
-    navigator.clipboard.writeText(text).then(() => showToast('✅ Ссылка скопирована'));
-}
-
-function maskToken(token) {
-    if (!token || token.length < 8) return '****';
-    return '****' + token.slice(-4);
-}
-
-// ======================== DROPDOWN MENU ========================
-function showDropdown(btn, data) {
-    document.querySelectorAll('.dropdown-menu').forEach(m => m.remove());
-    let menu = document.createElement('div');
-    menu.className = 'dropdown-menu';
-    let actions = [];
-
-    if (data.type === 'file') {
-        let url = getFileUrl(data.folder, data.name);
-        let fp = data.path;
-        actions.push({ label: '📖 Открыть', act: () => { window.open(url, '_blank'); recordOpen(fp); renderCurrentView(); } });
-        actions.push({ label: '📋 Копировать ссылку', act: () => copyToClipboard(url) });
-        actions.push({ label: '📄 Сохранить как PDF', act: () => { window.open(url, '_blank'); setTimeout(() => showToast('Ctrl+P → Сохранить как PDF'), 600); } });
-        actions.push({ label: 'divider' });
-        actions.push({ label: favorites.includes(fp) ? '💛 Убрать из избранного' : '⭐ В избранное', act: () => { toggleFavorite(fp); renderCurrentView(); } });
-        actions.push({ label: readProgress[fp] ? '✅ Уже прочитано' : '📌 Отметить прочитанным', act: () => { markRead(fp); renderCurrentView(); } });
-        if (isWriteEnabled) {
-            actions.push({ label: 'divider' });
-            actions.push({ label: '✏️ Переименовать', act: () => { let n = prompt('Новое имя:', data.name); if (n && n !== data.name) renameItem(fp, n).then(() => renderCurrentView()).catch(e => showToast(e.message, true)); } });
-            actions.push({ label: '🗑️ Удалить', act: () => { if (confirm(`Удалить «${data.name}»?`)) deleteItem(fp, false).then(() => { showToast('Файл удалён'); renderCurrentView(); }).catch(e => showToast(e.message, true)); } });
+function showDropdown(btn,data){
+    document.querySelectorAll('.dropdown-menu').forEach(function(m){m.remove()});
+    var menu=document.createElement('div');menu.className='dropdown-menu';
+    var actions=[];
+    if(data.type==='file'){
+        var url=getFileUrl(data.folder,data.name);
+        var fp=data.path;
+        actions.push({label:'\uD83D\uDCD6 Открыть',act:function(){openFileUrl(url);recordOpen(fp);setTimeout(function(){renderCurrentView()},300)}});
+        actions.push({label:'\uD83D\uDCCB Копировать ссылку',act:function(){copyToClipboard(url)}});
+        actions.push({label:'divider'});
+        actions.push({label:favorites.indexOf(fp)!==-1?'\uD83D\uDC9B Убрать из избранного':'\u2B50 В избранное',act:function(){toggleFavorite(fp);renderCurrentView()}});
+        actions.push({label:readProgress[fp]?'\u2705 Уже прочитано':'\uD83D\uDCCC Отметить прочитанным',act:function(){markRead(fp);renderCurrentView()}});
+        if(isWriteEnabled){
+            actions.push({label:'divider'});
+            actions.push({label:'\u270F\uFE0F Переименовать',act:function(){var n=prompt('Новое имя:',data.name);if(n&&n!==data.name)renameItem(fp,n).then(function(){showToast('\u2705 Переименовано');renderCurrentView()}).catch(function(e){showToast(e.message,true)})}});
+            actions.push({label:'\uD83D\uDDD1\uFE0F Удалить',act:function(){if(confirm('Удалить \u00ab'+data.name+'\u00bb?'))deleteItem(fp,false).then(function(){showToast('Файл удалён');renderCurrentView()}).catch(function(e){showToast(e.message,true)})}});
         }
-    } else {
-        actions.push({ label: '📂 Открыть папку', act: () => { currentPath = data.path; renderCurrentView(); } });
-        actions.push({ label: '📋 Копировать ссылку', act: () => copyToClipboard(getFolderUrl(data.path)) });
-        if (isWriteEnabled) {
-            actions.push({ label: 'divider' });
-            actions.push({ label: '🗑️ Удалить папку', act: () => { if (confirm(`Удалить «${data.name}»?`)) deleteItem(data.path, true).then(() => { showToast('Папка удалена'); renderCurrentView(); }).catch(e => showToast(e.message, true)); } });
+    }else{
+        actions.push({label:'\uD83D\uDCC2 Открыть папку',act:function(){currentPath=data.path;updateUrlState();renderCurrentView()}});
+        actions.push({label:'\uD83D\uDCCB Копировать ссылку',act:function(){copyToClipboard(getFolderUrl(data.path))}});
+        if(isWriteEnabled){
+            actions.push({label:'divider'});
+            actions.push({label:'\uD83D\uDDD1\uFE0F Удалить папку',act:function(){if(confirm('Удалить \u00ab'+data.name+'\u00bb?'))deleteItem(data.path,true).then(function(){showToast('Папка удалена');renderCurrentView()}).catch(function(e){showToast(e.message,true)})}});
         }
     }
-
-    actions.forEach(a => {
-        if (a.label === 'divider') { let d = document.createElement('div'); d.className = 'divider'; menu.appendChild(d); return; }
-        let b = document.createElement('button');
-        b.textContent = a.label;
-        b.onclick = (e) => { e.stopPropagation(); a.act(); menu.remove(); };
+    actions.forEach(function(a){
+        if(a.label==='divider'){var d=document.createElement('div');d.className='divider';menu.appendChild(d);return}
+        var b=document.createElement('button');b.textContent=a.label;
+        b.onclick=function(e){e.stopPropagation();a.act();menu.remove()};
         menu.appendChild(b);
     });
-
-    btn.closest('.item-actions, [style]').appendChild(menu);
-    menu.style.display = 'flex';
-    requestAnimationFrame(() => {
-        document.addEventListener('click', function handler(e) {
-            if (!menu.contains(e.target) && e.target !== btn) { menu.remove(); document.removeEventListener('click', handler); }
+    btn.closest('.item-actions').appendChild(menu);
+    menu.style.display='flex';
+    requestAnimationFrame(function(){
+        document.addEventListener('click',function handler(e){
+            if(!menu.contains(e.target)&&e.target!==btn){menu.remove();document.removeEventListener('click',handler)}
         });
     });
 }
-
-// ======================== DRAG & DROP ========================
-function initDragDrop(card) {
-    card.setAttribute('draggable', 'true');
-    card.addEventListener('dragstart', (e) => {
-        e.dataTransfer.setData('text/plain', JSON.stringify({ filePath: card.dataset.filePath, fileName: card.dataset.fileName }));
-        e.dataTransfer.effectAllowed = 'move';
-        card.style.opacity = '0.5';
+function initDragDrop(card){
+    card.setAttribute('draggable','true');
+    card.addEventListener('dragstart',function(e){
+        e.dataTransfer.setData('text/plain',JSON.stringify({filePath:card.dataset.filePath,fileName:card.dataset.fileName}));
+        e.dataTransfer.effectAllowed='move';card.style.opacity='0.5';
     });
-    card.addEventListener('dragend', () => { card.style.opacity = '1'; });
+    card.addEventListener('dragend',function(){card.style.opacity='1'});
 }
-
-function initFolderDrop() {
-    document.querySelectorAll('.folder-card').forEach(f => {
-        f.addEventListener('dragover', (e) => { e.preventDefault(); e.dataTransfer.dropEffect = 'move'; f.classList.add('drag-over'); });
-        f.addEventListener('dragleave', () => f.classList.remove('drag-over'));
-        f.addEventListener('drop', async (e) => {
-            e.preventDefault(); f.classList.remove('drag-over');
-            let data = JSON.parse(e.dataTransfer.getData('text/plain'));
-            if (data.filePath === f.dataset.folderPath + '/' + data.fileName) return;
-            try { await moveFile(data.filePath, f.dataset.folderPath, data.fileName); renderCurrentView(); showToast('✅ Перемещено'); }
-            catch (err) { showToast(err.message, true); }
+function initFolderDrop(){
+    document.querySelectorAll('.folder-card').forEach(function(f){
+        f.addEventListener('dragover',function(e){e.preventDefault();e.dataTransfer.dropEffect='move';f.classList.add('drag-over')});
+        f.addEventListener('dragleave',function(){f.classList.remove('drag-over')});
+        f.addEventListener('drop',async function(e){
+            e.preventDefault();f.classList.remove('drag-over');
+            var data=JSON.parse(e.dataTransfer.getData('text/plain'));
+            if(data.filePath===f.dataset.folderPath+'/'+data.fileName)return;
+            try{await moveFile(data.filePath,f.dataset.folderPath,data.fileName);renderCurrentView();showToast('\u2705 Перемещено')}
+            catch(err){showToast(err.message,true)}
         });
     });
 }
-
-// ======================== RENDER ========================
-async function renderCurrentView() {
-    const container = document.getElementById('fileListContainer');
-    container.innerHTML = '<div class="loading-skeleton"></div><div class="loading-skeleton"></div><div class="loading-skeleton"></div>';
-
-    try {
-        let items = await fetchRepoContents(currentPath);
-        allItems = items;
-
-        let folders = items.filter(i => i.type === 'dir');
-        let htmlFiles = items.filter(i => i.type === 'file' && i.name.endsWith('.html') && i.name !== 'index.html');
-
-        // Filter
-        let filteredFiles = htmlFiles.filter(f => {
-            let tags = extractTags(f.name);
-            let tagOk = filterTag === 'all' || tags.includes(filterTag);
-            let searchOk = searchQuery === '' || f.name.toLowerCase().includes(searchQuery.toLowerCase()) || tags.some(t => t.includes(searchQuery.toLowerCase()));
-            let favOk = !showFavoritesOnly || favorites.includes(currentPath ? currentPath + '/' + f.name : f.name);
-            return tagOk && searchOk && favOk;
+async function renderCurrentView(){
+    var container=document.getElementById('fileListContainer');
+    container.innerHTML='<div class="loading-skeleton"></div><div class="loading-skeleton"></div><div class="loading-skeleton"></div>';
+    try{
+        var items=await fetchRepoContents(currentPath);
+        allItems=items;
+        var folders=items.filter(function(i){return i.type==='dir'});
+        var htmlFiles=items.filter(function(i){return i.type==='file'&&i.name.endsWith('.html')&&i.name!=='index.html'});
+        var filteredFiles=htmlFiles.filter(function(f){
+            var tags=extractTags(f.name);
+            var tagOk=filterTag==='all'||tags.indexOf(filterTag)!==-1;
+            var sq=searchQuery.toLowerCase();
+            var searchOk=searchQuery===''||f.name.toLowerCase().indexOf(sq)!==-1||tags.some(function(t){return t.indexOf(sq)!==-1});
+            var favOk=!showFavoritesOnly||favorites.indexOf(currentPath?currentPath+'/'+f.name:f.name)!==-1;
+            return tagOk&&searchOk&&favOk;
         });
-
-        // Sort
-        if (sortBy === 'name') filteredFiles.sort((a, b) => a.name.localeCompare(b.name, 'ru'));
-        if (sortBy === 'date') filteredFiles.sort((a, b) => (b.size || 0) - (a.size || 0));
-        if (sortBy === 'type') filteredFiles.sort((a, b) => extractTags(a.name)[0].localeCompare(extractTags(b.name)[0]));
-
-        totalHtmlFiles = htmlFiles.length;
+        if(sortBy==='name')filteredFiles.sort(function(a,b){return a.name.localeCompare(b.name,'ru')});
+        if(sortBy==='size')filteredFiles.sort(function(a,b){return(b.size||0)-(a.size||0)});
+        if(sortBy==='type')filteredFiles.sort(function(a,b){return extractTags(a.name)[0].localeCompare(extractTags(b.name)[0])});
+        totalHtmlFiles=htmlFiles.length;
         updateStats(filteredFiles);
         updateProgress(totalHtmlFiles);
         renderBreadcrumb();
-
-        let contentHtml = '';
-
-        // Folders
-        folders.forEach((f, i) => {
-            contentHtml += `
-                <div class="folder-card" data-folder-path="${f.path}" data-folder-name="${escapeHtml(f.name)}" style="animation-delay: ${i * 40}ms">
-                    <div class="item-row">
-                        <div class="item-main">
-                            <div class="item-icon">📁</div>
-                            <div class="item-info">
-                                <div class="item-name">${escapeHtml(f.name)}</div>
-                            </div>
-                        </div>
-                        <div class="item-actions" style="position:relative;">
-                            <button class="menu-btn" data-type="folder" data-path="${f.path}" data-name="${escapeHtml(f.name)}">⋮</button>
-                        </div>
-                    </div>
-                </div>`;
+        var html='';
+        folders.forEach(function(f,i){
+            html+='<div class="folder-card" data-folder-path="'+f.path+'" data-folder-name="'+escapeHtml(f.name)+'" style="animation-delay:'+i*40+'ms"><div class="item-row"><div class="item-main"><div class="item-icon">\uD83D\uDCC1</div><div class="item-info"><div class="item-name">'+escapeHtml(f.name)+'</div></div></div><div class="item-actions"><button class="menu-btn" data-type="folder" data-path="'+f.path+'" data-name="'+escapeHtml(f.name)+'">\u22EE</button></div></div></div>';
         });
-
-        // Files
-        filteredFiles.forEach((f, i) => {
-            let tags = extractTags(f.name);
-            let icon = getTagIcon(tags);
-            let fp = currentPath ? currentPath + '/' + f.name : f.name;
-            let isFav = favorites.includes(fp);
-            let isRead = readProgress[fp];
-            let size = formatFileSize(f.size);
-            let delay = (folders.length + i) * 40;
-
-            contentHtml += `
-                <div class="file-card ${isWriteEnabled ? 'draggable' : ''}" data-file-path="${fp}" data-file-name="${escapeHtml(f.name)}" style="animation-delay: ${delay}ms">
-                    <div class="item-row">
-                        <div class="item-main">
-                            <div class="item-icon">${icon}</div>
-                            <div class="item-info">
-                                <div class="item-name">${escapeHtml(f.name)}</div>
-                                <div class="item-meta">
-                                    <div class="tags">${tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
-                                    ${size ? `<span class="item-size">${size}</span>` : ''}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item-actions" style="position:relative;">
-                            <div class="status-badges">
-                                ${isFav ? '<span class="badge active" title="Избранное">⭐</span>' : ''}
-                                ${isRead ? '<span class="badge active" title="Прочитано">✅</span>' : ''}
-                            </div>
-                            <button class="menu-btn" data-type="file" data-path="${fp}" data-name="${escapeHtml(f.name)}" data-folder="${currentPath}">⋮</button>
-                        </div>
-                    </div>
-                </div>`;
+        filteredFiles.forEach(function(f,i){
+            var tags=extractTags(f.name);
+            var icon=getTagIcon(tags);
+            var fp=currentPath?currentPath+'/'+f.name:f.name;
+            var isFav=favorites.indexOf(fp)!==-1;
+            var isRead=readProgress[fp];
+            var size=formatFileSize(f.size);
+            var delay=(folders.length+i)*40;
+            html+='<div class="file-card'+(isWriteEnabled?' draggable':'')+'" data-file-path="'+fp+'" data-file-name="'+escapeHtml(f.name)+'" data-folder="'+currentPath+'" style="animation-delay:'+delay+'ms"><div class="item-row"><div class="item-main"><div class="item-icon">'+icon+'</div><div class="item-info"><div class="item-name">'+escapeHtml(f.name)+'</div><div class="item-meta"><div class="tags">'+tags.map(function(t){return '<span class="tag">'+t+'</span>'}).join('')+'</div>'+(size?'<span class="item-size">'+size+'</span>':'')+'</div></div></div><div class="item-actions"><div class="status-badges">'+(isFav?'<span class="badge active" title="Избранное">\u2B50</span>':'')+(isRead?'<span class="badge active" title="Прочитано">\u2705</span>':'')+'</div><button class="menu-btn" data-type="file" data-path="'+fp+'" data-name="'+escapeHtml(f.name)+'" data-folder="'+currentPath+'">\u22EE</button></div></div></div>';
         });
-
-        if (filteredFiles.length === 0 && folders.length === 0) {
-            contentHtml = `
-                <div class="empty-state">
-                    <div class="empty-icon">🌙</div>
-                    <div class="empty-text">${showFavoritesOnly ? 'Нет избранных файлов' : 'Нет файлов'}</div>
-                    <div class="empty-hint">${showFavoritesOnly ? 'Добавьте файлы в избранное через меню ⋮' : searchQuery ? 'Попробуйте изменить поисковый запрос' : 'Эта папка пуста'}</div>
-                </div>`;
+        if(filteredFiles.length===0&&folders.length===0){
+            var ei=showFavoritesOnly?'\u2B50':searchQuery?'\uD83D\uDD0D':'\uD83C\uDF19';
+            var et=showFavoritesOnly?'Нет избранных файлов':searchQuery?'Ничего не найдено':'Папка пуста';
+            var eh=showFavoritesOnly?'Добавьте файлы в избранное через меню \u22EE':searchQuery?'Попробуйте другой запрос':'Загрузите файлы или создайте новый';
+            html='<div class="empty-state"><div class="empty-icon">'+ei+'</div><div class="empty-text">'+et+'</div><div class="empty-hint">'+eh+'</div></div>';
         }
-
-        container.innerHTML = contentHtml;
-        container.className = `files-grid ${viewMode === 'grid' ? 'grid-view' : ''}`;
-
-        // Event handlers
-        document.querySelectorAll('.menu-btn').forEach(btn => {
-            btn.onclick = (e) => { e.stopPropagation(); showDropdown(e.currentTarget, btn.dataset); };
+        container.innerHTML=html;
+        container.className='files-grid '+(viewMode==='grid'?'grid-view':'');
+        document.querySelectorAll('.menu-btn').forEach(function(btn){
+            btn.onclick=function(e){e.stopPropagation();showDropdown(e.currentTarget,btn.dataset)};
         });
-
-        // Click on file card -> open file directly
-        document.querySelectorAll('.file-card').forEach(card => {
-            card.addEventListener('click', (e) => {
-                if (e.target.closest('.menu-btn') || e.target.closest('.item-actions')) return;
-                let fp = card.dataset.filePath;
-                let name = card.dataset.fileName;
-                let folder = currentPath;
-                let url = getFileUrl(folder, name);
-                window.open(url, '_blank');
+        document.querySelectorAll('.file-card').forEach(function(card){
+            card.addEventListener('click',function(e){
+                if(e.target.closest('.menu-btn')||e.target.closest('.status-badges'))return;
+                var fp=card.dataset.filePath;
+                var name=card.dataset.fileName;
+                var folder=card.dataset.folder||'';
+                var url=getFileUrl(folder,name);
+                openFileUrl(url);
                 recordOpen(fp);
+                setTimeout(function(){renderCurrentView()},300);
+            });
+        });
+        document.querySelectorAll('.folder-card').forEach(function(card){
+            card.addEventListener('click',function(e){
+                if(e.target.closest('.menu-btn'))return;
+                currentPath=card.dataset.folderPath;
+                updateUrlState();
                 renderCurrentView();
             });
         });
-
-        document.querySelectorAll('.folder-card').forEach(card => {
-            card.addEventListener('click', (e) => {
-                if (e.target.closest('.menu-btn')) return;
-                currentPath = card.dataset.folderPath;
-                renderCurrentView();
-            });
-        });
-
-        if (isWriteEnabled) {
-            document.querySelectorAll('.file-card.draggable').forEach(card => initDragDrop(card));
+        if(isWriteEnabled){
+            document.querySelectorAll('.file-card.draggable').forEach(function(card){initDragDrop(card)});
             initFolderDrop();
         }
-
-    } catch (err) {
-        container.innerHTML = `
-            <div class="empty-state">
-                <div class="empty-icon">⚠️</div>
-                <div class="empty-text">Ошибка загрузки</div>
-                <div class="empty-hint">${escapeHtml(err.message)}</div>
-            </div>`;
+    }catch(err){
+        container.innerHTML='<div class="empty-state"><div class="empty-icon">\u26A0\uFE0F</div><div class="empty-text">Ошибка загрузки</div><div class="empty-hint">'+escapeHtml(err.message)+'</div></div>';
     }
 }
-
-function renderBreadcrumb() {
-    let parts = currentPath.split('/').filter(p => p);
-    let area = document.getElementById('breadcrumbArea');
-    if (parts.length === 0) { area.innerHTML = ''; return; }
-
-    let html = `<div class="breadcrumb"><span class="breadcrumb-root" id="rootCrumb">🏠 ${CONFIG.repo}</span>`;
-    let acc = '';
-    parts.forEach((part, i) => {
-        acc += (acc ? '/' : '') + part;
-        let display = part;
-        if (i === parts.length - 1 && display.length > 18 && window.innerWidth < 640) display = display.slice(0, 12) + '…';
-        html += `<span class="breadcrumb-sep">/</span><span class="breadcrumb-item" data-path="${acc}">📁 ${escapeHtml(display)}</span>`;
+function renderBreadcrumb(){
+    var parts=currentPath.split('/').filter(function(p){return p});
+    var area=document.getElementById('breadcrumbArea');
+    var html='<div class="breadcrumb"><span class="breadcrumb-root" id="rootCrumb">\uD83C\uDFE0 '+CONFIG.repo+'</span>';
+    var acc='';
+    parts.forEach(function(part,i){
+        acc+=(acc?'/':'')+part;
+        var display=part;
+        if(i===parts.length-1&&display.length>18&&window.innerWidth<640)display=display.slice(0,12)+'\u2026';
+        html+='<span class="breadcrumb-sep">/</span><span class="breadcrumb-item" data-path="'+acc+'">\uD83D\uDCC1 '+escapeHtml(display)+'</span>';
     });
-    html += '</div>';
-    area.innerHTML = html;
-
-    document.getElementById('rootCrumb')?.addEventListener('click', () => { currentPath = ''; renderCurrentView(); });
-    document.querySelectorAll('.breadcrumb-item').forEach(el => {
-        el.addEventListener('click', () => { currentPath = el.dataset.path; renderCurrentView(); });
+    html+='</div>';
+    area.innerHTML=html;
+    var root=document.getElementById('rootCrumb');
+    if(root)root.addEventListener('click',function(){currentPath='';updateUrlState();renderCurrentView()});
+    document.querySelectorAll('.breadcrumb-item').forEach(function(el){
+        el.addEventListener('click',function(){currentPath=el.dataset.path;updateUrlState();renderCurrentView()});
     });
 }
-
-// ======================== TOKEN ========================
-async function tryEnableWrite() {
-    let statusSpan = document.getElementById('tokenStatus');
-    let createBtn = document.getElementById('createFolderBtn');
-    let uploadBtn = document.getElementById('uploadFileBtn');
-
-    if (!githubToken) {
-        statusSpan.textContent = '';
-        createBtn.style.display = 'none';
-        uploadBtn.style.display = 'none';
-        isWriteEnabled = false;
+function generatePatientHtml(patientName,fileType){
+    var typeEmoji=fileType==='анализ'?'\uD83D\uDD6F\uFE0F':fileType==='дуа'?'\uD83E\uDD32':'\uD83D\uDCFF';
+    var typeLabel=fileType.charAt(0).toUpperCase()+fileType.slice(1);
+    var now=new Date().toLocaleDateString('ru-RU');
+    var typeWord=fileType==='анализ'?'анализа':fileType==='дуа'?'дуа':'рукъи';
+    return '<!DOCTYPE html>\n<html lang="ru">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>'+typeEmoji+' '+typeLabel+' \u2014 '+patientName+'</title>\n    <style>\n        *{margin:0;padding:0;box-sizing:border-box}\n        body{font-family:\'Segoe UI\',\'Noto Naskh Arabic\',sans-serif;background:linear-gradient(135deg,#faf5eb,#f0e6d2);min-height:100vh;padding:2rem;color:#3d2e1e}\n        .container{max-width:800px;margin:0 auto}\n        .card{background:rgba(255,252,245,0.95);border-radius:20px;padding:2rem;margin-bottom:1.5rem;box-shadow:0 4px 20px rgba(60,40,10,0.08);border:1px solid #e8dcc4}\n        h1{color:#b37b2e;font-size:1.6rem;margin-bottom:.5rem}\n        .meta{color:#7a5f3a;font-size:.9rem;margin-bottom:1rem}\n        .section-title{color:#b37b2e;font-size:1.1rem;font-weight:700;margin:1rem 0 .5rem;border-bottom:2px solid #e8dcc4;padding-bottom:.3rem}\n        p,li{line-height:1.7;margin-bottom:.5rem}\n        ul{padding-left:1.5rem}\n        .back-link{display:inline-block;margin-bottom:1rem;color:#b37b2e;text-decoration:none;font-weight:600}\n        .back-link:hover{text-decoration:underline}\n    </style>\n</head>\n<body>\n    <div class="container">\n        <a href="index.html" class="back-link">\u2190 Назад к архиву</a>\n        <div class="card">\n            <h1>'+typeEmoji+' '+typeLabel+': '+patientName+'</h1>\n            <div class="meta">\uD83D\uDCC5 Дата: '+now+'</div>\n\n            <div class="section-title">\uD83D\uDCCB Общая информация</div>\n            <p>Имя: '+patientName+'</p>\n            <p>Возраст: </p>\n            <p>Жалобы: </p>\n\n            <div class="section-title">\uD83D\uDD0D '+typeLabel+'</div>\n            <p>Опишите здесь результаты '+typeWord+'...</p>\n\n            <div class="section-title">\uD83D\uDCDD Рекомендации</div>\n            <ul>\n                <li>Рекомендация 1</li>\n                <li>Рекомендация 2</li>\n                <li>Рекомендация 3</li>\n            </ul>\n\n            <div class="section-title">\uD83E\uDD32 Заключение</div>\n            <p>Да исцелит Аллах.</p>\n        </div>\n    </div>\n</body>\n</html>';
+}
+function openNewHtmlModal(){
+    if(!isWriteEnabled){
+        showToast('\uD83D\uDD11 Сначала введите GitHub Token',true);
+        document.getElementById('tokenToggle').classList.add('open');
+        document.getElementById('tokenBody').classList.add('open');
         return;
     }
-
-    statusSpan.textContent = '⏳ Проверка...';
-    statusSpan.style.color = 'var(--text-muted)';
-    let ok = await verifyToken();
-
-    if (ok) {
-        statusSpan.innerHTML = `✅ Токен: ${maskToken(githubToken)}`;
-        statusSpan.style.color = 'var(--success)';
-        createBtn.style.display = 'inline-flex';
-        uploadBtn.style.display = 'inline-flex';
-        isWriteEnabled = true;
-    } else {
-        statusSpan.textContent = '❌ Токен недействителен';
-        statusSpan.style.color = 'var(--danger)';
-        createBtn.style.display = 'none';
-        uploadBtn.style.display = 'none';
-        isWriteEnabled = false;
+    document.getElementById('newFileName').value='';
+    document.getElementById('newPatientName').value='';
+    document.getElementById('newFileType').value='анализ';
+    document.getElementById('newFileContent').value=generatePatientHtml('Имя пациента','анализ');
+    document.getElementById('newHtmlModal').style.display='flex';
+}
+function closeNewHtmlModal(){document.getElementById('newHtmlModal').style.display='none'}
+async function tryEnableWrite(){
+    var status=document.getElementById('tokenStatus');
+    var badge=document.getElementById('tokenBadge');
+    if(!githubToken){status.textContent='';badge.textContent='';isWriteEnabled=false;return}
+    status.textContent='\u23F3 Проверка...';status.style.color='var(--text-muted)';
+    var ok=await verifyToken();
+    if(ok){
+        status.innerHTML='\u2705 Токен: '+maskToken(githubToken);
+        status.style.color='var(--success)';
+        badge.textContent='\u2705';
+        isWriteEnabled=true;
+    }else{
+        status.textContent='\u274C Токен недействителен';
+        status.style.color='var(--danger)';
+        badge.textContent='\u274C';
+        isWriteEnabled=false;
     }
     renderCurrentView();
 }
-
-// ======================== INIT ========================
-async function init() {
-    // Theme
-    if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
-
-    // Quote
-    document.getElementById('quoteContainer').textContent = quotes[Math.floor(Math.random() * quotes.length)];
-
-    // Theme toggle
-    document.getElementById('themeToggle').onclick = () => {
+async function init(){
+    if(localStorage.getItem('theme')==='dark')document.body.classList.add('dark');
+    document.getElementById('quoteContainer').textContent=quotes[Math.floor(Math.random()*quotes.length)];
+    var themeBtn=document.getElementById('themeToggle');
+    themeBtn.onclick=function(){
         document.body.classList.toggle('dark');
-        localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
-        document.getElementById('themeToggle').textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+        localStorage.setItem('theme',document.body.classList.contains('dark')?'dark':'light');
+        themeBtn.textContent=document.body.classList.contains('dark')?'\u2600\uFE0F':'\uD83C\uDF19';
     };
-    if (document.body.classList.contains('dark')) document.getElementById('themeToggle').textContent = '☀️';
-
-    // View toggle
-    document.getElementById('viewToggle').onclick = () => {
-        viewMode = viewMode === 'list' ? 'grid' : 'list';
-        localStorage.setItem('viewMode', viewMode);
-        document.getElementById('viewToggle').textContent = viewMode === 'list' ? '📋' : '⊞';
+    if(document.body.classList.contains('dark'))themeBtn.textContent='\u2600\uFE0F';
+    var viewBtn=document.getElementById('viewToggle');
+    viewBtn.onclick=function(){
+        viewMode=viewMode==='list'?'grid':'list';
+        localStorage.setItem('viewMode',viewMode);
+        viewBtn.textContent=viewMode==='list'?'\uD83D\uDCCB Список':'\u229E Сетка';
         renderCurrentView();
     };
-    document.getElementById('viewToggle').textContent = viewMode === 'list' ? '📋' : '⊞';
-
-    // Sort
-    document.getElementById('sortSelect').value = sortBy;
-    document.getElementById('sortSelect').onchange = (e) => { sortBy = e.target.value; localStorage.setItem('sortBy', sortBy); renderCurrentView(); };
-
-    // Filter tags
-    document.getElementById('filterTags').onchange = (e) => { filterTag = e.target.value; renderCurrentView(); };
-
-    // Favorites filter
-    document.getElementById('favFilterBtn').onclick = () => {
-        showFavoritesOnly = !showFavoritesOnly;
-        document.getElementById('favFilterBtn').classList.toggle('btn-active', showFavoritesOnly);
+    viewBtn.textContent=viewMode==='list'?'\uD83D\uDCCB Список':'\u229E Сетка';
+    document.getElementById('sortSelect').value=sortBy;
+    document.getElementById('sortSelect').onchange=function(e){sortBy=e.target.value;localStorage.setItem('sortBy',sortBy);renderCurrentView()};
+    document.getElementById('filterTags').onchange=function(e){filterTag=e.target.value;renderCurrentView()};
+    document.getElementById('favFilterBtn').onclick=function(){
+        showFavoritesOnly=!showFavoritesOnly;
+        document.getElementById('favFilterBtn').classList.toggle('btn-active',showFavoritesOnly);
         renderCurrentView();
     };
-
-    // Search with debounce
-    const debouncedSearch = debounce(() => renderCurrentView(), CONFIG.debounceDelay);
-    document.getElementById('searchInput').oninput = (e) => {
-        searchQuery = e.target.value;
+    var searchInput=document.getElementById('searchInput');
+    var searchHint=document.getElementById('searchHint');
+    var searchClear=document.getElementById('searchClear');
+    var debouncedSearch=debounce(function(){renderCurrentView()},CONFIG.debounceDelay);
+    searchInput.oninput=function(e){
+        searchQuery=e.target.value;
+        searchClear.style.display=searchQuery?'block':'none';
+        searchHint.style.display=searchQuery?'none':'block';
         debouncedSearch();
     };
-
-    // Keyboard shortcut
-    window.addEventListener('keydown', (e) => {
-        if (e.key === '/' && !e.ctrlKey && !e.metaKey && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
-            e.preventDefault();
-            document.getElementById('searchInput').focus();
-        }
-        if (e.key === 'Escape') {
-            document.getElementById('searchInput').blur();
-            document.querySelectorAll('.dropdown-menu').forEach(m => m.remove());
-        }
-    });
-    document.getElementById('searchInput').addEventListener('focus', () => { document.getElementById('searchHint').style.display = 'none'; });
-    document.getElementById('searchInput').addEventListener('blur', () => {
-        if (!document.getElementById('searchInput').value) document.getElementById('searchHint').style.display = 'block';
-    });
-
-    // Token accordion
-    document.getElementById('tokenToggle').onclick = () => {
-        let toggle = document.getElementById('tokenToggle');
-        let body = document.getElementById('tokenBody');
-        toggle.classList.toggle('open');
-        body.classList.toggle('open');
+    searchClear.onclick=function(){
+        searchInput.value='';searchQuery='';
+        searchClear.style.display='none';searchHint.style.display='block';
+        renderCurrentView();
     };
-
-    // Token save
-    if (githubToken) document.getElementById('githubToken').value = githubToken;
-    document.getElementById('saveTokenBtn').onclick = async () => {
-        githubToken = document.getElementById('githubToken').value.trim();
-        localStorage.setItem('github_token', githubToken);
+    window.addEventListener('keydown',function(e){
+        if(e.key==='/'&&!e.ctrlKey&&!e.metaKey&&document.activeElement.tagName!=='INPUT'&&document.activeElement.tagName!=='TEXTAREA'){
+            e.preventDefault();searchInput.focus();
+        }
+        if(e.key==='Escape'){searchInput.blur();document.querySelectorAll('.dropdown-menu').forEach(function(m){m.remove()});closeNewHtmlModal()}
+    });
+    searchInput.addEventListener('focus',function(){searchHint.style.display='none'});
+    searchInput.addEventListener('blur',function(){if(!searchInput.value)searchHint.style.display='block'});
+    document.getElementById('tokenToggle').onclick=function(){
+        document.getElementById('tokenToggle').classList.toggle('open');
+        document.getElementById('tokenBody').classList.toggle('open');
+    };
+    if(githubToken)document.getElementById('githubToken').value=githubToken;
+    document.getElementById('saveTokenBtn').onclick=async function(){
+        githubToken=document.getElementById('githubToken').value.trim();
+        localStorage.setItem('github_token',githubToken);
         await tryEnableWrite();
     };
-
-    // Create folder
-    document.getElementById('createFolderBtn').onclick = async () => {
-        let name = prompt('Имя папки (латиница, цифры, -, _):');
-        if (name && /^[a-zA-Z0-9_-]+$/.test(name)) {
-            try { await createFolder(name); renderCurrentView(); showToast(`📁 Папка «${name}» создана`); }
-            catch (e) { showToast(e.message, true); }
-        } else if (name) { showToast('Некорректное имя папки', true); }
+    document.getElementById('createFolderBtn').onclick=async function(){
+        if(!isWriteEnabled){showToast('\uD83D\uDD11 Введите GitHub Token для записи',true);document.getElementById('tokenToggle').classList.add('open');document.getElementById('tokenBody').classList.add('open');return}
+        var name=prompt('Имя папки (латиница, цифры, -, _):');
+        if(name&&/^[a-zA-Z0-9_-]+$/.test(name)){
+            try{await createFolder(name);renderCurrentView();showToast('\uD83D\uDCC1 Папка \u00ab'+name+'\u00bb создана')}
+            catch(e){showToast(e.message,true)}
+        }else if(name){showToast('Некорректное имя папки',true)}
     };
-
-    // Upload
-    document.getElementById('uploadFileBtn').onclick = () => {
-        if (!isWriteEnabled) { showToast('Требуется токен', true); return; }
-        let input = document.createElement('input');
-        input.type = 'file';
-        input.accept = '.html';
-        input.onchange = async (e) => {
-            if (e.target.files[0]) {
-                try { await uploadFile(e.target.files[0]); renderCurrentView(); showToast('📤 Файл загружен'); }
-                catch (err) { showToast(err.message, true); }
+    document.getElementById('uploadFileBtn').onclick=function(){
+        if(!isWriteEnabled){showToast('\uD83D\uDD11 Введите GitHub Token для записи',true);document.getElementById('tokenToggle').classList.add('open');document.getElementById('tokenBody').classList.add('open');return}
+        var input=document.createElement('input');input.type='file';input.accept='.html';
+        input.onchange=async function(e){
+            if(e.target.files[0]){
+                try{await uploadFile(e.target.files[0]);renderCurrentView();showToast('\uD83D\uDCE4 Файл загружен')}
+                catch(err){showToast(err.message,true)}
             }
-        };
-        input.click();
+        };input.click();
     };
-
-    // Feedback
-    document.getElementById('feedbackBtn').onclick = () => window.open('mailto:admin@example.com?subject=Архив рукъи — обратная связь');
-
-    // URL path param
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('path')) currentPath = urlParams.get('path');
-
-    // Token verify
-    if (githubToken) await tryEnableWrite();
-
-    // Initial render
+    document.getElementById('newHtmlBtn').onclick=function(){openNewHtmlModal()};
+    document.getElementById('modalCancelBtn').onclick=function(){closeNewHtmlModal()};
+    document.getElementById('newHtmlModal').addEventListener('click',function(e){if(e.target===e.currentTarget)closeNewHtmlModal()});
+    document.getElementById('newPatientName').oninput=function(){
+        var name=document.getElementById('newPatientName').value||'Имя пациента';
+        var type=document.getElementById('newFileType').value;
+        document.getElementById('newFileContent').value=generatePatientHtml(name,type);
+    };
+    document.getElementById('newFileType').onchange=function(){
+        var name=document.getElementById('newPatientName').value||'Имя пациента';
+        var type=document.getElementById('newFileType').value;
+        document.getElementById('newFileContent').value=generatePatientHtml(name,type);
+    };
+    document.getElementById('modalSaveBtn').onclick=async function(){
+        var fileName=document.getElementById('newFileName').value.trim();
+        var content=document.getElementById('newFileContent').value;
+        if(!fileName){showToast('Введите имя файла',true);return}
+        fileName=fileName.replace(/[^a-zA-Z0-9\u0400-\u04FF_-]/g,'-');
+        if(!fileName.endsWith('.html'))fileName+='.html';
+        try{
+            document.getElementById('modalSaveBtn').textContent='\u23F3 Загрузка...';
+            document.getElementById('modalSaveBtn').disabled=true;
+            await createHtmlFile(fileName,content);
+            closeNewHtmlModal();
+            showToast('\u2705 Файл \u00ab'+fileName+'\u00bb создан');
+            renderCurrentView();
+        }catch(err){
+            showToast(err.message,true);
+        }finally{
+            document.getElementById('modalSaveBtn').textContent='\uD83D\uDCBE Создать и загрузить';
+            document.getElementById('modalSaveBtn').disabled=false;
+        }
+    };
+    document.getElementById('feedbackBtn').onclick=function(){
+        var choice=prompt('Способ связи:\n1 \u2014 Telegram\n2 \u2014 Email\n\nВведите 1 или 2:');
+        if(choice==='1')window.open('https://t.me/abu_muhammad_ruqya','_blank');
+        else if(choice==='2')window.open('mailto:admin@example.com?subject=Архив рукъи');
+    };
+    var urlParams=new URLSearchParams(window.location.search);
+    if(urlParams.has('path'))currentPath=urlParams.get('path');
+    window.addEventListener('popstate',function(){
+        var p=new URLSearchParams(window.location.search);
+        currentPath=p.get('path')||'';
+        renderCurrentView();
+    });
+    if(githubToken)await tryEnableWrite();
     await renderCurrentView();
 }
-
-window.addEventListener('DOMContentLoaded', init);
+window.addEventListener('DOMContentLoaded',init);
 </script>
 </body>
 </html>
