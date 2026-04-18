@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600;700&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ===== ОСНОВНЫЕ СТИЛИ (с исправлениями) ===== */
+        /* ===== ОСНОВНЫЕ СТИЛИ (исправлено перекрытие меню и z-index) ===== */
         *{margin:0;padding:0;box-sizing:border-box}
         :root{
             --bg-start:#faf5eb;--bg-end:#f0e6d2;
@@ -160,11 +160,18 @@
         .files-grid{display:flex;flex-direction:column;gap:8px;margin-bottom:2rem;overflow:visible!important}
         .files-grid.grid-view{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
         .file-card,.folder-card{
-            background:var(--card-bg);backdrop-filter:blur(16px);
+            background:var(--card-bg);
             border:1px solid var(--border);border-radius:var(--radius-md);
             padding:12px 14px;transition:all .25s;position:relative;cursor:pointer;
             opacity:0;animation:fadeCardIn .4s ease-out forwards;
             overflow:visible!important;
+            /* backdrop-filter убран, чтобы не создавать stacking context */
+        }
+        /* Эффект размытия через псевдоэлемент */
+        .file-card::before,.folder-card::before{
+            content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+            backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+            border-radius:inherit;z-index:-1;
         }
         .file-card:hover,.folder-card:hover{border-color:var(--accent);box-shadow:0 4px 20px var(--shadow);transform:translateY(-1px)}
         .file-card.draggable{cursor:grab}
@@ -193,7 +200,7 @@
             position:absolute;right:0;top:42px;
             background:var(--card-bg-solid);border:1px solid var(--border);
             border-radius:var(--radius-md);box-shadow:0 8px 32px var(--shadow-lg);
-            z-index:1000;display:none;flex-direction:column;min-width:220px;max-width:calc(100vw - 20px);
+            z-index:9999;display:none;flex-direction:column;min-width:220px;max-width:calc(100vw - 20px);
             overflow:hidden;animation:fadeScaleIn .15s ease-out;
         }
         .dropdown-menu button{
@@ -218,7 +225,7 @@
         .modal-overlay{
             position:fixed;inset:0;background:rgba(0,0,0,.6);
             display:flex;align-items:center;justify-content:center;
-            z-index:1100;animation:fadeIn .2s;
+            z-index:10000;animation:fadeIn .2s;
         }
         .modal-card{
             background:var(--card-bg-solid);border-radius:var(--radius-lg);
@@ -343,7 +350,7 @@
                 <option value="дуа">🤲 Дуа</option>
             </select>
         </div>
-        <!-- Поле тегов пока скрыто, чтобы не вводить в заблуждение; будет доработано позже -->
+        <!-- Поле тегов пока скрыто -->
         <div class="modal-field" style="display:none;">
             <label>Теги (через запятую)</label>
             <input type="text" id="editTags" placeholder="анализ, дуа, рукъя">
@@ -467,6 +474,11 @@
         document.getElementById('globalSpinner').classList.toggle('show', loading);
     }
 
+    // Закрыть все выпадающие меню
+    function closeAllDropdowns() {
+        document.querySelectorAll('.dropdown-menu').forEach(m => m.remove());
+    }
+
     // ========== КЭШ API ==========
     const apiCache = {};
     function getCached(k) {
@@ -527,23 +539,25 @@
         try {
             await apiRequest('GET', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}`);
             return true;
-        } catch { return false; }
+        } catch (e) {
+            console.error('Token verification failed:', e);
+            return false;
+        }
     }
 
-    // Проверка существования файла/папки
+    // Проверка существования файла/папки (возвращает false только для 404)
     async function itemExists(path) {
         try {
             await apiRequest('GET', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${path}?ref=${CONFIG.branch}`);
             return true;
         } catch (e) {
             if (e.message.includes('404')) return false;
-            throw e;
+            throw e; // пробрасываем другие ошибки
         }
     }
 
     // Рекурсивное удаление папки (если не пуста)
     async function deleteFolderRecursive(folderPath) {
-        // Получаем содержимое папки
         const items = await fetchRepoContents(folderPath);
         for (const item of items) {
             const itemPath = folderPath + '/' + item.name;
@@ -558,7 +572,6 @@
                 });
             }
         }
-        // Удаляем саму папку (если есть .gitkeep)
         try {
             const keep = await apiRequest('GET', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${folderPath}/.gitkeep`);
             await apiRequest('DELETE', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${folderPath}/.gitkeep`, {
@@ -573,6 +586,7 @@
 
     async function createFolder(name) {
         if (!githubToken) throw new Error('Токен не задан');
+        if (!isWriteEnabled) throw new Error('Режим записи не активирован. Проверьте токен.');
         const fp = currentPath ? currentPath + '/' + name : name;
         if (await itemExists(fp)) throw new Error('Папка с таким именем уже существует');
         await apiRequest('PUT', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${fp}/.gitkeep`, {
@@ -585,6 +599,7 @@
 
     async function createHtmlFile(fileName, htmlContent) {
         if (!githubToken) throw new Error('Токен не задан');
+        if (!isWriteEnabled) throw new Error('Режим записи не активирован. Проверьте токен.');
         const fp = currentPath ? currentPath + '/' + fileName : fileName;
         if (await itemExists(fp)) throw new Error('Файл с таким именем уже существует');
         const content = toBase64(htmlContent);
@@ -598,6 +613,7 @@
 
     async function updateHtmlFile(filePath, htmlContent, sha) {
         if (!githubToken) throw new Error('Токен не задан');
+        if (!isWriteEnabled) throw new Error('Режим записи не активирован. Проверьте токен.');
         const content = toBase64(htmlContent);
         await apiRequest('PUT', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${filePath}`, {
             message: `Обновлён ${filePath.split('/').pop()}`,
@@ -608,21 +624,19 @@
         clearCache();
     }
 
-    // Перемещение файла без скачивания содержимого (используем SHA)
+    // Перемещение файла без скачивания содержимого
     async function moveFile(src, destFolder, fileName) {
         if (!githubToken) throw new Error('Токен не задан');
+        if (!isWriteEnabled) throw new Error('Режим записи не активирован. Проверьте токен.');
         const destPath = destFolder ? destFolder + '/' + fileName : fileName;
         if (src === destPath) return;
         if (await itemExists(destPath)) throw new Error('Файл с таким именем уже существует в целевой папке');
-        // Получаем метаданные исходного файла (SHA)
         const srcMeta = await apiRequest('GET', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${src}?ref=${CONFIG.branch}`);
-        // Создаём копию в новом месте (с тем же содержимым, но без base64)
         await apiRequest('PUT', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${destPath}`, {
             message: `Перемещение ${fileName}`,
-            content: srcMeta.content, // уже в base64
+            content: srcMeta.content,
             branch: CONFIG.branch
         });
-        // Удаляем исходный
         await apiRequest('DELETE', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${src}`, {
             message: `Удаление после перемещения`,
             sha: srcMeta.sha,
@@ -633,6 +647,7 @@
 
     async function deleteItem(path, isFolder) {
         if (!githubToken) throw new Error('Токен не задан');
+        if (!isWriteEnabled) throw new Error('Режим записи не активирован. Проверьте токен.');
         if (isFolder) {
             await deleteFolderRecursive(path);
         } else {
@@ -648,6 +663,7 @@
 
     async function renameItem(path, newName) {
         if (!githubToken) throw new Error('Токен не задан');
+        if (!isWriteEnabled) throw new Error('Режим записи не активирован. Проверьте токен.');
         const parent = path.substring(0, path.lastIndexOf('/'));
         const np = parent ? parent + '/' + newName : newName;
         if (await itemExists(np)) throw new Error('Элемент с таким именем уже существует');
@@ -667,6 +683,7 @@
 
     async function uploadFile(file) {
         if (!githubToken) throw new Error('Токен не задан');
+        if (!isWriteEnabled) throw new Error('Режим записи не активирован. Проверьте токен.');
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
             reader.onload = async (e) => {
@@ -676,7 +693,6 @@
                     if (raw.indexOf(',') !== -1) {
                         content = raw.split(',')[1];
                     } else {
-                        // ArrayBuffer case
                         const bytes = new Uint8Array(e.target.result);
                         let binary = '';
                         bytes.forEach(b => binary += String.fromCharCode(b));
@@ -704,7 +720,6 @@
         const typeLabel = fileType.charAt(0).toUpperCase() + fileType.slice(1);
         const now = new Date().toLocaleDateString('ru-RU');
         const typeWord = fileType === 'анализ' ? 'анализа' : (fileType === 'дуа' ? 'дуа' : 'рукъи');
-        // Экранируем имя пациента
         const safeName = escapeHtml(patientName);
         return `<!DOCTYPE html>
 <html lang="ru">
@@ -776,7 +791,6 @@
         return '📄';
     }
 
-    // Подсветка поискового запроса
     function highlightText(text, query) {
         if (!query) return escapeHtml(text);
         const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -856,6 +870,7 @@
         editFileType.value = 'анализ';
         editFileContent.value = generatePatientHtml('Имя пациента', 'анализ');
         modal.style.display = 'flex';
+        closeAllDropdowns();
     }
 
     async function openEditorForFile(filePath, fileName) {
@@ -864,7 +879,6 @@
         try {
             const meta = await apiRequest('GET', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${filePath}?ref=${CONFIG.branch}`);
             const content = fromBase64(meta.content);
-            // Попытаемся извлечь имя пациента из HTML (простая эвристика)
             let patientName = '';
             const nameMatch = content.match(/<h1>[^:]*:\s*([^<]+)/);
             if (nameMatch) patientName = nameMatch[1].trim();
@@ -883,6 +897,7 @@
             editFileType.value = fileType;
             editFileContent.value = content;
             modal.style.display = 'flex';
+            closeAllDropdowns();
         } catch (e) {
             showToast('Ошибка загрузки файла: ' + e.message, true);
         } finally {
@@ -906,9 +921,8 @@
         setTimeout(() => URL.revokeObjectURL(url), 100);
     };
 
-    // Автогенерация при изменении полей
     function updateGeneratedContent() {
-        if (editingFilePath) return; // при редактировании не перезаписываем
+        if (editingFilePath) return;
         const name = editPatientName.value || 'Имя пациента';
         const type = editFileType.value;
         editFileContent.value = generatePatientHtml(name, type);
@@ -945,7 +959,7 @@
 
     // ========== ВЫПАДАЮЩЕЕ МЕНЮ ==========
     function showDropdown(btn, data) {
-        document.querySelectorAll('.dropdown-menu').forEach(m => m.remove());
+        closeAllDropdowns(); // закрываем предыдущие
         const menu = document.createElement('div');
         menu.className = 'dropdown-menu';
         const actions = [];
@@ -1065,7 +1079,6 @@
                 return tagOk && searchOk && favOk;
             });
 
-            // Сортировка
             if (sortBy === 'name') filteredFiles.sort((a,b) => a.name.localeCompare(b.name, 'ru'));
             if (sortBy === 'size') filteredFiles.sort((a,b) => (b.size||0) - (a.size||0));
             if (sortBy === 'type') filteredFiles.sort((a,b) => extractTags(a.name)[0].localeCompare(extractTags(b.name)[0]));
@@ -1166,7 +1179,15 @@
     async function tryEnableWrite() {
         const status = document.getElementById('tokenStatus');
         const badge = document.getElementById('tokenBadge');
-        if (!githubToken) { status.textContent = ''; badge.textContent = ''; isWriteEnabled = false; return; }
+        const toggleBtn = document.getElementById('tokenToggle');
+        const body = document.getElementById('tokenBody');
+
+        if (!githubToken) {
+            status.textContent = '';
+            badge.textContent = '';
+            isWriteEnabled = false;
+            return;
+        }
         status.textContent = '⏳ Проверка...';
         status.style.color = 'var(--text-muted)';
         const ok = await verifyToken();
@@ -1175,6 +1196,9 @@
             status.style.color = 'var(--success)';
             badge.textContent = '✅';
             isWriteEnabled = true;
+            // Свернуть панель токена после успешной проверки
+            toggleBtn.classList.remove('open');
+            body.classList.remove('open');
         } else {
             status.textContent = '❌ Токен недействителен';
             status.style.color = 'var(--danger)';
@@ -1236,7 +1260,11 @@
             if (e.key === '/' && !e.ctrlKey && !e.metaKey && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
                 e.preventDefault(); searchInput.focus();
             }
-            if (e.key === 'Escape') { searchInput.blur(); document.querySelectorAll('.dropdown-menu').forEach(m => m.remove()); closeEditor(); }
+            if (e.key === 'Escape') {
+                searchInput.blur();
+                closeAllDropdowns();
+                closeEditor();
+            }
         });
         searchInput.addEventListener('focus', () => searchHint.style.display = 'none');
         searchInput.addEventListener('blur', () => { if (!searchInput.value) searchHint.style.display = 'block'; });
@@ -1253,18 +1281,35 @@
         };
 
         document.getElementById('createFolderBtn').onclick = async () => {
-            if (!isWriteEnabled) { showToast('🔑 Введите GitHub Token для записи', true); return; }
+            if (!isWriteEnabled) {
+                showToast('🔑 Введите и сохраните GitHub Token для записи', true);
+                document.getElementById('tokenToggle').classList.add('open');
+                document.getElementById('tokenBody').classList.add('open');
+                return;
+            }
             const name = prompt('Имя папки (латиница, цифры, -, _):');
             if (name && /^[a-zA-Z0-9_-]+$/.test(name)) {
                 setGlobalLoading(true);
-                try { await createFolder(name); renderCurrentView(); showToast(`📁 Папка «${name}» создана`); }
-                catch(e){ showToast(e.message, true); }
-                finally { setGlobalLoading(false); }
+                try {
+                    await createFolder(name);
+                    renderCurrentView();
+                    showToast(`📁 Папка «${name}» создана`);
+                } catch(e) {
+                    showToast(e.message, true);
+                    console.error('Create folder error:', e);
+                } finally {
+                    setGlobalLoading(false);
+                }
             } else if (name) showToast('Некорректное имя папки', true);
         };
 
         document.getElementById('uploadFileBtn').onclick = () => {
-            if (!isWriteEnabled) { showToast('🔑 Введите GitHub Token для записи', true); return; }
+            if (!isWriteEnabled) {
+                showToast('🔑 Введите и сохраните GitHub Token для записи', true);
+                document.getElementById('tokenToggle').classList.add('open');
+                document.getElementById('tokenBody').classList.add('open');
+                return;
+            }
             const input = document.createElement('input');
             input.type = 'file';
             input.accept = '.html';
@@ -1279,6 +1324,7 @@
                     showToast(`📤 Загружено файлов: ${files.length}`);
                 } catch (err) {
                     showToast(err.message, true);
+                    console.error('Upload error:', err);
                 } finally {
                     setGlobalLoading(false);
                 }
@@ -1287,7 +1333,12 @@
         };
 
         document.getElementById('newHtmlBtn').onclick = () => {
-            if (!isWriteEnabled) { showToast('🔑 Введите GitHub Token для записи', true); return; }
+            if (!isWriteEnabled) {
+                showToast('🔑 Введите и сохраните GitHub Token для записи', true);
+                document.getElementById('tokenToggle').classList.add('open');
+                document.getElementById('tokenBody').classList.add('open');
+                return;
+            }
             openEditorForNew();
         };
 
