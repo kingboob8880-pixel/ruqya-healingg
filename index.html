@@ -165,8 +165,11 @@
             padding:12px 14px;transition:all .25s;position:relative;cursor:pointer;
             opacity:0;animation:fadeCardIn .4s ease-out forwards;
             overflow:visible!important;
+            z-index:1; /* базовый уровень, чтобы не перекрывать соседей */
             /* backdrop-filter убран, чтобы не создавать stacking context */
         }
+        /* Когда у карточки открыто выпадающее меню — поднимаем её над соседями */
+        .file-card.has-menu-open,.folder-card.has-menu-open{z-index:100}
         /* Эффект размытия через псевдоэлемент */
         .file-card::before,.folder-card::before{
             content:'';position:absolute;top:0;left:0;right:0;bottom:0;
@@ -477,6 +480,8 @@
     // Закрыть все выпадающие меню
     function closeAllDropdowns() {
         document.querySelectorAll('.dropdown-menu').forEach(m => m.remove());
+        // Снимаем поднятый z-index с карточек, у которых было открыто меню
+        document.querySelectorAll('.has-menu-open').forEach(c => c.classList.remove('has-menu-open'));
     }
 
     // ========== КЭШ API ==========
@@ -530,14 +535,23 @@
         const r = await fetch(url, opts);
         if (!r.ok) {
             const err = await r.json().catch(() => ({}));
-            throw new Error(err.message || `GitHub API: ${r.status}`);
+            const error = new Error(err.message || `GitHub API: ${r.status}`);
+            error.status = r.status;           // <-- сохраняем код ответа
+            error.responseBody = err;
+            throw error;
         }
         return r.status !== 204 ? await r.json() : null;
     }
 
     async function verifyToken() {
         try {
-            await apiRequest('GET', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}`);
+            // Получаем информацию о репозитории — и проверяем, есть ли права push.
+            // Раньше GET публичного репо проходил даже без токена и создавал ложное ощущение успеха.
+            const info = await apiRequest('GET', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}`);
+            if (info && info.permissions && info.permissions.push === false) {
+                console.warn('Token не имеет прав push на этот репозиторий');
+                return false;
+            }
             return true;
         } catch (e) {
             console.error('Token verification failed:', e);
@@ -551,7 +565,9 @@
             await apiRequest('GET', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${path}?ref=${CONFIG.branch}`);
             return true;
         } catch (e) {
-            if (e.message.includes('404')) return false;
+            // GitHub при отсутствии файла возвращает 404 с message "Not Found".
+            // Проверяем именно код, а не текст (раньше .includes('404') не срабатывал).
+            if (e.status === 404) return false;
             throw e; // пробрасываем другие ошибки
         }
     }
@@ -1013,13 +1029,21 @@
             if (a.label === 'divider') { const d = document.createElement('div'); d.className = 'divider'; menu.appendChild(d); return; }
             const b = document.createElement('button');
             b.textContent = a.label;
-            b.onclick = (e) => { e.stopPropagation(); a.act(); menu.remove(); };
+            b.onclick = (e) => { e.stopPropagation(); a.act(); closeAllDropdowns(); };
             menu.appendChild(b);
         });
+        // Поднимаем родительскую карточку над соседями, чтобы меню не перекрывалось
+        const parentCard = btn.closest('.file-card, .folder-card');
+        if (parentCard) parentCard.classList.add('has-menu-open');
         btn.closest('.item-actions').appendChild(menu);
         menu.style.display = 'flex';
         requestAnimationFrame(() => {
-            const handler = (e) => { if (!menu.contains(e.target) && e.target !== btn) { menu.remove(); document.removeEventListener('click', handler); } };
+            const handler = (e) => {
+                if (!menu.contains(e.target) && e.target !== btn) {
+                    closeAllDropdowns();
+                    document.removeEventListener('click', handler);
+                }
+            };
             document.addEventListener('click', handler);
         });
     }
