@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Рукья | Детальная программа лечения | Зулета</title>
+    <!-- Google Fonts для арабского и кириллицы -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <!-- html2pdf.js для экспорта PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #fef7e8;
+            font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+            color: #5a3e1b;
+            line-height: 1.5;
+            font-size: 16px; /* базовый размер, будет меняться через JS */
+            transition: font-size 0.1s ease;
+        }
+
+        /* Основной контентный контейнер */
+        .app-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fef7e8;
+            border-radius: 28px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            overflow-x: hidden;
+            padding: 1rem 1.2rem 2rem;
+        }
+
+        /* Стили для арабского текста */
+        .arabic {
+            font-family: 'Amiri', 'Times New Roman', serif;
+            font-size: 1.3rem;
+            line-height: 1.6;
+            direction: rtl;
+            unicode-bidi: embed;
+            color: #3e2a12;
+            font-weight: 500;
+            margin: 0.5rem 0;
+            word-break: break-word;
+        }
+
+        .trans, .translation {
+            font-size: 0.95rem;
+            color: #6b4c2c;
+            margin-top: 0.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        h1, h2, h3 {
+            color: #8b5e2c;
+            font-weight: 600;
+            margin-top: 1.2rem;
+            margin-bottom: 0.6rem;
+            border-left: 4px solid #c9a53b;
+            padding-left: 12px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            text-align: center;
+            border-left: none;
+            border-bottom: 2px solid #e9d7b4;
+            padding-bottom: 0.5rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+        }
+
+        /* Таблицы */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            background: #fffcf4;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        th, td {
+            border: 1px solid #e0d5b8;
+            padding: 10px 8px;
+            vertical-align: top;
+            text-align: left;
+        }
+
+        th {
+            background-color: #c9a53b20;
+            color: #6b3f00;
+            font-weight: 700;
+        }
+
+        /* Блоки лечения */
+        .ruqya-block {
+            background: #fff9ef;
+            border-radius: 20px;
+            padding: 1rem;
+            margin: 1.2rem 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            border: 1px solid #efe3c9;
+        }
+
+        .ruqya-block p {
+            margin: 0.4rem 0;
+        }
+
+        .badge {
+            background: #c9a53b;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: bold;
+            display: inline-block;
+            padding: 0.2rem 0.7rem;
+            border-radius: 30px;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        /* панель управления */
+        .control-bar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: #fef7e8;
+            padding: 0.7rem 1rem;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            backdrop-filter: blur(4px);
+            margin-bottom: 1rem;
+        }
+
+        .ctrl-btn {
+            background: #ede3ce;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 8px 18px;
+            border-radius: 40px;
+            color: #5a3e1b;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .ctrl-btn:active {
+            transform: scale(0.96);
+        }
+
+        .ctrl-btn.pdf-btn {
+            background: #c9a53b;
+            color: white;
+        }
+
+        /* Модальное окно доступа */
+        .access-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(6px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .access-card {
+            background: #fffaf0;
+            border-radius: 32px;
+            padding: 2rem 1.5rem;
+            max-width: 320px;
+            width: 85%;
+            text-align: center;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.3);
+            border: 1px solid #e9cfa0;
+        }
+
+        .access-card h3 {
+            margin-top: 0;
+            border-left: none;
+            color: #b8860b;
+        }
+
+        .access-input {
+            width: 100%;
+            padding: 12px;
+            margin: 20px 0;
+            border: 1px solid #d4bc8a;
+            border-radius: 60px;
+            font-size: 1.2rem;
+            text-align: center;
+            background: #fff;
+            font-weight: 500;
+        }
+
+        .access-btn {
+            background: #c9a53b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 60px;
+            font-weight: bold;
+            width: 100%;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .error-msg {
+            color: #c7362b;
+            font-size: 0.85rem;
+            margin-top: 12px;
+        }
+
+        /* детали воздействия и образы */
+        .detail-meta {
+            background: #f7f0e2;
+            border-radius: 14px;
+            padding: 0.7rem 1rem;
+            margin: 0.8rem 0;
+            font-size: 0.9rem;
+            border-left: 3px solid #c9a53b;
+        }
+
+        .detail-meta strong {
+            color: #8b5a2b;
+        }
+
+        hr {
+            margin: 1rem 0;
+            border-color: #ecdcaa;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.8rem;
+            color: #a98648;
+            border-top: 1px solid #eadbba;
+            padding-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+<!-- МОДАЛКА ДОСТУПА (код 123) -->
+<div id="accessModal" class="access-overlay">
+    <div class="access-card">
+        <h3>🔐 Доступ к рукье</h3>
+        <p>Введите код для продолжения</p>
+        <input type="password" id="accessCode" class="access-input" placeholder="Код доступа" inputmode="numeric">
+        <button id="unlockBtn" class="access-btn">Разблокировать</button>
+        <div id="accessError" class="error-msg"></div>
+    </div>
+</div>
+
+<!-- ОСНОВНОЙ КОНТЕНТ (изначально скрыт, показываем после ввода кода) -->
+<div id="mainContent" style="display: none;">
+    <div class="control-bar">
+        <button id="fontMinus" class="ctrl-btn" aria-label="Уменьшить шрифт">🔍−</button>
+        <button id="fontPlus" class="ctrl-btn" aria-label="Увеличить шрифт">🔍+</button>
+        <button id="savePdfBtn" class="ctrl-btn pdf-btn">📄 Сохранить PDF</button>
+    </div>
+
+    <div class="app-container" id="pdfContent">
+        <!-- Раздел 1: ВСТУПЛЕНИЕ -->
+        <h1>🕯️ Лечебная рукья — Зулета</h1>
+        <p><strong>Зулета,</strong> дочь Адама, 35 лет. Да укрепит Аллах твоё сердце и облегчит исцеление. Твои жалобы — сглаз, зависть, присутствие джинна, перекрытие ризка, головные боли, слабость. Аллах слышит твой призыв.</p>
+        <div class="arabic">﴿ وَإِذَا مَرِضْتُ فَهُوَ يَشْفِينِ ﴾</div>
+        <div class="trans">Транскрипция: <em>Ва иза маридту фахува йашфини</em></div>
+        <div class="translation">Смысл: «И когда я заболею, Он (Аллах) исцеляет меня» (Сура «Аш-Шуара», 26:80).</div>
+        <p>Сестра, твоя ситуация срочная, но милость Всевышнего безгранична. Сабр (терпение) и рукья по Сунне — ключи к облегчению. Ты не одна, Аллах с тобой.</p>
+
+        <!-- Раздел 2: ДИАГНОСТИКА (компактно + детально) -->
+        <h2>📋 Диагностика недугов</h2>
+        <h3>🔹 Краткий обзор (3–4 строки на тип)</h3>
+        <p><strong>Айн (сглаз/зависть):</strong> Внезапные разводы по одинаковой схеме, упадок сил, перекрытие в семье и деньгах. Зависть со стороны близких/окружения.<br>
+        <strong>Сихр (колдовство):</strong> Череда неудач в работе и финансах, блокировка удачи, повторяющиеся проблемы с браком — признаки развязанных узлов.<br>
+        <strong>Джинны (одержание/присутствие):</strong> Состояние «0», сильная слабость, тяжесть в теле, апатия, частые головные боли, ощущение пустоты.</p>
+
+        <h3>🔸 Подробная диагностика (7–10 строк)</h3>
+        <p><strong>Сглаз и зависть (аль-‘айн уа аль-хасад):</strong> Твои жалобы указывают на мощный взгляд — разводы повторяются идентично, словно запрограммировано. Резкое ухудшение 2 года назад после чьего-то восхищения или тайной зависти. Симптомы: мигрень, слабость по утрам, нестабильное эмоциональное состояние, отвращение к домашним делам.<br>
+        <strong>Колдовство (сихр):</strong> Перекрыт ризк — деньги уходят, работа не приносит бараката, не складываются отношения. Сихр часто влияет на узлы брака, и два развода по одной схеме — явный признак. Возможны также беспричинная сонливость, холод в конечностях.<br>
+        <strong>Джинны (карин или шайтан):</strong> Состояние «полный ноль», потеря интереса к жизни, депрессивные эпизоды, головные боли, тяжесть в затылке, внезапные страхи, шепот, мешающий молитве и зикру. Джинн может питаться твоей слабостью и мешать ризку.</p>
+
+        <!-- Раздел 3: ТАБЛИЦА НЕДУГОВ (ровно 4 строки) -->
+        <h2>📌 Таблица недугов и симптомов</h2>
+        <table>
+            <thead>
+                <tr><th>Недуг</th><th>Симптомы из жалоб / состояния</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Сглаз / Зависть</td><td>Разводы по одной схеме, резкое ухудшение 2 года назад, эмоциональная нестабильность.</td></tr>
+                <tr><td>Джинны</td><td>Состояние «0», слабость, головные боли, тяжесть, апатия, внутренний шепот.</td></tr>
+                <tr><td>Перекрытие ризка (садд ар-ризк)</td><td>Проблемы с деньгами, работой, семейные блоки, неудачи в начинаниях.</td></tr>
+                <tr><td>Физические симптомы</td><td>Частые головные боли, упадок сил, сонливость, отсутствие энергии.</td></tr>
+            </tbody>
+        </table>
+
+        <!-- Раздел 4: ЛЕЧЕНИЕ — ДЕТАЛЬНЫЙ РЕЖИМ (все элементы) -->
+        <h2>📖 Программа лечения (детальная рукья)</h2>
+        
+        <!-- 1️⃣ Зарядка -->
+        <div class="ruqya-block">
+            <div class="badge">1️⃣ Зарядка организма</div>
+            <div class="arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ * الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ... (سورة الفاتحة)</div>
+            <div class="trans">Сура Аль-Фатиха (полностью, 7 аятов)</div>
+            <div class="translation">Перевод: «Хвала Аллаху, Господу миров...»</div>
+            <div class="detail-meta"><strong>📖 Как читать:</strong> Вслух с убеждённостью, представляя, как свет пронизывает каждую клетку.<br>
+            <strong>👁️ Образ:</strong> Золотистый нур (свет) входит в макушку и наполняет всё тело, выжигая тьму.<br>
+            <strong>🤲 Воздействие:</strong> Мягкое давление ладонями на грудь и голову при чтении.<br>
+            <strong>📍 Место:</strong> Читать над собой, положив руку на темя.<br>
+            <strong>🔄 Повторения:</strong> 3 раза (утром и вечером).</div>
+        </div>
+
+        <!-- 2️⃣ Заклинания (минимум 3, подготовлено 4) -->
+        <!-- Заклинание 1: против сглаза и зависти -->
+        <div class="ruqya-block">
+            <div class="badge">2️⃣ Заклинание 1 — от сглаза и зависти</div>
+            <div class="arabic">بِسْمِ اللهِ نُورُ السَّمَاوَاتِ وَالْأَرْضِ أَرْقِي جَسَدِي مِنَ الْعَيْنِ وَالْحَسَدِ لِلشِّفَاءِ وَالْبَرَكَةِ</div>
+            <div class="trans">Транскрипция: Бисмилляхи нус-самавати валь-ард, аркы джасади миналь-‘айни уаль-хасади лиш-шифаи уаль-барака.</div>
+            <div class="translation">Перевод: «С именем Аллаха, Света небес и земли, заклинаю тело моё от сглаза и зависти к исцелению и благодати».</div>
+            <div class="detail-meta"><strong>Читать:</strong> 11 раз, вслух, сосредоточенно.<br>
+            <strong>Образ:</strong> Видеть яркий луч, разрушающий чёрные пятна зависти, выходящие из груди.<br>
+            <strong>Воздействие:</strong> Выщипывающие движения пальцами на области груди и солнечного сплетения.<br>
+            <strong>Место:</strong> На сердце и живот — чтение с правой руки.</div>
+        </div>
+
+        <!-- Заклинание 2: против джиннов -->
+        <div class="ruqya-block">
+            <div class="badge">2️⃣ Заклинание 2 — изгнание джинна, карина</div>
+            <div class="arabic">بِسْمِ اللهِ الْحَيُّ الْقَيُّومُ أَرْقِي رُوحِي مِنَ الشَّيْطَانِ وَالْوَسْوَاسِ لِلْخُرُوجِ وَالطَّرْدِ</div>
+            <div class="trans">Бисмилляхи аль-хайй аль-кайюм, аркы рухи минаш-шайтани уаль-васваси лиль-хуруджи уат-тард.</div>
+            <div class="translation">«С именем Аллаха, Живого, Самосущего, заклинаю душу мою от шайтана и нашептываний к изгнанию и изгнанию».</div>
+            <div class="detail-meta"><strong>Читать:</strong> 21 раз, читать с громкостью и властным тоном.<br>
+            <strong>Образ:</strong> Огненный меч, разрубающий цепи джинна, существо покидает тело через стопы.<br>
+            <strong>Воздействие:</strong> Давление большими пальцами на точки у висков и затылка, после выщипывание на плечах.<br>
+            <strong>Место:</strong> Голова, лоб, шея.</div>
+        </div>
+
+        <!-- Заклинание 3: от перекрытия ризка -->
+        <div class="ruqya-block">
+            <div class="badge">2️⃣ Заклинание 3 — открытие ризка (деньги, работа, семья)</div>
+            <div class="arabic">بِسْمِ اللهِ فَالِقُ الْإِصْبَاحِ أَرْقِي رِزْقِي مِنَ السَّدِّ وَالْعُقَدِ لِلْفَتْحِ وَالْيُسْرِ</div>
+            <div class="trans">Бисмилляхи фаликуль-исбах, аркы ризкы минас-садди уаль-‘укади лиль-фатхи уаль-юсри.</div>
+            <div class="translation">«С именем Аллаха, Раскалывающего утреннюю зарю, заклинаю удел мой от преграждения и узлов к раскрытию и облегчению».</div>
+            <div class="detail-meta"><strong>Читать:</strong> 7 раз после каждого намаза, тихо в сердце.<br>
+            <strong>Образ:</strong> Видеть раскрывающиеся замки на дверях, золотой поток монет и благ.<br>
+            <strong>Воздействие:</strong> Круговые растирания ладоней над кошельком и на рабочем месте (мысленно).<br>
+            <strong>Место:</strong> На область правой ладони и лоб.</div>
+        </div>
+
+        <!-- Заклинание 4: от головных болей -->
+        <div class="ruqya-block">
+            <div class="badge">2️⃣ Заклинание 4 — от головных болей и слабости</div>
+            <div class="arabic">بِسْمِ اللهِ خَالِقُ كُلِّ شَيْءٍ أَرْقِي رَأْسِي مِنَ الصُّدَاعِ وَالأَلَمِ لِلسَّكِينَةِ وَالشِّفَاءِ</div>
+            <div class="trans">Бисмилляхи хаалику кулли шайин, аркы рааси минас-суда’и уаль-алами лис-сакинати уаш-шифа.</div>
+            <div class="translation">«С именем Аллаха, Творца всякой вещи, заклинаю голову мою от мигрени и боли к покою и исцелению».</div>
+            <div class="detail-meta"><strong>Читать:</strong> 11 раз, проводя рукой по голове.<br>
+            <strong>Образ:</strong> Холодный бальзам, снимающий огонь, череп наполняется белым светом.<br>
+            <strong>Воздействие:</strong> Легкое давление на виски и затылок, выщипывание вдоль линии роста волос.<br>
+            <strong>Место:</strong> На темени, лбу и затылке.</div>
+        </div>
+
+        <!-- 3️⃣ Мольба (дуа) -->
+        <div class="ruqya-block">
+            <div class="badge">3️⃣ Мольба (Дуа об исцелении)</div>
+            <div class="arabic">اللَّهُمَّ رَبَّ النَّاسِ، أَذْهِبِ الْبَأْسَ، اشْفِ أَنْتَ الشَّافِي، لاَ شِفَاءَ إِلاَّ شِفَاؤُكَ، شِفَاءً لاَ يُغَادِرُ سَقَمًا</div>
+            <div class="trans">Аллахумма раббан-нас, азхиб аль-ба’са, ишфи анта аш-шафи, ля шифаа илля шифаук, шифаан ля йугадиру сакама.</div>
+            <div class="translation">«О Аллах, Господь людей, удали болезнь, исцели, ведь Ты — Исцеляющий, нет исцеления кроме Твоего исцеления, исцеления, не оставляющего болезни».</div>
+            <div class="detail-meta"><strong>Как читать:</strong> 3 раза, после заклинаний, положив руки на больное место.<br>
+            <strong>Образ:</strong> Аллах ниспосылает зелёный свет в каждую пораженную часть.<br>
+            <strong>Воздействие:</strong> Поглаживание с мольбой.</div>
+        </div>
+
+        <!-- 4️⃣ Финал (закрепление) -->
+        <div class="ruqya-block">
+            <div class="badge">4️⃣ Финал — закрепление исцеления</div>
+            <div class="arabic">بِسْمِ اللهِ أَرْقِينِي اللهُ يَشْفِينِي</div>
+            <div class="trans">Бисмилляхи аркыни, Аллаху йашфини</div>
+            <div class="translation">«С именем Аллаха, заклинаю себя, да исцелит меня Аллах»</div>
+            <div class="detail-meta"><strong>Повторения:</strong> 25 раз каждое утро и вечер.<br>
+            <strong>Образ:</strong> Печать исцеления на сердце и на каждой чакре.<br>
+            <strong>Воздействие:</strong> Обхватить себя руками и читать с нажимом на грудь.</div>
+        </div>
+
+        <!-- 5️⃣ Защита четырёхслойная -->
+        <div class="ruqya-block">
+            <div class="badge">5️⃣ Четырёхслойная защита (тело и дом)</div>
+            <p><strong>Защита тела (1 слой):</strong> «بِسْمِ اللهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ» ×3</p>
+            <p><strong>Защита тела (2 слой):</strong> «حَسْبِيَ اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ» ×7</p>
+            <p><strong>Защита дома (3 слой):</strong> «أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ» ×3, читать по углам дома.</p>
+            <p><strong>Защита дома (4 слой):</strong> «بِسْمِ اللَّهِ وَلَّنَا وَبِسْمِ اللَّهِ حَسْبُنَا» ×3 + Аят аль-Курси один раз.</p>
+            <div class="detail-meta"><strong>Как читать:</strong> Для тела — утром/вечером на себя. Для дома — обойти квартиру с чтением, представляя световую стену.<br>
+            <strong>Физически:</strong> закрыть двери, прочитать над замками и окнами.<br>
+            <strong>Дополнительно чистка помещения:</strong> окропление водой с солью, чтение сур «Аль-Фалак» и «Ан-Нас» 3 раза.</div>
+        </div>
+
+        <!-- 7-дневный график (детальный) -->
+        <h3>📅 7-дневный интенсивный график (чистка, закрытие дверей)</h3>
+        <div class="detail-meta" style="background:#fff2e0;">
+            <p><strong>Дни 1–3 (интенсивная чистка):</strong> Ежедневно читать все заклинания (1,2,3,4) по 7–11 раз + зарядка (Фатиха 3р). Давление на голову, грудь и затылок. После каждого сеанса – четырёхслойная защита тела.</p>
+            <p><strong>Дни 4–5 (закрытие дверей и дома):</strong> Добавить чистку помещения: окропить углы водой, читая «Аят аль-Курси» и «Аль-Фалак». Произнести формулу защиты дома 7 раз. Закрыть физические окна и двери после чтения.</p>
+            <p><strong>Дни 6–7 (полная защита и закрепление):</strong> Усилить финальную формулу до 30 раз. Читать заклинания по 3 раза, но с максимальным образом: видеть вокруг непробиваемую броню из нур. Каждый день завершать дуа “Раббана атина фид-дунья хасана”.</p>
+        </div>
+
+        <!-- Таблица атрибутов (выбранные) -->
+        <h2>📜 Таблица атрибутов заклинаний</h2>
+        <table>
+            <thead><tr><th>Атрибут Аллаха (араб.)</th><th>Применение против</th></tr></thead>
+            <tbody>
+                <tr><td>نُورُ السَّمَاوَاتِ وَالْأَرْضِ</td><td>Сглаз, зависть, тьма сихра</td></tr>
+                <tr><td>الْحَيُّ الْقَيُّومُ</td><td>Джинны, карин, одержание</td></tr>
+                <tr><td>فَالِقُ الْإِصْبَاحِ</td><td>Узлы, перекрытие ризка, бедность</td></tr>
+                <tr><td>خَالِقُ كُلِّ شَيْءٍ</td><td>Головные боли, болезни тела</td></tr>
+            </tbody>
+        </table>
+
+        <!-- Раздел 5: ТАБЛИЦА ДУА (3 дуа) -->
+        <h2>🕊️ Дополнительные дуа для чтения</h2>
+        <table>
+            <thead><tr><th>Арабский (с харакатами)</th><th>Транскрипция</th><th>Перевод</th></tr></thead>
+            <tbody>
+                <tr><td class="arabic">رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً</td><td>Раббана атина фид-дунья хасана ва филь-ахирати хасана</td><td>Господь наш, даруй нам в мире добро и в Вечности добро</td></tr>
+                <tr><td class="arabic">اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَافِيَةَ فِي الدُّنْيَا وَالْآخِرَةِ</td><td>Аллахумма инни ас’алюкаль-‘афията фид-дунья валь-ахира</td><td>О Аллах, прошу благополучия в мире и вечной жизни</td></tr>
+                <tr><td class="arabic">أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ غَضَبِهِ وَعِقَابِهِ</td><td>А’узу бикалимати-Лляхи т-таммати мин гадабихи ва ‘икабихи</td><td>Прибегаю к совершенным словам Аллаха от гнева Его и наказания</td></tr>
+            </tbody>
+        </table>
+
+        <!-- Раздел 6: ЗАКЛЮЧЕНИЕ -->
+        <footer>
+            <p>✨ Сестра Зулета, твоё лечение — это не только формулы, но и сабр (терпение), таваккуль (упование на Аллаха) и постоянство. Читай рукью с искренностью, делай омовение перед чтением, избегай грехов, будь на связи с Всевышним. Срочность ситуации снимается доверием к Творцу. Да снимет Аллах страдания, откроет ризк, укрепит семью и изгонит шайтана. Аминь, Я Раббаль-‘алямин.</p>
+            <p style="margin-top: 10px;">📿 После завершения курса продолжай читать утренние и вечерние зикры, Аят аль-Курси и суры «Аль-Ихляс», «Аль-Фалак», «Ан-Нас» по 3 раза.</p>
+        </footer>
+    </div>
+</div>
+
+<script>
+    // Модалка доступа и разблокировка
+    const modal = document.getElementById('accessModal');
+    const mainContent = document.getElementById('mainContent');
+    const unlockBtn = document.getElementById('unlockBtn');
+    const codeInput = document.getElementById('accessCode');
+    const errorSpan = document.getElementById('accessError');
+
+    function unlockAccess() {
+        const code = codeInput.value.trim();
+        if (code === '123') {
+            modal.style.display = 'none';
+            mainContent.style.display = 'block';
+            document.body.style.overflow = 'auto';
+        } else {
+            errorSpan.innerText = '❌ Неверный код. Доступ закрыт.';
+            codeInput.value = '';
+            codeInput.focus();
+        }
+    }
+
+    unlockBtn.addEventListener('click', unlockAccess);
+    codeInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') unlockAccess();
+    });
+
+    // Управление размером шрифта (от 12px до 24px, базовый 16px)
+    const root = document.documentElement;
+    let currentFontSize = 16;
+    const minFont = 12;
+    const maxFont = 24;
+
+    function setBodyFontSize(size) {
+        document.body.style.fontSize = size + 'px';
+        currentFontSize = size;
+    }
+
+    document.getElementById('fontPlus').addEventListener('click', () => {
+        if (currentFontSize + 2 <= maxFont) setBodyFontSize(currentFontSize + 2);
+    });
+    document.getElementById('fontMinus').addEventListener('click', () => {
+        if (currentFontSize - 2 >= minFont) setBodyFontSize(currentFontSize - 2);
+    });
+
+    // Экспорт PDF с помощью html2pdf (скрыть панель управления)
+    const savePdfBtn = document.getElementById('savePdfBtn');
+    const controlBar = document.querySelector('.control-bar');
+
+    savePdfBtn.addEventListener('click', () => {
+        const element = document.getElementById('pdfContent');
+        const originalDisplay = controlBar.style.display;
+        controlBar.style.display = 'none';   // скрываем панель при экспорте
+        const opt = {
+            margin:        [0.5, 0.5, 0.5, 0.5],
+            filename:     'Анализ_Зулета.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2, letterRendering: true, useCORS: true, logging: false },
+            jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+        };
+        html2pdf().set(opt).from(element).save().then(() => {
+            controlBar.style.display = originalDisplay;
+        }).catch(() => {
+            controlBar.style.display = originalDisplay;
+            alert('Ошибка генерации PDF, попробуйте снова');
+        });
+    });
+</script>
+</body>
+</html>
