@@ -138,7 +138,8 @@
             color:var(--text-sec);font-weight:600;line-height:1.45;animation:fadeSlideDown .45s ease-out .12s both;
         }
         body.write-mode .write-mode-banner{display:block}
-        body.write-mode #actionBar{border-color:var(--accent);box-shadow:0 4px 16px var(--accent-glow)}
+        #actionBar{display:none}
+        body.write-mode #actionBar{display:flex;border-color:var(--accent);box-shadow:0 4px 16px var(--accent-glow)}
         body.readonly-share #actionBar,
         body.readonly-share .token-section,
         body.readonly-share .write-mode-banner{display:none!important}
@@ -352,7 +353,7 @@
         <button id="themeToggle" class="btn-icon" title="Тема">🌙</button>
     </div>
     <div id="writeModeBanner" class="write-mode-banner" hidden></div>
-    <div class="controls-bar" id="actionBar">
+    <div class="controls-bar" id="actionBar" hidden>
         <button id="newHtmlBtn" class="btn-with-text" title="Создать HTML для нового пациента">➕ Новый пациент</button>
         <button id="uploadFileBtn" class="btn-with-text" title="Загрузить HTML файл(ы)">📤 Загрузить</button>
         <button id="createFolderBtn" class="btn-with-text" title="Создать папку">📁 Новая папка</button>
@@ -1027,22 +1028,26 @@
 
     function updateWriteModeUI() {
         const banner = document.getElementById('writeModeBanner');
+        const actionBar = document.getElementById('actionBar');
         if (forceReadOnly) {
             document.body.classList.remove('write-mode');
             document.body.classList.add('readonly-share');
             isWriteEnabled = false;
+            if (actionBar) actionBar.hidden = true;
             if (banner) { banner.hidden = true; }
             return;
         }
         document.body.classList.remove('readonly-share');
         if (isWriteEnabled) {
             document.body.classList.add('write-mode');
+            if (actionBar) actionBar.hidden = false;
             if (banner) {
                 banner.hidden = false;
                 banner.textContent = '✅ Режим записи активен: новый пациент, загрузка HTML, папки, редактирование, переименование, перемещение и удаление.';
             }
         } else {
             document.body.classList.remove('write-mode');
+            if (actionBar) actionBar.hidden = true;
             if (banner) { banner.hidden = true; }
         }
     }
