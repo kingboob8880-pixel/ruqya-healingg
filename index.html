@@ -131,7 +131,19 @@
         .token-toggle.open .chevron{transform:rotate(180deg)}
         .token-toggle .token-status-badge{font-size:.75rem;margin-left:4px}
         .token-body{max-height:0;overflow:hidden;transition:max-height .35s ease}
-        .token-body.open{max-height:200px}
+        .token-body.open{max-height:320px}
+        .write-mode-banner{
+            display:none;background:var(--accent-soft);border:1px solid var(--accent);
+            border-radius:var(--radius-lg);padding:10px 14px;margin-bottom:12px;font-size:.85rem;
+            color:var(--text-sec);font-weight:600;line-height:1.45;animation:fadeSlideDown .45s ease-out .12s both;
+        }
+        body.write-mode .write-mode-banner{display:block}
+        body.write-mode #actionBar{border-color:var(--accent);box-shadow:0 4px 16px var(--accent-glow)}
+        body.readonly-share #actionBar,
+        body.readonly-share .token-section,
+        body.readonly-share .write-mode-banner{display:none!important}
+        #editTagsField{display:none}
+        body.write-mode #editTagsField{display:block}
         .token-body-inner{
             display:flex;flex-wrap:wrap;gap:8px;align-items:center;
             background:var(--card-bg);padding:10px 14px;
@@ -304,6 +316,7 @@
         <button id="viewToggle" title="Переключить вид">📋 Список</button>
         <button id="themeToggle" class="btn-icon" title="Тема">🌙</button>
     </div>
+    <div id="writeModeBanner" class="write-mode-banner" hidden></div>
     <div class="controls-bar" id="actionBar">
         <button id="newHtmlBtn" class="btn-with-text" title="Создать HTML для нового пациента">➕ Новый пациент</button>
         <button id="uploadFileBtn" class="btn-with-text" title="Загрузить HTML файл(ы)">📤 Загрузить</button>
@@ -353,8 +366,7 @@
                 <option value="дуа">🤲 Дуа</option>
             </select>
         </div>
-        <!-- Поле тегов пока скрыто -->
-        <div class="modal-field" style="display:none;">
+        <div class="modal-field" id="editTagsField">
             <label>Теги (через запятую)</label>
             <input type="text" id="editTags" placeholder="анализ, дуа, рукъя">
         </div>
@@ -385,6 +397,13 @@
         maxRetries: 2,
         retryDelay: 1500,
     };
+
+    /** Режим только чтения: ссылка с ?readonly=1 или ?ro=1 (например, для GitHub Pages без редактирования). */
+    function isReadonlyUrlMode() {
+        const p = new URLSearchParams(window.location.search);
+        return p.get('readonly') === '1' || p.get('ro') === '1' || p.get('view') === 'readonly';
+    }
+    const forceReadOnly = isReadonlyUrlMode();
 
     // ========== ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ==========
     let currentPath = '';
@@ -442,8 +461,14 @@
         return parts.join('/');
     }
 
-    function getFolderUrl(folderPath) {
-        return window.location.origin + window.location.pathname + '?path=' + encodeURIComponent(folderPath);
+    function getFolderUrl(folderPath, readOnly) {
+        const url = new URL(window.location.href);
+        url.hash = '';
+        if (folderPath) url.searchParams.set('path', folderPath);
+        else url.searchParams.delete('path');
+        if (readOnly) url.searchParams.set('readonly', '1');
+        else url.searchParams.delete('readonly');
+        return url.toString();
     }
 
     function formatFileSize(b) {
@@ -544,12 +569,12 @@
     }
 
     async function verifyToken() {
+        if (!githubToken) return false;
         try {
-            // Получаем информацию о репозитории — и проверяем, есть ли права push.
-            // Раньше GET публичного репо проходил даже без токена и создавал ложное ощущение успеха.
             const info = await apiRequest('GET', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}`);
-            if (info && info.permissions && info.permissions.push === false) {
-                console.warn('Token не имеет прав push на этот репозиторий');
+            if (!info) return false;
+            if (info.permissions && info.permissions.push === false) {
+                console.warn('Токен не имеет прав push на этот репозиторий');
                 return false;
             }
             return true;
@@ -731,12 +756,17 @@
     }
 
     // ========== ГЕНЕРАЦИЯ HTML ПАЦИЕНТА (с экранированием) ==========
-    function generatePatientHtml(patientName, fileType) {
+    function generatePatientHtml(patientName, fileType, tagsLine) {
         const typeEmoji = fileType === 'анализ' ? '🕯️' : (fileType === 'дуа' ? '🤲' : '📿');
         const typeLabel = fileType.charAt(0).toUpperCase() + fileType.slice(1);
         const now = new Date().toLocaleDateString('ru-RU');
         const typeWord = fileType === 'анализ' ? 'анализа' : (fileType === 'дуа' ? 'дуа' : 'рукъи');
         const safeName = escapeHtml(patientName);
+        const tagsLineTrim = (tagsLine || '').trim();
+        const tagsBlock = tagsLineTrim
+            ? `\n            <div class="meta">🏷️ Теги: ${escapeHtml(tagsLineTrim)}</div>`
+            : '';
+        const baseRoot = CONFIG.pagesBase.replace(/\/$/, '');
         return `<!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -745,9 +775,10 @@
     <title>${typeEmoji} ${typeLabel} — ${safeName}</title>
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:'Segoe UI','Noto Naskh Arabic',sans-serif;background:linear-gradient(135deg,#faf5eb,#f0e6d2);min-height:100vh;padding:2rem;color:#3d2e1e}
+        body{font-family:'Segoe UI','Noto Naskh Arabic',sans-serif;background:linear-gradient(135deg,#faf5eb,#f0e6d2);min-height:100vh;padding:2rem;padding-bottom:5rem;color:#3d2e1e}
         .container{max-width:800px;margin:0 auto}
         .card{background:rgba(255,252,245,0.95);border-radius:20px;padding:2rem;margin-bottom:1.5rem;box-shadow:0 4px 20px rgba(60,40,10,0.08);border:1px solid #e8dcc4}
+        .card .section-title{page-break-inside:avoid}
         h1{color:#b37b2e;font-size:1.6rem;margin-bottom:.5rem}
         .meta{color:#7a5f3a;font-size:.9rem;margin-bottom:1rem}
         .section-title{color:#b37b2e;font-size:1.1rem;font-weight:700;margin:1rem 0 .5rem;border-bottom:2px solid #e8dcc4;padding-bottom:.3rem}
@@ -755,14 +786,25 @@
         ul{padding-left:1.5rem}
         .back-link{display:inline-block;margin-bottom:1rem;color:#b37b2e;text-decoration:none;font-weight:600}
         .back-link:hover{text-decoration:underline}
+        .export-toolbar{position:fixed;left:0;right:0;bottom:0;z-index:9999;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:10px 12px;background:rgba(61,46,30,.92);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-top:1px solid #e8dcc4}
+        .exp-btn{padding:10px 16px;border-radius:12px;border:1px solid #e8dcc4;background:#fffcf5;color:#3d2e1e;font-weight:600;cursor:pointer;font:inherit;font-size:.9rem}
+        .exp-btn:hover{background:#faf5eb}
+        .exp-btn:disabled{opacity:.55;cursor:not-allowed}
+        @media print{
+            .no-print{display:none!important}
+            body{background:#fff!important;padding:8mm!important;padding-bottom:8mm!important}
+            .container{max-width:100%}
+            .card{box-shadow:none;border:1px solid #ccc;background:#fff}
+        }
+        @page{margin:12mm}
     </style>
 </head>
 <body>
     <div class="container">
-        <a href="index.html" class="back-link">← Назад к архиву</a>
-        <div class="card">
+        <a href="${baseRoot}/index.html" class="back-link no-print">← Назад к архиву</a>
+        <div class="card" id="patientCard">
             <h1>${typeEmoji} ${typeLabel}: ${safeName}</h1>
-            <div class="meta">📅 Дата: ${now}</div>
+            <div class="meta">📅 Дата: ${now}</div>${tagsBlock}
 
             <div class="section-title">📋 Общая информация</div>
             <p>Имя: ${safeName}</p>
@@ -783,6 +825,50 @@
             <p>Да исцелит Аллах.</p>
         </div>
     </div>
+    <div class="export-toolbar no-print" role="toolbar" aria-label="Экспорт">
+        <button type="button" class="exp-btn" id="btnPrintPdf">Сохранить как PDF (печать)</button>
+        <button type="button" class="exp-btn" id="btnSavePng" disabled>Сохранить PNG</button>
+    </div>
+    <script>
+    (function(){
+        function safeFileName(){
+            var t=document.title||'page';
+            var out='';
+            for(var i=0;i<t.length;i++){
+                var c=t.charAt(i);
+                if(c==='\\\\'||c==='/'||c===':'||c==='*'||c==='?'||c==='"'||c==='<'||c==='>'||c==='|') out+='-';
+                else out+=c;
+            }
+            return out.replace(/\\s+/g,' ').trim().slice(0,120)||'export';
+        }
+        var btnPdf=document.getElementById('btnPrintPdf');
+        var btnPng=document.getElementById('btnSavePng');
+        if(btnPdf) btnPdf.onclick=function(){ window.print(); };
+        if(btnPng) btnPng.onclick=function(){
+            if(typeof html2canvas!=='function'){
+                alert('Не удалось загрузить модуль для PNG. Проверьте подключение к интернету.');
+                return;
+            }
+            var el=document.getElementById('patientCard');
+            if(!el) return;
+            btnPng.disabled=true;
+            html2canvas(el,{scale:2,useCORS:true,logging:false,backgroundColor:'#fffcf5'}).then(function(canvas){
+                var a=document.createElement('a');
+                a.download=safeFileName()+'.png';
+                a.href=canvas.toDataURL('image/png');
+                a.click();
+            }).catch(function(e){
+                console.error(e);
+                alert('Ошибка при создании PNG.');
+            }).finally(function(){ btnPng.disabled=false; });
+        };
+        var s=document.createElement('script');
+        s.src='https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
+        s.onload=function(){ if(btnPng) btnPng.disabled=false; };
+        s.onerror=function(){ alert('Не удалось загрузить библиотеку для PNG (CDN).'); };
+        document.head.appendChild(s);
+    })();
+    <\/script>
 </body>
 </html>`;
     }
@@ -876,15 +962,45 @@
     const modalSaveBtn = document.getElementById('modalSaveBtn');
     const modalCancelBtn = document.getElementById('modalCancelBtn');
     const modalPreviewBtn = document.getElementById('modalPreviewBtn');
+    const editTags = document.getElementById('editTags');
+
+    function updateWriteModeUI() {
+        const banner = document.getElementById('writeModeBanner');
+        if (forceReadOnly) {
+            document.body.classList.remove('write-mode');
+            document.body.classList.add('readonly-share');
+            isWriteEnabled = false;
+            if (banner) { banner.hidden = true; }
+            return;
+        }
+        document.body.classList.remove('readonly-share');
+        if (isWriteEnabled) {
+            document.body.classList.add('write-mode');
+            if (banner) {
+                banner.hidden = false;
+                banner.textContent = '✅ Режим записи активен: новый пациент, загрузка HTML, папки, редактирование, переименование, перемещение и удаление.';
+            }
+        } else {
+            document.body.classList.remove('write-mode');
+            if (banner) { banner.hidden = true; }
+        }
+    }
 
     function openEditorForNew() {
+        if (!isWriteEnabled) {
+            showToast('🔑 Введите и сохраните GitHub Token с правом записи в репозиторий', true);
+            document.getElementById('tokenToggle').classList.add('open');
+            document.getElementById('tokenBody').classList.add('open');
+            return;
+        }
         editingFilePath = null;
         editingFileSha = null;
         modalTitle.textContent = '➕ Новая страница пациента';
         editFileName.value = '';
         editPatientName.value = '';
         editFileType.value = 'анализ';
-        editFileContent.value = generatePatientHtml('Имя пациента', 'анализ');
+        if (editTags) editTags.value = '';
+        editFileContent.value = generatePatientHtml('Имя пациента', 'анализ', '');
         modal.style.display = 'flex';
         closeAllDropdowns();
     }
@@ -905,6 +1021,9 @@
                 if (t.includes('Анализ')) fileType = 'анализ';
                 else if (t.includes('Дуа')) fileType = 'дуа';
             }
+            const tagsMatch = content.match(/<div class="meta">[\s\S]*?Теги:\s*([^<]+)<\/div>/);
+            if (editTags && tagsMatch) editTags.value = tagsMatch[1].trim();
+            else if (editTags) editTags.value = '';
             editingFilePath = filePath;
             editingFileSha = meta.sha;
             modalTitle.textContent = `✏️ Редактирование: ${fileName}`;
@@ -941,10 +1060,12 @@
         if (editingFilePath) return;
         const name = editPatientName.value || 'Имя пациента';
         const type = editFileType.value;
-        editFileContent.value = generatePatientHtml(name, type);
+        const tags = editTags ? editTags.value.trim() : '';
+        editFileContent.value = generatePatientHtml(name, type, tags);
     }
     editPatientName.oninput = updateGeneratedContent;
     editFileType.onchange = updateGeneratedContent;
+    if (editTags) editTags.oninput = updateGeneratedContent;
 
     modalSaveBtn.onclick = async () => {
         let fileName = editFileName.value.trim();
@@ -957,7 +1078,19 @@
         modalSaveBtn.disabled = true;
         try {
             if (editingFilePath) {
-                await updateHtmlFile(editingFilePath, content, editingFileSha);
+                let body = content;
+                if (editTags) {
+                    const t = editTags.value.trim();
+                    if (t && !body.includes('🏷️ Теги:')) {
+                        body = body.replace(
+                            /(<div class="meta">📅 Дата:[^<]*<\/div>)/,
+                            '$1\n            <div class="meta">🏷️ Теги: ' + escapeHtml(t) + '</div>'
+                        );
+                    } else if (t) {
+                        body = body.replace(/<div class="meta">🏷️ Теги:[^<]*<\/div>/, '<div class="meta">🏷️ Теги: ' + escapeHtml(t) + '</div>');
+                    }
+                }
+                await updateHtmlFile(editingFilePath, body, editingFileSha);
                 showToast(`✅ Файл «${fileName}» обновлён`);
             } else {
                 await createHtmlFile(fileName, content);
@@ -1012,6 +1145,7 @@
         } else {
             actions.push({ label: '📂 Открыть папку', act: () => { currentPath = data.path; updateUrlState(); renderCurrentView(); } });
             actions.push({ label: '📋 Копировать ссылку', act: () => copyToClipboard(getFolderUrl(data.path)) });
+            actions.push({ label: '📋 Копировать (только чтение)', act: () => copyToClipboard(getFolderUrl(data.path, true)) });
             if (isWriteEnabled) {
                 actions.push({ label: 'divider' });
                 actions.push({ label: '🗑️ Удалить папку', act: async () => {
@@ -1203,32 +1337,37 @@
     async function tryEnableWrite() {
         const status = document.getElementById('tokenStatus');
         const badge = document.getElementById('tokenBadge');
-        const toggleBtn = document.getElementById('tokenToggle');
-        const body = document.getElementById('tokenBody');
+
+        if (forceReadOnly) {
+            isWriteEnabled = false;
+            if (status) status.textContent = '';
+            if (badge) badge.textContent = '';
+            updateWriteModeUI();
+            return;
+        }
 
         if (!githubToken) {
             status.textContent = '';
             badge.textContent = '';
             isWriteEnabled = false;
+            updateWriteModeUI();
             return;
         }
         status.textContent = '⏳ Проверка...';
         status.style.color = 'var(--text-muted)';
         const ok = await verifyToken();
         if (ok) {
-            status.innerHTML = `✅ Токен: ${maskToken(githubToken)}`;
+            status.innerHTML = `✅ Токен: ${maskToken(githubToken)} — запись в репозиторий разрешена`;
             status.style.color = 'var(--success)';
             badge.textContent = '✅';
             isWriteEnabled = true;
-            // Свернуть панель токена после успешной проверки
-            toggleBtn.classList.remove('open');
-            body.classList.remove('open');
         } else {
-            status.textContent = '❌ Токен недействителен';
+            status.textContent = '❌ Токен недействителен или нет прав на запись';
             status.style.color = 'var(--danger)';
             badge.textContent = '❌';
             isWriteEnabled = false;
         }
+        updateWriteModeUI();
         renderCurrentView();
     }
 
@@ -1299,6 +1438,10 @@
         };
         if (githubToken) document.getElementById('githubToken').value = githubToken;
         document.getElementById('saveTokenBtn').onclick = async () => {
+            if (forceReadOnly) {
+                showToast('Открыта ссылка в режиме только для чтения (?readonly=1). Уберите параметр из адреса для записи.', true);
+                return;
+            }
             githubToken = document.getElementById('githubToken').value.trim();
             localStorage.setItem('github_token', githubToken);
             await tryEnableWrite();
@@ -1356,15 +1499,7 @@
             input.click();
         };
 
-        document.getElementById('newHtmlBtn').onclick = () => {
-            if (!isWriteEnabled) {
-                showToast('🔑 Введите и сохраните GitHub Token для записи', true);
-                document.getElementById('tokenToggle').classList.add('open');
-                document.getElementById('tokenBody').classList.add('open');
-                return;
-            }
-            openEditorForNew();
-        };
+        document.getElementById('newHtmlBtn').onclick = () => { openEditorForNew(); };
 
         document.getElementById('feedbackBtn').onclick = () => {
             const choice = prompt('Способ связи:\n1 — Telegram\n2 — Email\n\nВведите 1 или 2:');
@@ -1374,13 +1509,15 @@
 
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.has('path')) currentPath = urlParams.get('path');
+        if (forceReadOnly) document.body.classList.add('readonly-share');
         window.addEventListener('popstate', () => {
             const p = new URLSearchParams(window.location.search);
             currentPath = p.get('path') || '';
             renderCurrentView();
         });
 
-        if (githubToken) await tryEnableWrite();
+        if (githubToken && !forceReadOnly) await tryEnableWrite();
+        else updateWriteModeUI();
         await renderCurrentView();
     }
 
