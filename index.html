@@ -912,6 +912,47 @@
             }
             return out.replace(/\\s+/g,' ').trim().slice(0,120)||'export';
         }
+        function waitForFontsReady(timeoutMs){
+            if(!document.fonts || !document.fonts.ready) return Promise.resolve();
+            return Promise.race([
+                document.fonts.ready,
+                new Promise(function(resolve){ setTimeout(resolve, timeoutMs || 2500); })
+            ]).catch(function(){});
+        }
+        function exportNodeAsPng(target, fileName, backgroundColor){
+            return waitForFontsReady(2500).then(function(){
+                var holder=document.createElement('div');
+                holder.style.position='fixed';
+                holder.style.left='-100000px';
+                holder.style.top='0';
+                holder.style.padding='0';
+                holder.style.margin='0';
+                holder.style.background=backgroundColor||'#fff';
+
+                var clone=target.cloneNode(true);
+                clone.style.maxHeight='none';
+                clone.style.height='auto';
+                clone.style.overflow='visible';
+                clone.style.transform='none';
+                clone.style.width=Math.ceil(target.getBoundingClientRect().width)+'px';
+
+                holder.appendChild(clone);
+                document.body.appendChild(holder);
+                return html2canvas(clone,{
+                    scale:2,
+                    useCORS:true,
+                    logging:false,
+                    backgroundColor:backgroundColor||'#fff'
+                }).then(function(canvas){
+                    var a=document.createElement('a');
+                    a.download=fileName;
+                    a.href=canvas.toDataURL('image/png');
+                    a.click();
+                }).finally(function(){
+                    holder.remove();
+                });
+            });
+        }
         var btnPdf=document.getElementById('btnPrintPdf');
         var btnPng=document.getElementById('btnSavePng');
         if(btnPdf) btnPdf.onclick=function(){ window.print(); };
@@ -923,11 +964,7 @@
             var el=document.getElementById('patientCard');
             if(!el) return;
             btnPng.disabled=true;
-            html2canvas(el,{scale:2,useCORS:true,logging:false,backgroundColor:'#fffcf5'}).then(function(canvas){
-                var a=document.createElement('a');
-                a.download=safeFileName()+'.png';
-                a.href=canvas.toDataURL('image/png');
-                a.click();
+            exportNodeAsPng(el,safeFileName()+'.png','#fffcf5').then(function(){
             }).catch(function(e){
                 console.error(e);
                 alert('Ошибка при создании PNG.');
@@ -1078,18 +1115,34 @@
             }
         } else {
             document.body.classList.remove('write-mode');
-            if (actionBar) actionBar.hidden = true;
-            if (banner) { banner.hidden = true; }
+            if (actionBar) actionBar.hidden = false;
+            if (banner) {
+                banner.hidden = false;
+                banner.textContent = 'ℹ️ Локальный режим: генератор работает без токена. Для сохранения в GitHub включите режим записи.';
+            }
+        }
+        syncActionButtonsState();
+    }
+
+    function syncActionButtonsState() {
+        const newBtn = document.getElementById('newHtmlBtn');
+        const uploadBtn = document.getElementById('uploadFileBtn');
+        const folderBtn = document.getElementById('createFolderBtn');
+        if (newBtn) {
+            newBtn.disabled = false;
+            newBtn.title = 'Создать HTML для нового пациента';
+        }
+        if (uploadBtn) {
+            uploadBtn.disabled = !isWriteEnabled;
+            uploadBtn.title = isWriteEnabled ? 'Загрузить HTML файл(ы)' : 'Требуется GitHub Token с правом записи';
+        }
+        if (folderBtn) {
+            folderBtn.disabled = !isWriteEnabled;
+            folderBtn.title = isWriteEnabled ? 'Создать папку' : 'Требуется GitHub Token с правом записи';
         }
     }
 
     function openEditorForNew() {
-        if (!isWriteEnabled) {
-            showToast('🔑 Введите и сохраните GitHub Token с правом записи в репозиторий', true);
-            document.getElementById('tokenToggle').classList.add('open');
-            document.getElementById('tokenBody').classList.add('open');
-            return;
-        }
         editingFilePath = null;
         editingFileSha = null;
         modalTitle.textContent = '➕ Новая страница пациента';
@@ -1175,6 +1228,9 @@
         modalSaveBtn.disabled = true;
         try {
             if (editingFilePath) {
+                if (!isWriteEnabled) {
+                    throw new Error('Для обновления существующего файла нужен GitHub Token с правом записи');
+                }
                 let body = content;
                 if (editTags) {
                     const t = editTags.value.trim();
@@ -1190,8 +1246,20 @@
                 await updateHtmlFile(editingFilePath, body, editingFileSha);
                 showToast(`✅ Файл «${fileName}» обновлён`);
             } else {
-                await createHtmlFile(fileName, content);
-                showToast(`✅ Файл «${fileName}» создан`);
+                if (isWriteEnabled) {
+                    await createHtmlFile(fileName, content);
+                    showToast(`✅ Файл «${fileName}» создан`);
+                } else {
+                    const blob = new Blob([content], { type: 'text/html;charset=utf-8' });
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(blob);
+                    link.download = fileName;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+                    showToast(`✅ Файл «${fileName}» скачан локально`);
+                }
             }
             closeEditor();
             renderCurrentView();
