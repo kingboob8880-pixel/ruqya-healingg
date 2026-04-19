@@ -1,0 +1,2115 @@
+<!doctype html>
+<html lang="ru" data-theme="night"><head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Ахмад · 19.04.2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+<style>
+/* css/base.css */
+/* base.css — сброс, типографика, сетка */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+html {
+  font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--text);
+  background: var(--bg);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--bg);
+  background-image:
+    radial-gradient(at 15% 0%, var(--bg-tint-1) 0px, transparent 50%),
+    radial-gradient(at 85% 100%, var(--bg-tint-2) 0px, transparent 50%);
+  background-attachment: fixed;
+}
+
+.arabic, [dir="rtl"], [lang="ar"] {
+  font-family: 'Amiri', 'Noto Naskh Arabic', 'Scheherazade New', 'Traditional Arabic', serif;
+  direction: rtl;
+  font-size: 1.35em;
+  line-height: 1.9;
+}
+
+h1, h2, h3, h4, h5 { margin: 0 0 0.5em; font-weight: 700; color: var(--text-strong); letter-spacing: -0.01em; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.2rem; }
+p { margin: 0 0 0.75em; }
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+button, .btn,
+a.btn, a.btn-primary, a.btn-ghost, a.btn-danger, a.btn-sm {
+  font: inherit;
+  border: 0;
+  border-radius: 10px;
+  padding: 9px 16px;
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+  box-shadow: 0 1px 2px rgba(0,0,0,.08);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  white-space: nowrap;
+  line-height: 1.2;
+}
+button:hover, .btn:hover,
+a.btn:hover, a.btn-primary:hover, a.btn-ghost:hover, a.btn-danger:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0,0,0,.12);
+}
+button:active, .btn:active { transform: translateY(0); }
+button:disabled, .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btn-primary, a.btn-primary { background: var(--accent); color: var(--on-accent); }
+.btn-primary:hover, a.btn-primary:hover { background: var(--accent-strong); }
+.btn-ghost, a.btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); box-shadow: none; }
+.btn-ghost:hover, a.btn-ghost:hover { background: var(--surface-2); }
+.btn-danger, a.btn-danger { background: #c74545; color: #fff; }
+.btn-sm, a.btn-sm { padding: 6px 12px; font-size: 0.875rem; border-radius: 8px; }
+
+/* Квадратная иконочная кнопка */
+.btn-icon {
+  width: 36px; height: 36px; padding: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 10px; font-size: 1rem;
+}
+
+input, textarea, select {
+  font: inherit;
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+input:focus, textarea:focus, select:focus {
+  outline: 0;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-ring);
+}
+textarea { resize: vertical; min-height: 80px; }
+
+label { display: block; font-size: 0.875rem; color: var(--text-soft); margin-bottom: 4px; }
+
+.muted { color: var(--text-soft); }
+.hidden { display: none !important; }
+.center { text-align: center; }
+
+::selection { background: var(--accent); color: var(--on-accent); }
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.grid { display: grid; gap: 16px; }
+.flex { display: flex; gap: 12px; align-items: center; }
+.flex-col { display: flex; flex-direction: column; gap: 12px; }
+.flex-wrap { flex-wrap: wrap; }
+.spacer { flex: 1; }
+.stack > * + * { margin-top: 12px; }
+
+@media (max-width: 720px) {
+  html { font-size: 15px; }
+  .container { padding: 0 10px; }
+}
+
+
+/* css/themes.css */
+/* themes.css — 7 богатых тем через CSS-переменные */
+
+:root,
+:root[data-theme="classic"] {
+  --bg: #fef7e8;
+  --bg-tint-1: rgba(201, 165, 59, 0.12);
+  --bg-tint-2: rgba(90, 62, 27, 0.06);
+  --surface: #fffdf6;
+  --surface-2: #f7eed9;
+  --surface-3: #f1e4c0;
+  --border: #e0d5b8;
+  --text: #5a3e1b;
+  --text-strong: #3a2810;
+  --text-soft: #8a7650;
+  --accent: #c9a53b;
+  --accent-strong: #a8891f;
+  --accent-ring: rgba(201, 165, 59, 0.28);
+  --on-accent: #fffdf0;
+  --btn-bg: #fffdf6;
+  --btn-text: #5a3e1b;
+  --ornament: #c9a53b;
+  --shadow-card: 0 6px 24px rgba(120, 85, 30, 0.10);
+  --gradient-accent: linear-gradient(135deg, #d9b84a 0%, #b58b25 100%);
+  --scheme: light;
+}
+
+:root[data-theme="emerald"] {
+  --bg: #f0f8f2;
+  --bg-tint-1: rgba(0, 102, 68, 0.10);
+  --bg-tint-2: rgba(201, 165, 59, 0.08);
+  --surface: #ffffff;
+  --surface-2: #e2f1e7;
+  --surface-3: #c9e4d3;
+  --border: #c7dfcd;
+  --text: #133a28;
+  --text-strong: #062418;
+  --text-soft: #467059;
+  --accent: #0d7a52;
+  --accent-strong: #0a5f40;
+  --accent-ring: rgba(13, 122, 82, 0.25);
+  --on-accent: #fdf8e6;
+  --btn-bg: #ffffff;
+  --btn-text: #133a28;
+  --ornament: #c9a53b;
+  --shadow-card: 0 6px 24px rgba(13, 90, 60, 0.10);
+  --gradient-accent: linear-gradient(135deg, #0d7a52 0%, #c9a53b 100%);
+  --scheme: light;
+}
+
+:root[data-theme="night"] {
+  --bg: #12161e;
+  --bg-tint-1: rgba(201, 165, 59, 0.14);
+  --bg-tint-2: rgba(64, 130, 175, 0.08);
+  --surface: #1c2230;
+  --surface-2: #242b3c;
+  --surface-3: #2f3849;
+  --border: #3a4356;
+  --text: #e6ddc2;
+  --text-strong: #fff4d4;
+  --text-soft: #9ea19a;
+  --accent: #d9b84a;
+  --accent-strong: #f0cb55;
+  --accent-ring: rgba(217, 184, 74, 0.3);
+  --on-accent: #12161e;
+  --btn-bg: #242b3c;
+  --btn-text: #e6ddc2;
+  --ornament: #d9b84a;
+  --shadow-card: 0 8px 30px rgba(0, 0, 0, 0.55);
+  --gradient-accent: linear-gradient(135deg, #d9b84a 0%, #8a6f20 100%);
+  --scheme: dark;
+}
+
+:root[data-theme="royal"] {
+  --bg: #1e1230;
+  --bg-tint-1: rgba(201, 165, 59, 0.14);
+  --bg-tint-2: rgba(130, 80, 200, 0.12);
+  --surface: #2a1c44;
+  --surface-2: #362556;
+  --surface-3: #442f6a;
+  --border: #4b3672;
+  --text: #ede3ff;
+  --text-strong: #fff7e5;
+  --text-soft: #aa9bcd;
+  --accent: #e5b747;
+  --accent-strong: #f5c95a;
+  --accent-ring: rgba(229, 183, 71, 0.3);
+  --on-accent: #1e1230;
+  --btn-bg: #362556;
+  --btn-text: #ede3ff;
+  --ornament: #e5b747;
+  --shadow-card: 0 10px 36px rgba(20, 10, 45, 0.6);
+  --gradient-accent: linear-gradient(135deg, #e5b747 0%, #7b45c0 100%);
+  --scheme: dark;
+}
+
+:root[data-theme="desert"] {
+  --bg: #f6e8d5;
+  --bg-tint-1: rgba(200, 100, 50, 0.10);
+  --bg-tint-2: rgba(210, 170, 100, 0.14);
+  --surface: #fff5e4;
+  --surface-2: #ebd5b5;
+  --surface-3: #dcbe95;
+  --border: #d4b48c;
+  --text: #5a2e10;
+  --text-strong: #391600;
+  --text-soft: #8d6240;
+  --accent: #b85c2a;
+  --accent-strong: #9a4416;
+  --accent-ring: rgba(184, 92, 42, 0.25);
+  --on-accent: #fff5e4;
+  --btn-bg: #fff5e4;
+  --btn-text: #5a2e10;
+  --ornament: #b85c2a;
+  --shadow-card: 0 6px 24px rgba(150, 75, 35, 0.12);
+  --gradient-accent: linear-gradient(135deg, #e88e50 0%, #9a4416 100%);
+  --scheme: light;
+}
+
+:root[data-theme="pearl"] {
+  --bg: #faf7f5;
+  --bg-tint-1: rgba(200, 170, 180, 0.10);
+  --bg-tint-2: rgba(180, 180, 200, 0.08);
+  --surface: #ffffff;
+  --surface-2: #f1ecea;
+  --surface-3: #e5dedc;
+  --border: #e5dedc;
+  --text: #3a2a30;
+  --text-strong: #1d1015;
+  --text-soft: #7d6a70;
+  --accent: #a08090;
+  --accent-strong: #7a5a68;
+  --accent-ring: rgba(160, 128, 144, 0.25);
+  --on-accent: #ffffff;
+  --btn-bg: #ffffff;
+  --btn-text: #3a2a30;
+  --ornament: #a08090;
+  --shadow-card: 0 4px 18px rgba(60, 40, 50, 0.08);
+  --gradient-accent: linear-gradient(135deg, #d4b8c4 0%, #7a5a68 100%);
+  --scheme: light;
+}
+
+:root[data-theme="marine"] {
+  --bg: #e8f4f5;
+  --bg-tint-1: rgba(50, 160, 170, 0.10);
+  --bg-tint-2: rgba(220, 200, 130, 0.10);
+  --surface: #ffffff;
+  --surface-2: #d7ecee;
+  --surface-3: #b9dfe2;
+  --border: #b0d7da;
+  --text: #0c3a3f;
+  --text-strong: #03252a;
+  --text-soft: #4d7f84;
+  --accent: #1c8a95;
+  --accent-strong: #156b73;
+  --accent-ring: rgba(28, 138, 149, 0.25);
+  --on-accent: #fff9e8;
+  --btn-bg: #ffffff;
+  --btn-text: #0c3a3f;
+  --ornament: #1c8a95;
+  --shadow-card: 0 6px 24px rgba(10, 70, 80, 0.10);
+  --gradient-accent: linear-gradient(135deg, #30b0be 0%, #d4b34a 100%);
+  --scheme: light;
+}
+
+/* переход между темами */
+html, body, .card, button, input, textarea {
+  transition: background-color .3s ease, color .3s ease, border-color .3s ease;
+}
+
+
+/* css/components.css */
+/* components.css — карточки, блоки, модалки */
+
+/* CARD — базовая карточка с угловыми орнаментами */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  position: relative;
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+.card::before, .card::after {
+  content: "";
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  background-image:
+    linear-gradient(var(--ornament), var(--ornament)),
+    linear-gradient(var(--ornament), var(--ornament));
+  background-size: 100% 2px, 2px 100%;
+  background-position: 0 0, 0 0;
+  background-repeat: no-repeat;
+  opacity: 0.6;
+}
+.card::before { top: 8px; left: 8px; }
+.card::after { bottom: 8px; right: 8px; transform: rotate(180deg); }
+
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-strong);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.card-subtitle {
+  color: var(--text-soft);
+  font-size: 0.875rem;
+  margin-bottom: 12px;
+}
+
+/* VERSE BLOCK — для аятов */
+.verse-block {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+  margin: 16px 0;
+}
+.verse-block::before, .verse-block::after {
+  content: "۞";
+  position: absolute;
+  color: var(--ornament);
+  font-size: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.5;
+}
+.verse-block::before { left: 12px; }
+.verse-block::after { right: 12px; }
+.verse-block .arabic { font-size: 1.75rem; color: var(--text-strong); margin-bottom: 10px; }
+.verse-block .transcription { color: var(--text-soft); font-style: italic; margin-bottom: 6px; }
+.verse-block .translation { color: var(--text); }
+.verse-block .ref { display: block; margin-top: 10px; font-size: 0.8rem; color: var(--text-soft); }
+
+/* FORMULA BLOCK — одно заклинание */
+.formula-block {
+  background: var(--surface);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 12px 12px 0;
+  padding: 16px 18px;
+  margin: 12px 0;
+  position: relative;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.formula-block:hover {
+  transform: translateX(3px);
+  box-shadow: var(--shadow-card);
+}
+.formula-block .purpose {
+  font-size: 0.8rem;
+  color: var(--accent-strong);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.formula-block .arabic {
+  font-size: 1.6rem;
+  color: var(--text-strong);
+  margin: 8px 0;
+  line-height: 1.95;
+}
+.formula-block .transcription {
+  color: var(--text-soft);
+  font-style: italic;
+  margin: 6px 0;
+}
+.formula-block .translation {
+  color: var(--text);
+  margin: 6px 0;
+}
+
+.formula-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+  font-size: 0.82rem;
+  color: var(--text-soft);
+}
+.formula-meta .chip {
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* DAY BLOCK — день курса */
+.day-block {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  margin: 16px 0;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+.day-header {
+  background: var(--gradient-accent);
+  color: var(--on-accent);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+}
+.day-header h3 { color: var(--on-accent); margin: 0; font-size: 1.1rem; }
+.day-header .day-badge {
+  background: rgba(255,255,255,0.25);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+.day-body {
+  padding: 16px 20px;
+  max-height: 5000px;
+  overflow: hidden;
+  transition: max-height .4s ease, padding .3s ease;
+}
+.day-block.collapsed .day-body { max-height: 0; padding-top: 0; padding-bottom: 0; }
+
+/* COUNTER — счётчик повторений */
+.counter {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  background: var(--surface-2);
+  border-radius: 999px;
+  cursor: pointer;
+  user-select: none;
+}
+.counter .dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  transition: all .15s ease;
+}
+.counter .dot.filled {
+  background: var(--accent);
+  border-color: var(--accent-strong);
+  box-shadow: 0 0 0 2px var(--accent-ring);
+}
+.counter.done .dot.filled { animation: dotPulse .4s ease; }
+@keyframes dotPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+/* CHIPS */
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chips .chip {
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 0.85rem;
+  border: 1px solid var(--border);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.chips .chip.primary { background: var(--accent); color: var(--on-accent); border-color: var(--accent-strong); }
+
+/* MODAL */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 16px;
+  animation: fadeIn .2s ease;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.modal {
+  background: var(--surface);
+  border-radius: 18px;
+  max-width: 640px;
+  width: 100%;
+  max-height: 90vh;
+  overflow: auto;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+  animation: modalPop .25s ease;
+}
+@keyframes modalPop {
+  from { transform: translateY(20px) scale(0.97); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+.modal-head {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.modal-head h3 { margin: 0; }
+.modal-body { padding: 18px 20px; }
+.modal-foot {
+  padding: 12px 20px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+/* TOAST */
+.toast-host {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 10000;
+  pointer-events: none;
+}
+.toast-host .toast { pointer-events: auto; }
+@media (max-width: 880px) {
+  .toast-host {
+    bottom: 76px;
+    right: 12px;
+    left: 12px;
+    align-items: center;
+  }
+  .toast-host .toast { width: 100%; max-width: 480px; min-width: 0; }
+}
+.toast {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  color: var(--text);
+  padding: 12px 18px;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.18);
+  min-width: 260px;
+  animation: slideIn .25s ease;
+}
+.toast.err { border-left-color: #c74545; }
+.toast.ok { border-left-color: #2e9459; }
+@keyframes slideIn {
+  from { transform: translateX(30px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* SIDEBAR */
+.app-shell { display: grid; grid-template-columns: 240px 1fr; min-height: 100vh; }
+.sidebar {
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: 18px 12px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: auto;
+  z-index: 10;
+}
+.sidebar .brand {
+  padding: 8px 12px 16px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 16px;
+  text-align: center;
+}
+.sidebar .brand .ar { font-size: 1.8rem; color: var(--accent); }
+.sidebar .brand .name { font-weight: 700; color: var(--text-strong); margin-top: 4px; font-size: 0.92rem; }
+.sidebar nav { display: flex; flex-direction: column; gap: 2px; }
+.sidebar nav a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.92rem;
+  position: relative;
+}
+.sidebar nav a:hover { background: var(--surface-2); text-decoration: none; }
+.sidebar nav a.active {
+  background: var(--gradient-accent);
+  color: var(--on-accent);
+  font-weight: 600;
+}
+.sidebar nav a .badge {
+  margin-left: auto;
+  background: var(--surface-3);
+  color: var(--text);
+  font-size: 0.72rem;
+  padding: 2px 7px;
+  border-radius: 999px;
+}
+.sidebar nav a.active .badge { background: rgba(255,255,255,0.3); color: var(--on-accent); }
+
+/* TOPBAR */
+.topbar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  backdrop-filter: blur(8px);
+}
+.topbar h2 { margin: 0; font-size: 1.15rem; }
+
+.theme-switcher {
+  display: flex;
+  gap: 4px;
+  padding: 3px;
+  background: var(--surface-2);
+  border-radius: 999px;
+}
+.theme-switcher button {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  padding: 0;
+  border: 2px solid transparent;
+  cursor: pointer;
+  box-shadow: none;
+}
+.theme-switcher button:hover { transform: scale(1.1); }
+.theme-switcher button.active { border-color: var(--text-strong); box-shadow: 0 0 0 2px var(--accent-ring); }
+.theme-dot-classic  { background: linear-gradient(135deg, #fef7e8 50%, #c9a53b 50%); }
+.theme-dot-emerald  { background: linear-gradient(135deg, #0d7a52 50%, #c9a53b 50%); }
+.theme-dot-night    { background: linear-gradient(135deg, #12161e 50%, #d9b84a 50%); }
+.theme-dot-royal    { background: linear-gradient(135deg, #2a1c44 50%, #e5b747 50%); }
+.theme-dot-desert   { background: linear-gradient(135deg, #f6e8d5 50%, #b85c2a 50%); }
+.theme-dot-pearl    { background: linear-gradient(135deg, #faf7f5 50%, #a08090 50%); }
+.theme-dot-marine   { background: linear-gradient(135deg, #e8f4f5 50%, #1c8a95 50%); }
+
+/* PATIENT CARD */
+.patient-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 16px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: transform .2s ease, box-shadow .2s ease;
+  min-height: 120px;
+  position: relative;
+  overflow: hidden;
+}
+.patient-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--accent);
+}
+.patient-card:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(0,0,0,0.12); }
+.patient-card .name { font-weight: 700; color: var(--text-strong); }
+.patient-card .diag { font-size: 0.85rem; color: var(--text-soft); }
+.patient-card .stat { font-size: 0.8rem; display: flex; gap: 10px; margin-top: auto; color: var(--text-soft); }
+.patient-card.is-selected {
+  outline: 3px solid var(--primary);
+  outline-offset: -1px;
+  box-shadow: 0 0 0 6px var(--primary-soft);
+}
+.bulk-bar { animation: bulkIn .24s ease; }
+@keyframes bulkIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+
+/* STATS */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin: 16px 0;
+}
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 16px;
+  position: relative;
+  overflow: hidden;
+}
+.stat-card::before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: var(--gradient-accent);
+  opacity: 0.15;
+}
+.stat-card .label { font-size: 0.85rem; color: var(--text-soft); }
+.stat-card .value { font-size: 1.8rem; font-weight: 700; color: var(--text-strong); }
+
+/* WIZARD STEPS */
+.wizard-steps {
+  display: flex;
+  gap: 12px;
+  margin: 16px 0 24px;
+  align-items: center;
+}
+.wizard-step {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  border-radius: 10px;
+  background: var(--surface-2);
+  color: var(--text-soft);
+  position: relative;
+}
+.wizard-step.active { background: var(--gradient-accent); color: var(--on-accent); font-weight: 600; }
+.wizard-step.done { color: var(--text); }
+.wizard-step .num {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--surface-3); color: var(--text);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 0.82rem; font-weight: 700;
+}
+.wizard-step.active .num { background: rgba(255,255,255,0.25); color: var(--on-accent); }
+
+/* DIVIDER — арабская розетка */
+.ornament-divider {
+  text-align: center;
+  color: var(--ornament);
+  font-size: 1.3rem;
+  margin: 18px 0;
+  opacity: 0.55;
+  letter-spacing: 10px;
+}
+.ornament-divider::before { content: "۞ ۞ ۞"; }
+
+/* ANIMATED BACKGROUND LINES */
+.bg-lines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.35;
+}
+.bg-lines::before, .bg-lines::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background: var(--gradient-accent);
+  filter: blur(80px);
+}
+.bg-lines::before {
+  width: 340px; height: 340px;
+  top: 10%; left: -100px;
+  animation: floatA 18s ease-in-out infinite;
+  opacity: 0.4;
+}
+.bg-lines::after {
+  width: 480px; height: 480px;
+  bottom: -150px; right: -150px;
+  animation: floatB 22s ease-in-out infinite;
+  opacity: 0.3;
+}
+@keyframes floatA {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(40px, 60px); }
+}
+@keyframes floatB {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-60px, -40px); }
+}
+
+/* MOBILE — применяем только когда body.device-mobile */
+.mobile-menu-btn { display: none; }
+body.device-mobile .app-shell { grid-template-columns: 1fr; }
+body.device-mobile .sidebar {
+  position: fixed;
+  top: 0; left: 0;
+  width: 260px;
+  transform: translateX(-100%);
+  transition: transform .3s ease;
+  box-shadow: 0 0 40px rgba(0,0,0,.25);
+  z-index: 90;
+}
+body.device-mobile .app-shell.menu-open .sidebar { transform: translateX(0); }
+body.device-mobile .mobile-menu-btn { display: inline-flex; }
+body.device-mobile .main-content { padding: 0; }
+
+/* Узкий экран в любом случае (печать/бэкап) */
+@media (max-width: 640px) {
+  .app-shell { grid-template-columns: 1fr; }
+  .sidebar {
+    position: fixed;
+    top: 0; left: 0;
+    width: 260px;
+    transform: translateX(-100%);
+    transition: transform .3s ease;
+    box-shadow: 0 0 40px rgba(0,0,0,.25);
+    z-index: 90;
+  }
+  .app-shell.menu-open .sidebar { transform: translateX(0); }
+  .mobile-menu-btn { display: inline-flex; }
+  .main-content { padding: 0; }
+}
+
+/* BUTTON WITH ICON */
+.icon-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  box-shadow: none;
+}
+.icon-btn:hover { background: var(--surface-3); }
+
+/* PAGE TRANSITION */
+.view {
+  animation: viewIn .35s ease;
+  padding: 20px;
+  min-height: calc(100vh - 60px);
+}
+@keyframes viewIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* LIST ITEM */
+.list-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  gap: 12px;
+  margin-bottom: 8px;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.list-item:hover { transform: translateX(3px); box-shadow: var(--shadow-card); }
+.list-item .title { font-weight: 600; color: var(--text-strong); }
+.list-item .sub { font-size: 0.83rem; color: var(--text-soft); }
+
+/* FORM GROUP */
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.form-group { margin-bottom: 12px; }
+.form-group label { display: block; margin-bottom: 4px; font-size: 0.88rem; color: var(--text-soft); }
+
+/* CHECK LIST */
+.check-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 8px;
+}
+.check-list label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 0;
+  user-select: none;
+  color: var(--text);
+  transition: background .15s ease;
+}
+.check-list label:has(input:checked) {
+  background: var(--accent-ring);
+  border-color: var(--accent);
+}
+.check-list input { width: auto; accent-color: var(--accent); }
+
+/* PROGRESS BAR */
+.progress {
+  height: 6px;
+  background: var(--surface-2);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.progress .bar {
+  height: 100%;
+  background: var(--gradient-accent);
+  transition: width .4s ease;
+}
+
+/* LOADER */
+.spinner {
+  width: 22px;
+  height: 22px;
+  border: 2.5px solid var(--surface-3);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  display: inline-block;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* EMPTY STATE */
+.empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-soft);
+}
+.empty .icon { font-size: 3rem; margin-bottom: 12px; opacity: 0.4; }
+.empty .title { font-size: 1.1rem; color: var(--text); margin-bottom: 6px; }
+
+/* SIZE SCALER */
+body.font-scale-1 { font-size: 15px; }
+body.font-scale-2 { font-size: 16px; }
+body.font-scale-3 { font-size: 17px; }
+body.font-scale-4 { font-size: 18px; }
+body.font-scale-5 { font-size: 20px; }
+body.font-scale-6 { font-size: 22px; }
+
+/* PATIENT DETAIL CARD (detail view) */
+.patient-detail {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 28px 32px;
+  box-shadow: var(--shadow-card);
+  max-width: 980px;
+  margin: 0 auto;
+  position: relative;
+}
+.pr-head {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: flex-start;
+  gap: 18px;
+  margin-bottom: 10px;
+}
+.pr-av {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--surface-3), var(--surface-2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-strong);
+  font-size: 2rem;
+  font-weight: 700;
+  overflow: hidden;
+  border: 2px solid var(--accent-ring);
+  flex-shrink: 0;
+}
+.pr-av img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.pr-name { font-size: 1.95rem; font-weight: 700; color: var(--text-strong); line-height: 1.15; margin: 4px 0 6px; font-family: Georgia, 'Times New Roman', serif; }
+.pr-meta { color: var(--text-soft); font-size: 1.02rem; }
+.pr-badge-wrap { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.pr-badge {
+  background: var(--accent);
+  color: var(--on-accent);
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.pr-badge.type-sihr { background: #c9a53b; color: #fff; }
+.pr-badge.type-jinn { background: #6a2e8f; color: #fff; }
+.pr-badge.type-ayn { background: #2e8f69; color: #fff; }
+.pr-badge.type-waswasa { background: #356ac7; color: #fff; }
+.pr-badge.type-combined { background: #b8412b; color: #fff; }
+
+.pr-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 18px; }
+.pr-tag {
+  padding: 4px 12px;
+  border-radius: 8px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: var(--surface-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+.pr-tag.urgent { background: #fde7e4; color: #c74545; border-color: #f5c4be; }
+.pr-tag.vip { background: #fdf0d1; color: #a37b1a; border-color: #eddaa0; }
+.pr-tag.repeat { background: #e1f3ea; color: #2e7555; border-color: #c4e3d2; }
+
+/* HEAL BAR */
+.heal-bar-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 4px 0 22px;
+}
+.heal-bar {
+  flex: 1;
+  height: 14px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,.08);
+}
+.heal-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #2e9459 0%, #5ec07f 70%, #8adb9e 100%);
+  transition: width .5s ease;
+  border-radius: 999px;
+}
+.heal-bar-val {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-strong);
+  min-width: 64px;
+  text-align: right;
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+/* PATIENT VIEW GRID — Основные данные */
+.pv-section-title {
+  font-size: 0.82rem;
+  color: var(--accent-strong);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin: 22px 0 10px;
+}
+.pv-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.pv-item {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 16px;
+}
+.pv-item-l {
+  font-size: 0.72rem;
+  color: var(--text-soft);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.pv-item-v {
+  color: var(--text-strong);
+  font-weight: 600;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+@media (max-width: 620px) {
+  .pv-grid { grid-template-columns: 1fr; }
+  .patient-detail { padding: 18px 16px; }
+  .pr-head { grid-template-columns: auto 1fr; }
+  .pr-badge-wrap { grid-column: 1 / -1; flex-direction: row; }
+  .pr-name { font-size: 1.5rem; }
+}
+
+/* PROGRESS HISTORY */
+.progress-history {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.progress-history .row {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  gap: 10px;
+  padding: 8px 12px;
+  background: var(--surface-2);
+  border-radius: 8px;
+  align-items: center;
+  font-size: 0.88rem;
+}
+.progress-history .row .date { color: var(--text-soft); font-variant-numeric: tabular-nums; }
+.progress-history .row .val { font-weight: 700; color: var(--accent-strong); }
+
+/* PATIENT PHOTO UPLOAD */
+.photo-upload {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.photo-upload .preview {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 2px solid var(--accent-ring);
+  overflow: hidden;
+  background: var(--surface-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-soft);
+  flex-shrink: 0;
+}
+.photo-upload .preview img { width: 100%; height: 100%; object-fit: cover; }
+
+/* RUQYA LIST on patient card */
+.ruqya-list { display: flex; flex-direction: column; gap: 8px; }
+.ruqya-list .item {
+  padding: 10px 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.ruqya-list .item .title { font-weight: 600; color: var(--text-strong); }
+.ruqya-list .item .desc { font-size: 0.88rem; color: var(--text-soft); }
+.ruqya-list .item .days { margin-left: auto; color: var(--accent-strong); font-weight: 700; font-size: 0.85rem; }
+
+/* TABS */
+.tabs-bar { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin-bottom: 14px; }
+.tabs-bar button {
+  background: transparent;
+  color: var(--text-soft);
+  border-radius: 0;
+  border-bottom: 2px solid transparent;
+  padding: 10px 14px;
+  box-shadow: none;
+}
+.tabs-bar button.active { color: var(--text-strong); border-bottom-color: var(--accent); }
+.tabs-bar button:hover { background: var(--surface-2); transform: none; box-shadow: none; }
+
+/* GITHUB WIZARD */
+.gh-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--surface-2);
+  border-radius: 12px;
+  margin-bottom: 14px;
+  border: 1px solid var(--border);
+}
+.gh-profile img { width: 44px; height: 44px; border-radius: 50%; }
+.gh-profile .name { font-weight: 700; color: var(--text-strong); }
+.gh-profile .login { font-size: 0.85rem; color: var(--text-soft); }
+
+.repo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 10px;
+}
+.repo-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.repo-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-card); }
+.repo-card .n { font-weight: 700; color: var(--text-strong); }
+.repo-card .d { font-size: 0.82rem; color: var(--text-soft); margin-top: 4px; min-height: 2.5em; }
+.repo-card .foot { display: flex; gap: 8px; margin-top: 10px; font-size: 0.78rem; color: var(--text-soft); }
+
+.gh-crumb { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; padding: 8px 0; font-size: 0.9rem; }
+.gh-crumb a { cursor: pointer; color: var(--accent); }
+.gh-crumb .sep { color: var(--text-soft); }
+
+.folder-card, .file-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  cursor: pointer;
+  transition: transform .18s ease, box-shadow .18s ease;
+  margin-bottom: 6px;
+}
+.folder-card:hover, .file-card:hover { transform: translateX(2px); box-shadow: var(--shadow-card); }
+.folder-card .ic, .file-card .ic { font-size: 1.2rem; }
+.folder-card .name, .file-card .name { flex: 1; font-weight: 500; }
+.file-card .size { color: var(--text-soft); font-size: 0.8rem; }
+
+/* BOTTOM TABS (MOBILE) */
+.bottom-tabs {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 6px 4px calc(6px + env(safe-area-inset-bottom, 0px));
+  z-index: 20;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+}
+.bottom-tabs a {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 4px;
+  color: var(--text-soft);
+  text-decoration: none;
+  font-size: 0.68rem;
+  border-radius: 8px;
+  text-align: center;
+}
+.bottom-tabs a .ico { font-size: 1.25rem; }
+.bottom-tabs a.active { color: var(--accent-strong); background: var(--accent-ring); }
+body.device-mobile .bottom-tabs { display: flex; }
+body.device-mobile .sidebar { display: none; }
+body.device-mobile .app-shell { grid-template-columns: 1fr; }
+body.device-mobile .main-content { padding-bottom: 80px; }
+body.device-mobile .mobile-menu-btn { display: none; }
+body.device-mobile .view { padding: 14px 10px; }
+body.device-mobile .patient-detail { padding: 16px 14px; }
+
+/* DEVICE SWITCH BUTTON */
+.device-toggle {
+  display: inline-flex;
+  gap: 2px;
+  background: var(--surface-2);
+  border-radius: 999px;
+  padding: 2px;
+}
+.device-toggle button {
+  background: transparent;
+  padding: 4px 10px;
+  font-size: 0.82rem;
+  color: var(--text-soft);
+  border-radius: 999px;
+  box-shadow: none;
+}
+.device-toggle button.active { background: var(--accent); color: var(--on-accent); }
+
+/* SEGMENTED switcher (two+ buttons) */
+.segmented button.is-active {
+  background: var(--primary-soft);
+  color: var(--text-strong);
+  border-color: var(--primary);
+  font-weight: 600;
+}
+
+/* Sidebar active indicator — яркая левая полоса */
+.sidebar nav a.active::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 6px; bottom: 6px;
+  width: 4px;
+  border-radius: 0 3px 3px 0;
+  background: var(--on-accent);
+}
+
+/* Settings-nav — кнопки якорей выглядят как полноценные кнопки */
+.settings-nav button[data-scroll] {
+  border: 1px solid var(--border);
+  padding: 8px 14px;
+}
+.settings-nav button[data-scroll]:hover {
+  background: var(--primary-soft);
+  border-color: var(--primary);
+}
+
+/* RANGE SLIDER */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background: var(--surface-2);
+  border-radius: 999px;
+  outline: none;
+  border: 0;
+  padding: 0;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+  border: 2px solid var(--on-accent);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+input[type="range"]::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+  border: 2px solid var(--on-accent);
+}
+
+/* PLAN SECTION HEADERS (duration=null mode) */
+.section-block {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  margin: 16px 0;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+.section-block .section-header {
+  background: var(--gradient-accent);
+  color: var(--on-accent);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-block .section-header h3 { color: var(--on-accent); margin: 0; }
+.section-block .section-body { padding: 16px 20px; }
+
+/* HIDE ON EXPORT */
+body.exporting .sidebar,
+body.exporting .topbar,
+body.exporting .icon-btn,
+body.exporting button:not(.export-safe) { display: none !important; }
+body.exporting .view { padding: 0; }
+body.exporting .app-shell { grid-template-columns: 1fr; }
+
+
+/* css/animations.css */
+/* animations.css — анимированный UI, движения, переливы */
+
+/* ГЛАВНЫЙ АНИМИРОВАННЫЙ ФОН — мерцающие звёзды и плавающие градиенты */
+.starfield {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: -2;
+}
+.starfield .star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 50%;
+  opacity: 0;
+  animation: twinkle linear infinite;
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0; transform: scale(0.8); }
+  50% { opacity: 0.8; transform: scale(1.1); }
+}
+
+/* ОРНАМЕНТАЛЬНАЯ ЛИНИЯ — движется по краям карточки при наведении */
+.ornament-line {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  animation: slideLineLR 4s linear infinite;
+}
+@keyframes slideLineLR {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* АНИМАЦИЯ ВХОДА для элементов списка */
+.anim-in {
+  animation: fadeUp .5s ease backwards;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.anim-in-delay-1 { animation-delay: .06s; }
+.anim-in-delay-2 { animation-delay: .12s; }
+.anim-in-delay-3 { animation-delay: .18s; }
+.anim-in-delay-4 { animation-delay: .24s; }
+.anim-in-delay-5 { animation-delay: .30s; }
+.anim-in-delay-6 { animation-delay: .36s; }
+
+/* МЕРЦАНИЕ АКЦЕНТА — для кнопки действия */
+.pulse-accent {
+  animation: pulseAccent 2.2s ease-in-out infinite;
+}
+@keyframes pulseAccent {
+  0%, 100% { box-shadow: 0 0 0 0 var(--accent-ring); }
+  50% { box-shadow: 0 0 0 10px transparent; }
+}
+
+/* АРАБСКАЯ КАЛЛИГРАФИЯ ПОЯВЛЕНИЕ */
+.verse-reveal {
+  animation: verseReveal .8s ease;
+}
+@keyframes verseReveal {
+  from {
+    opacity: 0;
+    filter: blur(6px);
+    letter-spacing: 0.3em;
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    letter-spacing: 0;
+  }
+}
+
+/* ВОЛНА ПРИ НАЖАТИИ НА КНОПКУ */
+.btn-primary, .btn {
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary::after, .btn::after {
+  content: "";
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 0; height: 0;
+  background: rgba(255,255,255,0.4);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width .4s ease, height .4s ease;
+  pointer-events: none;
+}
+.btn-primary:active::after, .btn:active::after {
+  width: 300px; height: 300px;
+  transition: 0s;
+}
+
+/* ОРНАМЕНТАЛЬНЫЙ УГОЛ — вращается */
+.spinning-ornament {
+  width: 40px;
+  height: 40px;
+  background-image: radial-gradient(circle, var(--accent) 30%, transparent 30%);
+  background-size: 8px 8px;
+  opacity: 0.3;
+  animation: rotateSlow 40s linear infinite;
+}
+@keyframes rotateSlow { to { transform: rotate(360deg); } }
+
+/* ДЫХАНИЕ для БАДЖА */
+.breathe {
+  animation: breathe 3s ease-in-out infinite;
+}
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+
+/* ПЛАВНОЕ РАСКРЫТИЕ ДНЯ */
+.day-block {
+  animation: dayFadeIn .5s ease backwards;
+}
+@keyframes dayFadeIn {
+  from { opacity: 0; transform: translateY(8px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* АНИМИРОВАННАЯ ЛЕНТА в шапке дня */
+.day-header {
+  position: relative;
+  overflow: hidden;
+}
+.day-header::before {
+  content: "";
+  position: absolute;
+  top: 0; left: -40%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  animation: shimmer 6s ease-in-out infinite;
+}
+@keyframes shimmer {
+  0% { left: -40%; }
+  100% { left: 120%; }
+}
+
+/* ПРОБЕГАЮЩАЯ ЛИНИЯ ПОД ЗАГОЛОВКОМ */
+.underline-anim {
+  display: inline-block;
+  position: relative;
+}
+.underline-anim::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  bottom: -4px;
+  height: 2px;
+  background: var(--gradient-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: drawLine .9s ease .2s forwards;
+}
+@keyframes drawLine {
+  to { transform: scaleX(1); }
+}
+
+/* ПУТЬ ТОЧКИ по кругу (на стат-карточке) */
+.orbit-dot {
+  position: absolute;
+  width: 6px; height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: orbit 12s linear infinite;
+  box-shadow: 0 0 10px var(--accent);
+}
+@keyframes orbit {
+  0%   { transform: rotate(0deg) translateX(40px) rotate(0deg); }
+  100% { transform: rotate(360deg) translateX(40px) rotate(-360deg); }
+}
+
+/* ANIMATED GRADIENT FOR HERO */
+.hero-gradient {
+  background: linear-gradient(-45deg, var(--accent), var(--accent-strong), var(--surface-3), var(--accent));
+  background-size: 400% 400%;
+  animation: gradientShift 14s ease infinite;
+  color: var(--on-accent);
+}
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* DOT LOADER */
+.dot-loader { display: inline-flex; gap: 4px; }
+.dot-loader span {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: dotBounce 1.2s ease-in-out infinite;
+}
+.dot-loader span:nth-child(2) { animation-delay: .15s; }
+.dot-loader span:nth-child(3) { animation-delay: .3s; }
+@keyframes dotBounce {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+  40% { transform: scale(1.2); opacity: 1; }
+}
+
+/* SLIDE IN SIDE */
+.slide-right {
+  animation: slideRight .4s ease;
+}
+@keyframes slideRight {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* HOVER LIFT */
+.hover-lift { transition: transform .2s ease, box-shadow .2s ease; }
+.hover-lift:hover { transform: translateY(-4px); box-shadow: 0 14px 32px rgba(0,0,0,0.14); }
+
+/* GLOW TEXT (арабский) */
+.glow-text {
+  text-shadow: 0 0 16px var(--accent-ring);
+}
+
+/* SHINE ACROSS (по кнопке) */
+.shine {
+  position: relative;
+  overflow: hidden;
+}
+.shine::before {
+  content: "";
+  position: absolute;
+  top: 0; left: -80%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent 20%, rgba(255,255,255,0.5) 50%, transparent 80%);
+  transform: skewX(-20deg);
+  transition: left .5s ease;
+}
+.shine:hover::before { left: 130%; }
+
+/* REDUCED MOTION */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
+/* css/print.css */
+/* print.css — стиль для PDF через window.print() + A4 (v5) */
+
+@page {
+  size: A4 portrait;
+  margin: 14mm 12mm 16mm;
+}
+
+@media print {
+  html, body {
+    width: auto;
+    height: auto;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: var(--bg, #fff) !important;
+    color: var(--text, #111) !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  .sidebar, .topbar, .mobile-menu-btn, .toast-host, .modal-backdrop,
+  .bottom-tabs, .icon-btn, .export-bar, .rp-toolbar,
+  .counter, .dot, [data-no-print] { display: none !important; }
+
+  button:not(.export-safe) { display: none !important; }
+
+  .view { padding: 0 !important; }
+  .app-shell { display: block !important; grid-template-columns: none !important; }
+  .main-content { display: block !important; padding: 0 !important; }
+  .bg-lines, .starfield { display: none !important; }
+
+  /* Корневые обёртки — один сплошной поток, браузер сам режет по страницам */
+  .print-wrap,
+  .plan-root.print-wrap,
+  .certificate-root.print-wrap {
+    background: var(--bg, #fff) !important;
+    color: var(--text, #111) !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Крупные блоки — не режем посередине */
+  .hero-gradient,
+  .verse-block,
+  .card,
+  .section-block,
+  .formula-block,
+  .day-block {
+    page-break-inside: avoid;
+    break-inside: avoid;
+    box-shadow: none !important;
+  }
+
+  /* Компактный ритм — чтобы не было чрезмерных просветов */
+  .hero-gradient { padding: 12mm 10mm !important; margin-bottom: 6mm !important; }
+  .card { margin-bottom: 5mm !important; padding: 6mm 7mm !important; }
+  .formula-block { margin-bottom: 4mm !important; padding: 5mm 6mm !important; }
+  .day-block { margin-bottom: 6mm !important; }
+  .section-block { margin-bottom: 6mm !important; }
+
+  h1, h2, h3, h4 { page-break-after: avoid; break-after: avoid; }
+
+  /* Жёсткая фиксация темы при печати — Chrome иногда сбрасывает переменные */
+  html, body, .plan-root, .certificate-root {
+    background: var(--bg) !important;
+    color: var(--text) !important;
+  }
+  .card, .formula-block {
+    background: var(--surface) !important;
+  }
+  .hero-gradient { background: var(--accent, #a38a4a) !important; color: #fff !important; }
+
+  a { color: inherit !important; text-decoration: none; }
+
+  /* анимации отключаем при печати */
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* Футер плана — небольшой, центр */
+  .plan-root .footer,
+  .certificate-root .footer {
+    text-align: center;
+    color: var(--text-soft);
+    font-size: .8rem;
+    border-top: 1px solid var(--border);
+    padding-top: 6px;
+    margin-top: 10mm;
+  }
+}
+
+/* Экранный «body.exporting» — превью перед печатью (опционально) */
+body.exporting {
+  background: var(--bg) !important;
+}
+body.exporting .sidebar,
+body.exporting .topbar,
+body.exporting .mobile-menu-btn,
+body.exporting .toast-host,
+body.exporting .modal-backdrop,
+body.exporting .bottom-tabs,
+body.exporting .bg-lines,
+body.exporting .starfield { display: none !important; }
+body.exporting .app-shell { display: block !important; }
+body.exporting .main-content { padding: 0 !important; }
+body.exporting .view { padding: 0 !important; }
+
+/* Для экспортного PNG карточки: скрываем декоративные псевдоэлементы, которые html2canvas не рендерит */
+.patient-detail[data-export="1"]::before,
+.patient-detail[data-export="1"]::after,
+[data-export="1"] .hero-gradient::before,
+[data-export="1"] .hero-gradient::after,
+[data-export="1"] .pr-head::before,
+[data-export="1"] .pr-head::after,
+[data-export="1"] .patient-card::before,
+[data-export="1"] .patient-card::after { display: none !important; }
+
+/* Сбрасываем декоративные фоны/тени в PNG-экспорте — они часто ломают html2canvas */
+[data-export="1"] .bg-lines,
+[data-export="1"] .starfield { display: none !important; }
+[data-export="1"],
+[data-export="1"] * {
+  box-shadow: none !important;
+  text-shadow: none !important;
+  backdrop-filter: none !important;
+  filter: none !important;
+}
+[data-export="1"] .pr-head { background: #faf7ef !important; color: #1a1a1a !important; }
+[data-export="1"] .hero-gradient { background: #a38a4a !important; color: #fff !important; }
+
+/* --- standalone controls --- */
+.rp-toolbar{position:sticky;top:0;z-index:100;display:flex;gap:8px;align-items:center;padding:10px 16px;background:var(--surface);border-bottom:1px solid var(--border);backdrop-filter:blur(8px)}
+.rp-toolbar button{padding:8px 14px;border:1px solid var(--border);background:var(--surface-2);color:var(--text);border-radius:10px;cursor:pointer;font:inherit}
+.rp-toolbar button:hover{background:var(--primary-soft);border-color:var(--primary)}
+.rp-toolbar .sp{flex:1}
+.rp-toolbar .ttl{font-weight:700;color:var(--text-strong)}
+.healer-head{display:flex;gap:14px;align-items:center;padding:12px 16px;border-bottom:1px solid var(--border);background:var(--surface)}
+.healer-head img{max-height:52px;border-radius:8px}
+.healer-foot{padding:14px 16px;border-top:1px solid var(--border);margin-top:24px;color:var(--text-soft);font-size:.85rem;display:flex;justify-content:space-between;align-items:flex-end;gap:14px;flex-wrap:wrap}
+.healer-foot .sign img{max-height:70px;display:block}
+@media print{ .rp-toolbar{display:none !important} }
+html{font-size:var(--rp-fs, 16px)}
+</style>
+</head><body data-theme="night">
+<div class="bg-lines"></div>
+<div class="rp-toolbar no-print">
+  <span class="ttl">Ахмад · 19.04.2026</span>
+  <span class="sp"></span>
+  <button type="button" onclick="document.documentElement.style.setProperty('--rp-fs',(parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--rp-fs'))||16)-1+'px')" title="Уменьшить">A−</button>
+  <button type="button" onclick="document.documentElement.style.setProperty('--rp-fs',(parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--rp-fs'))||16)+1+'px')" title="Увеличить">A+</button>
+  <button type="button" onclick="window.print()" title="Сохранить как PDF (Ctrl+P)">📄 PDF</button>
+</div>
+
+<div class="container" style="padding:20px 16px"><div class="plan-root print-wrap" data-mode="patient" data-for-print="1">
+        
+      <div class="card hero-gradient" style="color:var(--on-accent);border:0">
+        <div style="font-family:'Amiri',serif;font-size:2rem;text-align:center;margin-bottom:8px">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+        <h1 style="color:#fff;text-align:center;margin:8px 0">План исцеления</h1>
+        <div style="text-align:center;opacity:.9">Абу Мухаммад · 19.04.2026 · без привязки ко дням</div>
+      </div>
+      <div class="card anim-in anim-in-delay-1">
+        <div class="card-title">Пациент</div>
+        <div class="chips">
+          <span class="chip primary">Ахмад</span>
+          <span class="chip">32 лет</span>
+          <span class="chip">male</span>
+          <span class="chip">123123</span>
+        </div>
+        <p style="margin-top:10px">Бисмилляхи, брат Ахмад. Да облегчит Аллах твою тяжесть и дарует исцеление.</p>
+        <p class="muted">Работаем последовательно: чистка, закрепление, защита, финал.</p>
+      </div>
+      <div class="verse-block anim-in anim-in-delay-2 verse-reveal">
+        <div class="arabic">وَإِذَا مَرِضْتُ فَهُوَ يَشْفِينِ</div>
+        <div class="transcription">Ва иза маридту фа хува яшфийн</div>
+        <div class="translation">«И когда я болею, Он меня исцеляет»</div>
+        <span class="ref">аш-Шуара 26:80</span>
+      </div>
+      <div class="card anim-in anim-in-delay-3">
+        <div class="card-title">Диагноз</div>
+        <div class="chips">
+          <span class="chip primary">sihr_mahfi</span>
+          <span class="chip">qalb</span>
+          
+          
+          
+        </div>
+      </div>
+      <div class="card anim-in anim-in-delay-4">
+        <div class="card-title">⚡ Важнейшее наставление — Вера и внутреннее видение</div>
+        <p>Заклинание — это не магическая формула, работающая сама по себе. Это обращение к Аллаху, Который Один обладает силой исцелять.</p>
+        <p>Перед чтением утверди в сердце: <b>«Аллах слышит меня. Аллах могущественен над этим недугом. Аллах сильнее любого врага.»</b></p>
+        <p>Во время чтения — <b>ВИДЬ</b> то, что произносишь: как колдовство рассыпается в прах, как сглаз вытягивается тёмным облаком наружу, как вокруг тебя формируется крепость света.</p>
+      </div>
+        
+      <div class="section-block">
+        <div class="section-header">
+          <span style="font-size:1.3rem">🌟</span>
+          <h3>Чистка и разрушение</h3>
+          <span style="margin-left:auto;font-size:.9rem;opacity:.85">1 формул</span>
+        </div>
+        <div class="section-body">
+          
+      <div class="formula-block" data-id="f-whiwmwwn">
+        <div class="purpose">Прицельная рукья · сердце</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي يَعْلَمُ الْغَيْبَ وَالشَّهَادَةَ أَرْقِي قَلْبِي مِنْ سِحْرٍ مَخْفِيٍّ لِيَبْطُلَ وَيَتَلَاشَى</div>
+        <div class="transcription">Бисмилляхи-ллязи &#39;алимуль-гайби вашш-шахада, аркий кальбий мин сихрин махфиййин ли-йабтуля ва йаталяша</div>
+        <div class="translation">«С именем Аллаха, Который Знающий сокровенное и явное, заклинаю своё сердце от скрытое колдовство — чтобы стало недействительным и исчезло»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Спрятанная чёрная масса проявляется под взглядом света заклинания, становится видимой и растворяется</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 7 раз</span>
+          <span class="chip">В сердце → вслух</span>
+          <span class="chip">✋ Давление</span>
+        </div>
+        
+      </div>
+    
+        </div>
+      </div>
+    
+      <div class="section-block">
+        <div class="section-header">
+          <span style="font-size:1.3rem">🛡</span>
+          <h3>Защита тела и органов</h3>
+          <span style="margin-left:auto;font-size:.9rem;opacity:.85">2 формул</span>
+        </div>
+        <div class="section-body">
+          
+      <div class="formula-block" data-id="f-ckpm94rj">
+        <div class="purpose">Защита органа · сердце</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي يَعْلَمُ الْغَيْبَ وَالشَّهَادَةَ أَرْقِي لِحِفْظِ قَلْبِي وَسَدٍّ حَوْلَهُ وَحِجَابٍ عَلَيْهِ مِنْ سِحْرٍ مَخْفِيٍّ</div>
+        <div class="transcription">Бисмилляхи-ллязи &#39;алимуль-гайби вашш-шахада, аркий ли-хифзи кальбий ва саддин хауляху ва хиджабин &#39;аляйхи мин сихрин махфиййин</div>
+        <div class="translation">«С именем Аллаха, Который Знающий сокровенное и явное, заклинаю для охраны моё сердце, и преграды вокруг него, и завесы над ним, от скрытое колдовство»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Вокруг тела формируются четыре кольца: мягкое сияние (хифз), невидимая стеклянная стена (хиджаб), каменная башня (садд), неприступная крепость (хисн)</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 7 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+        
+      </div>
+    
+      <div class="formula-block" data-id="f-57zgwkiq">
+        <div class="purpose">Четырёхслойная защита тела</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي هُوَ خَيْرٌ حَافِظًا أَرْقِي لِحِفْظِ جَسَدِي وَسَدٍّ حَوْلَهُ وَحِجَابٍ عَلَيْهِ وَحِصْنٍ يُحِيطُ بِهِ مِنْ سِحْرٍ مَخْفِيٍّ</div>
+        <div class="transcription">Бисмилляхи-ллязи хува хайрун хафизан, аркий ли-хифзи джасадий ва саддин хауляху ва хиджабин &#39;аляйхи ва хиснин йухиту бихи мин сихрин махфиййин</div>
+        <div class="translation">«С именем Аллаха, Который является лучшим Хранителем, заклинаю для охраны моего тела, и преграды вокруг него, и завесы над ним, и крепости, окружающей его, от скрытое колдовство»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Вокруг тела формируются четыре кольца: мягкое сияние (хифз), невидимая стеклянная стена (хиджаб), каменная башня (садд), неприступная крепость (хисн)</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 7 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+        
+      </div>
+    
+        </div>
+      </div>
+    
+      <div class="section-block">
+        <div class="section-header">
+          <span style="font-size:1.3rem">🔒</span>
+          <h3>Закрытие дверей</h3>
+          <span style="margin-left:auto;font-size:.9rem;opacity:.85">2 формул</span>
+        </div>
+        <div class="section-body">
+          
+      <div class="formula-block" data-id="f-mkgdcyu2">
+        <div class="purpose">Закрытие дверей органа · сердце</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي جَعَلَ حِفْظًا مِنْ كُلِّ شَيْطَانٍ مَارِدٍ أَرْقِي لِإِغْلَاقِ أَبْوَابِ قَلْبِي أَمَامَ الْجِنِّ وَالسِّحْرِ فَلَا يَنْفُذُ إِلَيْهِ شَيْءٌ</div>
+        <div class="transcription">Бисмилляхи-ллязи джа&#39;аля хифзан мин кулли шайтанин марид, аркий ли-иглаки абваби кальбий амамаль-джинни вас-сихри фаля йанфузу иляйхи шай&#39;</div>
+        <div class="translation">«С именем Аллаха, Который установил защиту от всякого шайтана марида, заклинаю для закрытия дверей своё сердце перед джиннами и колдовством — чтобы ничто не проникло к нему»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Каждая дверь в теле захлопывается с глухим звуком и запечатывается золотой печатью</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 7 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+        
+      </div>
+    
+      <div class="formula-block" data-id="f-fwzr5g5w">
+        <div class="purpose">Закрытие дверей тела</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي هُوَ الْحَيُّ الْقَيُّومُ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ أَرْقِي لِإِغْلَاقِ كُلِّ بَابٍ وَسَدِّ كُلِّ طَرِيقٍ وَقَفْلِ كُلِّ مَنْفَذٍ لِلْجِنِّ فِي جَسَدِي فَلَا يَدْخُلُونَ وَلَا يَنْفُذُونَ وَلَا يَقْتَرِبُونَ</div>
+        <div class="transcription">Бисмилляхи-ллязи хуваль-Хаййуль-Каййуму ля та&#39;хузуху синатун ва ля наум, аркий ли-иглаки кулли бабин ва садди кулли тарикин ва кафли кулли манфазин лиль-джинни фи джасадий, фаля йадхулюна ва ля йанфузуна ва ля йактарибун</div>
+        <div class="translation">«С именем Аллаха, Который — Живой, Вечносущий, не овладевает Им ни дремота, ни сон, заклинаю для закрытия каждой двери, заграждения каждого пути и запирания каждого прохода для джиннов в моём теле — чтобы не входили, не проникали и не приближались»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Каждая дверь в теле захлопывается с глухим звуком и запечатывается золотой печатью</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 7 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+        
+      </div>
+    
+        </div>
+      </div>
+    
+      <div class="section-block">
+        <div class="section-header">
+          <span style="font-size:1.3rem">✨</span>
+          <h3>Финал — возвращение и закрепление</h3>
+          <span style="margin-left:auto;font-size:.9rem;opacity:.85">4 формул</span>
+        </div>
+        <div class="section-body">
+          
+      <div class="formula-block" data-id="f-8dy6a6c2">
+        <div class="purpose">Четырёхслойная защита дома</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي هُوَ خَيْرٌ حَافِظًا أَرْقِي لِحِفْظِ بَيْتِي وَسَدٍّ حَوْلَهُ وَحِجَابٍ عَلَيْهِ وَحِصْنٍ يُحِيطُ بِهِ مِنْ سِحْرٍ مَخْفِيٍّ</div>
+        <div class="transcription">Бисмилляхи-ллязи хува хайрун хафизан, аркий ли-хифзи байтий ва саддин хауляху ва хиджабин &#39;аляйхи ва хиснин йухиту бихи мин сихрин махфиййин</div>
+        <div class="translation">«С именем Аллаха, Который является лучшим Хранителем, заклинаю для охраны моего дома, и преграды вокруг него, и завесы над ним, и крепости, окружающей его, от скрытое колдовство»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Дом окутывается золотым куполом, стены светятся изнутри, окна и двери излучают защиту, на крыше — стражи из света</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 7 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+        
+      </div>
+    
+      <div class="formula-block" data-id="f-owotjdf5">
+        <div class="purpose">Возвращение зла</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي رَدَّ الْكَافِرِينَ بِغَيْظِهِمْ أَرْقِي لِرَدِّ كُلِّ سِحْرٍ وَعَيْنٍ وَحَسَدٍ إِلَى صَاحِبِهِ فَيَرْجِعُ إِلَيْهِ بِإِذْنِ اللهِ</div>
+        <div class="transcription">Бисмилляхи-ллязи раддаль-кафирина би-гайзихим, аркий ли-радди кулли сихрин ва &#39;айнин ва хасадин иля сахибихи фа-йарджи&#39;у иляйхи би-изниллях</div>
+        <div class="translation">«С именем Аллаха, Который вернул неверующих с их яростью, заклинаю для возвращения всякого колдовства, сглаза и зависти к их отправителю — чтобы вернулось к нему с дозволения Аллаха»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Всякое зло, посланное в тебя, разворачивается невидимой рукой и быстро возвращается по своему пути к источнику</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 7 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+        
+      </div>
+    
+      <div class="formula-block" data-id="f-dnez3mmr">
+        <div class="purpose">Недосягаемость</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي لَهُ مُلْكُ السَّمَاوَاتِ وَالْأَرْضِ أَرْقِي لِأَنْ أَكُونَ بَعِيدَ الْمَنَالِ عَنِ الْجِنِّ وَالسِّحْرِ وَالْعَيْنِ وَالْحَسَدِ</div>
+        <div class="transcription">Бисмилляхи-ллязи ляху мульку-с-самавати валь-ард, аркий ли-ан акуна ба&#39;идаль-манали &#39;аниль-джинни вас-сихри валь-&#39;айни валь-хасад</div>
+        <div class="translation">«С именем Аллаха, Которому принадлежит власть над небесами и землёй, заклинаю, чтобы быть недосягаемым для джиннов, колдовства, сглаза и зависти»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Вокруг тела формируются четыре кольца: мягкое сияние (хифз), невидимая стеклянная стена (хиджаб), каменная башня (садд), неприступная крепость (хисн)</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 7 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+        
+      </div>
+    
+      <div class="formula-block" data-id="f-jqtwpp0r">
+        <div class="purpose">Финал — закрепление</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ أَرْقِينِي اللهُ يَشْفِينِي</div>
+        <div class="transcription">Бисмилляхи аркыний Аллаху яшфиний</div>
+        <div class="translation">«Именем Аллаха заклинаю себя, Аллах исцеляет меня»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Весь двухнедельный путь сливается в одну точку света в центре груди — плотная, тёплая, неугасимая</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 25 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+        
+      </div>
+    
+        </div>
+      </div>
+    
+        
+      <div class="section-block">
+        <div class="section-header"><span style="font-size:1.3rem">💧</span><h3>Вода и масло — заряжание</h3></div>
+        <div class="section-body">
+          
+      <div class="formula-block" data-id="f-hgp8eftm">
+        <div class="purpose">Вода для чистки</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي يَعْلَمُ الْغَيْبَ وَالشَّهَادَةَ أَرْقِي هَذَا الْمَاءَ مِنْ سِحْرٍ مَخْفِيٍّ لِيَبْطُلَ وَيَتَلَاشَى</div>
+        <div class="transcription">Бисмилляхи-ллязи &#39;алимуль-гайби вашш-шахада, аркий хазаль-маа мин сихрин махфиййин ли-йабтуля ва йаталяша</div>
+        <div class="translation">«С именем Аллаха, Который Знающий сокровенное и явное, заклинаю эту воду от скрытое колдовство — чтобы стало недействительным и исчезло»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Вода в сосуде начинает светиться изнутри, становится жидким светом</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 7 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+        
+      </div>
+    
+          
+      <div class="formula-block" data-id="f-7fq8w1ef">
+        <div class="purpose">Вода для защиты</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي هُوَ خَيْرٌ حَافِظًا أَرْقِي هَذَا الْمَاءَ لِحِفْظِ مَنْ شَرِبَهُ مِنْ سِحْرٍ مَخْفِيٍّ</div>
+        <div class="transcription">Бисмилляхи-ллязи хува хайрун хафизан, аркий хазаль-маа ли-хифзи ман шарибаху мин сихрин махфиййин</div>
+        <div class="translation">«С именем Аллаха, Который является лучшим Хранителем, заклинаю эту воду для защиты того, кто её выпьет, от скрытое колдовство»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Каждая капля воды превращается в щит, который усваивается телом</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 7 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+        
+      </div>
+    
+          
+      <div class="formula-block" data-id="f-h21z7xiu">
+        <div class="purpose">Масло для чистки</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي يَعْلَمُ الْغَيْبَ وَالشَّهَادَةَ أَرْقِي هَذَا الزَّيْتَ مِنْ سِحْرٍ مَخْفِيٍّ لِيَبْطُلَ وَيَتَلَاشَى</div>
+        <div class="transcription">Бисмилляхи-ллязи &#39;алимуль-гайби вашш-шахада, аркий хазаз-зайта мин сихрин махфиййин ли-йабтуля ва йаталяша</div>
+        <div class="translation">«С именем Аллаха, Который Знающий сокровенное и явное, заклинаю это масло от скрытое колдовство — чтобы стало недействительным и исчезло»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Масло насыщается золотыми искрами и начинает испускать тепло</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 7 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+        
+      </div>
+    
+          
+      <div class="formula-block" data-id="f-6sj7jfws">
+        <div class="purpose">Масло для защиты</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي جَعَلَ سَدًّا أَرْقِي هَذَا الزَّيْتَ لِسَدٍّ عَلَى جِلْدِ مَنْ دَهَنَهُ مِنْ سِحْرٍ مَخْفِيٍّ</div>
+        <div class="transcription">Бисмилляхи-ллязи джа&#39;аля саддан, аркий хазаз-зайта ли-саддин &#39;аля джильди ман даханаху мин сихрин махфиййин</div>
+        <div class="translation">«С именем Аллаха, Который воздвиг преграду, заклинаю это масло для преграды на коже того, кто им намажется, от скрытое колдовство»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Масло насыщается золотыми искрами и начинает испускать тепло</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 7 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+        
+      </div>
+    
+        </div>
+      </div>
+        
+      <div class="section-block">
+        <div class="section-header"><span style="font-size:1.3rem">🤲</span><h3>Мольбы</h3></div>
+        <div class="section-body">
+          
+      <div class="formula-block" data-id="f-cmn8zcfm">
+        <div class="purpose">Мольба об исцелении</div>
+        <div class="arabic glow-text">اللَّهُمَّ اشْفِنِي مِنْ سِحْرٍ مَخْفِيٍّ</div>
+        <div class="transcription">Аллахумма-шфиний мин сихрин махфиййин</div>
+        <div class="translation">«О Аллах, исцели меня от скрытое колдовство»</div>
+        
+        <div class="formula-meta">
+          <span class="chip">✕ 3 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+        
+      </div>
+    
+      <div class="formula-block" data-id="f-kdl0hthx">
+        <div class="purpose">Мольба о защите</div>
+        <div class="arabic glow-text">اللَّهُمَّ احْفَظْنِي مِنْ سِحْرٍ مَخْفِيٍّ</div>
+        <div class="transcription">Аллахумма-хфазний мин сихрин махфиййин</div>
+        <div class="translation">«О Аллах, защити меня от скрытое колдовство»</div>
+        
+        <div class="formula-meta">
+          <span class="chip">✕ 3 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+        
+      </div>
+    
+        </div>
+      </div>
+        
+      <div class="card anim-in anim-in-delay-1">
+        <div class="card-title">Заключение</div>
+        <p>Обязательно держи меня в курсе состояния. Если начнутся резкие обострения или приступы — сразу пиши.</p>
+        <p style="text-align:right;color:var(--text-soft);margin-top:10px">— Абу Мухаммад</p>
+      </div>
+        <div class="footer">RUKYA PRO · Абу Мухаммад · 19.04.2026</div>
+      </div></div>
+
+</body></html>
