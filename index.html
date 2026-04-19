@@ -270,15 +270,50 @@
         @keyframes fadeScaleIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
         @keyframes slideUp{from{opacity:0;transform:translateX(-50%) translateY(16px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
         @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-        @media(max-width:640px){
-            .container{padding:12px 10px 32px}
+        @media(max-width:900px){
+            .container{padding:16px 12px 36px}
+            .files-grid.grid-view{grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+            .modal-card{width:min(94vw,600px)}
+        }
+        @media(max-width:768px){
+            .container{padding:12px 10px 30px}
             .header-card{padding:1.5rem 1.2rem 1.2rem;border-radius:var(--radius-md)}
-            .gold-title{font-size:1.5rem}
-            .controls-bar{flex-direction:column;align-items:stretch;border-radius:var(--radius-lg);padding:10px}
+            .gold-title{font-size:1.55rem}
+            .subtitle{font-size:.88rem}
+            .quote-box{padding:.75rem 1rem;font-size:.85rem}
+            .progress-section{flex-wrap:wrap;gap:8px}
+            .progress-label,.progress-count{width:100%}
+            .controls-bar,.token-body-inner,.stats-bar,.modal-actions{flex-direction:column;align-items:stretch}
+            .controls-bar{border-radius:var(--radius-lg);padding:10px}
+            .controls-bar > *{width:100%}
             .search-box{min-width:100%}
-            .breadcrumb-item{font-size:.78rem}
+            .controls-bar select,.controls-bar > button,#actionBar button,.token-body-inner button,.modal-actions button{width:100%}
+            .controls-bar .btn-icon{width:100%;height:42px}
+            #favFilterBtn,#themeToggle{font-size:1rem}
+            #actionBar .btn-with-text{justify-content:center}
+            .token-input{min-width:100%}
+            .breadcrumb{display:flex;width:100%;padding:8px 10px;border-radius:var(--radius-lg)}
+            .breadcrumb-item,.breadcrumb-root{max-width:100%;font-size:.8rem}
+            .stats-bar{gap:8px}
+            .stat-item{justify-content:center;background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px 10px}
+            .file-card,.folder-card{padding:12px}
+            .item-row{align-items:flex-start}
+            .item-icon{width:38px;height:38px;font-size:1.2rem}
+            .item-actions{align-self:flex-start}
+            .dropdown-menu{right:auto;left:0;min-width:min(240px,calc(100vw - 40px))}
+            .modal-card{padding:1rem;max-height:86vh}
+            .modal-field textarea{min-height:180px}
+        }
+        @media(max-width:640px){
+            .gold-title{font-size:1.4rem}
+            .header-card{padding:1.2rem 1rem 1rem}
+            .controls-bar{gap:7px}
             .files-grid.grid-view{grid-template-columns:1fr}
-            .dropdown-menu{right:auto;left:0}
+            .item-main{gap:8px}
+            .item-name{font-size:.86rem}
+            .item-meta{gap:6px}
+            .breadcrumb-item{font-size:.76rem}
+            .footer-note{padding:.5rem 0}
         }
     </style>
 </head>
@@ -410,7 +445,7 @@
     let allItems = [];
     let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
     let readProgress = JSON.parse(localStorage.getItem('readProgress') || '{}');
-    let viewMode = localStorage.getItem('viewMode') || 'list';
+    let viewMode = 'grid';
     let sortBy = localStorage.getItem('sortBy') || 'name';
     let filterTag = 'all';
     let searchQuery = '';
@@ -418,6 +453,7 @@
     let githubToken = localStorage.getItem('github_token') || '';
     let isWriteEnabled = false;
     let totalHtmlFiles = 0;
+    let isMobileViewport = false;
 
     // Для редактирования
     let editingFilePath = null;       // если редактируем существующий файл
@@ -481,6 +517,31 @@
     function debounce(fn, d) {
         let t;
         return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), d); };
+    }
+
+    function isLikelyMobileDevice() {
+        const narrowViewport = window.matchMedia('(max-width: 768px)').matches;
+        const uaMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i.test(navigator.userAgent || '');
+        const uaDataMobile = typeof navigator.userAgentData?.mobile === 'boolean' ? navigator.userAgentData.mobile : false;
+        return narrowViewport || uaMobile || uaDataMobile;
+    }
+
+    function syncAutoViewMode() {
+        const nextIsMobile = isLikelyMobileDevice();
+        const nextViewMode = nextIsMobile ? 'list' : 'grid';
+        const changed = nextIsMobile !== isMobileViewport || nextViewMode !== viewMode;
+        isMobileViewport = nextIsMobile;
+        viewMode = nextViewMode;
+        document.body.classList.toggle('mobile-layout', nextIsMobile);
+        document.body.classList.toggle('desktop-layout', !nextIsMobile);
+        const viewBtn = document.getElementById('viewToggle');
+        if (viewBtn) {
+            viewBtn.hidden = true;
+            viewBtn.disabled = true;
+            viewBtn.style.display = 'none';
+            viewBtn.title = nextIsMobile ? 'Мобильная версия включена автоматически' : 'ПК версия включена автоматически';
+        }
+        return changed;
     }
 
     function showToast(msg, isErr = false) {
@@ -1383,14 +1444,8 @@
         };
         themeBtn.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
 
-        const viewBtn = document.getElementById('viewToggle');
-        viewBtn.onclick = () => {
-            viewMode = viewMode === 'list' ? 'grid' : 'list';
-            localStorage.setItem('viewMode', viewMode);
-            viewBtn.textContent = viewMode === 'list' ? '📋 Список' : '⊞ Сетка';
-            renderCurrentView();
-        };
-        viewBtn.textContent = viewMode === 'list' ? '📋 Список' : '⊞ Сетка';
+        localStorage.removeItem('viewMode');
+        syncAutoViewMode();
 
         document.getElementById('sortSelect').value = sortBy;
         document.getElementById('sortSelect').onchange = (e) => { sortBy = e.target.value; localStorage.setItem('sortBy', sortBy); renderCurrentView(); };
@@ -1418,6 +1473,10 @@
             searchHint.style.display = 'block';
             renderCurrentView();
         };
+        const debouncedResizeSync = debounce(() => {
+            if (syncAutoViewMode()) renderCurrentView();
+        }, 120);
+        window.addEventListener('resize', debouncedResizeSync);
 
         window.addEventListener('keydown', (e) => {
             if (e.key === '/' && !e.ctrlKey && !e.metaKey && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
@@ -1510,6 +1569,7 @@
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.has('path')) currentPath = urlParams.get('path');
         if (forceReadOnly) document.body.classList.add('readonly-share');
+        syncAutoViewMode();
         window.addEventListener('popstate', () => {
             const p = new URLSearchParams(window.location.search);
             currentPath = p.get('path') || '';
