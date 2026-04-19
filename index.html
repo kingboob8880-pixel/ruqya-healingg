@@ -205,6 +205,7 @@
         .status-badges{display:flex;gap:4px;align-items:center}
         .badge{font-size:.75rem;opacity:.7}
         .badge.active{opacity:1}
+        .folder-lock-icon{font-size:.8rem;opacity:.8;flex-shrink:0;margin-left:4px;vertical-align:middle}
         .item-actions{display:flex;align-items:center;gap:2px;position:relative;z-index:10}
         .menu-btn{
             background:none!important;border:none!important;font-size:1.2rem;cursor:pointer;
@@ -455,6 +456,7 @@
     let isWriteEnabled = false;
     let totalHtmlFiles = 0;
     let isMobileViewport = false;
+    let folderPwdConfig = null; // кэш конфига паролей папок
 
     // Для редактирования
     let editingFilePath = null;       // если редактируем существующий файл
@@ -581,6 +583,205 @@
     }
     function setCache(k, d) { apiCache[k] = { data: d, ts: Date.now() }; }
     function clearCache() { Object.keys(apiCache).forEach(k => delete apiCache[k]); }
+
+    // ========== ПАРОЛЬНАЯ ЗАЩИТА ПАПОК ==========
+    async function getFolderPwdConfig() {
+        if (folderPwdConfig !== null) return folderPwdConfig;
+        try {
+            const file = await apiRequest('GET', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/.folder-config?ref=${CONFIG.branch}`);
+            const parsed = JSON.parse(fromBase64(file.content));
+            folderPwdConfig = { hashes: parsed.hashes || {}, _sha: file.sha };
+        } catch (e) {
+            folderPwdConfig = { hashes: {}, _sha: null };
+        }
+        return folderPwdConfig;
+    }
+
+    async function saveFolderPwdConfig() {
+        if (!githubToken) throw new Error('Токен не задан');
+        const cfg = folderPwdConfig;
+        const content = toBase64(JSON.stringify({ hashes: cfg.hashes }));
+        const body = { message: 'Обновлён конфиг паролей папок', content, branch: CONFIG.branch };
+        if (cfg._sha) body.sha = cfg._sha;
+        const res = await apiRequest('PUT', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/.folder-config`, body);
+        folderPwdConfig._sha = res.content.sha;
+    }
+
+    async function hashPassword(pwd) {
+        const enc = new TextEncoder();
+        const buf = await crypto.subtle.digest('SHA-256', enc.encode(pwd + CONFIG.owner + CONFIG.repo));
+        return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    function isFolderUnlocked(folderPath) {
+        return sessionStorage.getItem('flk_' + folderPath) === '1';
+    }
+
+    function setFolderUnlocked(folderPath) {
+        sessionStorage.setItem('flk_' + folderPath, '1');
+    }
+
+    function clearFolderUnlock(folderPath) {
+        sessionStorage.removeItem('flk_' + folderPath);
+    }
+
+    function showPasswordModal(opts) {
+        const overlay = document.createElement('div');
+        overlay.className = 'modal-overlay';
+        overlay.innerHTML = `
+            <div class="modal-card" style="max-width:380px">
+                <div class="modal-title">${opts.title || '🔒 Введите пароль'}</div>
+                <div class="modal-field">
+                    <label>${opts.fieldLabel || 'Пароль'}</label>
+                    <input type="password" id="pwdModalInput" placeholder="${opts.placeholder || 'Введите пароль'}" autocomplete="current-password">
+                </div>
+                <div class="modal-actions">
+                    <button id="pwdModalCancel">Отмена</button>
+                    <button id="pwdModalConfirm" class="btn-success">${opts.confirmLabel || 'Войти'}</button>
+                </div>
+            </div>`;
+        document.body.appendChild(overlay);
+        const input = overlay.querySelector('#pwdModalInput');
+        input.focus();
+        const cleanup = () => overlay.remove();
+        overlay.querySelector('#pwdModalCancel').onclick = () => { cleanup(); opts.onCancel && opts.onCancel(); };
+        overlay.onclick = (e) => { if (e.target === overlay) { cleanup(); opts.onCancel && opts.onCancel(); } };
+        overlay.querySelector('#pwdModalConfirm').onclick = () => {
+            const val = input.value;
+            if (!val) { input.focus(); return; }
+            cleanup();
+            opts.onConfirm(val);
+        };
+        input.addEventListener('keydown', (e) => { if (e.key === 'Enter') overlay.querySelector('#pwdModalConfirm').click(); });
+    }
+
+    function showCreateFolderModal() {
+        const overlay = document.createElement('div');
+        overlay.className = 'modal-overlay';
+        overlay.innerHTML = `
+            <div class="modal-card" style="max-width:420px">
+                <div class="modal-title">📁 Создать папку</div>
+                <div class="modal-field">
+                    <label>Имя папки (латиница, цифры, -, _)</label>
+                    <input type="text" id="cfModalName" placeholder="my-folder" autocomplete="off">
+                </div>
+                <div class="modal-field">
+                    <label>Пароль (необязательно)</label>
+                    <input type="password" id="cfModalPwd" placeholder="Оставьте пустым, если без пароля" autocomplete="new-password">
+                </div>
+                <div class="modal-actions">
+                    <button id="cfModalCancel">Отмена</button>
+                    <button id="cfModalConfirm" class="btn-success">📁 Создать</button>
+                </div>
+            </div>`;
+        document.body.appendChild(overlay);
+        const nameInput = overlay.querySelector('#cfModalName');
+        const pwdInput = overlay.querySelector('#cfModalPwd');
+        nameInput.focus();
+        const cleanup = () => overlay.remove();
+        overlay.querySelector('#cfModalCancel').onclick = cleanup;
+        overlay.onclick = (e) => { if (e.target === overlay) cleanup(); };
+        overlay.querySelector('#cfModalConfirm').onclick = async () => {
+            const name = nameInput.value.trim();
+            if (!name) { nameInput.focus(); return; }
+            if (!/^[a-zA-Z0-9_-]+$/.test(name)) {
+                showToast('Некорректное имя папки (только латиница, цифры, -, _)', true);
+                nameInput.focus();
+                return;
+            }
+            const pwd = pwdInput.value;
+            cleanup();
+            setGlobalLoading(true);
+            try {
+                await createFolder(name);
+                const folderPath = currentPath ? currentPath + '/' + name : name;
+                if (pwd) {
+                    const cfg = await getFolderPwdConfig();
+                    cfg.hashes[folderPath] = await hashPassword(pwd);
+                    await saveFolderPwdConfig();
+                    showToast(`📁 Папка «${name}» создана с паролем 🔒`);
+                } else {
+                    showToast(`📁 Папка «${name}» создана`);
+                }
+                renderCurrentView();
+            } catch (e) {
+                showToast(e.message, true);
+            } finally {
+                setGlobalLoading(false);
+            }
+        };
+        nameInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') pwdInput.focus(); });
+        pwdInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') overlay.querySelector('#cfModalConfirm').click(); });
+    }
+
+    async function manageFolderPassword(folderPath, action) {
+        const cfg = await getFolderPwdConfig();
+        if (action === 'set') {
+            showPasswordModal({
+                title: '🔐 Установить пароль папки',
+                fieldLabel: 'Новый пароль',
+                placeholder: 'Придумайте пароль',
+                confirmLabel: 'Установить',
+                onConfirm: async (pwd) => {
+                    setGlobalLoading(true);
+                    try {
+                        cfg.hashes[folderPath] = await hashPassword(pwd);
+                        await saveFolderPwdConfig();
+                        showToast('🔒 Пароль установлен');
+                        renderCurrentView();
+                    } catch (e) { showToast('Ошибка: ' + e.message, true); }
+                    finally { setGlobalLoading(false); }
+                }
+            });
+        } else if (action === 'change') {
+            showPasswordModal({
+                title: '🔑 Подтвердите текущий пароль',
+                fieldLabel: 'Текущий пароль',
+                placeholder: 'Введите текущий пароль',
+                confirmLabel: 'Подтвердить',
+                onConfirm: async (oldPwd) => {
+                    const h = await hashPassword(oldPwd);
+                    if (h !== cfg.hashes[folderPath]) { showToast('❌ Неверный пароль', true); return; }
+                    showPasswordModal({
+                        title: '🔐 Новый пароль',
+                        fieldLabel: 'Новый пароль',
+                        placeholder: 'Введите новый пароль',
+                        confirmLabel: 'Сохранить',
+                        onConfirm: async (newPwd) => {
+                            setGlobalLoading(true);
+                            try {
+                                cfg.hashes[folderPath] = await hashPassword(newPwd);
+                                await saveFolderPwdConfig();
+                                showToast('✅ Пароль изменён');
+                                renderCurrentView();
+                            } catch (e) { showToast('Ошибка: ' + e.message, true); }
+                            finally { setGlobalLoading(false); }
+                        }
+                    });
+                }
+            });
+        } else if (action === 'remove') {
+            showPasswordModal({
+                title: '🔓 Снять защиту папки',
+                fieldLabel: 'Текущий пароль',
+                placeholder: 'Введите пароль для подтверждения',
+                confirmLabel: 'Снять пароль',
+                onConfirm: async (pwd) => {
+                    const h = await hashPassword(pwd);
+                    if (h !== cfg.hashes[folderPath]) { showToast('❌ Неверный пароль', true); return; }
+                    setGlobalLoading(true);
+                    try {
+                        delete cfg.hashes[folderPath];
+                        await saveFolderPwdConfig();
+                        clearFolderUnlock(folderPath);
+                        showToast('🔓 Пароль снят');
+                        renderCurrentView();
+                    } catch (e) { showToast('Ошибка: ' + e.message, true); }
+                    finally { setGlobalLoading(false); }
+                }
+            });
+        }
+    }
 
     // ========== РАБОТА С GITHUB API ==========
     async function fetchRepoContents(path, retries = 0) {
@@ -1313,6 +1514,14 @@
             actions.push({ label: '📋 Копировать (только чтение)', act: () => copyToClipboard(getFolderUrl(data.path, true)) });
             if (isWriteEnabled) {
                 actions.push({ label: 'divider' });
+                const isLocked = folderPwdConfig && !!folderPwdConfig.hashes[data.path];
+                if (!isLocked) {
+                    actions.push({ label: '🔒 Установить пароль', act: () => manageFolderPassword(data.path, 'set') });
+                } else {
+                    actions.push({ label: '🔑 Сменить пароль', act: () => manageFolderPassword(data.path, 'change') });
+                    actions.push({ label: '🔓 Снять пароль', act: () => manageFolderPassword(data.path, 'remove') });
+                }
+                actions.push({ label: 'divider' });
                 actions.push({ label: '🗑️ Удалить папку', act: async () => {
                     if (confirm(`Удалить папку «${data.name}» и всё её содержимое?`)) {
                         setGlobalLoading(true);
@@ -1388,9 +1597,42 @@
     // ========== ГЛАВНАЯ ОТРИСОВКА ==========
     async function renderCurrentView() {
         const container = document.getElementById('fileListContainer');
+
+        // Проверка пароля для текущей папки
+        if (currentPath) {
+            const cfg = await getFolderPwdConfig();
+            if (cfg.hashes[currentPath] && !isFolderUnlocked(currentPath)) {
+                container.innerHTML = `<div class="empty-state"><div class="empty-icon">🔒</div><div class="empty-text">Папка защищена паролем</div><div class="empty-hint">Введите пароль для доступа</div></div>`;
+                showPasswordModal({
+                    title: '🔒 Защищённая папка',
+                    fieldLabel: 'Пароль',
+                    placeholder: 'Введите пароль',
+                    confirmLabel: 'Открыть',
+                    onConfirm: async (pwd) => {
+                        const h = await hashPassword(pwd);
+                        if (h === cfg.hashes[currentPath]) {
+                            setFolderUnlocked(currentPath);
+                            renderCurrentView();
+                        } else {
+                            showToast('❌ Неверный пароль', true);
+                        }
+                    },
+                    onCancel: () => {
+                        currentPath = currentPath.includes('/') ? currentPath.substring(0, currentPath.lastIndexOf('/')) : '';
+                        updateUrlState();
+                        renderCurrentView();
+                    }
+                });
+                return;
+            }
+        }
+
         container.innerHTML = '<div class="loading-skeleton"></div><div class="loading-skeleton"></div><div class="loading-skeleton"></div>';
         try {
-            const items = await fetchRepoContents(currentPath);
+            const [items, pwdCfg] = await Promise.all([
+                fetchRepoContents(currentPath),
+                getFolderPwdConfig()
+            ]);
             allItems = items;
             const folders = items.filter(i => i.type === 'dir');
             const htmlFiles = items.filter(i => i.type === 'file' && i.name.endsWith('.html') && i.name !== 'index.html');
@@ -1415,8 +1657,11 @@
 
             let html = '';
             folders.forEach((f, i) => {
+                const isLocked = !!pwdCfg.hashes[f.path];
+                const folderIcon = isLocked ? '🔒' : '📁';
+                const lockBadge = isLocked ? '<span class="folder-lock-icon" title="Защищено паролем">🔒</span>' : '';
                 html += `<div class="folder-card" data-folder-path="${f.path}" data-folder-name="${escapeHtml(f.name)}" style="animation-delay:${i*40}ms">
-                    <div class="item-row"><div class="item-main"><div class="item-icon">📁</div><div class="item-info"><div class="item-name">${highlightText(f.name, searchQuery)}</div></div></div>
+                    <div class="item-row"><div class="item-main"><div class="item-icon">${folderIcon}</div><div class="item-info"><div class="item-name">${highlightText(f.name, searchQuery)}${lockBadge}</div></div></div>
                     <div class="item-actions"><button class="menu-btn" data-type="folder" data-path="${f.path}" data-name="${escapeHtml(f.name)}">⋮</button></div></div></div>`;
             });
 
@@ -1627,20 +1872,7 @@
                 document.getElementById('tokenBody').classList.add('open');
                 return;
             }
-            const name = prompt('Имя папки (латиница, цифры, -, _):');
-            if (name && /^[a-zA-Z0-9_-]+$/.test(name)) {
-                setGlobalLoading(true);
-                try {
-                    await createFolder(name);
-                    renderCurrentView();
-                    showToast(`📁 Папка «${name}» создана`);
-                } catch(e) {
-                    showToast(e.message, true);
-                    console.error('Create folder error:', e);
-                } finally {
-                    setGlobalLoading(false);
-                }
-            } else if (name) showToast('Некорректное имя папки', true);
+            showCreateFolderModal();
         };
 
         document.getElementById('uploadFileBtn').onclick = () => {
