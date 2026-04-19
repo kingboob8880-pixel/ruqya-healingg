@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Руҳий ташхис · Аёллар</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #fcf6e9;
+      font-family: 'Segoe UI', 'Roboto', sans-serif;
+      color: #2e2416;
+      padding: 16px 12px 32px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 560px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* заголовок */
+    .header {
+      margin-bottom: 28px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #5a3e1b;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+      position: relative;
+      display: inline-block;
+      padding: 0 12px 12px;
+      border-bottom: 3px solid #c9a53b;
+    }
+
+    .subhead {
+      color: #7a6237;
+      font-size: 1rem;
+      font-weight: 400;
+      margin-top: 8px;
+      font-style: italic;
+    }
+
+    /* карточка */
+    .card {
+      background: #fffdf7;
+      border-radius: 28px;
+      padding: 24px 22px;
+      margin-bottom: 24px;
+      box-shadow: 0 12px 24px -8px rgba(90, 62, 27, 0.12);
+      border: 1px solid #ecdbba;
+      transition: transform 0.2s ease, box-shadow 0.25s;
+      backdrop-filter: blur(2px);
+    }
+
+    .card:hover {
+      box-shadow: 0 20px 32px -10px rgba(90, 62, 27, 0.18);
+      transform: translateY(-2px);
+    }
+
+    /* имя + иконка */
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 18px;
+      border-bottom: 2px dashed #dac29e;
+      padding-bottom: 14px;
+    }
+
+    .avatar {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(145deg, #f3e5cd, #e5d2b4);
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      font-weight: 600;
+      color: #5a3e1b;
+      box-shadow: inset 0 2px 5px rgba(0,0,0,0.02), 0 6px 10px rgba(198, 153, 53, 0.1);
+      border: 1.5px solid #c9a53b;
+    }
+
+    .name-title h2 {
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: #3e2a14;
+      line-height: 1.2;
+    }
+
+    .name-title .arabic-bism {
+      font-family: 'Amiri', 'Traditional Arabic', serif;
+      font-size: 1.1rem;
+      color: #9e7e46;
+      margin-top: 4px;
+      direction: rtl;
+    }
+
+    /* контент диагноза */
+    .diagnosis {
+      margin: 18px 0 16px;
+    }
+
+    .symptom-block {
+      background: #faf3e7;
+      padding: 18px 18px;
+      border-radius: 20px;
+      border-right: 6px solid #c9a53b;
+      margin-bottom: 16px;
+      line-height: 1.6;
+      font-size: 1.05rem;
+    }
+
+    .symptom-block p {
+      margin-bottom: 12px;
+    }
+
+    .symptom-block p:last-child {
+      margin-bottom: 0;
+    }
+
+    .highlight {
+      color: #a1721b;
+      font-weight: 650;
+      background: #fff1d6;
+      padding: 2px 8px;
+      border-radius: 30px;
+      display: inline-block;
+      margin: 6px 0 4px;
+    }
+
+    .quote-arabic {
+      font-family: 'Amiri', 'Traditional Arabic', serif;
+      font-size: 1.4rem;
+      text-align: right;
+      direction: rtl;
+      margin: 12px 0 8px;
+      color: #5b431e;
+      opacity: 0.9;
+    }
+
+    /* блок оплаты */
+    .payment {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #e8dcc8;
+      padding: 14px 20px;
+      border-radius: 60px;
+      margin-top: 16px;
+      font-weight: 600;
+      color: #2b1f0c;
+      border: 1px solid #c9a53b;
+    }
+
+    .payment-status {
+      background: #c9a53b;
+      color: white;
+      padding: 6px 16px;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      letter-spacing: 0.3px;
+    }
+
+    .payment-amount {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #3e2a14;
+    }
+
+    .badge {
+      background: #5a3e1b;
+      color: #f3e5cd;
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 30px;
+      text-transform: uppercase;
+    }
+
+    /* разделитель */
+    .divider {
+      text-align: center;
+      margin: 20px 0 8px;
+      color: #bc9b60;
+      font-weight: 300;
+    }
+
+    /* футер */
+    .footer-note {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #7a6237;
+      border-top: 1px solid #dac29e;
+      padding-top: 22px;
+    }
+
+    /* адаптив */
+    @media (max-width: 400px) {
+      .card {
+        padding: 18px 16px;
+      }
+      .name-title h2 {
+        font-size: 1.7rem;
+      }
+    }
+
+    /* анимации */
+    .gold-accent {
+      color: #b68b2f;
+    }
+
+    /* узбекский текст жирный */
+    strong {
+      color: #4e3516;
+    }
+  </style>
+  <!-- подключаем Amiri для арабских вставок -->
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+  
+  <div class="header">
+    <h1>🌙 Руҳий ташхис</h1>
+    <div class="subhead">Аёллар · Ҳадича, Дилором, Нигора</div>
+    <div style="margin-top: 6px; font-size: 0.9rem; color: #846f4a;">Абу Муҳаммад назоратида</div>
+  </div>
+
+  <!-- Карточка 1: Хадижа -->
+  <div class="card">
+    <div class="card-header">
+      <div class="avatar">ح</div>
+      <div class="name-title">
+        <h2>Ҳадижа</h2>
+        <div class="arabic-bism">﷽</div>
+      </div>
+    </div>
+    <div class="diagnosis">
+      <div class="symptom-block">
+        <p style="font-weight: 700; font-size: 1.15rem;">“Ўлакса ва ўлим кўради”</p>
+        <p>Бу энг оғир белгилардан бири. “Ўлакса” (ўликни, жасадни) ёки “ўлим ҳолатини” тушда ёки уйғоқ ҳолда кўриш — бу жиннларнинг босими, сеҳрнинг таъсири, ёки ўта оғир кўз тегишидан келиб чиқади. Баъзан бу шайтоннинг “ўласан” деб васваса қилишидир.</p>
+      </div>
+      <div style="background: #efe2cf; border-radius: 20px; padding: 16px 18px;">
+        <p style="margin-bottom: 6px;"><span class="highlight">📌 Хулоса:</span></p>
+        <p>Ҳадижадаги сеҳр ва жинн таъсири жуда чуқур. Ўлимни кўриш — бу унга қилинган сеҳрнинг натижасидир (масалан, “номига ўлим” ёки “қабр” сеҳри). Ундан ташқари, жадд (жасал) жинни ҳам бўлиши мумкин.</p>
+      </div>
+    </div>
+    <div class="payment">
+      <span>💳 Тўлов ҳолати</span>
+      <span class="payment-status">✅ Амалга оширилган</span>
+    </div>
+    <div style="margin-top: 8px; font-size: 0.8rem; text-align: right; opacity: 0.8;">ташхис санаси: 19.04.2026</div>
+  </div>
+
+  <!-- Карточка 2: Дилором -->
+  <div class="card">
+    <div class="card-header">
+      <div class="avatar">د</div>
+      <div class="name-title">
+        <h2>Дилором</h2>
+        <div class="arabic-bism">ما شاء الله</div>
+      </div>
+    </div>
+    <div class="diagnosis">
+      <div class="symptom-block">
+        <p style="font-weight: 700; font-size: 1.15rem;">“Сеҳр еган, босвоган, кўз теккан, қоматига кўз теккан”</p>
+        <p>Дилором — эҳтимол Ҳадижанинг онаси, сингили ёки яқин кишиси. Унинг ташхиси жуда аниқ ва тўлиқ:</p>
+        <ul style="margin: 12px 0 8px 20px;">
+          <li><strong>Сеҳр еган</strong> — демак, у ҳам алоҳида сеҳрланган.</li>
+          <li><strong>Босвоган</strong> — жинн босган (мас, одержимликнинг енгилроқ шакли).</li>
+          <li><strong>Кўз теккан</strong> — умумий сглаз.</li>
+          <li><strong>Қоматига кўз теккан</strong> — бу энг муҳимси. “Қомат” — бу инсоннинг бутун вужуди, ҳолати, чиройи, юриши, овози, бўй-басти. Яъни, Дилоромнинг бутун зоҳирига кучли кўз тегган. Бу кўпинча ҳасаддан келиб чиқади ва кишининг ўзига бўлган ишончини, қувватини, ҳатто саломатлигини емиртади.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="payment">
+      <span>💰 Тўлов суммаси</span>
+      <span class="payment-amount">1 500 000 сўм</span>
+    </div>
+    <div style="margin-top: 6px; display: flex; justify-content: flex-end;">
+      <span class="badge">тўлов кутилмоқда</span>
+    </div>
+  </div>
+
+  <!-- Карточка 3: Нигора -->
+  <div class="card">
+    <div class="card-header">
+      <div class="avatar">ن</div>
+      <div class="name-title">
+        <h2>Нигора</h2>
+        <div class="arabic-bism">إن شاء الله</div>
+      </div>
+    </div>
+    <div class="diagnosis">
+      <div class="symptom-block">
+        <p style="font-weight: 700; font-size: 1.15rem;">“Орқасига жинн ёпишган, сеҳр мадфун (кўмилган)”</p>
+        <p>Нигора — эҳтимол Ҳадижанинг яна бир яқини. Бу ташхис жуда аниқ:</p>
+        <ul style="margin: 14px 0 6px 20px;">
+          <li><strong>Орқасига жинн ёпишган</strong> — бу жинннинг танага “мингани”ни англатади. Бундай жиннлар одатда тананинг бирор қисмида (кўпинча орқа, бўйин, елка) “ўтириб олади”. Улар кишини чарчатади, оғирлик ҳисси беради, кўпинча умуртқа ва бўйин оғриғи келтиради.</li>
+          <li><strong>Сеҳр мадфун</strong> — ерга кўмилган сеҳр буюми (тухум, ёғ, тугун, суяк, ҳайвон қони, жодугарлик лавозимлари). Бу энг хавфли сеҳр турларидан бири, чунки у ердан олинмагунча, жинн ва касаллик кетмайди. Кўмилган сеҳрнинг таъсири баъзан авлоддан авлодга ўтади.</li>
+        </ul>
+        <div class="quote-arabic">وَإِذَا مَرِضْتُ فَهُوَ يَشْفِينِ</div>
+      </div>
+    </div>
+    <div class="payment">
+      <span>💰 Тўлов суммаси</span>
+      <span class="payment-amount">1 300 000 сўм</span>
+    </div>
+    <div style="margin-top: 6px; display: flex; justify-content: flex-end;">
+      <span class="badge">тўлов кутилмоқда</span>
+    </div>
+  </div>
+
+  <!-- общая заметка -->
+  <div class="footer-note">
+    <span style="font-weight: 600;">🕊️ Шифо фақат Аллоҳдан</span><br>
+    <span style="font-size: 0.85rem;">Абу Муҳаммад · Руқя шарийя ташхиси</span>
+  </div>
+  
+</div>
+<!-- плавная инициализация (без js не требуется) -->
+</body>
+</html>
