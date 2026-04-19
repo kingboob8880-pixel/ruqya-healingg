@@ -349,7 +349,7 @@
             <option value="рукъя">📿 Рукъя</option>
         </select>
         <button id="favFilterBtn" class="btn-icon" title="Только избранное">⭐</button>
-        <button id="viewToggle" title="Переключить вид">📋 Список</button>
+        <button id="viewToggle" title="Переключить вид" hidden style="display:none">📋 Список</button>
         <button id="themeToggle" class="btn-icon" title="Тема">🌙</button>
     </div>
     <div id="writeModeBanner" class="write-mode-banner" hidden></div>
@@ -599,11 +599,20 @@
                 await new Promise(x => setTimeout(x, CONFIG.retryDelay));
                 return fetchRepoContents(path, retries + 1);
             }
+            if (r.status === 404) {
+                const err = new Error('Папка не найдена: ' + (path || '/'));
+                err.status = 404;
+                throw err;
+            }
             if (!r.ok) throw new Error(`Ошибка API: ${r.status}`);
             const d = await r.json();
-            const res = Array.isArray(d) ? d : [];
-            setCache(ck, res);
-            return res;
+            if (!Array.isArray(d)) {
+                const err = new Error('По этому пути — файл, а не папка. Возвращаемся в корень.');
+                err.notFolder = true;
+                throw err;
+            }
+            setCache(ck, d);
+            return d;
         } catch (e) {
             if (retries < CONFIG.maxRetries) {
                 await new Promise(x => setTimeout(x, CONFIG.retryDelay));
@@ -999,7 +1008,29 @@
     }
 
     function copyToClipboard(text) {
-        navigator.clipboard.writeText(text).then(() => showToast('✅ Ссылка скопирована'));
+        const done = () => showToast('✅ Ссылка скопирована');
+        const fail = () => showToast('Не удалось скопировать ссылку. Скопируйте вручную: ' + text, true);
+        try {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(done).catch(() => legacyCopy());
+            } else {
+                legacyCopy();
+            }
+        } catch (e) { legacyCopy(); }
+        function legacyCopy() {
+            try {
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                ta.setAttribute('readonly', '');
+                ta.style.position = 'fixed';
+                ta.style.top = '-1000px';
+                document.body.appendChild(ta);
+                ta.select();
+                const ok = document.execCommand && document.execCommand('copy');
+                document.body.removeChild(ta);
+                ok ? done() : fail();
+            } catch (err) { fail(); }
+        }
     }
 
     function updateUrlState() {
@@ -1268,7 +1299,9 @@
                 f.classList.remove('drag-over');
                 const raw = e.dataTransfer.getData('text/plain');
                 if (!raw) return;
-                const data = JSON.parse(raw);
+                let data;
+                try { data = JSON.parse(raw); } catch (err) { return; }
+                if (!data || !data.filePath || !data.fileName) return;
                 if (data.filePath === f.dataset.folderPath + '/' + data.fileName) return;
                 setGlobalLoading(true);
                 try {
@@ -1376,7 +1409,15 @@
                 initFolderDrop();
             }
         } catch (err) {
-            container.innerHTML = `<div class="empty-state"><div class="empty-icon">⚠️</div><div class="empty-text">Ошибка загрузки</div><div class="empty-hint">${escapeHtml(err.message)}</div></div>`;
+            if ((err && err.notFolder) || (err && err.status === 404)) {
+                if (currentPath) {
+                    currentPath = '';
+                    updateUrlState();
+                    showToast(err.message || 'Возвращаемся в корень', true);
+                    return renderCurrentView();
+                }
+            }
+            container.innerHTML = `<div class="empty-state"><div class="empty-icon">⚠️</div><div class="empty-text">Ошибка загрузки</div><div class="empty-hint">${escapeHtml(err.message || 'Неизвестная ошибка')}</div></div>`;
         }
     }
 
@@ -1571,13 +1612,21 @@
             else if (choice === '2') window.open('mailto:admin@example.com?subject=Архив рукъи');
         };
 
+        const normalizePath = (raw) => {
+            if (!raw) return '';
+            let p = String(raw).replace(/\\/g, '/').trim();
+            p = p.replace(/^\/+|\/+$/g, '');
+            if (!p) return '';
+            if (p.split('/').some(part => part === '..' || part === '.')) return '';
+            return p;
+        };
         const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.has('path')) currentPath = urlParams.get('path');
+        if (urlParams.has('path')) currentPath = normalizePath(urlParams.get('path'));
         if (forceReadOnly) document.body.classList.add('readonly-share');
         syncAutoViewMode();
         window.addEventListener('popstate', () => {
             const p = new URLSearchParams(window.location.search);
-            currentPath = p.get('path') || '';
+            currentPath = normalizePath(p.get('path') || '');
             renderCurrentView();
         });
 
