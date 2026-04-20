@@ -80,9 +80,12 @@
             padding:10px 14px;border-radius:var(--radius-xl);border:1px solid var(--border);
             animation:fadeSlideDown .6s ease-out .1s both;
         }
-        .repo-select-wrap{display:flex;align-items:center;gap:8px;flex:0 1 auto;min-width:0}
+        .repo-select-wrap{display:flex;align-items:center;gap:8px;flex:0 1 auto;min-width:0;flex-wrap:wrap}
         .repo-select-label{font-size:.75rem;font-weight:600;color:var(--text-muted);white-space:nowrap}
         #repoSelect{max-width:min(280px,42vw);min-width:120px;font-size:.8rem;padding:8px 28px 8px 12px}
+        #createRepoBtn,#deleteRepoBtn{min-width:40px;padding:8px 10px;font-size:.9rem}
+        #deleteRepoBtn{color:var(--danger);border-color:rgba(192,57,43,.35)}
+        #deleteRepoBtn:hover{background:var(--danger);color:#fff;border-color:var(--danger)}
         .search-box{flex:2;min-width:140px;position:relative}
         .search-box input{
             width:100%;padding:10px 36px 10px 38px;border-radius:var(--radius-xl);
@@ -339,6 +342,8 @@
         <div class="repo-select-wrap" id="repoSelectWrap" hidden>
             <span class="repo-select-label">📦 Архив</span>
             <select id="repoSelect" title="Репозиторий GitHub (доступно после сохранения токена)"></select>
+            <button type="button" id="createRepoBtn" class="btn-icon" title="Создать новый репозиторий на GitHub" hidden>➕</button>
+            <button type="button" id="deleteRepoBtn" class="btn-icon" title="Удалить текущий репозиторий на GitHub" hidden>🗑</button>
         </div>
         <div class="search-box">
             <input type="text" id="searchInput" placeholder="Поиск по файлам...">
@@ -481,6 +486,10 @@
 
     function canAdminNavigateRepos() {
         return !!githubToken && reposWithPush.length > 0 && !forceReadOnly;
+    }
+
+    function canShowRepoManagement() {
+        return !!githubToken && !forceReadOnly && githubSessionValid;
     }
 
     function githubPagesBaseFromRepo(owner, name) {
@@ -631,14 +640,33 @@
     function updateRepoSelectUI() {
         const wrap = document.getElementById('repoSelectWrap');
         const sel = document.getElementById('repoSelect');
+        const createBtn = document.getElementById('createRepoBtn');
+        const deleteBtn = document.getElementById('deleteRepoBtn');
         if (!wrap || !sel) return;
-        if (!canAdminNavigateRepos()) {
+        if (!canShowRepoManagement()) {
             wrap.hidden = true;
             sel.innerHTML = '';
+            if (createBtn) createBtn.hidden = true;
+            if (deleteBtn) deleteBtn.hidden = true;
             return;
         }
         wrap.hidden = false;
+        if (createBtn) createBtn.hidden = false;
+        if (deleteBtn) {
+            const inList = reposWithPush.some(r => r.full_name === getRepoFullName());
+            deleteBtn.hidden = !inList || reposWithPush.length === 0;
+            deleteBtn.disabled = !inList;
+        }
         sel.innerHTML = '';
+        if (!reposWithPush.length) {
+            const opt = document.createElement('option');
+            opt.value = '';
+            opt.disabled = true;
+            opt.selected = true;
+            opt.textContent = '— нет репозиториев с правом push —';
+            sel.appendChild(opt);
+            return;
+        }
         for (const r of reposWithPush) {
             const opt = document.createElement('option');
             opt.value = r.full_name;
@@ -654,6 +682,166 @@
             sel.appendChild(opt);
             sel.value = cur;
         }
+    }
+
+    function sanitizeNewRepoName(raw) {
+        let s = String(raw || '').trim().toLowerCase();
+        s = s.replace(/\s+/g, '-');
+        s = s.replace(/[^a-z0-9._-]/g, '-');
+        s = s.replace(/-+/g, '-').replace(/^[-.]+|[-.]+$/g, '');
+        return s.slice(0, 100);
+    }
+
+    async function createGithubUserRepo(displayName, options) {
+        const name = sanitizeNewRepoName(displayName);
+        if (!name) throw new Error('Укажите имя репозитория (латиница, цифры, дефис)');
+        const body = {
+            name,
+            description: (options && options.description) ? String(options.description).slice(0, 350) : '',
+            private: !!(options && options.private),
+            auto_init: true,
+            has_issues: false,
+            has_projects: false,
+            has_wiki: false
+        };
+        const created = await apiRequest('POST', 'https://api.github.com/user/repos', body);
+        const rec = repoRecordFromApi(created);
+        if (!rec) throw new Error('Не удалось разобрать ответ GitHub');
+        return rec;
+    }
+
+    async function deleteGithubRepoByFullName(fullName) {
+        const parts = String(fullName || '').split('/').filter(Boolean);
+        if (parts.length !== 2) throw new Error('Некорректное имя owner/repo');
+        await apiRequest('DELETE', `https://api.github.com/repos/${parts[0]}/${parts[1]}`);
+    }
+
+    function showCreateRepoModal() {
+        const overlay = document.createElement('div');
+        overlay.className = 'modal-overlay';
+        overlay.innerHTML = `
+            <div class="modal-card" style="max-width:440px">
+                <div class="modal-title">➕ Новый репозиторий на GitHub</div>
+                <p style="font-size:.82rem;color:var(--text-sec);margin:-8px 0 12px;line-height:1.45">Создаётся пустой репозиторий с README (ветка по умолчанию). Нужны права токена на создание репозиториев (scope <code>repo</code> или для fine-grained — создание репозиториев).</p>
+                <div class="modal-field">
+                    <label>Имя репозитория (латиница, цифры, <code>-</code>, <code>_</code>, <code>.</code>)</label>
+                    <input type="text" id="newRepoName" placeholder="например: my-ruqya-archive" autocomplete="off">
+                </div>
+                <div class="modal-field">
+                    <label>Описание (необязательно)</label>
+                    <input type="text" id="newRepoDesc" placeholder="Краткое описание" autocomplete="off">
+                </div>
+                <div class="modal-field">
+                    <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-weight:500">
+                        <input type="checkbox" id="newRepoPrivate" style="width:auto"> Приватный репозиторий
+                    </label>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" id="newRepoCancel">Отмена</button>
+                    <button type="button" id="newRepoConfirm" class="btn-success">Создать</button>
+                </div>
+            </div>`;
+        document.body.appendChild(overlay);
+        const nameInput = overlay.querySelector('#newRepoName');
+        const descInput = overlay.querySelector('#newRepoDesc');
+        const privInput = overlay.querySelector('#newRepoPrivate');
+        nameInput.focus();
+        const cleanup = () => overlay.remove();
+        overlay.querySelector('#newRepoCancel').onclick = cleanup;
+        overlay.onclick = (e) => { if (e.target === overlay) cleanup(); };
+        overlay.querySelector('#newRepoConfirm').onclick = async () => {
+            const nm = nameInput.value;
+            if (!sanitizeNewRepoName(nm)) { nameInput.focus(); showToast('Введите корректное имя репозитория', true); return; }
+            cleanup();
+            setGlobalLoading(true);
+            try {
+                const rec = await createGithubUserRepo(nm, {
+                    description: descInput.value.trim(),
+                    private: privInput.checked
+                });
+                reposListLoadedForToken = null;
+                await ensureReposWithPushList(true);
+                if (!reposWithPush.some(r => r.full_name === rec.full_name)) reposWithPush.push(rec);
+                reposWithPush.sort((a, b) => a.full_name.localeCompare(b.full_name, 'en'));
+                folderPwdConfig = null;
+                clearCache();
+                currentPath = '';
+                activeRepo = rec;
+                localStorage.setItem(LS_ACTIVE_REPO, rec.full_name);
+                updateUrlState();
+                await tryEnableWrite({ forceRepos: true });
+                await renderCurrentView();
+                showToast('✅ Репозиторий «' + rec.full_name + '» создан');
+            } catch (e) {
+                showToast(e.message || 'Ошибка создания репозитория', true);
+                console.error(e);
+            } finally {
+                setGlobalLoading(false);
+            }
+        };
+    }
+
+    function showDeleteRepoModal() {
+        const target = getRepoFullName();
+        if (!reposWithPush.some(r => r.full_name === target)) {
+            showToast('Текущий архив не из списка с правом записи — удаление через API недоступно', true);
+            return;
+        }
+        const overlay = document.createElement('div');
+        overlay.className = 'modal-overlay';
+        overlay.innerHTML = `
+            <div class="modal-card" style="max-width:440px">
+                <div class="modal-title" style="color:var(--danger)">🗑 Удалить репозиторий</div>
+                <p style="font-size:.82rem;color:var(--text-sec);margin:-8px 0 12px;line-height:1.45">Действие необратимо: GitHub удалит репозиторий <strong>${escapeHtml(target)}</strong> со всем содержимым. Нужно право <code>delete_repo</code> (classic) или соответствующее разрешение у fine-grained токена.</p>
+                <div class="modal-field">
+                    <label>Для подтверждения введите точно: <code>${escapeHtml(target)}</code></label>
+                    <input type="text" id="delRepoConfirmInput" placeholder="${escapeHtml(target)}" autocomplete="off">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" id="delRepoCancel">Отмена</button>
+                    <button type="button" id="delRepoConfirm" style="background:var(--danger);color:#fff;border-color:var(--danger)">Удалить навсегда</button>
+                </div>
+            </div>`;
+        document.body.appendChild(overlay);
+        const input = overlay.querySelector('#delRepoConfirmInput');
+        input.focus();
+        const cleanup = () => overlay.remove();
+        overlay.querySelector('#delRepoCancel').onclick = cleanup;
+        overlay.onclick = (e) => { if (e.target === overlay) cleanup(); };
+        overlay.querySelector('#delRepoConfirm').onclick = async () => {
+            if (input.value.trim() !== target) {
+                showToast('Текст не совпадает с именем репозитория', true);
+                input.select();
+                return;
+            }
+            cleanup();
+            setGlobalLoading(true);
+            try {
+                await deleteGithubRepoByFullName(target);
+                reposListLoadedForToken = null;
+                await ensureReposWithPushList(true);
+                folderPwdConfig = null;
+                clearCache();
+                currentPath = '';
+                if (reposWithPush.length) {
+                    activeRepo = pickFallbackActiveRepo();
+                    localStorage.setItem(LS_ACTIVE_REPO, activeRepo.full_name);
+                } else {
+                    activeRepo = repoFromConfig();
+                    localStorage.removeItem(LS_ACTIVE_REPO);
+                }
+                syncBrowserRepoParamWithActive();
+                updateUrlState();
+                await tryEnableWrite({ forceRepos: true });
+                await renderCurrentView();
+                showToast('🗑 Репозиторий «' + target + '» удалён');
+            } catch (e) {
+                showToast(e.message || 'Ошибка удаления репозитория', true);
+                console.error(e);
+            } finally {
+                setGlobalLoading(false);
+            }
+        };
     }
 
     function folderLockKey(folderPath) {
@@ -678,6 +866,7 @@
     let searchQuery = '';
     let showFavoritesOnly = false;
     let githubToken = localStorage.getItem('github_token') || '';
+    let githubSessionValid = false;
     let isWriteEnabled = false;
     let totalHtmlFiles = 0;
     let isMobileViewport = false;
@@ -1987,6 +2176,7 @@
         const forceRepos = !!(opts && opts.forceRepos);
 
         if (forceReadOnly) {
+            githubSessionValid = false;
             reposWithPush = [];
             reposListLoadedForToken = null;
             activeRepo = repoFromConfig();
@@ -1999,6 +2189,7 @@
         }
 
         if (!githubToken) {
+            githubSessionValid = false;
             reposWithPush = [];
             reposListLoadedForToken = null;
             activeRepo = repoFromConfig();
@@ -2015,7 +2206,43 @@
         }
         try {
             await apiRequest('GET', 'https://api.github.com/user');
+            githubSessionValid = true;
+        } catch (e) {
+            console.error('GitHub user:', e);
+            githubSessionValid = false;
+            reposWithPush = [];
+            reposListLoadedForToken = null;
+            activeRepo = repoFromConfig();
+            if (status) {
+                status.textContent = '❌ Токен недействителен или нет доступа к GitHub API';
+                status.style.color = 'var(--danger)';
+            }
+            if (badge) badge.textContent = '❌';
+            isWriteEnabled = false;
+            syncBrowserRepoParamWithActive();
+            updateRepoSelectUI();
+            updateWriteModeUI();
+            return;
+        }
+        try {
             await ensureReposWithPushList(forceRepos);
+        } catch (listErr) {
+            console.error('Repos list:', listErr);
+            reposWithPush = [];
+            reposListLoadedForToken = null;
+            if (status) {
+                status.textContent = '⚠️ Токен принят, но список репозиториев не загружен: ' + (listErr.message || '');
+                status.style.color = 'var(--danger)';
+            }
+            if (badge) badge.textContent = '⚠️';
+            activeRepo = repoFromConfig();
+            syncBrowserRepoParamWithActive();
+            isWriteEnabled = false;
+            updateRepoSelectUI();
+            updateWriteModeUI();
+            return;
+        }
+        try {
             const urlParams = new URLSearchParams(window.location.search);
             resolveActiveRepoAfterListLoad(urlParams);
             syncBrowserRepoParamWithActive();
@@ -2036,12 +2263,10 @@
                 isWriteEnabled = false;
             }
         } catch (e) {
-            console.error('Token / repos list:', e);
-            reposWithPush = [];
-            reposListLoadedForToken = null;
+            console.error('Token / repo verify:', e);
             activeRepo = repoFromConfig();
             if (status) {
-                status.textContent = '❌ Токен недействителен или не удалось загрузить список репозиториев';
+                status.textContent = '❌ Ошибка при проверке репозитория';
                 status.style.color = 'var(--danger)';
             }
             if (badge) badge.textContent = '❌';
@@ -2213,6 +2438,26 @@
                 await tryEnableWrite();
                 await renderCurrentView();
             });
+        }
+        const createRepoBtn = document.getElementById('createRepoBtn');
+        if (createRepoBtn) {
+            createRepoBtn.onclick = () => {
+                if (forceReadOnly || !githubSessionValid) {
+                    showToast('Сначала сохраните действительный GitHub токен', true);
+                    return;
+                }
+                showCreateRepoModal();
+            };
+        }
+        const deleteRepoBtn = document.getElementById('deleteRepoBtn');
+        if (deleteRepoBtn) {
+            deleteRepoBtn.onclick = () => {
+                if (forceReadOnly || !githubSessionValid) {
+                    showToast('Сначала сохраните действительный GitHub токен', true);
+                    return;
+                }
+                showDeleteRepoModal();
+            };
         }
 
         if (githubToken && !forceReadOnly) await tryEnableWrite({ forceRepos: true });
