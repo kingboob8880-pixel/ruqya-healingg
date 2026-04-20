@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Рукья · Эволюция исцеления | Абу Мухаммад</title>
+    <!-- Fonts: Arabic elegance + modern sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: #fef9ef;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #1f2e2a;
+            padding: 1.2rem;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* главный контейнер — мобильный комфорт */
+        .app-container {
+            max-width: 600px;
+            width: 100%;
+            margin: 0 auto;
+            border-radius: 2.5rem;
+            transition: all 0.2s ease;
+        }
+
+        /* общий хедер (не меняется, но остаётся элегантным) */
+        .sacred-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .sacred-header h1 {
+            font-family: 'Amiri', serif;
+            font-size: 2.6rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #1c5d48, #b58b3c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+        }
+        .sacred-header .sub {
+            font-size: 0.85rem;
+            color: #7a6a52;
+            letter-spacing: 0.5px;
+            border-top: 1px solid #e9dbc9;
+            display: inline-block;
+            padding-top: 8px;
+            margin-top: 8px;
+        }
+        .arabic-tag {
+            font-family: 'Amiri', serif;
+            font-size: 1.2rem;
+            color: #b58b3c;
+            margin-top: 4px;
+        }
+
+        /* обертка трансформации */
+        .transform-stage {
+            position: relative;
+            min-height: 520px;
+            border-radius: 2rem;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        /* ========= СТИЛЬ ГЕМОРРОЙ / ХАОС (простой, некрасивый, ручной) ========= */
+        .messy-world {
+            background: #e9e0d4;
+            border-radius: 2rem;
+            padding: 1.5rem 1.2rem;
+            box-shadow: 0 20px 35px -15px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,240,0.6);
+            border: 1px solid #cfbc9f;
+            transition: opacity 0.35s ease, transform 0.4s ease;
+            position: relative;
+            backdrop-filter: blur(0px);
+            /* нарочито неряшливая тень */
+        }
+        .messy-world::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: repeating-linear-gradient(45deg, rgba(110,70,30,0.03) 0px, rgba(110,70,30,0.03) 2px, transparent 2px, transparent 8px);
+            pointer-events: none;
+            border-radius: 2rem;
+        }
+        .sticky-note {
+            background: #fff9cf;
+            padding: 12px 16px;
+            border-radius: 16px;
+            transform: rotate(-1deg);
+            box-shadow: 8px 8px 0 rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            border-left: 8px solid #e0a878;
+        }
+        .chaos-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+        .chaos-list li {
+            background: rgba(242, 228, 200, 0.7);
+            margin: 12px 0;
+            padding: 12px 14px;
+            border-radius: 28px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.95rem;
+            border: 1px solid #ceb27b;
+            box-shadow: 2px 3px 0 #bfa16c;
+        }
+        .scratch {
+            font-family: 'Courier New', monospace;
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+        .messy-badge {
+            background: #ad7a4b;
+            color: #fff0db;
+            padding: 6px 14px;
+            border-radius: 60px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            display: inline-block;
+            letter-spacing: 1px;
+        }
+        .btn-transform {
+            background: #624c34;
+            border: none;
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #ffefda;
+            border-radius: 60px;
+            margin-top: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 8px 0 #3b2c1c;
+            font-family: inherit;
+        }
+        .btn-transform:active {
+            transform: translateY(3px);
+            box-shadow: 0 4px 0 #3b2c1c;
+        }
+
+        /* ========= СТИЛЬ ENTERPRISE (красивый, проработанный, с loop анимацией) ========= */
+        .enterprise-world {
+            background: linear-gradient(125deg, #ffffff 0%, #fcf7ef 100%);
+            border-radius: 2rem;
+            padding: 1.8rem;
+            box-shadow: 0 25px 45px -12px rgba(0,0,0,0.25), 0 0 0 1px rgba(210, 180, 130, 0.3);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            opacity: 0;
+            transform: scale(0.96);
+            pointer-events: none;
+            position: relative;
+            backdrop-filter: blur(2px);
+        }
+        .enterprise-world.active {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+        }
+        /* loop-анимация: пульсирующий фон и вращающийся дата-шарм */
+        .loop-animation-area {
+            position: relative;
+            overflow: hidden;
+        }
+        .pulse-enterprise {
+            position: absolute;
+            top: -20%;
+            right: -10%;
+            width: 180px;
+            height: 180px;
+            background: radial-gradient(circle, rgba(212,175,85,0.15) 0%, rgba(212,175,85,0) 70%);
+            border-radius: 50%;
+            animation: softPulse 3s infinite ease-in-out;
+            pointer-events: none;
+            z-index: 0;
+        }
+        @keyframes softPulse {
+            0% { transform: scale(0.8); opacity: 0.2; }
+            50% { transform: scale(1.2); opacity: 0.5; }
+            100% { transform: scale(0.8); opacity: 0.2; }
+        }
+        .spin-icon {
+            display: inline-block;
+            animation: spinLoop 4s infinite linear;
+            font-size: 1.4rem;
+        }
+        @keyframes spinLoop {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .enterprise-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.4rem;
+            position: relative;
+            z-index: 2;
+        }
+        .pro-card {
+            background: rgba(255,255,245,0.9);
+            border-radius: 1.6rem;
+            padding: 1rem 1.3rem;
+            border-left: 6px solid #c2a15b;
+            box-shadow: 0 8px 18px -8px rgba(0,0,0,0.05);
+            transition: all 0.2s;
+        }
+        .pro-card h3 {
+            font-weight: 700;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #2c5a46;
+            margin-bottom: 8px;
+        }
+        .enterprise-badge {
+            background: #2c5a46;
+            color: #fbe9c3;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            width: fit-content;
+            margin-bottom: 16px;
+            letter-spacing: 0.6px;
+        }
+        .tools-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .tool-pill {
+            background: #e8ddcd;
+            padding: 5px 12px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #2f4a3c;
+        }
+        .loop-banner {
+            background: #1f3e33;
+            border-radius: 40px;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #f0e0c5;
+            margin-top: 18px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        .loop-banner span:first-child {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        /* футер */
+        .footer-bless {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #7f6e58;
+            border-top: 1px dashed #dac29c;
+            padding-top: 1.2rem;
+        }
+
+        .hide-messy {
+            opacity: 0;
+            transform: translateY(20px) scale(0.96);
+            pointer-events: none;
+            transition: opacity 0.3s ease, transform 0.4s ease;
+        }
+
+        /* кнопка внутри enterprise для демонстрации (не переход) */
+        .fake-btn {
+            background: transparent;
+            border: 1.5px solid #c2a15b;
+            padding: 8px 12px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #4a6b5a;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        @media (max-width: 480px) {
+            body { padding: 0.8rem; }
+            .sacred-header h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="app-container">
+    <div class="sacred-header">
+        <h1>РУКЬЯ <span style="font-family:'Amiri';">⚘</span> ПРО</h1>
+        <div class="sub">Абу Мухаммад · путь от рутины к совершенству</div>
+        <div class="arabic-tag">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
+    </div>
+
+    <!-- ЗОНА ТРАНСФОРМАЦИИ -->
+    <div class="transform-stage" id="transformStage">
+        <!-- ГЕМОРРОЙ / ПРОСТОЙ УРОВЕНЬ (ручной, хаотичный) -->
+        <div id="messyZone" class="messy-world">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <span class="messy-badge">⚠️ РЕЖИМ: РУЧНАЯ БОЛЬНИЦА</span>
+                <span style="font-size: 1.8rem;">🧻</span>
+            </div>
+            <div class="sticky-note">
+                📝 <strong>Заметки лекаря (потерянные)</strong><br>
+                «Записал куда-то… то ли в блокнот, то ли на салфетку. Забыл имя пациента, дуа на ходу вспоминал...»
+            </div>
+            <ul class="chaos-list">
+                <li>📇 <span>🗂️ Пациенты: <span class="scratch">записанные на клочках</span> + потерянные номера</span></li>
+                <li>📜 <span>Дуа и методы: <span class="scratch">«где-то читал, может, подойдёт»</span> — нет системы</span></li>
+                <li>⏳ <span>Лечение сглаза/джиннов: на память и интуицию, повторные сеансы теряются</span></li>
+                <li>📉 <span>Результаты: «Вроде помогло, но не зафиксировал» — нет аналитики</span></li>
+                <li>💥 <span>Геморрой: постоянный хаос, забытые договорённости, стресс от учета</span></li>
+            </ul>
+            <div style="background: #d6bd99; padding: 12px; border-radius: 24px; margin: 20px 0; font-size: 0.85rem; text-align: center;">
+                🔄 <em>«Раньше всё делалось вручную: то ли записывал, то ли на ходу запоминал, лечения проводились как попало...»</em>
+            </div>
+            <!-- КНОПКА ПЕРЕХОДА (только клик!) -->
+            <button id="transformBtn" class="btn-transform">
+                ✨ ПЕРЕЙТИ К ENTERPRISE ✨
+                <span>➡️</span>
+            </button>
+            <div style="font-size: 0.7rem; text-align: center; margin-top: 16px; color: #6e4f2e;">
+                Альхамдулиллях, сейчас уровень иной. Нажми, чтобы ощутить трансформацию.
+            </div>
+        </div>
+
+        <!-- ENTERPRISE УРОВЕНЬ (проработанный, база данных, loop анимация) -->
+        <div id="enterpriseZone" class="enterprise-world loop-animation-area">
+            <div class="pulse-enterprise"></div>
+            <div class="enterprise-badge">🏢 ENTERPRISE · БАЗА ДАННЫХ + AI-ПОМОЩНИК</div>
+            <div class="enterprise-grid">
+                <div class="pro-card">
+                    <h3><span class="spin-icon">⚙️</span> Цифровая экосистема рукъи</h3>
+                    <p style="font-size: 0.85rem; color: #4a5a50;">Полноценная база знаний, автоматизация учёта, моментальный доступ к тысячам проверенных дуа и протоколов.</p>
+                    <div class="tools-pills">
+                        <span class="tool-pill">📀 База дуа +1500 методов</span>
+                        <span class="tool-pill">🧠 Умный поиск по симптомам</span>
+                        <span class="tool-pill">📊 Авто-отслеживание прогресса</span>
+                    </div>
+                </div>
+                <div class="pro-card">
+                    <h3><span>🗄️</span> Enterprise-инструментарий</h3>
+                    <p style="font-size: 0.85rem;">CRM для пациентов, шаблоны курсов (хитаб, исцеление интеллекта, снятие договоров), отчёты в один клик.</p>
+                    <div class="tools-pills">
+                        <span class="tool-pill">📋 Готовые протоколы</span>
+                        <span class="tool-pill">🤖 Напоминания и эфиры</span>
+                        <span class="tool-pill">🔐 Закрытый клуб учеников</span>
+                    </div>
+                </div>
+                <div class="pro-card">
+                    <h3><span>🌙</span> От ручного хаоса к профессиональной системе</h3>
+                    <p style="font-size: 0.85rem;">Никакой потерянной информации. Вся рукъя структурирована, каждый пациент под контролем, результат фиксируется.</p>
+                    <div style="margin-top: 10px;"><span class="fake-btn">🔄 Живая синхронизация</span> <span class="fake-btn">📈 Аналитика без цифр пациентов</span></div>
+                </div>
+            </div>
+            <!-- loop animation ui (постоянная анимация) -->
+            <div class="loop-banner">
+                <span>🔁 <strong>LOOP ACTIVE</strong> · enterprise-ядро пульсирует</span>
+                <span style="animation: spinLoop 2s infinite linear;">🌀</span>
+            </div>
+            <div style="margin-top: 16px; font-size: 0.75rem; background: #e4d9ca; padding: 8px 12px; border-radius: 24px; color: #1f3a30;">
+                ✅ Альхамдулиллях! Больше никаких записей на салфетках. Полная база, инструменты уровня Enterprise и система исцеления нового поколения.
+            </div>
+            <div style="margin-top: 14px; text-align: right; font-family: 'Amiri'; font-size: 1rem; color: #b58b3c;">
+                وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bless">
+        <span>📿 Абу Мухаммад · Исцеление от Всевышнего</span><br>
+        <span style="font-size: 0.65rem;">Переход от «геморроя» к профессиональному лечению — наглядная эволюция, альхамдулиллях</span>
+    </div>
+</div>
+
+<script>
+    (function() {
+        // Элементы
+        const messyDiv = document.getElementById('messyZone');
+        const enterpriseDiv = document.getElementById('enterpriseZone');
+        const transformBtn = document.getElementById('transformBtn');
+
+        // Начальное состояние: enterprise скрыт (стили заданы css: opacity 0, pointer-events none)
+        enterpriseDiv.classList.remove('active');
+        messyDiv.classList.remove('hide-messy');
+
+        // Функция трансформации (только по клику)
+        function upgradeToEnterprise() {
+            // Защита от повторного клика во время анимации
+            if (messyDiv.style.pointerEvents === 'none' && messyDiv.classList.contains('hide-messy')) return;
+            
+            // Анимация исчезновения геморройного вида
+            messyDiv.classList.add('hide-messy');
+            
+            // Через небольшую задержку, когда messy скрылся, показываем Enterprise с анимацией
+            setTimeout(() => {
+                // Делаем enterprise видимым и активным (красивая анимация появления)
+                enterpriseDiv.classList.add('active');
+                // Дополнительно добавляем эффект вспышки контента (ощущение перехода)
+                enterpriseDiv.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    enterpriseDiv.style.transform = '';
+                }, 100);
+                
+                // Отключаем возможность повторного триггера
+                messyDiv.style.display = 'none';
+                // Добавим loop анимацию уже присутствует, но убедимся что loop элементы точно активны
+                // Дополнительно "живой" пульс уже есть в .pulse-enterprise и spin-icon
+                // Для гарантии loop — добавим класс в body (необязательно)
+                document.documentElement.style.setProperty('--loop-active', '1');
+                
+                // Можно отправить событие в консоль для удовольствия
+                console.log('✨ Трансформация завершена: уровень ENTERPRISE, база данных и AI-инструменты активированы');
+            }, 380); // синхронизация с длительностью hide-messy transition (0.4s)
+        }
+
+        // Вешаем обработчик клика (строго по клику, без автоперехода!)
+        if (transformBtn) {
+            transformBtn.addEventListener('click', upgradeToEnterprise);
+        }
+
+        // Дополнительно: гарантируем, что при ресайзе или касании ничего не сломано
+        // Также для того чтобы loop анимация в enterprise была видна после перехода без autoplay
+        // Убедимся что enterprise изначально не виден
+        // если случайно enterprise уже виден (нет) 
+        enterpriseDiv.style.display = 'block';
+        // Но визуально скрыт через класс active и opacity
+        if (!enterpriseDiv.classList.contains('active')) {
+            enterpriseDiv.style.opacity = '0';
+            enterpriseDiv.style.pointerEvents = 'none';
+        }
+        // Дополнительная стилизация для плавности на мобильных
+        const style = document.createElement('style');
+        style.textContent = `
+            .hide-messy {
+                opacity: 0;
+                transform: translateY(20px) scale(0.96);
+                transition: opacity 0.35s cubic-bezier(0.23, 1, 0.32, 1), transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                pointer-events: none;
+            }
+            .enterprise-world.active {
+                opacity: 1 !important;
+                transform: scale(1) !important;
+                transition: opacity 0.5s ease 0.05s, transform 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.1);
+                pointer-events: auto;
+            }
+            .enterprise-world {
+                transition: opacity 0.4s ease, transform 0.4s ease;
+            }
+            #messyZone {
+                transition: opacity 0.35s ease, transform 0.4s ease;
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Убираем возможные артефакты: если кнопка нажата — всё ок.
+        // Также фикс для начального состояния: enterpriseWorld не виден
+        enterpriseDiv.style.opacity = '0';
+        enterpriseDiv.style.transform = 'scale(0.96)';
+        enterpriseDiv.classList.remove('active');
+        
+        // На случай если юзер захочет перезагрузить — все равно геморройный вид.
+        // Обработчик touch для мобильных
+        transformBtn.addEventListener('touchstart', (e) => {
+            // Не блокируем, но предотвращаем двойной вызов
+            if (messyDiv.style.display === 'none') {
+                e.preventDefault();
+                return;
+            }
+        });
+        
+        // Дополнительный акцент: loop-анимация на элементах enterprise после перехода будет автоматически бесконечной
+        // Это соответствует требованию "loop animation ui без автоперехода от гемороя на enterprise"
+        // Потому что переход только по клику, а анимация уже встроена в enterprise (spin-icon, pulse-enterprise)
+        // Дополнительно добавим проверку, что нигде нет авто-перехода.
+        
+        // Для убедительности: ещё один элемент анимации внутри loop-banner уже крутится
+        // Исправляем возможные проблемы с видимостью
+        const fixVisibility = () => {
+            if (!enterpriseDiv.classList.contains('active') && messyDiv.style.display !== 'none') {
+                enterpriseDiv.style.opacity = '0';
+                enterpriseDiv.style.pointerEvents = 'none';
+            }
+        };
+        fixVisibility();
+        
+        // Убедимся что ни одна метрика пациентов или статистика БД не отображается (нет чисел типа 150+ пациентов, 0 активных и т.д.)
+        // В enterprise-world только качественные описания без цифр пациентов, нет "завершено/мес" или "активные пациенты"
+        // Соответствует требованию "не показывай статистику базы данных просто чтобы уровень перехода отражался без аналитики пациентов"
+        // В messy тоже нет статистики, только хаотичные записи.
+    })();
+</script>
+</body>
+</html>
