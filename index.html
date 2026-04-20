@@ -80,6 +80,9 @@
             padding:10px 14px;border-radius:var(--radius-xl);border:1px solid var(--border);
             animation:fadeSlideDown .6s ease-out .1s both;
         }
+        .repo-select-wrap{display:flex;align-items:center;gap:8px;flex:0 1 auto;min-width:0}
+        .repo-select-label{font-size:.75rem;font-weight:600;color:var(--text-muted);white-space:nowrap}
+        #repoSelect{max-width:min(280px,42vw);min-width:120px;font-size:.8rem;padding:8px 28px 8px 12px}
         .search-box{flex:2;min-width:140px;position:relative}
         .search-box input{
             width:100%;padding:10px 36px 10px 38px;border-radius:var(--radius-xl);
@@ -333,6 +336,10 @@
         </div>
     </div>
     <div class="controls-bar">
+        <div class="repo-select-wrap" id="repoSelectWrap" hidden>
+            <span class="repo-select-label">📦 Архив</span>
+            <select id="repoSelect" title="Репозиторий GitHub (доступно после сохранения токена)"></select>
+        </div>
         <div class="search-box">
             <input type="text" id="searchInput" placeholder="Поиск по файлам...">
             <span class="search-hint" id="searchHint">/</span>
@@ -435,6 +442,224 @@
         retryDelay: 1500,
     };
 
+    const LS_ACTIVE_REPO = 'active_repo_full_name';
+
+    function normalizePagesBase(base) {
+        return (base || '').replace(/\/+$/, '');
+    }
+
+    function defaultRepoFullName() {
+        return CONFIG.owner + '/' + CONFIG.repo;
+    }
+
+    function repoFromConfig() {
+        return {
+            owner: CONFIG.owner,
+            repo: CONFIG.repo,
+            branch: CONFIG.branch,
+            pagesBase: normalizePagesBase(CONFIG.pagesBase),
+            full_name: defaultRepoFullName()
+        };
+    }
+
+    /** @type {{owner:string,repo:string,branch:string,pagesBase:string,full_name:string}} */
+    let activeRepo = repoFromConfig();
+
+    /** @type {Array<{owner:string,repo:string,branch:string,pagesBase:string,full_name:string}>} */
+    let reposWithPush = [];
+    let reposListLoadedForToken = null;
+
+    function getOwner() { return activeRepo.owner; }
+    function getRepo() { return activeRepo.repo; }
+    function getBranch() { return activeRepo.branch; }
+    function getPagesBase() { return activeRepo.pagesBase; }
+    function getRepoFullName() { return activeRepo.full_name; }
+
+    function repoApiBase() {
+        return `https://api.github.com/repos/${getOwner()}/${getRepo()}`;
+    }
+
+    function canAdminNavigateRepos() {
+        return !!githubToken && reposWithPush.length > 0 && !forceReadOnly;
+    }
+
+    function githubPagesBaseFromRepo(owner, name) {
+        return normalizePagesBase(`https://${owner}.github.io/${name}/`);
+    }
+
+    function repoRecordFromApi(r) {
+        const owner = r.owner && r.owner.login;
+        const name = r.name;
+        if (!owner || !name) return null;
+        const branch = r.default_branch || 'main';
+        return {
+            owner,
+            repo: name,
+            branch,
+            pagesBase: githubPagesBaseFromRepo(owner, name),
+            full_name: (r.full_name || owner + '/' + name)
+        };
+    }
+
+    function findRepoByFullNameString(s) {
+        if (!s) return null;
+        const t = s.replace(/\s+/g, '').toLowerCase();
+        return reposWithPush.find(x => x.full_name.toLowerCase() === t) || null;
+    }
+
+    function parseNextLink(linkHeader) {
+        if (!linkHeader) return null;
+        const parts = linkHeader.split(',');
+        for (const p of parts) {
+            const m = p.match(/<([^>]+)>;\s*rel="next"/);
+            if (m) return m[1];
+        }
+        return null;
+    }
+
+    async function fetchAllUserReposWithPush() {
+        const collected = [];
+        let url = 'https://api.github.com/user/repos?per_page=100&affiliation=owner,collaborator,organization_member';
+        while (url) {
+            const headers = { 'Accept': 'application/vnd.github.v3+json' };
+            if (githubToken) headers['Authorization'] = 'Bearer ' + githubToken;
+            const r = await fetch(url, { headers });
+            if (!r.ok) {
+                const err = await r.json().catch(() => ({}));
+                throw new Error(err.message || `GitHub API: ${r.status}`);
+            }
+            const page = await r.json();
+            if (Array.isArray(page)) {
+                for (const item of page) {
+                    if (item.permissions && item.permissions.push) {
+                        const rec = repoRecordFromApi(item);
+                        if (rec) collected.push(rec);
+                    }
+                }
+            }
+            url = parseNextLink(r.headers.get('Link'));
+        }
+        collected.sort((a, b) => a.full_name.localeCompare(b.full_name, 'en'));
+        return collected;
+    }
+
+    async function ensureReposWithPushList(force) {
+        if (!githubToken) {
+            reposWithPush = [];
+            reposListLoadedForToken = null;
+            return;
+        }
+        if (!force && reposListLoadedForToken === githubToken) return;
+        reposWithPush = await fetchAllUserReposWithPush();
+        reposListLoadedForToken = githubToken;
+    }
+
+    function pickFallbackActiveRepo() {
+        if (!reposWithPush.length) return repoFromConfig();
+        const def = defaultRepoFullName().toLowerCase();
+        const defIn = reposWithPush.find(x => x.full_name.toLowerCase() === def);
+        return defIn || reposWithPush[0];
+    }
+
+    function resolveActiveRepoAfterListLoad(urlParams) {
+        if (!githubToken || !reposWithPush.length) {
+            activeRepo = repoFromConfig();
+            return;
+        }
+        const fromUrl = (urlParams.get('repo') || '').trim();
+        if (fromUrl) {
+            const u = findRepoByFullNameString(fromUrl);
+            if (u) {
+                activeRepo = u;
+                return;
+            }
+        }
+        const fromLs = (localStorage.getItem(LS_ACTIVE_REPO) || '').trim();
+        if (fromLs) {
+            const ls = findRepoByFullNameString(fromLs);
+            if (ls) {
+                activeRepo = ls;
+                return;
+            }
+        }
+        activeRepo = pickFallbackActiveRepo();
+    }
+
+    function applyRepoToUrlParams(url) {
+        if (forceReadOnly || !githubToken || !reposWithPush.length) {
+            url.searchParams.delete('repo');
+            return;
+        }
+        const def = defaultRepoFullName();
+        if (getRepoFullName().toLowerCase() !== def.toLowerCase())
+            url.searchParams.set('repo', getRepoFullName());
+        else
+            url.searchParams.delete('repo');
+    }
+
+    function syncBrowserRepoParamWithActive() {
+        if (forceReadOnly) return;
+        const url = new URL(window.location.href);
+        if (!githubToken || !reposWithPush.length) {
+            if (url.searchParams.has('repo')) {
+                url.searchParams.delete('repo');
+                history.replaceState({}, '', url);
+            }
+            return;
+        }
+        const def = defaultRepoFullName();
+        const cur = getRepoFullName();
+        const want = cur.toLowerCase() !== def.toLowerCase();
+        const curParam = url.searchParams.get('repo');
+        if (want && curParam !== cur) {
+            url.searchParams.set('repo', cur);
+            history.replaceState({}, '', url);
+        } else if (!want && url.searchParams.has('repo')) {
+            url.searchParams.delete('repo');
+            history.replaceState({}, '', url);
+        }
+    }
+
+    function stripRepoParamForGuest() {
+        if (githubToken) return;
+        const url = new URL(window.location.href);
+        if (!url.searchParams.has('repo')) return;
+        url.searchParams.delete('repo');
+        history.replaceState({}, '', url);
+    }
+
+    function updateRepoSelectUI() {
+        const wrap = document.getElementById('repoSelectWrap');
+        const sel = document.getElementById('repoSelect');
+        if (!wrap || !sel) return;
+        if (!canAdminNavigateRepos()) {
+            wrap.hidden = true;
+            sel.innerHTML = '';
+            return;
+        }
+        wrap.hidden = false;
+        sel.innerHTML = '';
+        for (const r of reposWithPush) {
+            const opt = document.createElement('option');
+            opt.value = r.full_name;
+            opt.textContent = r.full_name;
+            sel.appendChild(opt);
+        }
+        const cur = getRepoFullName();
+        if ([...sel.options].some(o => o.value === cur)) sel.value = cur;
+        else {
+            const opt = document.createElement('option');
+            opt.value = cur;
+            opt.textContent = cur;
+            sel.appendChild(opt);
+            sel.value = cur;
+        }
+    }
+
+    function folderLockKey(folderPath) {
+        return 'flk_' + getRepoFullName() + '|' + folderPath;
+    }
+
     /** Режим только чтения: ссылка с ?readonly=1 или ?ro=1 (например, для GitHub Pages без редактирования). */
     function isReadonlyUrlMode() {
         const p = new URLSearchParams(window.location.search);
@@ -494,7 +719,7 @@
     }
 
     function getFileUrl(folderPath, fileName) {
-        let parts = [CONFIG.pagesBase];
+        let parts = [getPagesBase()];
         if (folderPath) parts.push(folderPath);
         parts.push(fileName);
         return parts.join('/');
@@ -507,6 +732,7 @@
         else url.searchParams.delete('path');
         if (readOnly) url.searchParams.set('readonly', '1');
         else url.searchParams.delete('readonly');
+        applyRepoToUrlParams(url);
         return url.toString();
     }
 
@@ -588,7 +814,7 @@
     async function getFolderPwdConfig() {
         if (folderPwdConfig !== null) return folderPwdConfig;
         try {
-            const file = await apiRequest('GET', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/.folder-config?ref=${CONFIG.branch}`);
+            const file = await apiRequest('GET', `${repoApiBase()}/contents/.folder-config?ref=${getBranch()}`);
             const parsed = JSON.parse(fromBase64(file.content));
             folderPwdConfig = { hashes: parsed.hashes || {}, _sha: file.sha };
         } catch (e) {
@@ -601,28 +827,28 @@
         if (!githubToken) throw new Error('Токен не задан');
         const cfg = folderPwdConfig;
         const content = toBase64(JSON.stringify({ hashes: cfg.hashes }));
-        const body = { message: 'Обновлён конфиг паролей папок', content, branch: CONFIG.branch };
+        const body = { message: 'Обновлён конфиг паролей папок', content, branch: getBranch() };
         if (cfg._sha) body.sha = cfg._sha;
-        const res = await apiRequest('PUT', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/.folder-config`, body);
+        const res = await apiRequest('PUT', `${repoApiBase()}/contents/.folder-config`, body);
         folderPwdConfig._sha = res.content.sha;
     }
 
     async function hashPassword(pwd) {
         const enc = new TextEncoder();
-        const buf = await crypto.subtle.digest('SHA-256', enc.encode(pwd + CONFIG.owner + CONFIG.repo));
+        const buf = await crypto.subtle.digest('SHA-256', enc.encode(pwd + getOwner() + getRepo()));
         return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
     }
 
     function isFolderUnlocked(folderPath) {
-        return sessionStorage.getItem('flk_' + folderPath) === '1';
+        return sessionStorage.getItem(folderLockKey(folderPath)) === '1';
     }
 
     function setFolderUnlocked(folderPath) {
-        sessionStorage.setItem('flk_' + folderPath, '1');
+        sessionStorage.setItem(folderLockKey(folderPath), '1');
     }
 
     function clearFolderUnlock(folderPath) {
-        sessionStorage.removeItem('flk_' + folderPath);
+        sessionStorage.removeItem(folderLockKey(folderPath));
     }
 
     function showPasswordModal(opts) {
@@ -786,11 +1012,11 @@
     // ========== РАБОТА С GITHUB API ==========
     async function fetchRepoContents(path, retries = 0) {
         path = path || '';
-        const ck = 'c:' + path;
+        const ck = getRepoFullName() + '|' + getBranch() + '|c:' + path;
         const c = getCached(ck);
         if (c) return c;
 
-        const url = `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${path}?ref=${CONFIG.branch}`;
+        const url = `${repoApiBase()}/contents/${path}?ref=${getBranch()}`;
         try {
             const headers = { 'Accept': 'application/vnd.github.v3+json' };
             if (githubToken) headers['Authorization'] = 'Bearer ' + githubToken;
@@ -843,7 +1069,7 @@
     async function verifyToken() {
         if (!githubToken) return false;
         try {
-            const info = await apiRequest('GET', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}`);
+            const info = await apiRequest('GET', `${repoApiBase()}`);
             if (!info) return false;
             if (info.permissions && info.permissions.push === false) {
                 console.warn('Токен не имеет прав push на этот репозиторий');
@@ -859,7 +1085,7 @@
     // Проверка существования файла/папки (возвращает false только для 404)
     async function itemExists(path) {
         try {
-            await apiRequest('GET', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${path}?ref=${CONFIG.branch}`);
+            await apiRequest('GET', `${repoApiBase()}/contents/${path}?ref=${getBranch()}`);
             return true;
         } catch (e) {
             // GitHub при отсутствии файла возвращает 404 с message "Not Found".
@@ -877,20 +1103,20 @@
             if (item.type === 'dir') {
                 await deleteFolderRecursive(itemPath);
             } else {
-                const fd = await apiRequest('GET', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${itemPath}`);
-                await apiRequest('DELETE', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${itemPath}`, {
+                const fd = await apiRequest('GET', `${repoApiBase()}/contents/${itemPath}`);
+                await apiRequest('DELETE', `${repoApiBase()}/contents/${itemPath}`, {
                     message: `Удаление ${item.name}`,
                     sha: fd.sha,
-                    branch: CONFIG.branch
+                    branch: getBranch()
                 });
             }
         }
         try {
-            const keep = await apiRequest('GET', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${folderPath}/.gitkeep`);
-            await apiRequest('DELETE', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${folderPath}/.gitkeep`, {
+            const keep = await apiRequest('GET', `${repoApiBase()}/contents/${folderPath}/.gitkeep`);
+            await apiRequest('DELETE', `${repoApiBase()}/contents/${folderPath}/.gitkeep`, {
                 message: `Удаление папки ${folderPath.split('/').pop()}`,
                 sha: keep.sha,
-                branch: CONFIG.branch
+                branch: getBranch()
             });
         } catch (e) {
             // папка может быть уже пуста, игнорируем
@@ -902,10 +1128,10 @@
         if (!isWriteEnabled) throw new Error('Режим записи не активирован. Проверьте токен.');
         const fp = currentPath ? currentPath + '/' + name : name;
         if (await itemExists(fp)) throw new Error('Папка с таким именем уже существует');
-        await apiRequest('PUT', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${fp}/.gitkeep`, {
+        await apiRequest('PUT', `${repoApiBase()}/contents/${fp}/.gitkeep`, {
             message: `Создана папка ${name}`,
             content: toBase64(''),
-            branch: CONFIG.branch
+            branch: getBranch()
         });
         clearCache();
     }
@@ -916,10 +1142,10 @@
         const fp = currentPath ? currentPath + '/' + fileName : fileName;
         if (await itemExists(fp)) throw new Error('Файл с таким именем уже существует');
         const content = toBase64(htmlContent);
-        await apiRequest('PUT', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${fp}`, {
+        await apiRequest('PUT', `${repoApiBase()}/contents/${fp}`, {
             message: `Создан файл ${fileName}`,
             content: content,
-            branch: CONFIG.branch
+            branch: getBranch()
         });
         clearCache();
     }
@@ -928,11 +1154,11 @@
         if (!githubToken) throw new Error('Токен не задан');
         if (!isWriteEnabled) throw new Error('Режим записи не активирован. Проверьте токен.');
         const content = toBase64(htmlContent);
-        await apiRequest('PUT', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${filePath}`, {
+        await apiRequest('PUT', `${repoApiBase()}/contents/${filePath}`, {
             message: `Обновлён ${filePath.split('/').pop()}`,
             content: content,
             sha: sha,
-            branch: CONFIG.branch
+            branch: getBranch()
         });
         clearCache();
     }
@@ -944,16 +1170,16 @@
         const destPath = destFolder ? destFolder + '/' + fileName : fileName;
         if (src === destPath) return;
         if (await itemExists(destPath)) throw new Error('Файл с таким именем уже существует в целевой папке');
-        const srcMeta = await apiRequest('GET', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${src}?ref=${CONFIG.branch}`);
-        await apiRequest('PUT', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${destPath}`, {
+        const srcMeta = await apiRequest('GET', `${repoApiBase()}/contents/${src}?ref=${getBranch()}`);
+        await apiRequest('PUT', `${repoApiBase()}/contents/${destPath}`, {
             message: `Перемещение ${fileName}`,
             content: srcMeta.content,
-            branch: CONFIG.branch
+            branch: getBranch()
         });
-        await apiRequest('DELETE', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${src}`, {
+        await apiRequest('DELETE', `${repoApiBase()}/contents/${src}`, {
             message: `Удаление после перемещения`,
             sha: srcMeta.sha,
-            branch: CONFIG.branch
+            branch: getBranch()
         });
         clearCache();
     }
@@ -964,11 +1190,11 @@
         if (isFolder) {
             await deleteFolderRecursive(path);
         } else {
-            const fd = await apiRequest('GET', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${path}`);
-            await apiRequest('DELETE', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${path}`, {
+            const fd = await apiRequest('GET', `${repoApiBase()}/contents/${path}`);
+            await apiRequest('DELETE', `${repoApiBase()}/contents/${path}`, {
                 message: `Удаление файла ${path.split('/').pop()}`,
                 sha: fd.sha,
-                branch: CONFIG.branch
+                branch: getBranch()
             });
         }
         clearCache();
@@ -980,16 +1206,16 @@
         const parent = path.substring(0, path.lastIndexOf('/'));
         const np = parent ? parent + '/' + newName : newName;
         if (await itemExists(np)) throw new Error('Элемент с таким именем уже существует');
-        const fd = await apiRequest('GET', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${path}`);
-        await apiRequest('PUT', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${np}`, {
+        const fd = await apiRequest('GET', `${repoApiBase()}/contents/${path}`);
+        await apiRequest('PUT', `${repoApiBase()}/contents/${np}`, {
             message: `Переименование в ${newName}`,
             content: fd.content,
-            branch: CONFIG.branch
+            branch: getBranch()
         });
-        await apiRequest('DELETE', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${path}`, {
+        await apiRequest('DELETE', `${repoApiBase()}/contents/${path}`, {
             message: `Удаление старого`,
             sha: fd.sha,
-            branch: CONFIG.branch
+            branch: getBranch()
         });
         clearCache();
     }
@@ -1013,10 +1239,10 @@
                     }
                     const fp = currentPath ? currentPath + '/' + file.name : file.name;
                     if (await itemExists(fp)) throw new Error('Файл уже существует');
-                    await apiRequest('PUT', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${fp}`, {
+                    await apiRequest('PUT', `${repoApiBase()}/contents/${fp}`, {
                         message: `Загрузка ${file.name}`,
                         content: content,
-                        branch: CONFIG.branch
+                        branch: getBranch()
                     });
                     clearCache();
                     resolve();
@@ -1038,7 +1264,7 @@
         const tagsBlock = tagsLineTrim
             ? `\n            <div class="meta">🏷️ Теги: ${escapeHtml(tagsLineTrim)}</div>`
             : '';
-        const baseRoot = CONFIG.pagesBase.replace(/\/$/, '');
+        const baseRoot = getPagesBase();
         return `<!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -1275,6 +1501,7 @@
         const url = new URL(window.location);
         if (currentPath) url.searchParams.set('path', currentPath);
         else url.searchParams.delete('path');
+        applyRepoToUrlParams(url);
         history.pushState({}, '', url);
     }
 
@@ -1360,7 +1587,7 @@
         if (!isWriteEnabled) { showToast('🔑 Введите GitHub Token для редактирования', true); return; }
         setGlobalLoading(true);
         try {
-            const meta = await apiRequest('GET', `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${filePath}?ref=${CONFIG.branch}`);
+            const meta = await apiRequest('GET', `${repoApiBase()}/contents/${filePath}?ref=${getBranch()}`);
             const content = fromBase64(meta.content);
             let patientName = '';
             const nameMatch = content.match(/<h1>[^:]*:\s*([^<]+)/);
@@ -1737,7 +1964,7 @@
     function renderBreadcrumb() {
         const parts = currentPath.split('/').filter(p => p);
         const area = document.getElementById('breadcrumbArea');
-        let html = `<div class="breadcrumb"><span class="breadcrumb-root" id="rootCrumb">🏠 ${CONFIG.repo}</span>`;
+        let html = `<div class="breadcrumb"><span class="breadcrumb-root" id="rootCrumb">🏠 ${escapeHtml(getRepoFullName())}</span>`;
         let acc = '';
         parts.forEach((part, i) => {
             acc += (acc ? '/' : '') + part;
@@ -1754,44 +1981,79 @@
     }
 
     // ========== ИНИЦИАЛИЗАЦИЯ ==========
-    async function tryEnableWrite() {
+    async function tryEnableWrite(opts) {
         const status = document.getElementById('tokenStatus');
         const badge = document.getElementById('tokenBadge');
+        const forceRepos = !!(opts && opts.forceRepos);
 
         if (forceReadOnly) {
+            reposWithPush = [];
+            reposListLoadedForToken = null;
+            activeRepo = repoFromConfig();
             isWriteEnabled = false;
             if (status) status.textContent = '';
             if (badge) badge.textContent = '';
+            updateRepoSelectUI();
             updateWriteModeUI();
             return;
         }
 
         if (!githubToken) {
-            status.textContent = '';
-            badge.textContent = '';
+            reposWithPush = [];
+            reposListLoadedForToken = null;
+            activeRepo = repoFromConfig();
+            if (status) status.textContent = '';
+            if (badge) badge.textContent = '';
             isWriteEnabled = false;
+            updateRepoSelectUI();
             updateWriteModeUI();
             return;
         }
-        status.textContent = '⏳ Проверка...';
-        status.style.color = 'var(--text-muted)';
-        const ok = await verifyToken();
-        if (ok) {
-            status.innerHTML = `✅ Токен: ${maskToken(githubToken)} — запись в репозиторий разрешена`;
-            status.style.color = 'var(--success)';
-            badge.textContent = '✅';
-            isWriteEnabled = true;
-        } else {
-            status.textContent = '❌ Токен недействителен или нет прав на запись';
-            status.style.color = 'var(--danger)';
-            badge.textContent = '❌';
-            isWriteEnabled = false;
+        if (status) {
+            status.textContent = '⏳ Проверка...';
+            status.style.color = 'var(--text-muted)';
         }
+        try {
+            await apiRequest('GET', 'https://api.github.com/user');
+            await ensureReposWithPushList(forceRepos);
+            const urlParams = new URLSearchParams(window.location.search);
+            resolveActiveRepoAfterListLoad(urlParams);
+            syncBrowserRepoParamWithActive();
+            const ok = await verifyToken();
+            if (ok) {
+                if (status) {
+                    status.innerHTML = '✅ Токен: ' + maskToken(githubToken) + ' — запись в «' + escapeHtml(getRepoFullName()) + '»';
+                    status.style.color = 'var(--success)';
+                }
+                if (badge) badge.textContent = '✅';
+                isWriteEnabled = true;
+            } else {
+                if (status) {
+                    status.textContent = '❌ Нет прав на запись в выбранный репозиторий (или он недоступен)';
+                    status.style.color = 'var(--danger)';
+                }
+                if (badge) badge.textContent = '❌';
+                isWriteEnabled = false;
+            }
+        } catch (e) {
+            console.error('Token / repos list:', e);
+            reposWithPush = [];
+            reposListLoadedForToken = null;
+            activeRepo = repoFromConfig();
+            if (status) {
+                status.textContent = '❌ Токен недействителен или не удалось загрузить список репозиториев';
+                status.style.color = 'var(--danger)';
+            }
+            if (badge) badge.textContent = '❌';
+            isWriteEnabled = false;
+            syncBrowserRepoParamWithActive();
+        }
+        updateRepoSelectUI();
         updateWriteModeUI();
-        renderCurrentView();
     }
 
     async function init() {
+        stripRepoParamForGuest();
         if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
         document.getElementById('quoteContainer').textContent = quotes[Math.floor(Math.random() * quotes.length)];
 
@@ -1862,7 +2124,8 @@
             }
             githubToken = document.getElementById('githubToken').value.trim();
             localStorage.setItem('github_token', githubToken);
-            await tryEnableWrite();
+            await tryEnableWrite({ forceRepos: true });
+            await renderCurrentView();
         };
 
         document.getElementById('createFolderBtn').onclick = async () => {
@@ -1927,11 +2190,37 @@
         window.addEventListener('popstate', () => {
             const p = new URLSearchParams(window.location.search);
             currentPath = normalizePath(p.get('path') || '');
+            if (!githubToken || !reposWithPush.length) activeRepo = repoFromConfig();
+            else resolveActiveRepoAfterListLoad(p);
+            folderPwdConfig = null;
+            clearCache();
             renderCurrentView();
         });
 
-        if (githubToken && !forceReadOnly) await tryEnableWrite();
-        else updateWriteModeUI();
+        const repoSelect = document.getElementById('repoSelect');
+        if (repoSelect) {
+            repoSelect.addEventListener('change', async () => {
+                if (forceReadOnly || !githubToken) return;
+                const v = repoSelect.value;
+                const found = reposWithPush.find(r => r.full_name === v);
+                if (!found) return;
+                folderPwdConfig = null;
+                clearCache();
+                currentPath = '';
+                activeRepo = found;
+                localStorage.setItem(LS_ACTIVE_REPO, found.full_name);
+                updateUrlState();
+                await tryEnableWrite();
+                await renderCurrentView();
+            });
+        }
+
+        if (githubToken && !forceReadOnly) await tryEnableWrite({ forceRepos: true });
+        else {
+            activeRepo = repoFromConfig();
+            updateWriteModeUI();
+            updateRepoSelectUI();
+        }
         await renderCurrentView();
     }
 
