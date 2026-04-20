@@ -1,0 +1,2401 @@
+<!doctype html>
+<html lang="ru" data-theme="night" data-density="compact" data-blocksize="sm"><head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Зулета Аслановна · 20.04.2026</title>
+<base href="file:///C:/Users/Umm%20Muhammad/Desktop/%D0%9D%D0%BE%D0%B2%D0%B0%D1%8F%20%D0%BF%D0%B0%D0%BF%D0%BA%D0%B0%20(2)/" />
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+<style>
+/* css/tokens.css */
+/* tokens.css — дизайн-токены RUKYA PRO v8
+   Неломающий слой: даёт общий словарь размеров, радиусов, теней, тайминга,
+   z-index и типографики. Подключается ПЕРВЫМ. Существующие жёсткие значения
+   работают как раньше, но новые компоненты должны использовать токены. */
+
+:root {
+  /* ===== Spacing (base 4) ===== */
+  --space-0: 0;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 48px;
+
+  /* ===== Radius ===== */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+  --radius-2xl: 24px;
+  --radius-pill: 999px;
+
+  /* ===== Shadows ===== */
+  --shadow-0: none;
+  --shadow-1: 0 1px 2px rgba(15, 20, 28, .05), 0 1px 1px rgba(15, 20, 28, .04);
+  --shadow-2: 0 2px 6px rgba(15, 20, 28, .08), 0 1px 2px rgba(15, 20, 28, .05);
+  --shadow-3: 0 8px 24px rgba(15, 20, 28, .14), 0 2px 4px rgba(15, 20, 28, .06);
+  --shadow-4: 0 20px 48px rgba(15, 20, 28, .20), 0 6px 12px rgba(15, 20, 28, .08);
+
+  /* ===== Motion ===== */
+  --duration-1: 120ms;
+  --duration-2: 220ms;
+  --duration-3: 360ms;
+  --duration-4: 520ms;
+  --ease-standard: cubic-bezier(.2, 0, 0, 1);
+  --ease-emphasized: cubic-bezier(.2, 0, 0, 1.4);
+  --ease-out: cubic-bezier(.2, .8, .2, 1);
+
+  /* ===== Z-index scale ===== */
+  --z-base: 1;
+  --z-nav: 50;
+  --z-header: 100;
+  --z-palette: 9000;
+  --z-modal: 10000;
+  --z-toast: 11000;
+  --z-max: 32767;
+
+  /* ===== Typography ===== */
+  --font-size-xs: 0.75rem;    /* 12 */
+  --font-size-sm: 0.85rem;    /* 13.6 */
+  --font-size-md: 0.95rem;    /* 15.2 */
+  --font-size-lg: 1.05rem;    /* 16.8 */
+  --font-size-xl: 1.2rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.9rem;
+
+  --line-tight: 1.2;
+  --line-regular: 1.45;
+  --line-relaxed: 1.7;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* ===== Component-level aliases (используем токены, а не магические числа) ===== */
+  --card-radius: var(--radius-xl);
+  --card-pad: var(--space-5);
+  --card-shadow: var(--shadow-2);
+
+  --btn-radius: var(--radius-md);
+  --btn-pad-y: var(--space-2);
+  --btn-pad-x: var(--space-4);
+
+  --chip-radius: var(--radius-pill);
+  --chip-pad-y: 3px;
+  --chip-pad-x: var(--space-3);
+
+  --modal-radius: var(--radius-xl);
+  --input-radius: var(--radius-md);
+
+  --focus-ring-color: var(--accent-ring, rgba(201, 165, 59, .55));
+  --focus-ring-width: 2px;
+
+  /* Связь с существующими legacy-переменными — чтобы card/btn стали использовать токены. */
+  --rp-radius: var(--radius-xl);
+  --rp-pad: var(--space-5);
+}
+
+/* Глобальный :focus-visible — единый a11y-стиль для всех фокусируемых элементов. */
+:where(a, button, [role="button"], input, select, textarea, [tabindex]):focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* ===== Премиальные статус-чипы ===== */
+.chip-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: var(--chip-pad-y) var(--chip-pad-x);
+  border-radius: var(--chip-radius);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1;
+  letter-spacing: .02em;
+  border: 1px solid transparent;
+}
+.chip-status::before {
+  content: '';
+  width: 6px; height: 6px; border-radius: 50%;
+  background: currentColor;
+}
+.chip-status.active   { color: #18794e; background: rgba(46, 160, 103, .12); border-color: rgba(46, 160, 103, .25); }
+.chip-status.paused   { color: #8a6500; background: rgba(217, 160, 0, .12);   border-color: rgba(217, 160, 0, .25); }
+.chip-status.finished { color: #4c58a6; background: rgba(76, 88, 166, .12);   border-color: rgba(76, 88, 166, .25); }
+.chip-status.draft    { color: #6b6b6b; background: rgba(120, 120, 120, .12); border-color: rgba(120, 120, 120, .25); }
+.chip-status.urgent   { color: #b42318; background: rgba(217, 45, 32, .12);   border-color: rgba(217, 45, 32, .25); }
+
+/* ===== Skeleton loading ===== */
+@keyframes rp-skeleton-shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+.skeleton {
+  display: block;
+  background:
+    linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.06) 50%, rgba(0,0,0,0) 100%),
+    var(--surface-2, #eee);
+  background-size: 800px 100%;
+  animation: rp-skeleton-shimmer 1.3s linear infinite;
+  border-radius: var(--radius-sm);
+}
+.skeleton-line { height: 12px; margin: 8px 0; border-radius: var(--radius-sm); }
+.skeleton-line.w-40 { width: 40%; }
+.skeleton-line.w-60 { width: 60%; }
+.skeleton-line.w-80 { width: 80%; }
+.skeleton-line.w-100 { width: 100%; }
+.skeleton-card {
+  padding: var(--card-pad);
+  border-radius: var(--card-radius);
+  background: var(--surface);
+  box-shadow: var(--shadow-1);
+  border: 1px solid var(--line);
+  margin-bottom: var(--space-4);
+}
+.skeleton-card .skeleton-line.title { height: 18px; width: 44%; margin-bottom: 14px; }
+
+html[data-theme="night"] .skeleton,
+html[data-theme="royal"] .skeleton {
+  background:
+    linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.08) 50%, rgba(255,255,255,0) 100%),
+    var(--surface-2, #1f232c);
+}
+
+/* ===== Empty state (единый шаблон) ===== */
+.empty-state {
+  display: grid;
+  place-items: center;
+  gap: var(--space-3);
+  padding: var(--space-8) var(--space-5);
+  text-align: center;
+  color: var(--muted, #777);
+  border: 1px dashed var(--line);
+  border-radius: var(--card-radius);
+  background: var(--surface);
+}
+.empty-state .icon {
+  font-size: var(--font-size-3xl);
+  line-height: 1;
+}
+.empty-state .title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text, #222);
+}
+.empty-state .hint { font-size: var(--font-size-sm); max-width: 480px; }
+
+/* ===== Высококонтрастный режим для слабого зрения ===== */
+html[data-contrast="high"] {
+  --shadow-1: 0 0 0 1px #000;
+  --shadow-2: 0 0 0 2px #000;
+  --shadow-3: 0 0 0 3px #000;
+  --focus-ring-width: 3px;
+  --focus-ring-color: #0057ff;
+}
+html[data-contrast="high"] body { color: #000; }
+html[data-contrast="high"] .card,
+html[data-contrast="high"] .modal {
+  border: 2px solid #000;
+}
+
+/* ===== KPI ===== */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: var(--space-3);
+  margin: var(--space-4) 0;
+}
+.kpi-card {
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-1);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.kpi-card .label {
+  font-size: var(--font-size-xs);
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+.kpi-card .value {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--text, inherit);
+  line-height: var(--line-tight);
+}
+.kpi-card .delta { font-size: var(--font-size-xs); color: var(--muted); }
+.kpi-card .delta.up   { color: #18794e; }
+.kpi-card .delta.down { color: #b42318; }
+.kpi-card .spark { height: 34px; margin-top: 4px; }
+
+/* ===== Collapsible sections (plans) ===== */
+.collapsible .day-header,
+.collapsible .section-header {
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.collapsible .day-header:hover,
+.collapsible .section-header:hover {
+  opacity: .85;
+}
+/* Стрелка-индикатор */
+.collapse-toggle {
+  display: inline-block;
+  transition: transform var(--duration-2) var(--ease-standard);
+  font-size: .9rem;
+  line-height: 1;
+}
+/* Сворачивание */
+.collapsible.collapsed .day-body,
+.collapsible.collapsed .plan-section-body {
+  display: none;
+}
+.collapsible.collapsed .collapse-toggle {
+  transform: rotate(-90deg);
+}
+.collapsible.collapsed .day-header,
+.collapsible.collapsed .section-header {
+  border-radius: var(--radius-lg);
+}
+/* Плавная анимация разворачивания не нужна (display:none → block),
+   но добавим tiny отблеск при раскрытии */
+.collapsible:not(.collapsed) .day-body,
+.collapsible:not(.collapsed) .plan-section-body {
+  animation: fadeInDown var(--duration-2) var(--ease-out);
+}
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+
+
+/* css/base.css */
+/* base.css — сброс, типографика, сетка */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+/* v6: переменные плотности интерфейса — применяются на html через data-density */
+html { --rp-pad: 18px; --rp-fs: 16px; --rp-gap: 12px; --rp-radius: 14px; --rp-btn-pad: 9px 16px; }
+html[data-density="comfort"] { --rp-pad: 18px; --rp-fs: 16px; --rp-gap: 12px; --rp-radius: 14px; --rp-btn-pad: 9px 16px; }
+html[data-density="compact"] { --rp-pad: 10px; --rp-fs: 14px; --rp-gap: 8px; --rp-radius: 10px; --rp-btn-pad: 6px 12px; }
+html[data-density="xl"]      { --rp-pad: 22px; --rp-fs: 17px; --rp-gap: 16px; --rp-radius: 16px; --rp-btn-pad: 11px 20px; }
+
+/* Размер блоков — отдельно от плотности, масштабирует только карточки/блоки через множитель.
+   Не меняет системный шрифт. Применяется в компонентах через var(--rp-block-scale). */
+html { --rp-block-scale: 1; --rp-block-pad: 14px; --rp-block-gap: 12px; --rp-block-radius: 14px; --rp-block-min: 280px; }
+html[data-blocksize="sm"] { --rp-block-scale: 0.88; --rp-block-pad: 10px; --rp-block-gap: 8px;  --rp-block-radius: 10px; --rp-block-min: 240px; }
+html[data-blocksize="md"] { --rp-block-scale: 1;    --rp-block-pad: 14px; --rp-block-gap: 12px; --rp-block-radius: 14px; --rp-block-min: 280px; }
+html[data-blocksize="lg"] { --rp-block-scale: 1.12; --rp-block-pad: 18px; --rp-block-gap: 14px; --rp-block-radius: 16px; --rp-block-min: 320px; }
+html[data-blocksize="xl"] { --rp-block-scale: 1.24; --rp-block-pad: 22px; --rp-block-gap: 18px; --rp-block-radius: 18px; --rp-block-min: 360px; }
+
+html {
+  font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif;
+  font-size: var(--rp-fs, 16px);
+  line-height: 1.55;
+  color: var(--text);
+  background: var(--bg);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--bg);
+  background-image:
+    radial-gradient(at 15% 0%, var(--bg-tint-1) 0px, transparent 50%),
+    radial-gradient(at 85% 100%, var(--bg-tint-2) 0px, transparent 50%);
+  background-attachment: fixed;
+}
+
+.arabic, [dir="rtl"], [lang="ar"] {
+  font-family: 'Amiri', 'Noto Naskh Arabic', 'Scheherazade New', 'Traditional Arabic', serif;
+  direction: rtl;
+  font-size: 1.35em;
+  line-height: 1.9;
+}
+
+h1, h2, h3, h4, h5 { margin: 0 0 0.5em; font-weight: 700; color: var(--text-strong); letter-spacing: -0.01em; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.2rem; }
+p { margin: 0 0 0.75em; }
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+button, .btn,
+a.btn, a.btn-primary, a.btn-ghost, a.btn-danger, a.btn-sm {
+  font: inherit;
+  border: 0;
+  border-radius: 10px;
+  padding: var(--rp-btn-pad, 9px 16px);
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+  box-shadow: 0 1px 2px rgba(0,0,0,.08);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  white-space: nowrap;
+  line-height: 1.2;
+}
+button:hover, .btn:hover,
+a.btn:hover, a.btn-primary:hover, a.btn-ghost:hover, a.btn-danger:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0,0,0,.12);
+}
+button:active, .btn:active { transform: translateY(0); }
+button:disabled, .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btn-primary, a.btn-primary { background: var(--accent); color: var(--on-accent); }
+.btn-primary:hover, a.btn-primary:hover { background: var(--accent-strong); }
+.btn-ghost, a.btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); box-shadow: none; }
+.btn-ghost:hover, a.btn-ghost:hover { background: var(--surface-2); }
+.btn-danger, a.btn-danger { background: #c74545; color: #fff; }
+.btn-sm, a.btn-sm { padding: 6px 12px; font-size: 0.875rem; border-radius: 8px; }
+
+/* Квадратная иконочная кнопка */
+.btn-icon {
+  width: 36px; height: 36px; padding: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 10px; font-size: 1rem;
+}
+
+input, textarea, select {
+  font: inherit;
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+input:focus, textarea:focus, select:focus {
+  outline: 0;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-ring);
+}
+textarea { resize: vertical; min-height: 80px; }
+
+label { display: block; font-size: 0.875rem; color: var(--text-soft); margin-bottom: 4px; }
+
+.muted { color: var(--text-soft); }
+.hidden { display: none !important; }
+.center { text-align: center; }
+
+::selection { background: var(--accent); color: var(--on-accent); }
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.grid { display: grid; gap: 16px; }
+.flex { display: flex; gap: 12px; align-items: center; }
+.flex-col { display: flex; flex-direction: column; gap: 12px; }
+.flex-wrap { flex-wrap: wrap; }
+.spacer { flex: 1; }
+.stack > * + * { margin-top: 12px; }
+
+@media (max-width: 720px) {
+  html { font-size: 15px; }
+  .container { padding: 0 10px; }
+}
+
+
+/* css/themes.css */
+/* themes.css — 7 богатых тем через CSS-переменные */
+
+:root,
+:root[data-theme="classic"] {
+  --bg: #fef7e8;
+  --bg-tint-1: rgba(201, 165, 59, 0.12);
+  --bg-tint-2: rgba(90, 62, 27, 0.06);
+  --surface: #fffdf6;
+  --surface-2: #f7eed9;
+  --surface-3: #f1e4c0;
+  --border: #e0d5b8;
+  --text: #5a3e1b;
+  --text-strong: #3a2810;
+  --text-soft: #8a7650;
+  --accent: #c9a53b;
+  --accent-strong: #a8891f;
+  --accent-ring: rgba(201, 165, 59, 0.28);
+  --on-accent: #fffdf0;
+  --btn-bg: #fffdf6;
+  --btn-text: #5a3e1b;
+  --ornament: #c9a53b;
+  --shadow-card: 0 6px 24px rgba(120, 85, 30, 0.10);
+  --gradient-accent: linear-gradient(135deg, #d9b84a 0%, #b58b25 100%);
+  --scheme: light;
+}
+
+:root[data-theme="emerald"] {
+  --bg: #f0f8f2;
+  --bg-tint-1: rgba(0, 102, 68, 0.10);
+  --bg-tint-2: rgba(201, 165, 59, 0.08);
+  --surface: #ffffff;
+  --surface-2: #e2f1e7;
+  --surface-3: #c9e4d3;
+  --border: #c7dfcd;
+  --text: #133a28;
+  --text-strong: #062418;
+  --text-soft: #467059;
+  --accent: #0d7a52;
+  --accent-strong: #0a5f40;
+  --accent-ring: rgba(13, 122, 82, 0.25);
+  --on-accent: #fdf8e6;
+  --btn-bg: #ffffff;
+  --btn-text: #133a28;
+  --ornament: #c9a53b;
+  --shadow-card: 0 6px 24px rgba(13, 90, 60, 0.10);
+  --gradient-accent: linear-gradient(135deg, #0d7a52 0%, #c9a53b 100%);
+  --scheme: light;
+}
+
+:root[data-theme="night"] {
+  --bg: #12161e;
+  --bg-tint-1: rgba(201, 165, 59, 0.14);
+  --bg-tint-2: rgba(64, 130, 175, 0.08);
+  --surface: #1c2230;
+  --surface-2: #242b3c;
+  --surface-3: #2f3849;
+  --border: #3a4356;
+  --text: #e6ddc2;
+  --text-strong: #fff4d4;
+  --text-soft: #9ea19a;
+  --accent: #d9b84a;
+  --accent-strong: #f0cb55;
+  --accent-ring: rgba(217, 184, 74, 0.3);
+  --on-accent: #12161e;
+  --btn-bg: #242b3c;
+  --btn-text: #e6ddc2;
+  --ornament: #d9b84a;
+  --shadow-card: 0 8px 30px rgba(0, 0, 0, 0.55);
+  --gradient-accent: linear-gradient(135deg, #d9b84a 0%, #8a6f20 100%);
+  --scheme: dark;
+}
+
+:root[data-theme="royal"] {
+  --bg: #1e1230;
+  --bg-tint-1: rgba(201, 165, 59, 0.14);
+  --bg-tint-2: rgba(130, 80, 200, 0.12);
+  --surface: #2a1c44;
+  --surface-2: #362556;
+  --surface-3: #442f6a;
+  --border: #4b3672;
+  --text: #ede3ff;
+  --text-strong: #fff7e5;
+  --text-soft: #aa9bcd;
+  --accent: #e5b747;
+  --accent-strong: #f5c95a;
+  --accent-ring: rgba(229, 183, 71, 0.3);
+  --on-accent: #1e1230;
+  --btn-bg: #362556;
+  --btn-text: #ede3ff;
+  --ornament: #e5b747;
+  --shadow-card: 0 10px 36px rgba(20, 10, 45, 0.6);
+  --gradient-accent: linear-gradient(135deg, #e5b747 0%, #7b45c0 100%);
+  --scheme: dark;
+}
+
+:root[data-theme="desert"] {
+  --bg: #f6e8d5;
+  --bg-tint-1: rgba(200, 100, 50, 0.10);
+  --bg-tint-2: rgba(210, 170, 100, 0.14);
+  --surface: #fff5e4;
+  --surface-2: #ebd5b5;
+  --surface-3: #dcbe95;
+  --border: #d4b48c;
+  --text: #5a2e10;
+  --text-strong: #391600;
+  --text-soft: #8d6240;
+  --accent: #b85c2a;
+  --accent-strong: #9a4416;
+  --accent-ring: rgba(184, 92, 42, 0.25);
+  --on-accent: #fff5e4;
+  --btn-bg: #fff5e4;
+  --btn-text: #5a2e10;
+  --ornament: #b85c2a;
+  --shadow-card: 0 6px 24px rgba(150, 75, 35, 0.12);
+  --gradient-accent: linear-gradient(135deg, #e88e50 0%, #9a4416 100%);
+  --scheme: light;
+}
+
+:root[data-theme="pearl"] {
+  --bg: #faf7f5;
+  --bg-tint-1: rgba(200, 170, 180, 0.10);
+  --bg-tint-2: rgba(180, 180, 200, 0.08);
+  --surface: #ffffff;
+  --surface-2: #f1ecea;
+  --surface-3: #e5dedc;
+  --border: #e5dedc;
+  --text: #3a2a30;
+  --text-strong: #1d1015;
+  --text-soft: #7d6a70;
+  --accent: #a08090;
+  --accent-strong: #7a5a68;
+  --accent-ring: rgba(160, 128, 144, 0.25);
+  --on-accent: #ffffff;
+  --btn-bg: #ffffff;
+  --btn-text: #3a2a30;
+  --ornament: #a08090;
+  --shadow-card: 0 4px 18px rgba(60, 40, 50, 0.08);
+  --gradient-accent: linear-gradient(135deg, #d4b8c4 0%, #7a5a68 100%);
+  --scheme: light;
+}
+
+:root[data-theme="marine"] {
+  --bg: #e8f4f5;
+  --bg-tint-1: rgba(50, 160, 170, 0.10);
+  --bg-tint-2: rgba(220, 200, 130, 0.10);
+  --surface: #ffffff;
+  --surface-2: #d7ecee;
+  --surface-3: #b9dfe2;
+  --border: #b0d7da;
+  --text: #0c3a3f;
+  --text-strong: #03252a;
+  --text-soft: #4d7f84;
+  --accent: #1c8a95;
+  --accent-strong: #156b73;
+  --accent-ring: rgba(28, 138, 149, 0.25);
+  --on-accent: #fff9e8;
+  --btn-bg: #ffffff;
+  --btn-text: #0c3a3f;
+  --ornament: #1c8a95;
+  --shadow-card: 0 6px 24px rgba(10, 70, 80, 0.10);
+  --gradient-accent: linear-gradient(135deg, #30b0be 0%, #d4b34a 100%);
+  --scheme: light;
+}
+
+/* переход между темами */
+html, body, .card, button, input, textarea {
+  transition: background-color .3s ease, color .3s ease, border-color .3s ease;
+}
+
+
+/* css/components.css */
+/* components.css — карточки, блоки, модалки */
+
+/* CARD — базовая карточка */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: calc(var(--rp-radius, 16px) * var(--rp-block-scale, 1));
+  padding: calc(var(--rp-pad, 20px) * var(--rp-block-scale, 1));
+  position: relative;
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+/* Dashboard Chart.js: стабильная высота — без цикла ResizeObserver */
+.dashboard-chart-wrap {
+  position: relative;
+  height: 200px;
+  width: 100%;
+}
+
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-strong);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.card-subtitle {
+  color: var(--text-soft);
+  font-size: 0.875rem;
+  margin-bottom: 12px;
+}
+
+/* COLLAPSIBLE CARD — сворачиваемые карточки настроек */
+.card--collapsible > .card-title {
+  cursor: pointer;
+  user-select: none;
+  margin-bottom: 0;
+  justify-content: flex-start;
+  transition: color .15s ease;
+}
+.card--collapsible > .card-title:hover { color: var(--primary); }
+.card--collapsible > .card-title::after {
+  content: "▾";
+  margin-left: auto;
+  font-size: .9rem;
+  opacity: .6;
+  transition: transform .25s ease;
+}
+.card--collapsible[aria-expanded="false"] > .card-title::after {
+  transform: rotate(-90deg);
+}
+.card--collapsible[aria-expanded="true"] > .card-title {
+  margin-bottom: 12px;
+}
+.card--collapsible .card-body {
+  transition: opacity .2s ease;
+}
+.card--collapsible[aria-expanded="false"] .card-body {
+  display: none;
+}
+.card--collapsible[aria-expanded="false"] {
+  padding-bottom: var(--rp-pad, 20px);
+}
+
+/* VERSE BLOCK — для аятов */
+.verse-block {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+  margin: 16px 0;
+}
+.verse-block::before, .verse-block::after {
+  content: "۞";
+  position: absolute;
+  color: var(--ornament);
+  font-size: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.5;
+}
+.verse-block::before { left: 12px; }
+.verse-block::after { right: 12px; }
+.verse-block .arabic { font-size: 1.75rem; color: var(--text-strong); margin-bottom: 10px; }
+.verse-block .transcription { color: var(--text-soft); font-style: italic; margin-bottom: 6px; }
+.verse-block .translation { color: var(--text); }
+.verse-block .ref { display: block; margin-top: 10px; font-size: 0.8rem; color: var(--text-soft); }
+
+/* FORMULA BLOCK — одно заклинание */
+.formula-block {
+  background: var(--surface);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 12px 12px 0;
+  padding: calc(var(--rp-pad, 16px) - 4px) var(--rp-pad, 18px);
+  margin: var(--rp-gap, 12px) 0;
+  position: relative;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.formula-block:hover {
+  transform: translateX(3px);
+  box-shadow: var(--shadow-card);
+}
+.formula-block .purpose {
+  font-size: 0.8rem;
+  color: var(--accent-strong);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.formula-block .arabic {
+  font-size: 1.6rem;
+  color: var(--text-strong);
+  margin: 8px 0;
+  line-height: 1.95;
+}
+.formula-block .transcription {
+  color: var(--text-soft);
+  font-style: italic;
+  margin: 6px 0;
+}
+.formula-block .translation {
+  color: var(--text);
+  margin: 6px 0;
+}
+
+.formula-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+  font-size: 0.82rem;
+  color: var(--text-soft);
+}
+.formula-meta .chip {
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* DAY BLOCK — день курса */
+.day-block {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  margin: 16px 0;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+.day-header {
+  background: var(--gradient-accent);
+  color: var(--on-accent);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+}
+.day-header h3 { color: var(--on-accent); margin: 0; font-size: 1.1rem; }
+.day-header .day-badge {
+  background: rgba(255,255,255,0.25);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+.day-body {
+  padding: 16px 20px;
+  max-height: 5000px;
+  overflow: hidden;
+  transition: max-height .4s ease, padding .3s ease;
+}
+.day-block.collapsed .day-body { max-height: 0; padding-top: 0; padding-bottom: 0; }
+
+/* COUNTER — счётчик повторений */
+.counter {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  background: var(--surface-2);
+  border-radius: 999px;
+  cursor: pointer;
+  user-select: none;
+}
+.counter .dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  transition: all .15s ease;
+}
+.counter .dot.filled {
+  background: var(--accent);
+  border-color: var(--accent-strong);
+  box-shadow: 0 0 0 2px var(--accent-ring);
+}
+.counter.done .dot.filled { animation: dotPulse .4s ease; }
+@keyframes dotPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+/* CHIPS */
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chips .chip {
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 0.85rem;
+  border: 1px solid var(--border);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.chips .chip.primary { background: var(--accent); color: var(--on-accent); border-color: var(--accent-strong); }
+
+/* MODAL */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-modal, 10000);
+  padding: 16px;
+  animation: fadeIn .2s ease;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.modal {
+  background: var(--surface);
+  border-radius: 18px;
+  max-width: 640px;
+  width: 100%;
+  max-height: 90vh;
+  overflow: auto;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+  animation: modalPop .25s ease;
+}
+@keyframes modalPop {
+  from { transform: translateY(20px) scale(0.97); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+.modal-head {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.modal-head h3 { margin: 0; }
+.modal-body { padding: 18px 20px; }
+.modal-foot {
+  padding: 12px 20px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+/* TOAST */
+.toast-host {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 10000;
+  pointer-events: none;
+}
+.toast-host .toast { pointer-events: auto; }
+@media (max-width: 880px) {
+  .toast-host {
+    bottom: 76px;
+    right: 12px;
+    left: 12px;
+    align-items: center;
+  }
+  .toast-host .toast { width: 100%; max-width: 480px; min-width: 0; }
+}
+.toast {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  color: var(--text);
+  padding: 12px 18px;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.18);
+  min-width: 260px;
+  animation: slideIn .25s ease;
+}
+.toast.err { border-left-color: #c74545; }
+.toast.ok { border-left-color: #2e9459; }
+.toast.warn { border-left-color: #d97706; }
+.toast.info { border-left-color: #3b82f6; }
+@keyframes slideIn {
+  from { transform: translateX(30px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* SIDEBAR */
+.app-shell { display: grid; grid-template-columns: 240px 1fr; min-height: 100vh; }
+.sidebar {
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: 18px 12px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: auto;
+  z-index: 10;
+}
+
+/* (truncated in committed bundle for chat) */
+
+
+/* css/animations.css */
+/* animations.css — анимированный UI, движения, переливы */
+
+/* ГЛАВНЫЙ АНИМИРОВАННЫЙ ФОН — мерцающие звёзды и плавающие градиенты */
+.starfield {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: -2;
+}
+.starfield .star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 50%;
+  opacity: 0;
+  animation: twinkle linear infinite;
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0; transform: scale(0.8); }
+  50% { opacity: 0.8; transform: scale(1.1); }
+}
+
+/* ОРНАМЕНТАЛЬНАЯ ЛИНИЯ — движется по краям карточки при наведении */
+.ornament-line {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  animation: slideLineLR 4s linear infinite;
+}
+@keyframes slideLineLR {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* АНИМАЦИЯ ВХОДА для элементов списка */
+.anim-in {
+  animation: fadeUp .5s ease backwards;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.anim-in-delay-1 { animation-delay: .06s; }
+.anim-in-delay-2 { animation-delay: .12s; }
+.anim-in-delay-3 { animation-delay: .18s; }
+.anim-in-delay-4 { animation-delay: .24s; }
+.anim-in-delay-5 { animation-delay: .30s; }
+.anim-in-delay-6 { animation-delay: .36s; }
+
+/* МЕРЦАНИЕ АКЦЕНТА — для кнопки действия */
+.pulse-accent {
+  animation: pulseAccent 2.2s ease-in-out infinite;
+}
+@keyframes pulseAccent {
+  0%, 100% { box-shadow: 0 0 0 0 var(--accent-ring); }
+  50% { box-shadow: 0 0 0 10px transparent; }
+}
+
+/* АРАБСКАЯ КАЛЛИГРАФИЯ ПОЯВЛЕНИЕ */
+.verse-reveal {
+  animation: verseReveal .8s ease;
+}
+@keyframes verseReveal {
+  from {
+    opacity: 0;
+    filter: blur(6px);
+    letter-spacing: 0.3em;
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    letter-spacing: 0;
+  }
+}
+
+/* ВОЛНА ПРИ НАЖАТИИ НА КНОПКУ */
+.btn-primary, .btn {
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary::after, .btn::after {
+  content: "";
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 0; height: 0;
+  background: rgba(255,255,255,0.4);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width .4s ease, height .4s ease;
+  pointer-events: none;
+}
+.btn-primary:active::after, .btn:active::after {
+  width: 300px; height: 300px;
+  transition: 0s;
+}
+
+/* ОРНАМЕНТАЛЬНЫЙ УГОЛ — вращается */
+.spinning-ornament {
+  width: 40px;
+  height: 40px;
+  background-image: radial-gradient(circle, var(--accent) 30%, transparent 30%);
+  background-size: 8px 8px;
+  opacity: 0.3;
+  animation: rotateSlow 40s linear infinite;
+}
+@keyframes rotateSlow { to { transform: rotate(360deg); } }
+
+/* ДЫХАНИЕ для БАДЖА */
+.breathe {
+  animation: breathe 3s ease-in-out infinite;
+}
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+
+/* ПЛАВНОЕ РАСКРЫТИЕ ДНЯ */
+.day-block {
+  animation: dayFadeIn .5s ease backwards;
+}
+@keyframes dayFadeIn {
+  from { opacity: 0; transform: translateY(8px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* АНИМИРОВАННАЯ ЛЕНТА в шапке дня */
+.day-header {
+  position: relative;
+  overflow: hidden;
+}
+.day-header::before {
+  content: "";
+  position: absolute;
+  top: 0; left: -40%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  animation: shimmer 6s ease-in-out infinite;
+}
+@keyframes shimmer {
+  0% { left: -40%; }
+  100% { left: 120%; }
+}
+
+/* ПРОБЕГАЮЩАЯ ЛИНИЯ ПОД ЗАГОЛОВКОМ */
+.underline-anim {
+  display: inline-block;
+  position: relative;
+}
+.underline-anim::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  bottom: -4px;
+  height: 2px;
+  background: var(--gradient-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: drawLine .9s ease .2s forwards;
+}
+@keyframes drawLine {
+  to { transform: scaleX(1); }
+}
+
+/* ПУТЬ ТОЧКИ по кругу (на стат-карточке) */
+.orbit-dot {
+  position: absolute;
+  width: 6px; height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: orbit 12s linear infinite;
+  box-shadow: 0 0 10px var(--accent);
+}
+@keyframes orbit {
+  0%   { transform: rotate(0deg) translateX(40px) rotate(0deg); }
+  100% { transform: rotate(360deg) translateX(40px) rotate(-360deg); }
+}
+
+/* ANIMATED GRADIENT FOR HERO */
+.hero-gradient {
+  background: linear-gradient(-45deg, var(--accent), var(--accent-strong), var(--surface-3), var(--accent));
+  background-size: 400% 400%;
+  animation: gradientShift 14s ease infinite;
+  color: var(--on-accent);
+}
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* DOT LOADER */
+.dot-loader { display: inline-flex; gap: 4px; }
+.dot-loader span {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: dotBounce 1.2s ease-in-out infinite;
+}
+.dot-loader span:nth-child(2) { animation-delay: .15s; }
+.dot-loader span:nth-child(3) { animation-delay: .3s; }
+@keyframes dotBounce {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+  40% { transform: scale(1.2); opacity: 1; }
+}
+
+/* SLIDE IN SIDE */
+.slide-right {
+  animation: slideRight .4s ease;
+}
+@keyframes slideRight {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* HOVER LIFT */
+.hover-lift { transition: transform .2s ease, box-shadow .2s ease; }
+.hover-lift:hover { transform: translateY(-4px); box-shadow: 0 14px 32px rgba(0,0,0,0.14); }
+
+/* GLOW TEXT (арабский) */
+.glow-text {
+  text-shadow: 0 0 16px var(--accent-ring);
+}
+
+/* SHINE ACROSS (по кнопке) */
+.shine {
+  position: relative;
+  overflow: hidden;
+}
+.shine::before {
+  content: "";
+  position: absolute;
+  top: 0; left: -80%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent 20%, rgba(255,255,255,0.5) 50%, transparent 80%);
+  transform: skewX(-20deg);
+  transition: left .5s ease;
+}
+.shine:hover::before { left: 130%; }
+
+/* REDUCED MOTION */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
+/* css/print.css */
+/* print.css — стиль для PDF через window.print() + A4 */
+
+/* A4: поля через padding внутри .print-wrap, не через @page margin,
+   чтобы фон темы заливал всю страницу включая поля. */
+@page {
+  size: A4 portrait;
+  margin: 12mm 10mm 14mm;
+}
+
+/* v7: пресет A5 */
+@page A5preset {
+  size: A5 portrait;
+  margin: 8mm 7mm 10mm;
+}
+@page A5landscape {
+  size: A5 landscape;
+  margin: 6mm;
+}
+
+@media print {
+  /* ===== A5 пресет ===== */
+  body[data-print-size="A5"] {
+    page: A5preset;
+  }
+  body[data-print-size="A5-landscape"] {
+    page: A5landscape;
+  }
+  body[data-print-size="A5"] .print-wrap,
+  body[data-print-size="A5"] .plan-root.print-wrap,
+  body[data-print-size="A5"] .certificate-root.print-wrap {
+    padding: 0 !important;
+    font-size: 0.82rem !important;
+  }
+  body[data-print-size="A5"] .hero-gradient { padding: 5mm 6mm !important; }
+  body[data-print-size="A5"] .card { padding: 3mm 4mm !important; margin-bottom: 3mm !important; }
+
+  /* ===== Базовый сброс ===== */
+  html, body {
+    width: auto;
+    height: auto;
+    margin: 0 !important;
+    padding: 0 !important;
+    background-attachment: scroll !important;
+    background: var(--bg, #fff) !important;
+    color: var(--text, #111) !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    font-size: 10pt;
+    line-height: 1.5;
+  }
+
+  /* Скрываем UI-хром */
+  .sidebar, .topbar, .mobile-menu-btn, .toast-host, .modal-backdrop,
+  .bottom-tabs, .icon-btn, .export-bar, .rp-toolbar,
+  .counter, .dot, [data-no-print],
+  .nav-hub, .cmd-palette, .scroll-top-btn { display: none !important; }
+
+  button:not(.export-safe) { display: none !important; }
+
+  .view { padding: 0 !important; }
+  .app-shell { display: block !important; grid-template-columns: none !important; }
+  .main-content { display: block !important; padding: 0 !important; margin: 0 !important; }
+  .bg-lines, .starfield { display: none !important; }
+
+  /* ===== Корневые обёртки ===== */
+  /* min-height убран — он создавал пустую страницу в конце! */
+  .print-wrap,
+  .plan-root.print-wrap,
+  .certificate-root.print-wrap {
+    background: var(--bg, #fff) !important;
+    color: var(--text, #111) !important;
+    font-size: calc(10pt * var(--print-font-scale, 1)) !important;
+    line-height: calc(1.5 * var(--print-font-scale, 1)) !important;
+    padding: 0 !important;   /* поля даёт @page margin */
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+    display: block !important;
+  }
+
+  /* ===== Разбивка страниц ===== */
+  /* Не разрываем крупные блоки посередине */
+  .hero-gradient,
+  .verse-block,
+  .card,
+  .section-block,
+  .formula-block,
+  .day-block {
+    page-break-inside: avoid;
+    break-inside: avoid;
+    box-shadow: none !important;
+    outline: none !important;
+  }
+
+  /* Заключение: одна высокая .card после шапки — иначе avoid переносит всю карточку на стр. 2 */
+  .certificate-root.print-wrap > .card:not(.hero-gradient) {
+    page-break-inside: auto !important;
+    break-inside: auto !important;
+  }
+
+  /* Перед новым днём / разделом можно начинать страницу */
+  .day-block + .day-block { page-break-before: auto; }
+
+  /* Вдовы и сироты */
+  p { orphans: 3; widows: 3; }
+
+  h1, h2, h3, h4 {
+    page-break-after: avoid;
+    break-after: avoid;
+    orphans: 4;
+    widows: 4;
+  }
+
+  /* ===== Компактный ритм ===== */
+  .hero-gradient { padding: 6mm 8mm !important; margin-bottom: 5mm !important; }
+  .card { margin-bottom: 4mm !important; padding: 4mm 6mm !important; }
+  .formula-block { margin-bottom: 3mm !important; padding: 3mm 5mm !important; }
+  .day-block { margin-bottom: 5mm !important; }
+  .section-block { margin-bottom: 5mm !important; }
+  .ornament-divider { margin: 4mm 0 !important; }
+
+  /* ===== Фиксация цветов ===== */
+  html, body, .plan-root, .certificate-root, .print-wrap {
+    background-color: var(--bg, #fff) !important;
+    color: var(--text, #111) !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .card, .formula-block {
+    background-color: var(--surface, #f8f6f2) !important;
+  }
+  .hero-gradient {
+    background: var(--accent, #a38a4a) !important;
+    color: #fff !important;
+  }
+  .hero-gradient * { color: #fff !important; }
+
+  a { color: inherit !important; text-decoration: none !important; }
+
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* Chips и статусы */
+  .chip, .chip-status {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Коллапс — в печати всегда раскрыт */
+  .plan-section-body,
+  .day-body,
+  .card-body { display: block !important; max-height: none !important; overflow: visible !important; }
+  .collapse-toggle { display: none !important; }
+
+  /* Футер плана */
+  .plan-root .footer,
+  .certificate-root .footer {
+    text-align: center;
+    color: var(--text-soft, #888);
+    font-size: 8pt;
+    border-top: 1px solid var(--border, #ddd);
+    padding-top: 4mm;
+    margin-top: 8mm;
+    page-break-inside: avoid;
+  }
+
+  /* Арабский текст */
+  .arabic { font-size: 14pt !important; line-height: 2 !important; }
+}
+
+/* v8: Minimal print template.
+   Атрибут data-print-template выставляется и на <html>, и на <body>
+   (см. exporter.js → previewPDF), но в селекторах используем только body[...]
+   — descendant-комбинатор корректно находит все .hero-gradient/.card внутри. */
+@media print {
+  body[data-print-template="minimal"] .hero-gradient {
+    background: #fff !important;
+    color: #000 !important;
+    border-bottom: 2px solid #000 !important;
+    padding: 5mm !important;
+  }
+  body[data-print-template="minimal"] .card::before,
+  body[data-print-template="minimal"] .card::after {
+    display: none !important;
+  }
+  body[data-print-template="minimal"] .card {
+    background: #fff !important;
+    color: #000 !important;
+    border: 1px solid #aaa !important;
+    box-shadow: none !important;
+  }
+  body[data-print-template="minimal"] .chip,
+  body[data-print-template="minimal"] .chip-status {
+    background: #fff !important;
+    color: #000 !important;
+    border: 1px solid #888 !important;
+  }
+  body[data-print-template="minimal"] {
+    font-family: 'Times New Roman', 'DejaVu Serif', serif !important;
+  }
+  body[data-print-template="minimal"] .hero-gradient * { color: #000 !important; }
+}
+
+/* ===== Экранный body.exporting — скрываем хром при захвате PNG ===== */
+html:has(body.exporting) {
+  background: var(--bg) !important;
+  background-attachment: scroll !important;
+}
+body.exporting {
+  background: var(--bg) !important;
+  background-attachment: scroll !important;
+}
+body.exporting .sidebar,
+body.exporting .topbar,
+body.exporting .mobile-menu-btn,
+body.exporting .toast-host,
+body.exporting .modal-backdrop,
+body.exporting .bottom-tabs,
+body.exporting .bg-lines,
+body.exporting .starfield,
+body.exporting .nav-hub,
+body.exporting .scroll-top-btn { display: none !important; }
+body.exporting .app-shell { display: block !important; }
+body.exporting .main-content { padding: 0 !important; }
+body.exporting .view { padding: 0 !important; }
+/* В режиме экспорта раскрываем коллапсы */
+body.exporting .plan-section-body,
+body.exporting .day-body { display: block !important; max-height: none !important; }
+
+/* --- standalone controls --- */
+
+.rp-toolbar{position:sticky;top:0;z-index:100;display:flex;gap:8px;align-items:center;padding:10px 16px;background:var(--surface);border-bottom:1px solid var(--border);backdrop-filter:blur(8px)}
+.rp-toolbar button{padding:8px 14px;border:1px solid var(--border);background:var(--surface-2);color:var(--text);border-radius:10px;cursor:pointer;font:inherit}
+.rp-toolbar button:hover{background:var(--primary-soft);border-color:var(--primary)}
+.rp-toolbar .sp{flex:1}
+.rp-toolbar .ttl{font-weight:700;color:var(--text-strong)}
+.healer-head{display:flex;gap:14px;align-items:center;padding:12px 16px;border-bottom:1px solid var(--border);background:var(--surface)}
+.healer-head img{max-height:52px;border-radius:8px}
+.healer-foot{padding:14px 16px;border-top:1px solid var(--border);margin-top:24px;color:var(--text-soft);font-size:.85rem;display:flex;justify-content:space-between;align-items:flex-end;gap:14px;flex-wrap:wrap}
+.healer-foot .sign img{max-height:70px;display:block}
+@media print{ .rp-toolbar{display:none !important} }
+html{font-size:var(--rp-fs, 16px)}
+</style>
+</head><body data-theme="night" data-density="compact" data-blocksize="sm" class="font-scale-2">
+<div class="bg-lines"></div>
+<div class="rp-toolbar no-print">
+  <span class="ttl">Зулета Аслановна · 20.04.2026</span>
+  <span class="sp"></span>
+  <button type="button" onclick="document.documentElement.style.setProperty('--rp-fs',(parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--rp-fs'))||16)-1+'px')" title="Уменьшить">A−</button>
+  <button type="button" onclick="document.documentElement.style.setProperty('--rp-fs',(parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--rp-fs'))||16)+1+'px')" title="Увеличить">A+</button>
+  <button type="button" onclick="window.print()" title="Сохранить как PDF (Ctrl+P)">📄 PDF</button>
+</div>
+
+<div class="container" style="padding:20px 16px"><div class="plan-root print-wrap" data-mode="doctor" data-for-print="0">
+        
+      <div class="card hero-gradient" style="color:var(--on-accent);border:0">
+        <div style="font-family:'Amiri',serif;font-size:2rem;text-align:center;margin-bottom:8px">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+        <h1 style="color:#fff;text-align:center;margin:8px 0">План исцеления</h1>
+        <div style="text-align:center;opacity:.9">Абу Мухаммад · 20.04.2026 · без привязки ко дням</div>
+      </div>
+      <div class="card anim-in anim-in-delay-1">
+        <div class="card-title">Пациент</div>
+        <div class="chips">
+          <span class="chip primary">Зулета Аслановна</span>
+          <span class="chip">35 лет</span>
+          <span class="chip">female</span>
+          
+        </div>
+        <p style="margin-top:10px">Бисмилляхи, сестра Зулета Аслановна. Да облегчит Аллах твою тяжесть и дарует исцеление.</p>
+        <p class="muted">Мы пойдём шаг за шагом — сначала разорвём узлы, потом поставим защиту. Знай: джинн — творение Аллаха, и перед Его именем он беспомощен.</p>
+      </div>
+      <div class="verse-block anim-in anim-in-delay-2 verse-reveal">
+        <div class="arabic">وَإِذَا مَرِضْتُ فَهُوَ يَشْفِينِ</div>
+        <div class="transcription">Ва иза маридту фа хува яшфийн</div>
+        <div class="translation">«И когда я болею, Он меня исцеляет»</div>
+        <span class="ref">аш-Шуара 26:80</span>
+      </div>
+      <div class="card anim-in anim-in-delay-3">
+        <div class="card-title">Диагноз</div>
+        <div class="chips">
+          <span class="chip primary">Сихр узлов</span><span class="chip primary">Сихр разлада</span><span class="chip primary">Масс — касание джинна</span>
+          <span class="chip">голова</span><span class="chip">грудь</span><span class="chip">руки</span><span class="chip">ноги</span><span class="chip">живот</span>
+          <span class="chip">джинн · marid</span>
+          
+          <span class="chip">дом затронут</span>
+          <span class="chip">тяжесть 4/5</span>
+          <span class="chip warning">Приоритет: разрыв связи сихр-джинн</span>
+        </div>
+        <p class="muted" style="font-size:.88rem;margin-top:8px">Подход: Сначала аяты → затем рукья · давление</p>
+        <p class="muted" style="font-size:.85rem;margin-top:6px">Заметки: Уточнить: найдены ли подклады/узлы конкретно? Реакция на суру Аль-Фатиха и Аль-Бакара? Кто конкретный человек после развода?</p>
+      </div>
+      <div class="card anim-in anim-in-delay-4">
+        <div class="card-title">⚡ Важнейшее наставление — Вера и внутреннее видение</div>
+        <p>Заклинание — это не магическая формула, работающая сама по себе. Это обращение к Аллаху, Который Один обладает силой исцелять.</p>
+        <p>Перед чтением утверди в сердце: <b>«Аллах слышит меня. Аллах могущественен над этим недугом. Аллах сильнее любого врага.»</b></p>
+        <p>Во время чтения — <b>ВИДЬ</b> то, что произносишь: как колдовство рассыпается в прах, как сглаз вытягивается тёмным облаком наружу, как вокруг тебя формируется крепость света.</p>
+      </div>
+        
+      <div class="section-block collapsible">
+        <div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')" role="button" aria-expanded="true" tabindex="0">
+          <span style="font-size:1.3rem">🌟</span>
+          <h3>Чистка и разрушение</h3>
+          <span style="margin-left:auto;display:flex;align-items:center;gap:8px;font-size:.9rem;opacity:.85">
+            <span>33 формул</span>
+            <span class="collapse-toggle" aria-hidden="true">▾</span>
+          </span>
+        </div>
+        <div class="plan-section-body">
+          
+      <div class="formula-block anim-in anim-in-delay-1" data-id="f-hj7tfw35">
+        <div class="purpose">Прицельная рукья · тело</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي هُوَ نُورُ السَّمَاوَاتِ وَالْأَرْضِ أَرْقِي جَسَدِي مِنْ سِحْرِ الْعُقَدِ لِيَبْطُلَ وَيَتَلَاشَى</div>
+        <div class="transcription">Бисмилляхи-ллязи хува нурус-самавати валь-ард, аркий джасадий мин сихриль-'укад ли-йабтуля ва йаталяша</div>
+        <div class="translation">«С именем Аллаха, Который Свет небес и земли, заклинаю своё тело от Сихр узлов — чтобы стало недействительным и исчезло»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Тугие узлы в груди с треском разрываются и исчезают волокно за волокном</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">В сердце → вслух</span>
+          <span class="chip">✊ Давление + выщипывание</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-2" data-id="f-gepxixae">
+        <div class="purpose">Прицельная рукья · голова</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي فَالِقُ الْإِصْبَاحِ أَرْقِي رَأْسِي مِنْ سِحْرِ الْعُقَدِ لِيَنْفَلِقَ وَيَتَمَزَّقَ</div>
+        <div class="transcription">Бисмилляхи-ллязи фаликуль-исбах, аркий ра'сий мин сихриль-'укад ли-йанфалика ва йатамаззак</div>
+        <div class="translation">«С именем Аллаха, Который Расщепляющий рассвет, заклинаю свою голову от Сихр узлов — чтобы расщепилось и разорвалось»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Тугие узлы в груди с треском разрываются и исчезают волокно за волокном</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">В сердце → вслух</span>
+          <span class="chip">✊ Давление + выщипывание</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-3" data-id="f-cctdiy0e">
+        <div class="purpose">Прицельная рукья · голова</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي فَالِقُ الْإِصْبَاحِ أَرْقِي رَأْسِي مِنْ سِحْرِ الْعُقَدِ لِيَنْفَلِقَ وَيَتَمَزَّقَ</div>
+        <div class="transcription">Бисмилляхи-ллязи фаликуль-исбах, аркий ра'сий мин сихриль-'укад ли-йанфалика ва йатамаззак</div>
+        <div class="translation">«С именем Аллаха, Который Расщепляющий рассвет, заклинаю свою голову от Сихр узлов — чтобы расщепилось и разорвалось»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Тугие узлы в груди с треском разрываются и исчезают волокно за волокном</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">В сердце → вслух</span>
+          <span class="chip">✊ Давление + выщипывание</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-4" data-id="f-wc8asd13">
+        <div class="purpose">Прицельная рукья · грудь</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي فَالِقُ الْإِصْبَاحِ أَرْقِي صَدْرِي مِنْ سِحْرِ الْعُقَدِ لِيَنْفَلِقَ وَيَتَمَزَّقَ</div>
+        <div class="transcription">Бисмилляхи-ллязи фаликуль-исбах, аркий садрий мин сихриль-'укад ли-йанфалика ва йатамаззак</div>
+        <div class="translation">«С именем Аллаха, Который Расщепляющий рассвет, заклинаю свою грудь от Сихр узлов — чтобы расщепилось и разорвалось»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Тугие узлы в груди с треском разрываются и исчезают волокно за волокном</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">В сердце → вслух</span>
+          <span class="chip">✊ Давление + выщипывание</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-5" data-id="f-523uxlvj">
+        <div class="purpose">Прицельная рукья · грудь</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي فَالِقُ الْإِصْبَاحِ أَرْقِي صَدْرِي مِنْ سِحْرِ الْعُقَدِ لِيَنْفَلِقَ وَيَتَمَزَّقَ</div>
+        <div class="transcription">Бисмилляхи-ллязи фаликуль-исбах, аркий садрий мин сихриль-'укад ли-йанфалика ва йатамаззак</div>
+        <div class="translation">«С именем Аллаха, Который Расщепляющий рассвет, заклинаю свою грудь от Сихр узлов — чтобы расщепилось и разорвалось»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Тугие узлы в груди с треском разрываются и исчезают волокно за волокном</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">В сердце → вслух</span>
+          <span class="chip">✊ Давление + выщипывание</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-6" data-id="f-0od127n7">
+        <div class="purpose">Прицельная рукья · руки</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي فَالِقُ الْإِصْبَاحِ أَرْقِي يَدَيَّ مِنْ سِحْرِ الْعُقَدِ لِيَنْفَلِقَ وَيَتَمَزَّقَ</div>
+        <div class="transcription">Бисмилляхи-ллязи фаликуль-исбах, аркий ядай мин сихриль-'укад ли-йанфалика ва йатамаззак</div>
+        <div class="translation">«С именем Аллаха, Который Расщепляющий рассвет, заклинаю свои руки от Сихр узлов — чтобы расщепилось и разорвалось»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Тугие узлы в груди с треском разрываются и исчезают волокно за волокном</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">В сердце → вслух</span>
+          <span class="chip">✊ Давление + выщипывание</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-1" data-id="f-1dj36hm5">
+        <div class="purpose">Прицельная рукья · руки</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي فَالِقُ الْإِصْبَاحِ أَرْقِي يَدَيَّ مِنْ سِحْرِ الْعُقَدِ لِيَنْفَلِقَ وَيَتَمَزَّقَ</div>
+        <div class="transcription">Бисмилляхи-ллязи фаликуль-исбах, аркий ядай мин сихриль-'укад ли-йанфалика ва йатамаззак</div>
+        <div class="translation">«С именем Аллаха, Который Расщепляющий рассвет, заклинаю свои руки от Сихр узлов — чтобы расщепилось и разорвалось»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Тугие узлы в груди с треском разрываются и исчезают волокно за волокном</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">В сердце → вслух</span>
+          <span class="chip">✊ Давление + выщипывание</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-2" data-id="f-lxaz1ipw">
+        <div class="purpose">Прицельная рукья · ноги</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي فَالِقُ الْإِصْبَاحِ أَرْقِي رِجْلَيَّ مِنْ سِحْرِ الْعُقَدِ لِيَنْفَلِقَ وَيَتَمَزَّقَ</div>
+        <div class="transcription">Бисмилляхи-ллязи фаликуль-исбах, аркий риджляй мин сихриль-'укад ли-йанфалика ва йатамаззак</div>
+        <div class="translation">«С именем Аллаха, Который Расщепляющий рассвет, заклинаю свои ноги от Сихр узлов — чтобы расщепилось и разорвалось»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Тугие узлы в груди с треском разрываются и исчезают волокно за волокном</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">В сердце → вслух</span>
+          <span class="chip">✊ Давление + выщипывание</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-3" data-id="f-ydhgqndo">
+        <div class="purpose">Прицельная рукья · ноги</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي فَالِقُ الْإِصْبَاحِ أَرْقِي رِجْلَيَّ مِنْ سِحْرِ الْعُقَدِ لِيَنْفَلِقَ وَيَتَمَزَّقَ</div>
+        <div class="transcription">Бисмилляхи-ллязи фаликуль-исбах, аркий риджляй мин сихриль-'укад ли-йанфалика ва йатамаззак</div>
+        <div class="translation">«С именем Аллаха, Который Расщепляющий рассвет, заклинаю свои ноги от Сихр узлов — чтобы расщепилось и разорвалось»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Тугие узлы в груди с треском разрываются и исчезают волокно за волокном</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">В сердце → вслух</span>
+          <span class="chip">✊ Давление + выщипывание</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-4" data-id="f-aca6d43c">
+        <div class="purpose">Прицельная рукья · голова</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي لَهُ مُلْكُ السَّمَاوَاتِ وَالْأَرْضِ أَرْقِي رَأْسِي مِنْ مَسِّ الْجِنِّ لِيَخْرُجَ وَلَا يَعُودَ</div>
+        <div class="transcription">Бисмилляхи-ллязи ляху мульку-с-самавати валь-ард, аркий ра'сий мин массиль-джинн ли-йахруджа ва ля йа'уд</div>
+        <div class="translation">«С именем Аллаха, Который Его власть над небесами и землёй, заклинаю свою голову от Масс — касание джинна — чтобы вышел и не возвращался»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Тёмная тень, прикрепившаяся к телу, отрывается, кричит и вытягивается наружу, не имея возможности вернуться</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">В сердце → вслух</span>
+          <span class="chip">✊ Давление + выщипывание</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-5" data-id="f-a9ivbtdj">
+        <div class="purpose">Прицельная рукья · голова</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي لَهُ مُلْكُ السَّمَاوَاتِ وَالْأَرْضِ أَرْقِي رَأْسِي مِنْ مَسِّ الْجِنِّ لِيَخْرُجَ وَلَا يَعُودَ</div>
+        <div class="transcription">Бисмилляхи-ллязи ляху мульку-с-самавати валь-ард, аркий ра'сий мин массиль-джинн ли-йахруджа ва ля йа'уд</div>
+        <div class="translation">«С именем Аллаха, Который Его власть над небесами и землёй, заклинаю свою голову от Масс — касание джинна — чтобы вышел и не возвращался»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Тёмная тень, прикрепившаяся к телу, отрывается, кричит и вытягивается наружу, не имея возможности вернуться</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">В сердце → вслух</span>
+          <span class="chip">✊ Давление + выщипывание</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-6" data-id="f-5jsiru50">
+        <div class="purpose">Прицельная рукья · грудь</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي لَهُ مُلْكُ السَّمَاوَاتِ وَالْأَرْضِ أَرْقِي صَدْرِي مِنْ مَسِّ الْجِنِّ لِيَخْرُجَ وَلَا يَعُودَ</div>
+        <div class="transcription">Бисмилляхи-ллязи ляху мульку-с-самавати валь-ард, аркий садрий мин массиль-джинн ли-йахруджа ва ля йа'уд</div>
+        <div class="translation">«С именем Аллаха, Который Его власть над небесами и землёй, заклинаю свою грудь от Масс — касание джинна — чтобы вышел и не возвращался»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Тёмная тень, прикрепившаяся к телу, отрывается, кричит и вытягивается наружу, не имея возможности вернуться</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">В сердце → вслух</span>
+          <span class="chip">✊ Давление + выщипывание</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-1" data-id="f-ncv4bkir">
+        <div class="purpose">Прицельная рукья · грудь</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي لَهُ مُلْكُ السَّمَاوَاتِ وَالْأَرْضِ أَرْقِي صَدْرِي مِنْ مَسِّ الْجِنِّ لِيَخْرُجَ وَلَا يَعُودَ</div>
+        <div class="transcription">Бисмилляхи-ллязи ляху мульку-с-самавати валь-ард, аркий садрий мин массиль-джинн ли-йахруджа ва ля йа'уд</div>
+        <div class="translation">«С именем Аллаха, Который Его власть над небесами и землёй, заклинаю свою грудь от Масс — касание джинна — чтобы вышел и не возвращался»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Тёмная тень, прикрепившаяся к телу, отрывается, кричит и вытягивается наружу, не имея возможности вернуться</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">В сердце → вслух</span>
+          <span class="chip">✊ Давление + выщипывание</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-2" data-id="f-r7euvonp">
+        <div class="purpose">Прицельная рукья · руки</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي لَهُ مُلْكُ السَّمَاوَاتِ وَالْأَرْضِ أَرْقِي يَدَيَّ مِنْ مَسِّ الْجِنِّ لِيَخْرُجَ وَلَا يَعُودَ</div>
+        <div class="transcription">Бисмилляхи-ллязи ляху мульку-с-самавати валь-ард, аркий ядай мин массиль-джинн ли-йахруджа ва ля йа'уд</div>
+        <div class="translation">«С именем Аллаха, Который Его власть над небесами и землёй, заклинаю свои руки от Масс — касание джинна — чтобы вышел и не возвращался»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Тёмная тень, прикрепившаяся к телу, отрывается, кричит и вытягивается наружу, не имея возможности вернуться</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">В сердце → вслух</span>
+          <span class="chip">✊ Давление + выщипывание</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-3" data-id="f-wqg6b2gx">
+        <div class="purpose">Прицельная рукья · руки</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي لَهُ مُلْكُ السَّمَاوَاتِ وَالْأَرْضِ أَرْقِي يَدَيَّ مِنْ مَسِّ الْجِنِّ لِيَخْرُجَ وَلَا يَعُودَ</div>
+        <div class="transcription">Бисмилляхи-ллязи ляху мульку-с-самавати валь-ард, аркий ядай мин массиль-джинн ли-йахруджа ва ля йа'уд</div>
+        <div class="translation">«С именем Аллаха, Который Его власть над небесами и землёй, заклинаю свои руки от Масс — касание джинна — чтобы вышел и не возвращался»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Тёмная тень, прикрепившаяся к телу, отрывается, кричит и вытягивается наружу, не имея возможности вернуться</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">В сердце → вслух</span>
+          <span class="chip">✊ Давление + выщипывание</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-4" data-id="f-40rs7oe8">
+        <div class="purpose">Прицельная рукья · ноги</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي لَهُ مُلْكُ السَّمَاوَاتِ وَالْأَرْضِ أَرْقِي رِجْلَيَّ مِنْ مَسِّ الْجِنِّ لِيَخْرُجَ وَلَا يَعُودَ</div>
+        <div class="transcription">Бисмилляхи-ллязи ляху мульку-с-самавати валь-ард, аркий риджляй мин массиль-джинн ли-йахруджа ва ля йа'уд</div>
+        <div class="translation">«С именем Аллаха, Который Его власть над небесами и землёй, заклинаю свои ноги от Масс — касание джинна — чтобы вышел и не возвращался»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Тёмная тень, прикрепившаяся к телу, отрывается, кричит и вытягивается наружу, не имея возможности вернуться</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">В сердце → вслух</span>
+          <span class="chip">✊ Давление + выщипывание</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-5" data-id="f-1ja1fnim">
+        <div class="purpose">Прицельная рукья · ноги</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي لَهُ مُلْكُ السَّمَاوَاتِ وَالْأَرْضِ أَرْقِي رِجْلَيَّ مِنْ مَسِّ الْجِنِّ لِيَخْرُجَ وَلَا يَعُودَ</div>
+        <div class="transcription">Бисмилляхи-ллязи ляху мульку-с-самавати валь-ард, аркий риджляй мин массиль-джинн ли-йахруджа ва ля йа'уд</div>
+        <div class="translation">«С именем Аллаха, Который Его власть над небесами и землёй, заклинаю свои ноги от Масс — касание джинна — чтобы вышел и не возвращался»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Тёмная тень, прикрепившаяся к телу, отрывается, кричит и вытягивается наружу, не имея возможности вернуться</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">В сердце → вслух</span>
+          <span class="chip">✊ Давление + выщипывание</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-6" data-id="f-9axmvwi7">
+        <div class="purpose">Прицельная рукья · голова</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي هُوَ الْحَيُّ الْقَيُّومُ أَرْقِي رَأْسِي مِنْ مَسِّ الْجِنِّ لِيَخْرُجَ وَلَا يَعُودَ</div>
+        <div class="transcription">Бисмилляхи-ллязи хуваль-Хаййуль-Каййум, аркий ра'сий мин массиль-джинн ли-йахруджа ва ля йа'уд</div>
+        <div class="translation">«С именем Аллаха, Который Живой, Вечносущий, заклинаю свою голову от Масс — касание джинна — чтобы вышел и не возвращался»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Тёмная тень, прикрепившаяся к телу, отрывается, кричит и вытягивается наружу, не имея возможности вернуться</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">В сердце → вслух</span>
+          <span class="chip">✊ Давление + выщипывание</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-1" data-id="f-pf9ndhl8">
+        <div class="purpose">Прицельная рукья · голова</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي هُوَ الْحَيُّ الْقَيُّومُ أَرْقِي رَأْسِي مِنْ مَسِّ الْجِنِّ لِيَخْرُجَ وَلَا يَعُودَ</div>
+        <div class="transcription">Бисмилляхи-ллязи хуваль-Хаййуль-Каййум, аркий ра'сий мин массиль-джинн ли-йахруджа ва ля йа'уд</div>
+        <div class="translation">«С именем Аллаха, Который Живой, Вечносущий, заклинаю свою голову от Масс — касание джинна — чтобы вышел и не возвращался»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Тёмная тень, прикрепившаяся к телу, отрывается, кричит и вытягивается наружу, не имея возможности вернуться</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">В сердце → вслух</span>
+          <span class="chip">✊ Давление + выщипывание</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-2" data-id="f-6tqaqunw">
+        <div class="purpose">Прицельная рукья · грудь</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي هُوَ الْحَيُّ الْقَيُّومُ أَرْقِي صَدْرِي مِنْ مَسِّ الْجِنِّ لِيَخْرُجَ وَلَا يَعُودَ</div>
+        <div class="transcription">Бисмилляхи-ллязи хуваль-Хаййуль-Каййум, аркий садрий мин массиль-джинн ли-йахруджа ва ля йа'уд</div>
+        <div class="translation">«С именем Аллаха, Который Живой, Вечносущий, заклинаю свою грудь от Масс — касание джинна — чтобы вышел и не возвращался»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Тёмная тень, прикрепившаяся к телу, отрывается, кричит и вытягивается наружу, не имея возможности вернуться</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">В сердце → вслух</span>
+          <span class="chip">✊ Давление + выщипывание</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-3" data-id="f-pfxj3hox">
+        <div class="purpose">Прицельная рукья · грудь</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي هُوَ الْحَيُّ الْقَيُّومُ أَرْقِي صَدْرِي مِنْ مَسِّ الْجِنِّ لِيَخْرُجَ وَلَا يَعُودَ</div>
+        <div class="transcription">Бисмилляхи-ллязи хуваль-Хаййуль-Каййум, аркий садрий мин массиль-джинн ли-йахруджа ва ля йа'уд</div>
+        <div class="translation">«С именем Аллаха, Который Живой, Вечносущий, заклинаю свою грудь от Масс — касание джинна — чтобы вышел и не возвращался»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Тёмная тень, прикрепившаяся к телу, отрывается, кричит и вытягивается наружу, не имея возможности вернуться</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">В сердце → вслух</span>
+          <span class="chip">✊ Давление + выщипывание</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-4" data-id="f-sdabp81t">
+        <div class="purpose">Прицельная рукья · руки</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي هُوَ الْحَيُّ الْقَيُّومُ أَرْقِي يَدَيَّ مِنْ مَسِّ الْجِنِّ لِيَخْرُجَ وَلَا يَعُودَ</div>
+        <div class="transcription">Бисмилляхи-ллязи хуваль-Хаййуль-Каййум, аркий ядай мин массиль-джинн ли-йахруджа ва ля йа'уд</div>
+        <div class="translation">«С именем Аллаха, Который Живой, Вечносущий, заклинаю свои руки от Масс — касание джинна — чтобы вышел и не возвращался»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Тёмная тень, прикрепившаяся к телу, отрывается, кричит и вытягивается наружу, не имея возможности вернуться</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">В сердце → вслух</span>
+          <span class="chip">✊ Давление + выщипывание</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-5" data-id="f-w57b11n4">
+        <div class="purpose">Прицельная рукья · руки</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي هُوَ الْحَيُّ الْقَيُّومُ أَرْقِي يَدَيَّ مِنْ مَسِّ الْجِنِّ لِيَخْرُجَ وَلَا يَعُودَ</div>
+        <div class="transcription">Бисмилляхи-ллязи хуваль-Хаййуль-Каййум, аркий ядай мин массиль-джинн ли-йахруджа ва ля йа'уд</div>
+        <div class="translation">«С именем Аллаха, Который Живой, Вечносущий, заклинаю свои руки от Масс — касание джинна — чтобы вышел и не возвращался»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Тёмная тень, прикрепившаяся к телу, отрывается, кричит и вытягивается наружу, не имея возможности вернуться</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">В сердце → вслух</span>
+          <span class="chip">✊ Давление + выщипывание</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-6" data-id="f-32r0aete">
+        <div class="purpose">Прицельная рукья · ноги</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي هُوَ الْحَيُّ الْقَيُّومُ أَرْقِي رِجْلَيَّ مِنْ مَسِّ الْجِنِّ لِيَخْرُجَ وَلَا يَعُودَ</div>
+        <div class="transcription">Бисмилляхи-ллязи хуваль-Хаййуль-Каййум, аркий риджляй мин массиль-джинн ли-йахруджа ва ля йа'уд</div>
+        <div class="translation">«С именем Аллаха, Который Живой, Вечносущий, заклинаю свои ноги от Масс — касание джинна — чтобы вышел и не возвращался»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Тёмная тень, прикрепившаяся к телу, отрывается, кричит и вытягивается наружу, не имея возможности вернуться</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">В сердце → вслух</span>
+          <span class="chip">✊ Давление + выщипывание</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-1" data-id="f-zbavyoau">
+        <div class="purpose">Прицельная рукья · ноги</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي هُوَ الْحَيُّ الْقَيُّومُ أَرْقِي رِجْلَيَّ مِنْ مَسِّ الْجِنِّ لِيَخْرُجَ وَلَا يَعُودَ</div>
+        <div class="transcription">Бисмилляхи-ллязи хуваль-Хаййуль-Каййум, аркий риджляй мин массиль-джинн ли-йахруджа ва ля йа'уд</div>
+        <div class="translation">«С именем Аллаха, Который Живой, Вечносущий, заклинаю свои ноги от Масс — касание джинна — чтобы вышел и не возвращался»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Тёмная тень, прикрепившаяся к телу, отрывается, кричит и вытягивается наружу, не имея возможности вернуться</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">В сердце → вслух</span>
+          <span class="chip">✊ Давление + выщипывание</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-2" data-id="f-qoqts3ud">
+        <div class="purpose">Прицельная рукья · голова</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي خَالِقُ كُلِّ شَيْءٍ أَرْقِي رَأْسِي مِنْ سِحْرِ التَّفْرِيقِ لِيَنْحَلَّ وَيَبْطُلَ</div>
+        <div class="transcription">Бисмилляхи-ллязи халику кулли шай', аркий ра'сий мин сихрит-тафрик ли-йанхалля ва йабтуль</div>
+        <div class="translation">«С именем Аллаха, Который Создатель всякой вещи, заклинаю свою голову от Сихр разлада — чтобы развязалось и стало недействительным»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Чёрные верёвки в груди, связавшие сердце, загораются от слов заклинания и сгорают в пепел — сердце распрямляется и оживает</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">В сердце → вслух</span>
+          <span class="chip">✊ Давление + выщипывание</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-3" data-id="f-ab16fvqn">
+        <div class="purpose">Прицельная рукья · голова</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي خَالِقُ كُلِّ شَيْءٍ أَرْقِي رَأْسِي مِنْ سِحْرِ التَّفْرِيقِ لِيَنْحَلَّ وَيَبْطُلَ</div>
+        <div class="transcription">Бисмилляхи-ллязи халику кулли шай', аркий ра'сий мин сихрит-тафрик ли-йанхалля ва йабтуль</div>
+        <div class="translation">«С именем Аллаха, Который Создатель всякой вещи, заклинаю свою голову от Сихр разлада — чтобы развязалось и стало недействительным»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Чёрные верёвки в груди, связавшие сердце, загораются от слов заклинания и сгорают в пепел — сердце распрямляется и оживает</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">В сердце → вслух</span>
+          <span class="chip">✊ Давление + выщипывание</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-4" data-id="f-9lap9wkl">
+        <div class="purpose">Прицельная рукья · грудь</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي خَالِقُ كُلِّ شَيْءٍ أَرْقِي صَدْرِي مِنْ سِحْرِ التَّفْرِيقِ لِيَنْحَلَّ وَيَبْطُلَ</div>
+        <div class="transcription">Бисмилляхи-ллязи халику кулли шай', аркий садрий мин сихрит-тафрик ли-йанхалля ва йабтуль</div>
+        <div class="translation">«С именем Аллаха, Который Создатель всякой вещи, заклинаю свою грудь от Сихр разлада — чтобы развязалось и стало недействительным»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Чёрные верёвки в груди, связавшие сердце, загораются от слов заклинания и сгорают в пепел — сердце распрямляется и оживает</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">В сердце → вслух</span>
+          <span class="chip">✊ Давление + выщипывание</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-5" data-id="f-koqae5yx">
+        <div class="purpose">Прицельная рукья · грудь</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي خَالِقُ كُلِّ شَيْءٍ أَرْقِي صَدْرِي مِنْ سِحْرِ التَّفْرِيقِ لِيَنْحَلَّ وَيَبْطُلَ</div>
+        <div class="transcription">Бисмилляхи-ллязи халику кулли шай', аркий садрий мин сихрит-тафрик ли-йанхалля ва йабтуль</div>
+        <div class="translation">«С именем Аллаха, Который Создатель всякой вещи, заклинаю свою грудь от Сихр разлада — чтобы развязалось и стало недействительным»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Чёрные верёвки в груди, связавшие сердце, загораются от слов заклинания и сгорают в пепел — сердце распрямляется и оживает</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">В сердце → вслух</span>
+          <span class="chip">✊ Давление + выщипывание</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-6" data-id="f-7y3ht45p">
+        <div class="purpose">Прицельная рукья · руки</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي خَالِقُ كُلِّ شَيْءٍ أَرْقِي يَدَيَّ مِنْ سِحْرِ التَّفْرِيقِ لِيَنْحَلَّ وَيَبْطُلَ</div>
+        <div class="transcription">Бисмилляхи-ллязи халику кулли шай', аркий ядай мин сихрит-тафрик ли-йанхалля ва йабтуль</div>
+        <div class="translation">«С именем Аллаха, Который Создатель всякой вещи, заклинаю свои руки от Сихр разлада — чтобы развязалось и стало недействительным»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Чёрные верёвки в груди, связавшие сердце, загораются от слов заклинания и сгорают в пепел — сердце распрямляется и оживает</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">В сердце → вслух</span>
+          <span class="chip">✊ Давление + выщипывание</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-1" data-id="f-chwm6q8v">
+        <div class="purpose">Прицельная рукья · руки</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي خَالِقُ كُلِّ شَيْءٍ أَرْقِي يَدَيَّ مِنْ سِحْرِ التَّفْرِيقِ لِيَنْحَلَّ وَيَبْطُلَ</div>
+        <div class="transcription">Бисмилляхи-ллязи халику кулли шай', аркий ядай мин сихрит-тафрик ли-йанхалля ва йабтуль</div>
+        <div class="translation">«С именем Аллаха, Который Создатель всякой вещи, заклинаю свои руки от Сихр разлада — чтобы развязалось и стало недействительным»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Чёрные верёвки в груди, связавшие сердце, загораются от слов заклинания и сгорают в пепел — сердце распрямляется и оживает</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">В сердце → вслух</span>
+          <span class="chip">✊ Давление + выщипывание</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-2" data-id="f-tiiz9i9z">
+        <div class="purpose">Прицельная рукья · ноги</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي خَالِقُ كُلِّ شَيْءٍ أَرْقِي رِجْلَيَّ مِنْ سِحْرِ التَّفْرِيقِ لِيَنْحَلَّ وَيَبْطُلَ</div>
+        <div class="transcription">Бисмилляхи-ллязи халику кулли шай', аркий риджляй мин сихрит-тафрик ли-йанхалля ва йабтуль</div>
+        <div class="translation">«С именем Аллаха, Который Создатель всякой вещи, заклинаю свои ноги от Сихр разлада — чтобы развязалось и стало недействительным»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Чёрные верёвки в груди, связавшие сердце, загораются от слов заклинания и сгорают в пепел — сердце распрямляется и оживает</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">В сердце → вслух</span>
+          <span class="chip">✊ Давление + выщипывание</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-3" data-id="f-p0vzvzcg">
+        <div class="purpose">Прицельная рукья · ноги</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي خَالِقُ كُلِّ شَيْءٍ أَرْقِي رِجْلَيَّ مِنْ سِحْرِ التَّفْرِيقِ لِيَنْحَلَّ وَيَبْطُلَ</div>
+        <div class="transcription">Бисмилляхи-ллязи халику кулли шай', аркий риджляй мин сихрит-тафрик ли-йанхалля ва йабтуль</div>
+        <div class="translation">«С именем Аллаха, Который Создатель всякой вещи, заклинаю свои ноги от Сихр разлада — чтобы развязалось и стало недействительным»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Чёрные верёвки в груди, связавшие сердце, загораются от слов заклинания и сгорают в пепел — сердце распрямляется и оживает</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">В сердце → вслух</span>
+          <span class="chip">✊ Давление + выщипывание</span>
+        </div>
+      </div>
+    
+        </div>
+      </div>
+    
+      <div class="section-block collapsible">
+        <div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')" role="button" aria-expanded="true" tabindex="0">
+          <span style="font-size:1.3rem">🏠</span>
+          <h3>Чистка помещения</h3>
+          <span style="margin-left:auto;display:flex;align-items:center;gap:8px;font-size:.9rem;opacity:.85">
+            <span>2 формул</span>
+            <span class="collapse-toggle" aria-hidden="true">▾</span>
+          </span>
+        </div>
+        <div class="plan-section-body">
+          
+      <div class="formula-block anim-in anim-in-delay-1" data-id="f-krtdu7a2">
+        <div class="purpose">Чистка помещения от сихра</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي يَعْلَمُ الْغَيْبَ وَالشَّهَادَةَ أَرْقِي بَيْتِي مِنْ كُلِّ سِحْرٍ مَخْفِيٍّ وَمَدْفُونٍ وَمَنْثُورٍ وَمُعَلَّقٍ لِيَبْطُلَ وَيَتَلَاشَى</div>
+        <div class="transcription">Бисмилляхи-ллязи йа'лямуль-гайба ваш-шахада, аркий байтий мин кулли сихрин махфиййин ва мадфунин ва мансурин ва му'аллякин ли-йабтуля ва йаталяша</div>
+        <div class="translation">«С именем Аллаха, Который знает сокровенное и явное, заклинаю свой дом от всякого колдовства — скрытого, закопанного, рассыпанного и подвешенного — чтобы стало недействительным и исчезло»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Комната заполняется золотым туманом, который выжигает тёмные пятна с пола, стен и потолка</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-2" data-id="f-o31fj64h">
+        <div class="purpose">Изгнание джиннов из помещения</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي لَهُ مُلْكُ السَّمَاوَاتِ وَالْأَرْضِ أَرْقِي بَيْتِي لِخُرُوجِ كُلِّ جِنِّيٍّ ظَالِمٍ وَشَيْطَانٍ مَارِدٍ وَعَامِرٍ مُفْسِدٍ مِنْهُ فَلَا يَبْقَى فِيهِ أَحَدٌ مِنْهُمْ</div>
+        <div class="transcription">Бисмилляхи-ллязи ляху мульку-с-самавати валь-ард, аркий байтий ли-хуруджи кулли джинниййин залимин ва шайтанин маридин ва 'амирин муфсидин минху фаля йабка фихи ахадун минхум</div>
+        <div class="translation">«С именем Аллаха, Которому принадлежит власть над небесами и землёй, заклинаю свой дом для выхода из него каждого джинна-притеснителя, шайтана марида и вредящего обитателя — чтобы не остался в нём ни один из них»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Комната заполняется золотым туманом, который выжигает тёмные пятна с пола, стен и потолка</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+      </div>
+    
+        </div>
+      </div>
+    
+      <div class="section-block collapsible">
+        <div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')" role="button" aria-expanded="true" tabindex="0">
+          <span style="font-size:1.3rem">🛡</span>
+          <h3>Защита тела и органов</h3>
+          <span style="margin-left:auto;display:flex;align-items:center;gap:8px;font-size:.9rem;opacity:.85">
+            <span>6 формул</span>
+            <span class="collapse-toggle" aria-hidden="true">▾</span>
+          </span>
+        </div>
+        <div class="plan-section-body">
+          
+      <div class="formula-block anim-in anim-in-delay-1" data-id="f-2nu32zr4">
+        <div class="purpose">Защита органа · голова</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي فَالِقُ الْإِصْبَاحِ أَرْقِي لِحِفْظِ رَأْسِي وَسَدٍّ حَوْلَهُ وَحِجَابٍ عَلَيْهِ مِنْ سِحْرِ الْعُقَدِ</div>
+        <div class="transcription">Бисмилляхи-ллязи фаликуль-исбах, аркий ли-хифзи ра'сий ва саддин хауляху ва хиджабин 'аляйхи мин сихриль-'укад</div>
+        <div class="translation">«С именем Аллаха, Который Расщепляющий рассвет, заклинаю для охраны моя голова, и преграды вокруг него, и завесы над ним, от Сихр узлов»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Вокруг тела формируются четыре кольца: мягкое сияние (хифз), невидимая стеклянная стена (хиджаб), каменная башня (садд), неприступная крепость (хисн)</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 9 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-2" data-id="f-hh5g6ung">
+        <div class="purpose">Защита органа · грудь</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي فَالِقُ الْإِصْبَاحِ أَرْقِي لِحِفْظِ صَدْرِي وَسَدٍّ حَوْلَهُ وَحِجَابٍ عَلَيْهِ مِنْ سِحْرِ الْعُقَدِ</div>
+        <div class="transcription">Бисмилляхи-ллязи фаликуль-исбах, аркий ли-хифзи садрий ва саддин хауляху ва хиджабин 'аляйхи мин сихриль-'укад</div>
+        <div class="translation">«С именем Аллаха, Который Расщепляющий рассвет, заклинаю для охраны моя грудь, и преграды вокруг него, и завесы над ним, от Сихр узлов»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Вокруг тела формируются четыре кольца: мягкое сияние (хифз), невидимая стеклянная стена (хиджаб), каменная башня (садд), неприступная крепость (хисн)</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 9 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-3" data-id="f-qehf2utr">
+        <div class="purpose">Защита органа · руки</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي فَالِقُ الْإِصْبَاحِ أَرْقِي لِحِفْظِ يَدَيَّ وَسَدٍّ حَوْلَهُ وَحِجَابٍ عَلَيْهِ مِنْ سِحْرِ الْعُقَدِ</div>
+        <div class="transcription">Бисмилляхи-ллязи фаликуль-исбах, аркий ли-хифзи ядай ва саддин хауляху ва хиджабин 'аляйхи мин сихриль-'укад</div>
+        <div class="translation">«С именем Аллаха, Который Расщепляющий рассвет, заклинаю для охраны мои руки, и преграды вокруг него, и завесы над ним, от Сихр узлов»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Вокруг тела формируются четыре кольца: мягкое сияние (хифз), невидимая стеклянная стена (хиджаб), каменная башня (садд), неприступная крепость (хисн)</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 9 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-4" data-id="f-auocg95r">
+        <div class="purpose">Защита органа · ноги</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي فَالِقُ الْإِصْبَاحِ أَرْقِي لِحِفْظِ رِجْلَيَّ وَسَدٍّ حَوْلَهُ وَحِجَابٍ عَلَيْهِ مِنْ سِحْرِ الْعُقَدِ</div>
+        <div class="transcription">Бисмилляхи-ллязи фаликуль-исбах, аркий ли-хифзи риджляй ва саддин хауляху ва хиджабин 'аляйхи мин сихриль-'укад</div>
+        <div class="translation">«С именем Аллаха, Который Расщепляющий рассвет, заклинаю для охраны мои ноги, и преграды вокруг него, и завесы над ним, от Сихр узлов»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Вокруг тела формируются четыре кольца: мягкое сияние (хифз), невидимая стеклянная стена (хиджаб), каменная башня (садд), неприступная крепость (хисн)</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 9 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-5" data-id="f-ha7tbymx">
+        <div class="purpose">Защита органа · живот</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي فَالِقُ الْإِصْبَاحِ أَرْقِي لِحِفْظِ بَطْنِي وَسَدٍّ حَوْلَهُ وَحِجَابٍ عَلَيْهِ مِنْ سِحْرِ الْعُقَدِ</div>
+        <div class="transcription">Бисмилляхи-ллязи фаликуль-исбах, аркий ли-хифзи батний ва саддин хауляху ва хиджабин 'аляйхи мин сихриль-'укад</div>
+        <div class="translation">«С именем Аллаха, Который Расщепляющий рассвет, заклинаю для охраны мой живот, и преграды вокруг него, и завесы над ним, от Сихр узлов»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Вокруг тела формируются четыре кольца: мягкое сияние (хифз), невидимая стеклянная стена (хиджаб), каменная башня (садд), неприступная крепость (хисн)</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 9 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-6" data-id="f-xv5ibm4o">
+        <div class="purpose">Четырёхслойная защита тела</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي هُوَ خَيْرٌ حَافِظًا أَرْقِي لِحِفْظِ جَسَدِي وَسَدٍّ حَوْلَهُ وَحِجَابٍ عَلَيْهِ وَحِصْنٍ يُحِيطُ بِهِ مِنْ سِحْرِ الْعُقَدِ</div>
+        <div class="transcription">Бисмилляхи-ллязи хува хайрун хафизан, аркий ли-хифзи джасадий ва саддин хауляху ва хиджабин 'аляйхи ва хиснин йухиту бихи мин сихриль-'укад</div>
+        <div class="translation">«С именем Аллаха, Который является лучшим Хранителем, заклинаю для охраны моего тела, и преграды вокруг него, и завесы над ним, и крепости, окружающей его, от Сихр узлов»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Вокруг тела формируются четыре кольца: мягкое сияние (хифз), невидимая стеклянная стена (хиджаб), каменная башня (садд), неприступная крепость (хисн)</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 9 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+      </div>
+    
+        </div>
+      </div>
+    
+      <div class="section-block collapsible">
+        <div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')" role="button" aria-expanded="true" tabindex="0">
+          <span style="font-size:1.3rem">🔒</span>
+          <h3>Закрытие дверей</h3>
+          <span style="margin-left:auto;display:flex;align-items:center;gap:8px;font-size:.9rem;opacity:.85">
+            <span>12 формул</span>
+            <span class="collapse-toggle" aria-hidden="true">▾</span>
+          </span>
+        </div>
+        <div class="plan-section-body">
+          
+      <div class="formula-block anim-in anim-in-delay-1" data-id="f-o6ybtrqh">
+        <div class="purpose">Закрытие дверей органа · голова</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي جَعَلَ حِفْظًا مِنْ كُلِّ شَيْطَانٍ مَارِدٍ أَرْقِي لِإِغْلَاقِ أَبْوَابِ رَأْسِي أَمَامَ الْجِنِّ وَالسِّحْرِ فَلَا يَنْفُذُ إِلَيْهِ شَيْءٌ</div>
+        <div class="transcription">Бисмилляхи-ллязи джа'аля хифзан мин кулли шайтанин марид, аркий ли-иглаки абваби ра'сий амамаль-джинни вас-сихри фаля йанфузу иляйхи шай'</div>
+        <div class="translation">«С именем Аллаха, Который установил защиту от всякого шайтана марида, заклинаю для закрытия дверей свою голову перед джиннами и колдовством — чтобы ничто не проникло к нему»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Каждая дверь в теле захлопывается с глухим звуком и запечатывается золотой печатью</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-2" data-id="f-llytyanq">
+        <div class="purpose">Закрытие дверей органа · голова</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي جَعَلَ حِفْظًا مِنْ كُلِّ شَيْطَانٍ مَارِدٍ أَرْقِي لِإِغْلَاقِ أَبْوَابِ رَأْسِي أَمَامَ الْجِنِّ وَالسِّحْرِ فَلَا يَنْفُذُ إِلَيْهِ شَيْءٌ</div>
+        <div class="transcription">Бисмилляхи-ллязи джа'аля хифзан мин кулли шайтанин марид, аркий ли-иглаки абваби ра'сий амамаль-джинни вас-сихри фаля йанфузу иляйхи шай'</div>
+        <div class="translation">«С именем Аллаха, Который установил защиту от всякого шайтана марида, заклинаю для закрытия дверей свою голову перед джиннами и колдовством — чтобы ничто не проникло к нему»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Каждая дверь в теле захлопывается с глухим звуком и запечатывается золотой печатью</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-3" data-id="f-sd5gf18w">
+        <div class="purpose">Закрытие дверей органа · грудь</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي جَعَلَ حِفْظًا مِنْ كُلِّ شَيْطَانٍ مَارِدٍ أَرْقِي لِإِغْلَاقِ أَبْوَابِ صَدْرِي أَمَامَ الْجِنِّ وَالسِّحْرِ فَلَا يَنْفُذُ إِلَيْهِ شَيْءٌ</div>
+        <div class="transcription">Бисмилляхи-ллязи джа'аля хифзан мин кулли шайтанин марид, аркий ли-иглаки абваби садрий амамаль-джинни вас-сихри фаля йанфузу иляйхи шай'</div>
+        <div class="translation">«С именем Аллаха, Который установил защиту от всякого шайтана марида, заклинаю для закрытия дверей свою грудь перед джиннами и колдовством — чтобы ничто не проникло к нему»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Каждая дверь в теле захлопывается с глухим звуком и запечатывается золотой печатью</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-4" data-id="f-ntalm0z7">
+        <div class="purpose">Закрытие дверей органа · грудь</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي جَعَلَ حِفْظًا مِنْ كُلِّ شَيْطَانٍ مَارِدٍ أَرْقِي لِإِغْلَاقِ أَبْوَابِ صَدْرِي أَمَامَ الْجِنِّ وَالسِّحْرِ فَلَا يَنْفُذُ إِلَيْهِ شَيْءٌ</div>
+        <div class="transcription">Бисмилляхи-ллязи джа'аля хифзан мин кулли шайтанин марид, аркий ли-иглаки абваби садрий амамаль-джинни вас-сихри фаля йанфузу иляйхи шай'</div>
+        <div class="translation">«С именем Аллаха, Который установил защиту от всякого шайтана марида, заклинаю для закрытия дверей свою грудь перед джиннами и колдовством — чтобы ничто не проникло к нему»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Каждая дверь в теле захлопывается с глухим звуком и запечатывается золотой печатью</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-5" data-id="f-1q9uag7u">
+        <div class="purpose">Закрытие дверей органа · руки</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي جَعَلَ حِفْظًا مِنْ كُلِّ شَيْطَانٍ مَارِدٍ أَرْقِي لِإِغْلَاقِ أَبْوَابِ يَدَيَّ أَمَامَ الْجِنِّ وَالسِّحْرِ فَلَا يَنْفُذُ إِلَيْهِ شَيْءٌ</div>
+        <div class="transcription">Бисмилляхи-ллязи джа'аля хифзан мин кулли шайтанин марид, аркий ли-иглаки абваби ядай амамаль-джинни вас-сихри фаля йанфузу иляйхи шай'</div>
+        <div class="translation">«С именем Аллаха, Который установил защиту от всякого шайтана марида, заклинаю для закрытия дверей свои руки перед джиннами и колдовством — чтобы ничто не проникло к нему»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Каждая дверь в теле захлопывается с глухим звуком и запечатывается золотой печатью</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-6" data-id="f-72acqkxe">
+        <div class="purpose">Закрытие дверей органа · руки</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي جَعَلَ حِفْظًا مِنْ كُلِّ شَيْطَانٍ مَارِدٍ أَرْقِي لِإِغْلَاقِ أَبْوَابِ يَدَيَّ أَمَامَ الْجِنِّ وَالسِّحْرِ فَلَا يَنْفُذُ إِلَيْهِ شَيْءٌ</div>
+        <div class="transcription">Бисмилляхи-ллязи джа'аля хифзан мин кулли шайтанин марид, аркий ли-иглаки абваби ядай амамаль-джинни вас-сихри фаля йанфузу иляйхи шай'</div>
+        <div class="translation">«С именем Аллаха, Который установил защиту от всякого шайтана марида, заклинаю для закрытия дверей свои руки перед джиннами и колдовством — чтобы ничто не проникло к нему»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Каждая дверь в теле захлопывается с глухим звуком и запечатывается золотой печатью</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-1" data-id="f-18mqv5pl">
+        <div class="purpose">Закрытие дверей органа · ноги</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي جَعَلَ حِفْظًا مِنْ كُلِّ شَيْطَانٍ مَارِدٍ أَرْقِي لِإِغْلَاقِ أَبْوَابِ رِجْلَيَّ أَمَامَ الْجِنِّ وَالسِّحْرِ فَلَا يَنْفُذُ إِلَيْهِ شَيْءٌ</div>
+        <div class="transcription">Бисмилляхи-ллязи джа'аля хифзан мин кулли шайтанин марид, аркий ли-иглаки абваби риджляй амамаль-джинни вас-сихри фаля йанфузу иляйхи шай'</div>
+        <div class="translation">«С именем Аллаха, Который установил защиту от всякого шайтана марида, заклинаю для закрытия дверей свои ноги перед джиннами и колдовством — чтобы ничто не проникло к нему»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Каждая дверь в теле захлопывается с глухим звуком и запечатывается золотой печатью</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-2" data-id="f-2pa9nl78">
+        <div class="purpose">Закрытие дверей органа · ноги</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي جَعَلَ حِفْظًا مِنْ كُلِّ شَيْطَانٍ مَارِدٍ أَرْقِي لِإِغْلَاقِ أَبْوَابِ رِجْلَيَّ أَمَامَ الْجِنِّ وَالسِّحْرِ فَلَا يَنْفُذُ إِلَيْهِ شَيْءٌ</div>
+        <div class="transcription">Бисмилляхи-ллязи джа'аля хифзан мин кулли шайтанин марид, аркий ли-иглаки абваби риджляй амамаль-джинни вас-сихри фаля йанфузу иляйхи шай'</div>
+        <div class="translation">«С именем Аллаха, Который установил защиту от всякого шайтана марида, заклинаю для закрытия дверей свои ноги перед джиннами и колдовством — чтобы ничто не проникло к нему»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Каждая дверь в теле захлопывается с глухим звуком и запечатывается золотой печатью</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-3" data-id="f-54us8c1s">
+        <div class="purpose">Закрытие дверей органа · живот</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي جَعَلَ حِفْظًا مِنْ كُلِّ شَيْطَانٍ مَارِدٍ أَرْقِي لِإِغْلَاقِ أَبْوَابِ بَطْنِي أَمَامَ الْجِنِّ وَالسِّحْرِ فَلَا يَنْفُذُ إِلَيْهِ شَيْءٌ</div>
+        <div class="transcription">Бисмилляхи-ллязи джа'аля хифзан мин кулли шайтанин марид, аркий ли-иглаки абваби батний амамаль-джинни вас-сихри фаля йанфузу иляйхи шай'</div>
+        <div class="translation">«С именем Аллаха, Который установил защиту от всякого шайтана марида, заклинаю для закрытия дверей свой живот перед джиннами и колдовством — чтобы ничто не проникло к нему»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Каждая дверь в теле захлопывается с глухим звуком и запечатывается золотой печатью</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-4" data-id="f-tdaethto">
+        <div class="purpose">Закрытие дверей органа · живот</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي جَعَلَ حِفْظًا مِنْ كُلِّ شَيْطَانٍ مَارِدٍ أَرْقِي لِإِغْلَاقِ أَبْوَابِ بَطْنِي أَمَامَ الْجِنِّ وَالسِّحْرِ فَلَا يَنْفُذُ إِلَيْهِ شَيْءٌ</div>
+        <div class="transcription">Бисмилляхи-ллязи джа'аля хифзан мин кулли шайтанин марид, аркий ли-иглаки абваби батний амамаль-джинни вас-сихри фаля йанфузу иляйхи шай'</div>
+        <div class="translation">«С именем Аллаха, Который установил защиту от всякого шайтана марида, заклинаю для закрытия дверей свой живот перед джиннами и колдовством — чтобы ничто не проникло к нему»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Каждая дверь в теле захлопывается с глухим звуком и запечатывается золотой печатью</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-5" data-id="f-euyppxnr">
+        <div class="purpose">Закрытие дверей тела</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي هُوَ الْحَيُّ الْقَيُّومُ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ أَرْقِي لِإِغْلَاقِ كُلِّ بَابٍ وَسَدِّ كُلِّ طَرِيقٍ وَقَفْلِ كُلِّ مَنْفَذٍ لِلْجِنِّ فِي جَسَدِي فَلَا يَدْخُلُونَ وَلَا يَنْفُذُونَ وَلَا يَقْتَرِبُونَ</div>
+        <div class="transcription">Бисмилляхи-ллязи хуваль-Хаййуль-Каййуму ля та'хузуху синатун ва ля наум, аркий ли-иглаки кулли бабин ва садди кулли тарикин ва кафли кулли манфазин лиль-джинни фи джасадий, фаля йадхулюна ва ля йанфузуна ва ля йактарибун</div>
+        <div class="translation">«С именем Аллаха, Который — Живой, Вечносущий, не овладевает Им ни дремота, ни сон, заклинаю для закрытия каждой двери, заграждения каждого пути и запирания каждого прохода для джиннов в моём теле — чтобы не входили, не проникали и не приближались»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Каждая дверь в теле захлопывается с глухим звуком и запечатывается золотой печатью</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-6" data-id="f-uxwjvngb">
+        <div class="purpose">Закрытие дома</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي لَهُ مُلْكُ السَّمَاوَاتِ وَالْأَرْضِ أَرْقِي لِإِغْلَاقِ بَيْتِي وَقَفْلِ كُلِّ مَدْخَلٍ وَمَنْفَذٍ وَشَقٍّ فِيهِ عَلَى كُلِّ جِنِّيٍّ فَلَا يَدْخُلُ وَلَا يَسْكُنُ وَلَا يَمُرُّ</div>
+        <div class="transcription">Бисмилляхи-ллязи ляху мульку-с-самавати валь-ард, аркий ли-иглаки байтий ва кафли кулли мадхалин ва манфазин ва шаккин фихи 'аля кулли джинниййин фаля йадхулю ва ля йаскуну ва ля йамурр</div>
+        <div class="translation">«С именем Аллаха, Которому принадлежит власть над небесами и землёй, заклинаю для закрытия моего дома и запирания каждого входа, прохода и щели в нём от каждого джинна — чтобы не входил, не поселялся и не проходил»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Все входы в дом — двери, окна, щели, стоки — закрываются огненными решётками, невидимыми для джиннов</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+      </div>
+    
+        </div>
+      </div>
+    
+      <div class="section-block collapsible">
+        <div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')" role="button" aria-expanded="true" tabindex="0">
+          <span style="font-size:1.3rem">✨</span>
+          <h3>Финал — возвращение и закрепление</h3>
+          <span style="margin-left:auto;display:flex;align-items:center;gap:8px;font-size:.9rem;opacity:.85">
+            <span>4 формул</span>
+            <span class="collapse-toggle" aria-hidden="true">▾</span>
+          </span>
+        </div>
+        <div class="plan-section-body">
+          
+      <div class="formula-block anim-in anim-in-delay-1" data-id="f-w91j9p73">
+        <div class="purpose">Четырёхслойная защита дома</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي هُوَ خَيْرٌ حَافِظًا أَرْقِي لِحِفْظِ بَيْتِي وَسَدٍّ حَوْلَهُ وَحِجَابٍ عَلَيْهِ وَحِصْنٍ يُحِيطُ بِهِ مِنْ سِحْرِ الْعُقَدِ</div>
+        <div class="transcription">Бисмилляхи-ллязи хува хайрун хафизан, аркий ли-хифзи байтий ва саддин хауляху ва хиджабин 'аляйхи ва хиснин йухиту бихи мин сихриль-'укад</div>
+        <div class="translation">«С именем Аллаха, Который является лучшим Хранителем, заклинаю для охраны моего дома, и преграды вокруг него, и завесы над ним, и крепости, окружающей его, от Сихр узлов»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Дом окутывается золотым куполом, стены светятся изнутри, окна и двери излучают защиту, на крыше — стражи из света</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 9 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-2" data-id="f-rt90o6dr">
+        <div class="purpose">Возвращение зла</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي رَدَّ الْكَافِرِينَ بِغَيْظِهِمْ أَرْقِي لِرَدِّ كُلِّ سِحْرٍ وَعَيْنٍ وَحَسَدٍ إِلَى صَاحِبِهِ فَيَرْجِعُ إِلَيْهِ بِإِذْنِ اللهِ</div>
+        <div class="transcription">Бисмилляхи-ллязи раддаль-кафирина би-гайзихим, аркий ли-радди кулли сихрин ва 'айнин ва хасадин иля сахибихи фа-йарджи'у иляйхи би-изниллях</div>
+        <div class="translation">«С именем Аллаха, Который вернул неверующих с их яростью, заклинаю для возвращения всякого колдовства, сглаза и зависти к их отправителю — чтобы вернулось к нему с дозволения Аллаха»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Всякое зло, посланное в тебя, разворачивается невидимой рукой и быстро возвращается по своему пути к источнику</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-3" data-id="f-rtjus2wj">
+        <div class="purpose">Недосягаемость</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي لَهُ مُلْكُ السَّمَاوَاتِ وَالْأَرْضِ أَرْقِي لِأَنْ أَكُونَ بَعِيدَ الْمَنَالِ عَنِ الْجِنِّ وَالسِّحْرِ وَالْعَيْنِ وَالْحَسَدِ</div>
+        <div class="transcription">Бисмилляхи-ллязи ляху мульку-с-самавати валь-ард, аркий ли-ан акуна ба'идаль-манали 'аниль-джинни вас-сихри валь-'айни валь-хасад</div>
+        <div class="translation">«С именем Аллаха, Которому принадлежит власть над небесами и землёй, заклинаю, чтобы быть недосягаемым для джиннов, колдовства, сглаза и зависти»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Вокруг тела формируются четыре кольца: мягкое сияние (хифз), невидимая стеклянная стена (хиджаб), каменная башня (садд), неприступная крепость (хисн)</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 11 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-4" data-id="f-hmqdb4ld">
+        <div class="purpose">Финал — закрепление</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ أَرْقِينِي اللهُ يَشْفِينِي</div>
+        <div class="transcription">Бисмилляхи аркыний Аллаху яшфиний</div>
+        <div class="translation">«Именем Аллаха заклинаю себя, Аллах исцеляет меня»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Весь двухнедельный путь сливается в одну точку света в центре груди — плотная, тёплая, неугасимая</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 33 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+      </div>
+    
+        </div>
+      </div>
+    
+        
+      <div class="section-block collapsible">
+        <div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')" role="button" aria-expanded="true" tabindex="0"><span style="font-size:1.3rem">💧</span><h3>Вода и масло — заряжание</h3><span style="margin-left:auto;display:flex;align-items:center;gap:8px"><span class="collapse-toggle" aria-hidden="true">▾</span></span></div>
+        <div class="plan-section-body">
+          
+      <div class="formula-block anim-in anim-in-delay-1" data-id="f-z2xqpen8">
+        <div class="purpose">Вода для чистки</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي فَالِقُ الْإِصْبَاحِ أَرْقِي هَذَا الْمَاءَ مِنْ سِحْرِ الْعُقَدِ لِيَنْفَلِقَ وَيَتَمَزَّقَ</div>
+        <div class="transcription">Бисмилляхи-ллязи фаликуль-исбах, аркий хазаль-маа мин сихриль-'укад ли-йанфалика ва йатамаззак</div>
+        <div class="translation">«С именем Аллаха, Который Расщепляющий рассвет, заклинаю эту воду от Сихр узлов — чтобы расщепилось и разорвалось»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Вода в сосуде начинает светиться изнутри, становится жидким светом</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 7 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+      </div>
+    
+          
+      <div class="formula-block anim-in anim-in-delay-2" data-id="f-qhspz65o">
+        <div class="purpose">Вода для защиты</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي هُوَ خَيْرٌ حَافِظًا أَرْقِي هَذَا الْمَاءَ لِحِفْظِ مَنْ شَرِبَهُ مِنْ سِحْرِ الْعُقَدِ</div>
+        <div class="transcription">Бисмилляхи-ллязи хува хайрун хафизан, аркий хазаль-маа ли-хифзи ман шарибаху мин сихриль-'укад</div>
+        <div class="translation">«С именем Аллаха, Который является лучшим Хранителем, заклинаю эту воду для защиты того, кто её выпьет, от Сихр узлов»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Каждая капля воды превращается в щит, который усваивается телом</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 7 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+      </div>
+    
+          
+      <div class="formula-block anim-in anim-in-delay-3" data-id="f-4zm2o3r6">
+        <div class="purpose">Масло для чистки</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي فَالِقُ الْإِصْبَاحِ أَرْقِي هَذَا الزَّيْتَ مِنْ سِحْرِ الْعُقَدِ لِيَنْفَلِقَ وَيَتَمَزَّقَ</div>
+        <div class="transcription">Бисмилляхи-ллязи фаликуль-исбах, аркий хазаз-зайта мин сихриль-'укад ли-йанфалика ва йатамаззак</div>
+        <div class="translation">«С именем Аллаха, Который Расщепляющий рассвет, заклинаю это масло от Сихр узлов — чтобы расщепилось и разорвалось»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Масло насыщается золотыми искрами и начинает испускать тепло</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 7 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+      </div>
+    
+          
+      <div class="formula-block anim-in anim-in-delay-4" data-id="f-tfsbdljf">
+        <div class="purpose">Масло для защиты</div>
+        <div class="arabic glow-text">بِسْمِ اللهِ الَّذِي جَعَلَ سَدًّا أَرْقِي هَذَا الزَّيْتَ لِسَدٍّ عَلَى جِلْدِ مَنْ دَهَنَهُ مِنْ سِحْرِ الْعُقَدِ</div>
+        <div class="transcription">Бисмилляхи-ллязи джа'аля саддан, аркий хазаз-зайта ли-саддин 'аля джильди ман даханаху мин сихриль-'укад</div>
+        <div class="translation">«С именем Аллаха, Который воздвиг преграду, заклинаю это масло для преграды на коже того, кто им намажется, от Сихр узлов»</div>
+        <div style="margin-top:8px;padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:.88rem;color:var(--text-soft)">👁 <b>Образ:</b> Масло насыщается золотыми искрами и начинает испускать тепло</div>
+        <div class="formula-meta">
+          <span class="chip">✕ 7 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+      </div>
+    
+        </div>
+      </div>
+        
+      <div class="section-block collapsible">
+        <div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')" role="button" aria-expanded="true" tabindex="0"><span style="font-size:1.3rem">🤲</span><h3>Мольбы</h3><span style="margin-left:auto;display:flex;align-items:center;gap:8px"><span class="collapse-toggle" aria-hidden="true">▾</span></span></div>
+        <div class="plan-section-body">
+          
+      <div class="formula-block anim-in anim-in-delay-1" data-id="f-p5pupmae">
+        <div class="purpose">Мольба об исцелении</div>
+        <div class="arabic glow-text">اللَّهُمَّ اشْفِنِي مِنْ سِحْرِ الْعُقَدِ</div>
+        <div class="transcription">Аллахумма-шфиний мин сихриль-'укад</div>
+        <div class="translation">«О Аллах, исцели меня от Сихр узлов»</div>
+        
+        <div class="formula-meta">
+          <span class="chip">✕ 3 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+      </div>
+    
+      <div class="formula-block anim-in anim-in-delay-2" data-id="f-uo044taj">
+        <div class="purpose">Мольба о защите</div>
+        <div class="arabic glow-text">اللَّهُمَّ احْفَظْنِي مِنْ سِحْرِ الْعُقَدِ</div>
+        <div class="transcription">Аллахумма-хфазний мин сихриль-'укад</div>
+        <div class="translation">«О Аллах, защити меня от Сихр узлов»</div>
+        
+        <div class="formula-meta">
+          <span class="chip">✕ 3 раз</span>
+          <span class="chip">Вслух</span>
+          <span class="chip">🌬 Без физ. воздействия</span>
+        </div>
+      </div>
+    
+        </div>
+      </div>
+        
+      <div class="card anim-in anim-in-delay-1">
+        <div class="card-title">Заключение</div>
+        <p>Обязательно держи меня в курсе состояния. Если начнутся резкие обострения или приступы — сразу пиши.</p>
+        <p style="text-align:right;color:var(--text-soft);margin-top:10px">— Абу Мухаммад</p>
+      </div>
+        <div class="footer">RUKYA PRO · Абу Мухаммад · 20.04.2026</div>
+      </div></div>
+
+</body></html>
