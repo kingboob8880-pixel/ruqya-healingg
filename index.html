@@ -12,7 +12,9 @@
     <meta property="og:locale" content="ru_RU">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600;700&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600;700&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600;700&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
     <style>
         /* ===== ОСНОВНЫЕ СТИЛИ (исправлено перекрытие меню и z-index) ===== */
         *{margin:0;padding:0;box-sizing:border-box}
@@ -185,6 +187,8 @@
             opacity:0;animation:fadeCardIn .4s ease-out forwards;
             overflow:visible!important;
             z-index:1; /* базовый уровень, чтобы не перекрывать соседей */
+            content-visibility:auto;
+            contain-intrinsic-size:88px 320px;
             /* backdrop-filter убран, чтобы не создавать stacking context */
         }
         /* Когда у карточки открыто выпадающее меню — поднимаем её над соседями */
@@ -1972,41 +1976,86 @@
         });
     }
 
-    // Drag & Drop
-    function initDragDrop(card) {
-        card.setAttribute('draggable', 'true');
-        card.addEventListener('dragstart', (e) => {
+    /** Один набор слушателей на список: меньше работы при большом числе файлов */
+    function bindFileListContainerOnce() {
+        const container = document.getElementById('fileListContainer');
+        if (!container || container.dataset.delegationBound === '1') return;
+        container.dataset.delegationBound = '1';
+
+        container.addEventListener('click', (e) => {
+            const menuBtn = e.target.closest('.menu-btn');
+            if (menuBtn && container.contains(menuBtn)) {
+                e.stopPropagation();
+                showDropdown(menuBtn, menuBtn.dataset);
+                return;
+            }
+            const fileCard = e.target.closest('.file-card');
+            if (fileCard && container.contains(fileCard)) {
+                if (e.target.closest('.menu-btn') || e.target.closest('.status-badges')) return;
+                const fp = fileCard.dataset.filePath;
+                const name = fileCard.dataset.fileName;
+                const folder = fileCard.dataset.folder || '';
+                openFileUrl(getFileUrl(folder, name));
+                recordOpen(fp);
+                setTimeout(renderCurrentView, 300);
+                return;
+            }
+            const folderCard = e.target.closest('.folder-card');
+            if (folderCard && container.contains(folderCard)) {
+                if (e.target.closest('.menu-btn')) return;
+                currentPath = folderCard.dataset.folderPath;
+                updateUrlState();
+                renderCurrentView();
+            }
+        });
+
+        container.addEventListener('dragstart', (e) => {
+            if (!isWriteEnabled) return;
+            const card = e.target.closest('.file-card.draggable');
+            if (!card || !container.contains(card)) return;
             e.dataTransfer.setData('text/plain', JSON.stringify({ filePath: card.dataset.filePath, fileName: card.dataset.fileName }));
             e.dataTransfer.effectAllowed = 'move';
             card.style.opacity = '0.5';
         });
-        card.addEventListener('dragend', () => { card.style.opacity = '1'; });
-    }
+        container.addEventListener('dragend', (e) => {
+            const card = e.target.closest('.file-card.draggable');
+            if (card && container.contains(card)) card.style.opacity = '1';
+        });
 
-    function initFolderDrop() {
-        document.querySelectorAll('.folder-card').forEach(f => {
-            f.addEventListener('dragover', (e) => { e.preventDefault(); e.dataTransfer.dropEffect = 'move'; f.classList.add('drag-over'); });
-            f.addEventListener('dragleave', () => f.classList.remove('drag-over'));
-            f.addEventListener('drop', async (e) => {
-                e.preventDefault();
-                f.classList.remove('drag-over');
-                const raw = e.dataTransfer.getData('text/plain');
-                if (!raw) return;
-                let data;
-                try { data = JSON.parse(raw); } catch (err) { return; }
-                if (!data || !data.filePath || !data.fileName) return;
-                if (data.filePath === f.dataset.folderPath + '/' + data.fileName) return;
-                setGlobalLoading(true);
-                try {
-                    await moveFile(data.filePath, f.dataset.folderPath, data.fileName);
-                    renderCurrentView();
-                    showToast('✅ Перемещено');
-                } catch (err) {
-                    showToast(err.message, true);
-                } finally {
-                    setGlobalLoading(false);
-                }
-            });
+        container.addEventListener('dragover', (e) => {
+            if (!isWriteEnabled) return;
+            const f = e.target.closest('.folder-card');
+            if (!f || !container.contains(f)) return;
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+            f.classList.add('drag-over');
+        });
+        container.addEventListener('dragleave', (e) => {
+            const f = e.target.closest('.folder-card');
+            if (f && container.contains(f)) f.classList.remove('drag-over');
+        });
+        container.addEventListener('drop', async (e) => {
+            if (!isWriteEnabled) return;
+            const f = e.target.closest('.folder-card');
+            if (!f || !container.contains(f)) return;
+            e.preventDefault();
+            f.classList.remove('drag-over');
+            const raw = e.dataTransfer.getData('text/plain');
+            if (!raw) return;
+            let data;
+            try { data = JSON.parse(raw); } catch (err) { return; }
+            if (!data || !data.filePath || !data.fileName) return;
+            if (data.filePath === f.dataset.folderPath + '/' + data.fileName) return;
+            setGlobalLoading(true);
+            try {
+                await moveFile(data.filePath, f.dataset.folderPath, data.fileName);
+                renderCurrentView();
+                showToast('✅ Перемещено');
+            } catch (err) {
+                showToast(err.message, true);
+            } finally {
+                setGlobalLoading(false);
+            }
         });
     }
 
@@ -2089,7 +2138,7 @@
                 const isRead = readProgress[fp];
                 const size = formatFileSize(f.size);
                 const delay = (folders.length + i) * 40;
-                html += `<div class="file-card ${isWriteEnabled ? 'draggable' : ''}" data-file-path="${fp}" data-file-name="${escapeHtml(f.name)}" data-folder="${currentPath}" style="animation-delay:${delay}ms">
+                html += `<div class="file-card ${isWriteEnabled ? 'draggable' : ''}" data-file-path="${fp}" data-file-name="${escapeHtml(f.name)}" data-folder="${currentPath}" draggable="${isWriteEnabled ? 'true' : 'false'}" style="animation-delay:${delay}ms">
                     <div class="item-row"><div class="item-main"><div class="item-icon">${icon}</div><div class="item-info">
                         <div class="item-name">${highlightText(f.name, searchQuery)}</div>
                         <div class="item-meta"><div class="tags">${tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>${size ? `<span class="item-size">${size}</span>` : ''}</div>
@@ -2107,36 +2156,6 @@
 
             container.innerHTML = html;
             container.className = 'files-grid ' + (viewMode === 'grid' ? 'grid-view' : '');
-
-            document.querySelectorAll('.menu-btn').forEach(btn => {
-                btn.onclick = (e) => { e.stopPropagation(); showDropdown(e.currentTarget, btn.dataset); };
-            });
-
-            document.querySelectorAll('.file-card').forEach(card => {
-                card.addEventListener('click', (e) => {
-                    if (e.target.closest('.menu-btn') || e.target.closest('.status-badges')) return;
-                    const fp = card.dataset.filePath;
-                    const name = card.dataset.fileName;
-                    const folder = card.dataset.folder || '';
-                    openFileUrl(getFileUrl(folder, name));
-                    recordOpen(fp);
-                    setTimeout(renderCurrentView, 300);
-                });
-            });
-
-            document.querySelectorAll('.folder-card').forEach(card => {
-                card.addEventListener('click', (e) => {
-                    if (e.target.closest('.menu-btn')) return;
-                    currentPath = card.dataset.folderPath;
-                    updateUrlState();
-                    renderCurrentView();
-                });
-            });
-
-            if (isWriteEnabled) {
-                document.querySelectorAll('.file-card.draggable').forEach(initDragDrop);
-                initFolderDrop();
-            }
         } catch (err) {
             if ((err && err.notFolder) || (err && err.status === 404)) {
                 if (currentPath) {
@@ -2279,6 +2298,7 @@
 
     async function init() {
         stripRepoParamForGuest();
+        bindFileListContainerOnce();
         if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
         document.getElementById('quoteContainer').textContent = quotes[Math.floor(Math.random() * quotes.length)];
 
