@@ -3,1106 +3,2118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Духовный центр Абу Мухаммада | Архив рукъи</title>
     <meta name="description" content="Архив рукъя-анализов, дуа и исцеляющих страниц. Духовный центр Абу Мухаммада.">
     <meta name="theme-color" content="#b37b2e">
-    <meta name="robots" content="index, follow">
     
-    <!-- Open Graph / Social -->
+    <!-- Open Graph -->
     <meta property="og:title" content="Духовный центр Абу Мухаммада">
     <meta property="og:description" content="Архив рукъя-анализов, дуа и исцеляющих страниц">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="ru_RU">
     
-    <!-- CSP (раскомментируйте для продакшена) -->
-    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://api.github.com; img-src 'self' data: https:;"> -->
+    <!-- PWA & GitHub Pages compatibility -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
     
-    <!-- Favicon -->
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📖%3C/text%3E%3C/svg%3E" type="image/svg+xml">
+    <!-- Безопасный CSP для GitHub Pages -->
+    <meta http-equiv="Content-Security-Policy" 
+          content="default-src 'self' https:; 
+                   script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net; 
+                   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; 
+                   font-src 'self' https://fonts.gstatic.com; 
+                   img-src 'self' data: https:; 
+                   connect-src 'self' https://api.github.com https://kingboob8880-pixel.github.io;">
     
-    <!-- Fonts with preload -->
+    <title>Духовный центр Абу Мухаммада | Архив рукъи</title>
+    
+    <!-- Оптимизированный favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📖%3C/text%3E%3C/svg%3E">
+    
+    <!-- Preconnect для шрифтов -->
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600;700&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600;700&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
+    
+    <!-- Оптимизированная загрузка шрифтов -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600;700&family=Noto+Sans:wght@400;500;600;700&display=swap" 
+          rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600;700&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    </noscript>
     
     <style>
         /* ===== CSS VARIABLES & RESET ===== */
-        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-        :root{
-            --bg-start:#faf5eb;--bg-end:#f0e6d2;
-            --card-bg:rgba(255,252,245,0.92);--card-bg-solid:#fffcf5;
-            --text:#3d2e1e;--text-sec:#7a5f3a;--text-muted:#a08b6d;
-            --accent:#b37b2e;--accent-hover:#c9922e;
-            --accent-glow:rgba(179,123,46,0.15);--accent-soft:rgba(179,123,46,0.08);
-            --border:#e8dcc4;--border-light:#f0e8d6;
-            --shadow:0 4px 20px rgba(60,40,10,0.08);--shadow-lg:0 8px 32px rgba(60,40,10,0.12);
-            --danger:#c0392b;--success:#27ae60;
-            --pattern-opacity:0.03;
-            --radius-sm:12px;--radius-md:20px;--radius-lg:28px;--radius-xl:40px;
-            --transition-fast:150ms ease;--transition-normal:250ms ease;
-        }
-        @media(prefers-color-scheme:dark){:root{--bg-start:#141824;--bg-end:#0f1320;--card-bg:rgba(28,33,50,0.92);--card-bg-solid:#1c2132;--text:#e8dfd0;--text-sec:#c4aa7a;--text-muted:#8a7a60;--accent:#d4a53c;--accent-hover:#e4b84c;--accent-glow:rgba(212,165,60,0.12);--accent-soft:rgba(212,165,60,0.06);--border:#2a3048;--border-light:#222840;--shadow:0 4px 20px rgba(0,0,0,0.25);--shadow-lg:0 8px 32px rgba(0,0,0,0.4);--pattern-opacity:0.02}}
-        body.dark{--bg-start:#141824;--bg-end:#0f1320;--card-bg:rgba(28,33,50,0.92);--card-bg-solid:#1c2132;--text:#e8dfd0;--text-sec:#c4aa7a;--text-muted:#8a7a60;--accent:#d4a53c;--accent-hover:#e4b84c;--accent-glow:rgba(212,165,60,0.12);--accent-soft:rgba(212,165,60,0.06);--border:#2a3048;--border-light:#222840;--shadow:0 4px 20px rgba(0,0,0,0.25);--shadow-lg:0 8px 32px rgba(0,0,0,0.4);--pattern-opacity:0.02}
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
         
-        body{
-            background:var(--bg-start);
-            font-family:'Noto Sans','Noto Naskh Arabic','Segoe UI',system-ui,sans-serif;
-            min-height:100vh;color:var(--text);line-height:1.5;
-            transition:background var(--transition-normal),color var(--transition-normal);
-            overflow-x:hidden;-webkit-font-smoothing:antialiased;
-        }
-        @media(prefers-reduced-motion:reduce){
-            *{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important;scroll-behavior:auto!important}
+        :root {
+            /* Цветовая палитра */
+            --bg-start: #faf5eb; --bg-end: #f0e6d2;
+            --card-bg: rgba(255, 252, 245, 0.92); --card-bg-solid: #fffcf5;
+            --text: #3d2e1e; --text-sec: #7a5f3a; --text-muted: #a08b6d;
+            --accent: #b37b2e; --accent-hover: #c9922e;
+            --accent-glow: rgba(179, 123, 46, 0.15); --accent-soft: rgba(179, 123, 46, 0.08);
+            --border: #e8dcc4; --border-light: #f0e8d6;
+            --shadow: rgba(60, 40, 10, 0.06); --shadow-lg: rgba(60, 40, 10, 0.12);
+            --danger: #c0392b; --success: #27ae60;
+            --pattern-opacity: 0.03;
+            
+            /* Размеры */
+            --radius-sm: 12px; --radius-md: 20px; --radius-lg: 28px; --radius-xl: 40px;
+            --container-max: 960px;
+            
+            /* Анимации */
+            --transition-fast: 150ms ease; --transition-normal: 250ms ease; --transition-slow: 400ms ease;
         }
         
-        /* ===== BACKGROUND PATTERNS ===== */
-        body::before{
-            content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
-            background-image:
-                radial-gradient(circle at 25% 25%,var(--accent) 1px,transparent 1px),
-                radial-gradient(circle at 75% 75%,var(--accent) 1px,transparent 1px),
-                radial-gradient(circle at 50% 50%,var(--accent) .5px,transparent .5px);
-            background-size:60px 60px,60px 60px,30px 30px;
-            opacity:var(--pattern-opacity);
-        }
-        body::after{
-            content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
-            background:linear-gradient(180deg,transparent 0%,var(--bg-start) 100%);
-            opacity:.4;
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-start: #141824; --bg-end: #0f1320;
+                --card-bg: rgba(28, 33, 50, 0.92); --card-bg-solid: #1c2132;
+                --text: #e8dfd0; --text-sec: #c4aa7a; --text-muted: #8a7a60;
+                --accent: #d4a53c; --accent-hover: #e4b84c;
+                --accent-glow: rgba(212, 165, 60, 0.12); --accent-soft: rgba(212, 165, 60, 0.06);
+                --border: #2a3048; --border-light: #222840;
+                --shadow: rgba(0, 0, 0, 0.25); --shadow-lg: rgba(0, 0, 0, 0.4);
+                --pattern-opacity: 0.02;
+            }
         }
         
-        /* ===== LAYOUT ===== */
-        .container{max-width:960px;margin:0 auto;padding:20px 16px 40px;position:relative;z-index:1}
+        body {
+            background: var(--bg-start);
+            background-image: linear-gradient(180deg, var(--bg-start), var(--bg-end));
+            font-family: 'Noto Sans', 'Noto Naskh Arabic', system-ui, -apple-system, sans-serif;
+            min-height: 100vh; color: var(--text);
+            transition: background var(--transition-slow), color var(--transition-slow);
+            overflow-x: hidden; line-height: 1.5;
+            -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* Оптимизированный фон с паттерном */
+        body::before {
+            content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+            background-image: 
+                radial-gradient(circle at 25% 25%, var(--accent) 1px, transparent 1px),
+                radial-gradient(circle at 75% 75%, var(--accent) 1px, transparent 1px);
+            background-size: 60px 60px, 60px 60px;
+            opacity: var(--pattern-opacity);
+            will-change: opacity;
+        }
+        
+        /* Контейнер */
+        .container {
+            max-width: var(--container-max); margin: 0 auto; padding: 20px 16px 40px;
+            position: relative; z-index: 1;
+        }
         
         /* ===== HEADER CARD ===== */
-        .header-card{
-            background:var(--card-bg);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-            border-radius:var(--radius-lg);padding:2.5rem 2rem 2rem;text-align:center;
-            margin-bottom:1.2rem;box-shadow:var(--shadow);border:1px solid var(--border);
-            position:relative;overflow:hidden;animation:fadeSlideDown .6s ease-out;
-        }
-        .header-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,transparent,var(--accent),transparent)}
-        
-        .gold-title{font-family:'Noto Naskh Arabic',serif;font-size:clamp(1.4rem,4vw,2rem);font-weight:700;color:var(--accent);margin-bottom:.5rem;line-height:1.3}
-        .subtitle{color:var(--text-sec);font-size:.95rem;font-weight:500}
-        
-        .quote-box{
-            margin-top:1.2rem;padding:.8rem 1.2rem;background:var(--accent-soft);
-            border-radius:var(--radius-sm);border-left:3px solid var(--accent);
-            font-style:italic;color:var(--text-sec);font-size:.9rem;line-height:1.6;
+        .header-card {
+            background: var(--card-bg); backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px); border-radius: var(--radius-lg);
+            padding: 2.5rem 2rem 2rem; text-align: center; margin-bottom: 1.2rem;
+            box-shadow: 0 8px 32px var(--shadow); border: 1px solid var(--border);
+            position: relative; overflow: hidden;
+            animation: fadeSlideDown var(--transition-normal) ease-out;
+            will-change: transform, opacity;
         }
         
-        .progress-section{display:flex;align-items:center;gap:12px;margin-top:1.2rem;padding-top:1rem;border-top:1px solid var(--border-light)}
-        .progress-label{font-size:.8rem;color:var(--text-muted);white-space:nowrap;font-weight:600}
-        .progress-track{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
-        .progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-hover));border-radius:3px;transition:width .6s ease}
-        .progress-count{font-size:.8rem;color:var(--accent);font-weight:700;white-space:nowrap}
+        .header-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        }
+        
+        .gold-title {
+            font-family: 'Noto Naskh Arabic', serif; font-size: clamp(1.4rem, 4vw, 2rem);
+            font-weight: 700; color: var(--accent); margin-bottom: 0.5rem;
+        }
+        
+        .subtitle { color: var(--text-sec); font-size: 0.95rem; font-weight: 500; }
+        
+        .quote-box {
+            margin-top: 1.2rem; padding: 0.8rem 1.2rem;
+            background: var(--accent-soft); border-radius: var(--radius-sm);
+            border-left: 3px solid var(--accent); font-style: italic;
+            color: var(--text-sec); font-size: 0.9rem; line-height: 1.6;
+        }
+        
+        /* Прогресс-бар */
+        .progress-section {
+            display: flex; align-items: center; gap: 12px; margin-top: 1.2rem;
+            padding-top: 1rem; border-top: 1px solid var(--border-light);
+        }
+        
+        .progress-label { font-size: 0.8rem; color: var(--text-muted); white-space: nowrap; font-weight: 600; }
+        .progress-track { flex: 1; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-hover)); border-radius: 3px; transition: width var(--transition-normal); }
+        .progress-count { font-size: 0.8rem; color: var(--accent); font-weight: 700; white-space: nowrap; }
         
         /* ===== CONTROLS BAR ===== */
-        .controls-bar{
-            display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;align-items:center;
-            background:var(--card-bg);backdrop-filter:blur(20px);
-            padding:10px 14px;border-radius:var(--radius-xl);border:1px solid var(--border);
-            animation:fadeSlideDown .6s ease-out .1s both;
+        .controls-bar {
+            display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; align-items: center;
+            background: var(--card-bg); backdrop-filter: blur(20px);
+            padding: 10px 14px; border-radius: var(--radius-xl); border: 1px solid var(--border);
+            animation: fadeSlideDown var(--transition-normal) ease-out 0.1s both;
+            will-change: transform, opacity;
         }
-        .repo-select-wrap{display:flex;align-items:center;gap:8px;flex:0 1 auto;min-width:0;flex-wrap:wrap}
-        .repo-select-label{font-size:.75rem;font-weight:600;color:var(--text-muted);white-space:nowrap}
-        #repoSelect{max-width:min(280px,42vw);min-width:120px;font-size:.8rem;padding:8px 28px 8px 12px}
-        #createRepoBtn,#deleteRepoBtn{min-width:40px;padding:8px 10px;font-size:.9rem}
-        #deleteRepoBtn{color:var(--danger);border-color:rgba(192,57,43,.35)}
-        #deleteRepoBtn:hover{background:var(--danger);color:#fff;border-color:var(--danger)}
         
-        /* ===== SEARCH BOX ===== */
-        .search-box{flex:2;min-width:140px;position:relative}
-        .search-box input{
-            width:100%;padding:10px 36px 10px 38px;border-radius:var(--radius-xl);
-            border:1px solid var(--border);background:var(--card-bg-solid);color:var(--text);
-            font-size:.9rem;font-family:inherit;transition:border-color var(--transition-fast),box-shadow var(--transition-fast);
-            outline:none;
-        }
-        .search-box input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
-        .search-box::before{content:'🔍';position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:.85rem;pointer-events:none;color:var(--text-muted)}
-        .search-hint{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:.65rem;color:var(--text-muted);background:var(--border);padding:2px 6px;border-radius:4px;font-weight:600;pointer-events:none}
-        .search-clear{
-            position:absolute;right:12px;top:50%;transform:translateY(-50%);
-            background:none!important;border:none!important;font-size:1rem;cursor:pointer;color:var(--text-muted);
-            padding:4px;display:none;min-height:auto;line-height:1;z-index:2;
-        }
-        .search-clear:hover{color:var(--accent)!important}
+        .repo-select-wrap { display: flex; align-items: center; gap: 8px; flex: 0 1 auto; min-width: 0; flex-wrap: wrap; }
+        .repo-select-label { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); white-space: nowrap; }
         
-        /* ===== BUTTONS & SELECTS ===== */
-        select,button,.btn{
-            appearance:none;-webkit-appearance:none;
-            background:var(--card-bg-solid);border:1px solid var(--border);
-            padding:10px 16px;border-radius:var(--radius-xl);cursor:pointer;
-            font-weight:600;color:var(--text-sec);font-family:inherit;font-size:.85rem;
-            transition:all var(--transition-fast);min-height:40px;outline:none;white-space:nowrap;
+        #repoSelect {
+            max-width: min(280px, 42vw); min-width: 120px; font-size: 0.8rem;
+            padding: 8px 28px 8px 12px; background: var(--card-bg-solid);
+            border: 1px solid var(--border); border-radius: var(--radius-xl);
+            color: var(--text); font-family: inherit; cursor: pointer;
         }
-        select:focus,button:focus,.btn:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
-        select{padding-right:28px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%237a5f3a'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center}
-        body.dark select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23c4aa7a'/%3E%3C/svg%3E")}
-        button:hover,.btn:hover{background:var(--accent);color:white;border-color:var(--accent);box-shadow:0 4px 12px var(--accent-glow)}
-        button:active{transform:scale(.98)}
-        button:disabled{opacity:0.6;cursor:not-allowed;transform:none}
-        .btn-icon{width:40px;height:40px;display:flex;align-items:center;justify-content:center;padding:0;font-size:1.1rem}
-        .btn-active{background:var(--accent)!important;color:white!important;border-color:var(--accent)!important}
-        .btn-success{background:var(--success)!important;color:white!important;border-color:var(--success)!important}
-        .btn-success:hover{background:#2ecc71!important;border-color:#2ecc71!important}
-        .btn-with-text{display:flex;align-items:center;gap:6px;padding:10px 16px;justify-content:center}
+        
+        /* Кнопки */
+        select, button, .btn {
+            appearance: none; -webkit-appearance: none;
+            background: var(--card-bg-solid); border: 1px solid var(--border);
+            padding: 10px 16px; border-radius: var(--radius-xl); cursor: pointer;
+            font-weight: 600; color: var(--text-sec); font-family: inherit; font-size: 0.85rem;
+            transition: all var(--transition-fast); min-height: 40px; outline: none; white-space: nowrap;
+        }
+        
+        select:hover, button:hover, .btn:hover {
+            background: var(--accent); color: white; border-color: var(--accent);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+        
+        button:active { transform: scale(0.98); }
+        button:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        
+        .btn-icon {
+            width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+            padding: 0; font-size: 1.1rem; border-radius: 50%;
+        }
+        
+        .btn-active { background: var(--accent) !important; color: white !important; border-color: var(--accent) !important; }
+        .btn-success { background: var(--success) !important; color: white !important; border-color: var(--success) !important; }
+        .btn-success:hover { background: #2ecc71 !important; border-color: #2ecc71 !important; }
+        .btn-with-text { display: flex; align-items: center; gap: 6px; padding: 10px 16px; }
+        .btn-danger { color: var(--danger); border-color: rgba(192, 57, 43, 0.35); }
+        .btn-danger:hover { background: var(--danger); color: white; border-color: var(--danger); }
+        
+        /* Поиск */
+        .search-box { flex: 2; min-width: 140px; position: relative; }
+        .search-box input {
+            width: 100%; padding: 10px 36px 10px 38px; border-radius: var(--radius-xl);
+            border: 1px solid var(--border); background: var(--card-bg-solid);
+            color: var(--text); font-size: 0.9rem; font-family: inherit;
+            transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+            outline: none;
+        }
+        .search-box input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
+        .search-box::before {
+            content: '🔍'; position: absolute; left: 14px; top: 50%;
+            transform: translateY(-50%); font-size: 0.85rem; pointer-events: none;
+        }
+        .search-hint {
+            position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+            font-size: 0.65rem; color: var(--text-muted); background: var(--border);
+            padding: 2px 6px; border-radius: 4px; font-weight: 600; pointer-events: none;
+        }
+        .search-clear {
+            position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+            background: none !important; border: none !important; font-size: 1rem;
+            cursor: pointer; color: var(--text-muted); padding: 4px; display: none;
+            min-height: auto; line-height: 1; z-index: 2;
+        }
+        .search-clear:hover { color: var(--accent) !important; }
         
         /* ===== TOKEN SECTION ===== */
-        .token-section{animation:fadeSlideDown .6s ease-out .15s both;margin-bottom:12px}
-        .token-toggle{
-            display:flex;align-items:center;gap:8px;
-            background:var(--card-bg);backdrop-filter:blur(20px);
-            border:1px solid var(--border);border-radius:var(--radius-xl);
-            padding:8px 16px;cursor:pointer;font-size:.85rem;color:var(--text-muted);
-            width:100%;font-family:inherit;font-weight:500;transition:all var(--transition-fast);
+        .token-section { animation: fadeSlideDown var(--transition-normal) ease-out 0.15s both; margin-bottom: 12px; }
+        .token-toggle {
+            display: flex; align-items: center; gap: 8px;
+            background: var(--card-bg); backdrop-filter: blur(20px);
+            border: 1px solid var(--border); border-radius: var(--radius-xl);
+            padding: 8px 16px; cursor: pointer; font-size: 0.85rem;
+            color: var(--text-muted); width: 100%; font-family: inherit;
+            font-weight: 500; transition: all var(--transition-fast);
         }
-        .token-toggle:hover{color:var(--accent);border-color:var(--accent)}
-        .token-toggle .chevron{transition:transform var(--transition-normal);font-size:.7rem;margin-left:auto}
-        .token-toggle.open .chevron{transform:rotate(180deg)}
-        .token-toggle .token-status-badge{font-size:.75rem;margin-left:4px}
-        .token-body{max-height:0;overflow:hidden;transition:max-height var(--transition-normal) ease}
-        .token-body.open{max-height:320px}
+        .token-toggle:hover { color: var(--accent); border-color: var(--accent); }
+        .token-toggle .chevron { transition: transform var(--transition-normal); font-size: 0.7rem; margin-left: auto; }
+        .token-toggle.open .chevron { transform: rotate(180deg); }
+        .token-toggle .token-status-badge { font-size: 0.75rem; margin-left: 4px; }
         
-        .write-mode-banner{
-            display:none;background:var(--accent-soft);border:1px solid var(--accent);
-            border-radius:var(--radius-lg);padding:10px 14px;margin-bottom:12px;font-size:.85rem;
-            color:var(--text-sec);font-weight:600;line-height:1.45;animation:fadeSlideDown .45s ease-out .12s both;
+        .token-body { max-height: 0; overflow: hidden; transition: max-height var(--transition-normal) ease; }
+        .token-body.open { max-height: 320px; }
+        
+        .token-body-inner {
+            display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+            background: var(--card-bg); padding: 10px 14px;
+            border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+            border: 1px solid var(--border); border-top: none; margin-top: -6px;
         }
-        body.write-mode .write-mode-banner{display:block}
-        #actionBar{display:none}
-        body.write-mode #actionBar{display:flex;border-color:var(--accent);box-shadow:0 4px 16px var(--accent-glow)}
+        
+        .token-input {
+            flex: 1; min-width: 180px; padding: 10px 14px; border-radius: var(--radius-xl);
+            border: 1px solid var(--border); background: var(--card-bg-solid);
+            color: var(--text); font-family: inherit; font-size: 0.85rem; outline: none;
+        }
+        .token-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
+        
+        /* ===== WRITE MODE BANNER ===== */
+        .write-mode-banner {
+            display: none; background: var(--accent-soft); border: 1px solid var(--accent);
+            border-radius: var(--radius-lg); padding: 10px 14px; margin-bottom: 12px;
+            font-size: 0.85rem; color: var(--text-sec); font-weight: 600; line-height: 1.45;
+            animation: fadeSlideDown var(--transition-normal) ease-out 0.12s both;
+        }
+        body.write-mode .write-mode-banner { display: block; }
+        #actionBar { display: none; }
+        body.write-mode #actionBar { display: flex; border-color: var(--accent); box-shadow: 0 4px 16px var(--accent-glow); }
         body.readonly-share #actionBar,
         body.readonly-share .token-section,
-        body.readonly-share .write-mode-banner{display:none!important}
+        body.readonly-share .write-mode-banner { display: none !important; }
         
-        .token-body-inner{
-            display:flex;flex-wrap:wrap;gap:8px;align-items:center;
-            background:var(--card-bg);padding:10px 14px;
-            border-radius:0 0 var(--radius-lg) var(--radius-lg);
-            border:1px solid var(--border);border-top:none;margin-top:-6px;
+        /* ===== BREADCRUMB ===== */
+        #breadcrumbArea { margin-bottom: 12px; animation: fadeSlideDown var(--transition-normal) ease-out 0.2s both; }
+        .breadcrumb {
+            display: inline-flex; align-items: center; gap: 4px;
+            background: var(--card-bg); backdrop-filter: blur(20px);
+            border-radius: var(--radius-xl); padding: 6px 14px; font-size: 0.85rem;
+            flex-wrap: wrap; border: 1px solid var(--border);
         }
-        .token-input{
-            flex:1;min-width:180px;padding:10px 14px;border-radius:var(--radius-xl);
-            border:1px solid var(--border);background:var(--card-bg-solid);
-            color:var(--text);font-family:inherit;font-size:.85rem;outline:none;
+        .breadcrumb-item, .breadcrumb-root {
+            display: inline-flex; align-items: center; gap: 4px; cursor: pointer;
+            padding: 4px 8px; border-radius: var(--radius-sm); transition: background var(--transition-fast);
+            font-weight: 500;
         }
-        .token-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
-        #tokenStatus{font-size:.8rem;font-weight:600}
+        .breadcrumb-item:hover, .breadcrumb-root:hover { background: var(--accent-soft); }
+        .breadcrumb-sep { color: var(--text-muted); font-size: 0.75rem; }
         
-        /* ===== BREADCRUMB & STATS ===== */
-        #breadcrumbArea{margin-bottom:12px;animation:fadeSlideDown .6s ease-out .2s both}
-        .breadcrumb{
-            display:inline-flex;align-items:center;gap:4px;
-            background:var(--card-bg);backdrop-filter:blur(20px);
-            border-radius:var(--radius-xl);padding:6px 14px;font-size:.85rem;
-            flex-wrap:wrap;border:1px solid var(--border);
+        /* ===== STATS & FILES ===== */
+        .stats-bar {
+            display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 16px;
+            font-size: 0.8rem; color: var(--text-muted); font-weight: 500;
+            animation: fadeSlideDown var(--transition-normal) ease-out 0.25s both;
         }
-        .breadcrumb-item,.breadcrumb-root{display:inline-flex;align-items:center;gap:4px;cursor:pointer;padding:4px 8px;border-radius:var(--radius-sm);transition:background var(--transition-fast);font-weight:500}
-        .breadcrumb-item:hover,.breadcrumb-root:hover{background:var(--accent-soft)}
-        .breadcrumb-sep{color:var(--text-muted);font-size:.75rem}
+        .stat-item { display: flex; align-items: center; gap: 4px; }
         
-        .stats-bar{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:16px;font-size:.8rem;color:var(--text-muted);font-weight:500;animation:fadeSlideDown .6s ease-out .25s both}
-        .stat-item{display:flex;align-items:center;gap:4px}
-        
-        /* ===== FILES GRID ===== */
-        .files-grid{display:flex;flex-direction:column;gap:8px;margin-bottom:2rem;overflow:visible!important}
-        .files-grid.grid-view{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
-        
-        .file-card,.folder-card{
-            background:var(--card-bg);
-            border:1px solid var(--border);border-radius:var(--radius-md);
-            padding:12px 14px;transition:all var(--transition-normal);position:relative;cursor:pointer;
-            opacity:0;animation:fadeCardIn .4s ease-out forwards;
-            overflow:visible!important;z-index:1;
-            content-visibility:auto;contain-intrinsic-size:88px 320px;
+        .files-grid {
+            display: flex; flex-direction: column; gap: 8px; margin-bottom: 2rem;
+            contain: content;
         }
-        .file-card::before,.folder-card::before{
-            content:'';position:absolute;top:0;left:0;right:0;bottom:0;
-            backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-            border-radius:inherit;z-index:-1;pointer-events:none;
+        .files-grid.grid-view {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px;
         }
-        .file-card:hover,.folder-card:hover{border-color:var(--accent);box-shadow:var(--shadow);transform:translateY(-2px)}
-        .file-card.has-menu-open,.folder-card.has-menu-open{z-index:100;box-shadow:var(--shadow-lg)}
-        .file-card.draggable{cursor:grab}
-        .folder-card.drag-over{border:2px dashed var(--accent);background:var(--accent-glow)}
         
-        .item-row{display:flex;align-items:center;gap:10px;justify-content:space-between}
-        .item-main{display:flex;align-items:center;gap:10px;flex:1;min-width:0}
-        .item-icon{width:42px;height:42px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;background:var(--accent-soft);border-radius:var(--radius-sm);flex-shrink:0}
-        .item-info{flex:1;min-width:0}
-        .item-name{font-weight:600;font-size:.9rem;word-break:break-word;line-height:1.3}
-        .item-name mark{background:var(--accent);color:white;padding:0 2px;border-radius:3px;font-weight:inherit}
-        .item-meta{display:flex;align-items:center;gap:8px;margin-top:3px;flex-wrap:wrap}
-        .item-size{font-size:.72rem;color:var(--text-muted);font-weight:500}
-        .tags{display:flex;gap:4px;flex-wrap:wrap}
-        .tag{background:var(--accent);color:white;padding:1px 8px;border-radius:20px;font-size:.65rem;font-weight:600;letter-spacing:.02em}
-        .status-badges{display:flex;gap:4px;align-items:center}
-        .badge{font-size:.75rem;opacity:.7}
-        .badge.active{opacity:1}
-        .folder-lock-icon{font-size:.8rem;opacity:.8;flex-shrink:0;margin-left:4px;vertical-align:middle}
-        
-        .item-actions{display:flex;align-items:center;gap:2px;position:relative;z-index:10}
-        .menu-btn{
-            background:none!important;border:none!important;font-size:1.2rem;cursor:pointer;
-            padding:6px;min-width:36px;min-height:36px;border-radius:50%;
-            display:flex;align-items:center;justify-content:center;color:var(--text-muted);transition:all var(--transition-fast);
+        .file-card, .folder-card {
+            background: var(--card-bg); border: 1px solid var(--border);
+            border-radius: var(--radius-md); padding: 12px 14px;
+            transition: all var(--transition-fast); position: relative; cursor: pointer;
+            opacity: 0; animation: fadeCardIn var(--transition-normal) ease-out forwards;
+            overflow: visible; z-index: 1;
+            content-visibility: auto; contain-intrinsic-size: 88px 320px;
         }
-        .menu-btn:hover{background:var(--accent-soft)!important;color:var(--accent);box-shadow:none!important}
         
-        /* ===== DROPDOWN MENU ===== */
-        .dropdown-menu{
-            position:absolute;right:0;top:42px;
-            background:var(--card-bg-solid);border:1px solid var(--border);
-            border-radius:var(--radius-md);box-shadow:var(--shadow-lg);
-            z-index:9999;display:none;flex-direction:column;min-width:220px;max-width:calc(100vw - 20px);
-            overflow:hidden;animation:fadeScaleIn .15s ease-out;
+        .file-card::before, .folder-card::before {
+            content: ''; position: absolute; inset: 0;
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border-radius: inherit; z-index: -1; pointer-events: none;
         }
-        .dropdown-menu button{
-            background:none!important;border:none!important;text-align:left;padding:10px 16px;
-            border-radius:0!important;width:100%;font-size:.85rem;color:var(--text);font-weight:500;min-height:auto;
-        }
-        .dropdown-menu button:hover{background:var(--accent)!important;color:white!important}
-        .dropdown-menu .divider{height:1px;background:var(--border);margin:4px 0}
         
-        /* ===== EMPTY STATE & SKELETON ===== */
-        .empty-state{text-align:center;padding:3rem 1rem;color:var(--text-muted)}
-        .empty-state .empty-icon{font-size:3rem;margin-bottom:.8rem;opacity:.5}
-        .empty-state .empty-text{font-size:1rem;font-weight:600;margin-bottom:.3rem}
-        .empty-state .empty-hint{font-size:.85rem}
-        
-        .loading-skeleton{
-            background:linear-gradient(90deg,var(--border) 25%,var(--card-bg) 50%,var(--border) 75%);
-            background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:var(--radius-md);height:64px;margin:6px 0;
+        .file-card.has-menu-open, .folder-card.has-menu-open { z-index: 100; }
+        .file-card:hover, .folder-card:hover {
+            border-color: var(--accent); box-shadow: 0 4px 20px var(--shadow);
+            transform: translateY(-1px);
         }
-        @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+        .file-card.draggable { cursor: grab; }
+        .folder-card.drag-over { border: 2px dashed var(--accent); background: var(--accent-glow); }
         
-        /* ===== TOAST & MODAL ===== */
-        .toast{
-            position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
-            background:var(--card-bg-solid);color:var(--text);padding:12px 24px;
-            border-radius:var(--radius-xl);z-index:10000;box-shadow:var(--shadow-lg);
-            border:1px solid var(--border);font-weight:600;font-size:.9rem;animation:slideUp .3s ease-out;
-            max-width:90vw;text-align:center;
+        .item-row { display: flex; align-items: center; gap: 10px; justify-content: space-between; }
+        .item-main { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
+        .item-icon {
+            width: 42px; height: 42px; display: flex; align-items: center; justify-content: center;
+            font-size: 1.4rem; background: var(--accent-soft); border-radius: var(--radius-sm); flex-shrink: 0;
         }
-        .toast.error{border-color:var(--danger);color:var(--danger)}
+        .item-info { flex: 1; min-width: 0; }
+        .item-name { font-weight: 600; font-size: 0.9rem; word-break: break-word; line-height: 1.3; }
+        .item-name mark { background: var(--accent); color: white; padding: 0 2px; border-radius: 3px; }
+        .item-meta { display: flex; align-items: center; gap: 8px; margin-top: 3px; flex-wrap: wrap; }
+        .item-size { font-size: 0.72rem; color: var(--text-muted); font-weight: 500; }
+        .tags { display: flex; gap: 4px; flex-wrap: wrap; }
+        .tag {
+            background: var(--accent); color: white; padding: 1px 8px;
+            border-radius: 20px; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.02em;
+        }
+        .status-badges { display: flex; gap: 4px; align-items: center; }
+        .badge { font-size: 0.75rem; opacity: 0.7; }
+        .badge.active { opacity: 1; }
+        .folder-lock-icon { font-size: 0.8rem; opacity: 0.8; flex-shrink: 0; margin-left: 4px; }
         
-        .modal-overlay{
-            position:fixed;inset:0;background:rgba(0,0,0,.6);
-            display:flex;align-items:center;justify-content:center;
-            z-index:10000;animation:fadeIn .2s;
+        .item-actions { display: flex; align-items: center; gap: 2px; position: relative; z-index: 10; }
+        .menu-btn {
+            background: none !important; border: none !important; font-size: 1.2rem;
+            cursor: pointer; padding: 6px; min-width: 36px; min-height: 36px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            color: var(--text-muted); transition: all var(--transition-fast);
         }
-        .modal-card{
-            background:var(--card-bg-solid);border-radius:var(--radius-lg);
-            padding:1.5rem;width:90%;max-width:600px;max-height:90vh;overflow-y:auto;
-            box-shadow:0 16px 64px var(--shadow-lg);border:1px solid var(--border);
-            animation:fadeScaleIn .25s ease-out;
-        }
-        .modal-title{font-size:1.1rem;font-weight:700;color:var(--accent);margin-bottom:1rem;display:flex;align-items:center;gap:8px}
-        .modal-field{margin-bottom:1rem}
-        .modal-field label{display:block;font-size:.8rem;font-weight:600;color:var(--text-sec);margin-bottom:6px}
-        .modal-field input,.modal-field textarea,.modal-field select{
-            width:100%;padding:10px 14px;border-radius:var(--radius-sm);
-            border:1px solid var(--border);background:var(--card-bg);
-            color:var(--text);font-family:inherit;font-size:.9rem;outline:none;
-        }
-        .modal-field textarea{min-height:200px;resize:vertical;font-family:'Courier New',monospace;font-size:.8rem;line-height:1.5}
-        .modal-field input:focus,.modal-field textarea:focus,.modal-field select:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
-        .modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:1.2rem;flex-wrap:wrap}
-        .modal-actions button{min-height:38px}
+        .menu-btn:hover { background: var(--accent-soft) !important; color: var(--accent); }
         
-        /* ===== FOOTER & SPINNER ===== */
-        .footer-note{text-align:center;margin-top:1.5rem;padding:1rem;font-size:.85rem;color:var(--text-muted)}
-        .footer-note a,.footer-note button{background:none!important;border:none!important;color:var(--accent);cursor:pointer;font-weight:600;font-family:inherit;font-size:.85rem;min-height:auto;padding:0}
-        .footer-note a:hover,.footer-note button:hover{color:var(--accent-hover)}
-        
-        .global-spinner{
-            position:fixed;top:20px;right:20px;background:var(--accent);color:white;
-            padding:6px 12px;border-radius:40px;font-size:.8rem;z-index:2000;
-            display:none;align-items:center;gap:6px;box-shadow:var(--shadow);
+        /* Выпадающее меню */
+        .dropdown-menu {
+            position: absolute; right: 0; top: 42px;
+            background: var(--card-bg-solid); border: 1px solid var(--border);
+            border-radius: var(--radius-md); box-shadow: 0 8px 32px var(--shadow-lg);
+            z-index: 9999; display: none; flex-direction: column;
+            min-width: 220px; max-width: calc(100vw - 20px);
+            overflow: hidden; animation: fadeScaleIn var(--transition-fast) ease-out;
         }
-        .global-spinner.show{display:flex;animation:fadeIn .2s}
+        .dropdown-menu button {
+            background: none !important; border: none !important; text-align: left;
+            padding: 10px 16px; border-radius: 0 !important; width: 100%;
+            font-size: 0.85rem; color: var(--text); font-weight: 500; min-height: auto;
+        }
+        .dropdown-menu button:hover { background: var(--accent) !important; color: white !important; }
+        .dropdown-menu .divider { height: 1px; background: var(--border); margin: 4px 0; }
         
-        /* ===== ANIMATIONS ===== */
-        @keyframes fadeSlideDown{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}
-        @keyframes fadeCardIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-        @keyframes fadeScaleIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
-        @keyframes slideUp{from{opacity:0;transform:translateX(-50%) translateY(16px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
-        @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+        /* Empty state */
+        .empty-state { text-align: center; padding: 3rem 1rem; color: var(--text-muted); }
+        .empty-state .empty-icon { font-size: 3rem; margin-bottom: 0.8rem; opacity: 0.5; }
+        .empty-state .empty-text { font-size: 1rem; font-weight: 600; margin-bottom: 0.3rem; }
+        .empty-state .empty-hint { font-size: 0.85rem; }
+        
+        /* Skeleton loader */
+        .loading-skeleton {
+            background: linear-gradient(90deg, var(--border) 25%, var(--card-bg) 50%, var(--border) 75%);
+            background-size: 200% 100%; animation: shimmer 1.5s infinite;
+            border-radius: var(--radius-md); height: 64px; margin: 6px 0;
+        }
+        @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+        
+        /* Toast notifications */
+        .toast {
+            position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+            background: var(--card-bg-solid); color: var(--text); padding: 12px 24px;
+            border-radius: var(--radius-xl); z-index: 10000;
+            box-shadow: 0 8px 32px var(--shadow-lg); border: 1px solid var(--border);
+            font-weight: 600; font-size: 0.9rem; animation: slideUp var(--transition-fast) ease-out;
+            max-width: 90vw; text-align: center;
+        }
+        .toast.error { border-color: var(--danger); color: var(--danger); }
+        
+        /* Modal */
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(0, 0, 0, 0.6);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 10000; animation: fadeIn var(--transition-fast);
+            padding: 16px;
+        }
+        .modal-card {
+            background: var(--card-bg-solid); border-radius: var(--radius-lg);
+            padding: 1.5rem; width: 100%; max-width: 600px; max-height: 90vh;
+            overflow-y: auto; box-shadow: 0 16px 64px var(--shadow-lg);
+            border: 1px solid var(--border); animation: fadeScaleIn var(--transition-normal) ease-out;
+            contain: layout style;
+        }
+        .modal-title {
+            font-size: 1.1rem; font-weight: 700; color: var(--accent);
+            margin-bottom: 1rem; display: flex; align-items: center; gap: 8px;
+        }
+        .modal-field { margin-bottom: 1rem; }
+        .modal-field label {
+            display: block; font-size: 0.8rem; font-weight: 600;
+            color: var(--text-sec); margin-bottom: 6px;
+        }
+        .modal-field input, .modal-field textarea, .modal-field select {
+            width: 100%; padding: 10px 14px; border-radius: var(--radius-sm);
+            border: 1px solid var(--border); background: var(--card-bg);
+            color: var(--text); font-family: inherit; font-size: 0.9rem; outline: none;
+        }
+        .modal-field textarea {
+            min-height: 200px; resize: vertical; font-family: 'Courier New', monospace;
+            font-size: 0.8rem; line-height: 1.5;
+        }
+        .modal-field input:focus, .modal-field textarea:focus, .modal-field select:focus {
+            border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+        .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 1.2rem; flex-wrap: wrap; }
+        .modal-actions button { min-height: 38px; flex: 1; min-width: 100px; }
+        
+        /* Footer */
+        .footer-note {
+            text-align: center; margin-top: 1.5rem; padding: 1rem;
+            font-size: 0.85rem; color: var(--text-muted);
+        }
+        .footer-note a, .footer-note button {
+            background: none !important; border: none !important;
+            color: var(--accent); cursor: pointer; font-weight: 600;
+            font-family: inherit; font-size: 0.85rem; min-height: auto; padding: 0;
+        }
+        .footer-note a:hover, .footer-note button:hover { color: var(--accent-hover); }
+        
+        /* Global spinner */
+        .global-spinner {
+            position: fixed; top: 20px; right: 20px;
+            background: var(--accent); color: white; padding: 6px 12px;
+            border-radius: 40px; font-size: 0.8rem; z-index: 2000;
+            display: none; align-items: center; gap: 6px;
+            box-shadow: 0 4px 12px var(--shadow-lg);
+        }
+        .global-spinner.show { display: flex; }
+        
+        /* Анимации */
+        @keyframes fadeSlideDown { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeCardIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeScaleIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateX(-50%) translateY(16px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         
         /* ===== RESPONSIVE ===== */
-        @media(max-width:900px){
-            .container{padding:16px 12px 36px}
-            .files-grid.grid-view{grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
-            .modal-card{width:min(94vw,600px)}
-        }
-        @media(max-width:768px){
-            .container{padding:12px 10px 30px}
-            .header-card{padding:1.5rem 1.2rem 1.2rem;border-radius:var(--radius-md)}
-            .gold-title{font-size:1.55rem}
-            .subtitle{font-size:.88rem}
-            .quote-box{padding:.75rem 1rem;font-size:.85rem}
-            .progress-section{flex-wrap:wrap;gap:8px}
-            .progress-label,.progress-count{width:100%}
-            .controls-bar,.token-body-inner,.stats-bar,.modal-actions{flex-direction:column;align-items:stretch}
-            .controls-bar{border-radius:var(--radius-lg);padding:10px}
-            .controls-bar > *{width:100%}
-            .search-box{min-width:100%}
-            .controls-bar select,.controls-bar > button,#actionBar button,.token-body-inner button,.modal-actions button{width:100%}
-            .controls-bar .btn-icon{width:100%;height:42px}
-            #favFilterBtn,#themeToggle{font-size:1rem}
-            #actionBar .btn-with-text{justify-content:center}
-            .token-input{min-width:100%}
-            .breadcrumb{display:flex;width:100%;padding:8px 10px;border-radius:var(--radius-lg)}
-            .breadcrumb-item,.breadcrumb-root{max-width:100%;font-size:.8rem}
-            .stats-bar{gap:8px}
-            .stat-item{justify-content:center;background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px 10px}
-            .file-card,.folder-card{padding:12px}
-            .item-row{align-items:flex-start}
-            .item-icon{width:38px;height:38px;font-size:1.2rem}
-            .item-actions{align-self:flex-start}
-            .dropdown-menu{right:auto;left:0;min-width:min(240px,calc(100vw - 40px))}
-            .modal-card{padding:1rem;max-height:86vh}
-            .modal-field textarea{min-height:180px}
-        }
-        @media(max-width:640px){
-            .gold-title{font-size:1.4rem}
-            .header-card{padding:1.2rem 1rem 1rem}
-            .controls-bar{gap:7px}
-            .files-grid.grid-view{grid-template-columns:1fr}
-            .item-main{gap:8px}
-            .item-name{font-size:.86rem}
-            .item-meta{gap:6px}
-            .breadcrumb-item{font-size:.76rem}
-            .footer-note{padding:.5rem 0}
+        @media (max-width: 900px) {
+            .container { padding: 16px 12px 36px; }
+            .files-grid.grid-view { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+            .modal-card { width: min(94vw, 600px); }
         }
         
-        /* ===== PRINT STYLES ===== */
-        @media print{
-            .no-print,.controls-bar,.token-section,.footer-note{display:none!important}
-            body{background:#fff!important;padding:0!important}
-            .container{max-width:100%!important;padding:0!important}
-            .header-card{box-shadow:none;border:1px solid #ccc;background:#fff}
-            .file-card,.folder-card{break-inside:avoid;page-break-inside:avoid}
+        @media (max-width: 768px) {
+            .container { padding: 12px 10px 30px; }
+            .header-card { padding: 1.5rem 1.2rem 1.2rem; border-radius: var(--radius-md); }
+            .gold-title { font-size: 1.55rem; }
+            .subtitle { font-size: 0.88rem; }
+            .quote-box { padding: 0.75rem 1rem; font-size: 0.85rem; }
+            .progress-section { flex-wrap: wrap; gap: 8px; }
+            .progress-label, .progress-count { width: 100%; }
+            
+            .controls-bar, .token-body-inner, .stats-bar, .modal-actions {
+                flex-direction: column; align-items: stretch;
+            }
+            .controls-bar { border-radius: var(--radius-lg); padding: 10px; }
+            .controls-bar > * { width: 100%; }
+            .search-box { min-width: 100%; }
+            .controls-bar select, .controls-bar > button,
+            #actionBar button, .token-body-inner button, .modal-actions button { width: 100%; }
+            .controls-bar .btn-icon { width: 100%; height: 42px; }
+            #favFilterBtn, #themeToggle { font-size: 1rem; }
+            #actionBar .btn-with-text { justify-content: center; }
+            .token-input { min-width: 100%; }
+            
+            .breadcrumb { display: flex; width: 100%; padding: 8px 10px; border-radius: var(--radius-lg); }
+            .breadcrumb-item, .breadcrumb-root { max-width: 100%; font-size: 0.8rem; }
+            .stats-bar { gap: 8px; }
+            .stat-item {
+                justify-content: center; background: var(--card-bg);
+                border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 8px 10px;
+            }
+            
+            .file-card, .folder-card { padding: 12px; }
+            .item-row { align-items: flex-start; }
+            .item-icon { width: 38px; height: 38px; font-size: 1.2rem; }
+            .item-actions { align-self: flex-start; }
+            .dropdown-menu { right: auto; left: 0; min-width: min(240px, calc(100vw - 40px)); }
+            
+            .modal-card { padding: 1rem; max-height: 86vh; }
+            .modal-field textarea { min-height: 180px; }
         }
+        
+        @media (max-width: 640px) {
+            .gold-title { font-size: 1.4rem; }
+            .header-card { padding: 1.2rem 1rem 1rem; }
+            .controls-bar { gap: 7px; }
+            .files-grid.grid-view { grid-template-columns: 1fr; }
+            .item-main { gap: 8px; }
+            .item-name { font-size: 0.86rem; }
+            .item-meta { gap: 6px; }
+            .breadcrumb-item { font-size: 0.76rem; }
+            .footer-note { padding: 0.5rem 0; }
+        }
+        
+        /* ===== ACCESSIBILITY ===== */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        
+        /* Focus styles */
+        :focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+        
+        /* Skip link */
+        .skip-link {
+            position: absolute; top: -40px; left: 0;
+            background: var(--accent); color: white;
+            padding: 8px 16px; z-index: 10001;
+            text-decoration: none; font-weight: 600;
+        }
+        .skip-link:focus { top: 0; }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="global-spinner" id="globalSpinner" role="status" aria-live="polite">
-        <span aria-hidden="true">⏳</span> Выполняется...
-    </div>
+    <!-- Skip link for accessibility -->
+    <a href="#mainContent" class="skip-link">Перейти к контенту</a>
     
-    <header class="header-card">
-        <h1 class="gold-title">📖 Духовный центр Абу Мухаммада</h1>
-        <p class="subtitle">Архив рукъя-анализов и исцеляющих страниц</p>
-        <blockquote id="quoteContainer" class="quote-box"></blockquote>
-        <div class="progress-section" id="progressSection" style="display:none;" aria-label="Прогресс чтения">
-            <span class="progress-label">📚 Прогресс</span>
-            <div class="progress-track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-                <div class="progress-fill" id="progressFill" style="width:0%"></div>
+    <div class="container">
+        <div class="global-spinner" id="globalSpinner" role="status" aria-live="polite">
+            <span aria-hidden="true">⏳</span> <span>Выполняется...</span>
+        </div>
+        
+        <header class="header-card">
+            <h1 class="gold-title">📖 Духовный центр Абу Мухаммада</h1>
+            <p class="subtitle">Архив рукъя-анализов и исцеляющих страниц</p>
+            <div id="quoteContainer" class="quote-box" role="note"></div>
+            <div class="progress-section" id="progressSection" style="display:none;" aria-label="Прогресс чтения">
+                <span class="progress-label">📚 Прогресс</span>
+                <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-fill" id="progressFill" style="width:0%"></div>
+                </div>
+                <span class="progress-count" id="progressCount">0/0</span>
             </div>
-            <span class="progress-count" id="progressCount">0/0</span>
-        </div>
-    </header>
-    
-    <nav class="controls-bar" aria-label="Панель управления">
-        <div class="repo-select-wrap" id="repoSelectWrap" hidden>
-            <label for="repoSelect" class="repo-select-label">📦 Архив</label>
-            <select id="repoSelect" title="Репозиторий GitHub"></select>
-            <button type="button" id="createRepoBtn" class="btn-icon" title="Создать репозиторий" hidden aria-label="Создать репозиторий">➕</button>
-            <button type="button" id="deleteRepoBtn" class="btn-icon" title="Удалить репозиторий" hidden aria-label="Удалить репозиторий">🗑</button>
-        </div>
+        </header>
         
-        <div class="search-box">
-            <label for="searchInput" class="visually-hidden">Поиск</label>
-            <input type="search" id="searchInput" placeholder="Поиск по файлам..." autocomplete="off" aria-describedby="searchHint">
-            <span class="search-hint" id="searchHint">/</span>
-            <button type="button" class="search-clear" id="searchClear" aria-label="Очистить поиск">✕</button>
-        </div>
-        
-        <label for="sortSelect" class="visually-hidden">Сортировка</label>
-        <select id="sortSelect" aria-label="Сортировать по">
-            <option value="name">По имени</option>
-            <option value="size">По размеру</option>
-            <option value="type">По типу</option>
-        </select>
-        
-        <label for="filterTags" class="visually-hidden">Фильтр по тегам</label>
-        <select id="filterTags" aria-label="Фильтр по тегам">
-            <option value="all">Все теги</option>
-            <option value="анализ">🕯 Анализ</option>
-            <option value="дуа">🤲 Дуа</option>
-            <option value="рукъя">📿 Рукъя</option>
-        </select>
-        
-        <button id="favFilterBtn" class="btn-icon" title="Только избранное" aria-label="Фильтр избранного" aria-pressed="false">⭐</button>
-        <button id="viewToggle" title="Переключить вид" hidden style="display:none" aria-label="Переключить вид">📋</button>
-        <button id="themeToggle" class="btn-icon" title="Сменить тему" aria-label="Переключить тему">🌙</button>
-    </nav>
-    
-    <div id="writeModeBanner" class="write-mode-banner" role="status" aria-live="polite" hidden></div>
-    
-    <nav class="controls-bar" id="actionBar" hidden aria-label="Действия">
-        <button id="newHtmlBtn" class="btn-with-text" title="Создать страницу пациента">➕ Новый пациент</button>
-        <button id="uploadFileBtn" class="btn-with-text" title="Загрузить файлы">📤 Загрузить</button>
-        <button id="createFolderBtn" class="btn-with-text" title="Создать папку">📁 Новая папка</button>
-    </nav>
-    
-    <section class="token-section">
-        <button class="token-toggle" id="tokenToggle" aria-expanded="false" aria-controls="tokenBody">
-            🔑 Доступ для записи (GitHub Token)
-            <span class="token-status-badge" id="tokenBadge" aria-live="polite"></span>
-            <span class="chevron" aria-hidden="true">▼</span>
-        </button>
-        <div class="token-body" id="tokenBody">
-            <div class="token-body-inner">
-                <label for="githubToken" class="visually-hidden">GitHub токен</label>
-                <input type="password" id="githubToken" class="token-input" placeholder="ghp_xxxx..." autocomplete="off" aria-describedby="tokenStatus">
-                <button id="saveTokenBtn">💾 Сохранить</button>
-                <span id="tokenStatus" role="status" aria-live="polite"></span>
+        <nav class="controls-bar" aria-label="Панель управления">
+            <div class="repo-select-wrap" id="repoSelectWrap" hidden>
+                <label for="repoSelect" class="repo-select-label">📦 Архив</label>
+                <select id="repoSelect" title="Выберите репозиторий"></select>
+                <button type="button" id="createRepoBtn" class="btn-icon" title="Создать репозиторий" hidden>➕</button>
+                <button type="button" id="deleteRepoBtn" class="btn-icon btn-danger" title="Удалить репозиторий" hidden>🗑</button>
             </div>
-        </div>
-    </section>
-    
-    <nav id="breadcrumbArea" aria-label="Навигация"></nav>
-    <div id="statsArea" class="stats-bar" aria-live="polite"></div>
-    
-    <main id="fileListContainer" class="files-grid" role="list" aria-label="Список файлов">
-        <div class="loading-skeleton" aria-hidden="true"></div>
-        <div class="loading-skeleton" aria-hidden="true"></div>
-        <div class="loading-skeleton" aria-hidden="true"></div>
-    </main>
-    
-    <footer class="footer-note">
-        🤲 Да примет Аллах &nbsp;·&nbsp;
-        <button id="feedbackBtn" type="button">📬 Обратная связь</button>
-    </footer>
-</div>
-
-<!-- Модальное окно редактора -->
-<div class="modal-overlay" id="editorModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" style="display:none;">
-    <div class="modal-card">
-        <h2 class="modal-title" id="modalTitle">➕ Новая страница пациента</h2>
-        
-        <div class="modal-field">
-            <label for="editFileName">Имя файла (без .html)</label>
-            <input type="text" id="editFileName" placeholder="Например: analyz-ahmad" pattern="[a-zA-Z0-9\u0400-\u04FF_-]+" aria-describedby="fileNameHelp">
-            <small id="fileNameHelp" style="color:var(--text-muted);display:block;margin-top:4px">Только буквы, цифры, дефис и подчёркивание</small>
-        </div>
-        
-        <div class="modal-field">
-            <label for="editPatientName">Имя пациента</label>
-            <input type="text" id="editPatientName" placeholder="Имя пациента" required>
-        </div>
-        
-        <div class="modal-field">
-            <label for="editFileType">Тип</label>
-            <select id="editFileType">
-                <option value="анализ">🕯 Анализ</option>
-                <option value="рукъя">📿 Рукъя</option>
-                <option value="дуа">🤲 Дуа</option>
+            
+            <div class="search-box">
+                <label for="searchInput" class="visually-hidden">Поиск файлов</label>
+                <input type="search" id="searchInput" placeholder="Поиск..." aria-label="Поиск по файлам">
+                <span class="search-hint" id="searchHint">/</span>
+                <button class="search-clear" id="searchClear" aria-label="Очистить поиск">✕</button>
+            </div>
+            
+            <label for="sortSelect" class="visually-hidden">Сортировка</label>
+            <select id="sortSelect" aria-label="Сортировка файлов">
+                <option value="name">По имени</option>
+                <option value="size">По размеру</option>
+                <option value="type">По типу</option>
             </select>
+            
+            <label for="filterTags" class="visually-hidden">Фильтр по тегам</label>
+            <select id="filterTags" aria-label="Фильтр по тегам">
+                <option value="all">Все теги</option>
+                <option value="анализ">🕯 Анализ</option>
+                <option value="дуа">🤲 Дуа</option>
+                <option value="рукъя">📿 Рукъя</option>
+            </select>
+            
+            <button id="favFilterBtn" class="btn-icon" aria-label="Только избранное" aria-pressed="false">⭐</button>
+            <button id="viewToggle" hidden style="display:none" aria-label="Переключить вид">📋</button>
+            <button id="themeToggle" class="btn-icon" aria-label="Переключить тему">🌙</button>
+        </nav>
+        
+        <div id="writeModeBanner" class="write-mode-banner" hidden role="status"></div>
+        
+        <div class="controls-bar" id="actionBar" hidden role="toolbar" aria-label="Действия">
+            <button id="newHtmlBtn" class="btn-with-text" title="Создать нового пациента">➕ Новый пациент</button>
+            <button id="uploadFileBtn" class="btn-with-text" title="Загрузить файлы">📤 Загрузить</button>
+            <button id="createFolderBtn" class="btn-with-text" title="Создать папку">📁 Папка</button>
         </div>
         
-        <div class="modal-field" id="editTagsField">
-            <label for="editTags">Теги (через запятую)</label>
-            <input type="text" id="editTags" placeholder="анализ, дуа, рукъя">
-        </div>
+        <section class="token-section">
+            <button class="token-toggle" id="tokenToggle" aria-expanded="false" aria-controls="tokenBody">
+                🔑 GitHub Token для записи
+                <span class="token-status-badge" id="tokenBadge" aria-live="polite"></span>
+                <span class="chevron" aria-hidden="true">▼</span>
+            </button>
+            <div class="token-body" id="tokenBody">
+                <div class="token-body-inner">
+                    <label for="githubToken" class="visually-hidden">GitHub Token</label>
+                    <input type="password" id="githubToken" class="token-input" 
+                           placeholder="ghp_..." autocomplete="off"
+                           aria-describedby="tokenStatus">
+                    <button id="saveTokenBtn">💾 Сохранить</button>
+                    <span id="tokenStatus" aria-live="polite"></span>
+                </div>
+            </div>
+        </section>
         
-        <div class="modal-field">
-            <label for="editFileContent">HTML содержимое</label>
-            <textarea id="editFileContent" aria-label="Редактор HTML"></textarea>
-        </div>
+        <nav id="breadcrumbArea" aria-label="Навигация"></nav>
+        <div id="statsArea" class="stats-bar" aria-live="polite"></div>
         
-        <div class="modal-actions">
-            <button type="button" id="modalCancelBtn">Отмена</button>
-            <button type="button" id="modalPreviewBtn" class="btn-with-text">👁 Предпросмотр</button>
-            <button type="button" id="modalSaveBtn" class="btn-success">💾 Сохранить</button>
+        <main id="mainContent">
+            <div id="fileListContainer" class="files-grid" role="list" aria-label="Список файлов">
+                <div class="loading-skeleton"></div>
+                <div class="loading-skeleton"></div>
+                <div class="loading-skeleton"></div>
+            </div>
+        </main>
+        
+        <footer class="footer-note">
+            🤲 Да примет Аллах &nbsp;·&nbsp;
+            <button id="feedbackBtn" type="button">📬 Обратная связь</button>
+        </footer>
+    </div>
+    
+    <!-- Modal for editing -->
+    <div class="modal-overlay" id="editorModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" style="display:none;">
+        <div class="modal-card">
+            <h2 class="modal-title" id="modalTitle">➕ Новая страница</h2>
+            
+            <div class="modal-field">
+                <label for="editFileName">Имя файла</label>
+                <input type="text" id="editFileName" placeholder="analyz-ahmad" pattern="[a-zA-Z0-9_-]+" 
+                       aria-describedby="fileNameHelp">
+                <small id="fileNameHelp" style="color:var(--text-muted);display:block;margin-top:4px">
+                    Только латиница, цифры, дефис, подчёркивание
+                </small>
+            </div>
+            
+            <div class="modal-field">
+                <label for="editPatientName">Имя пациента</label>
+                <input type="text" id="editPatientName" placeholder="Введите имя" required>
+            </div>
+            
+            <div class="modal-field">
+                <label for="editFileType">Тип</label>
+                <select id="editFileType">
+                    <option value="анализ">🕯 Анализ</option>
+                    <option value="рукъя">📿 Рукъя</option>
+                    <option value="дуа">🤲 Дуа</option>
+                </select>
+            </div>
+            
+            <div class="modal-field" id="editTagsField">
+                <label for="editTags">Теги</label>
+                <input type="text" id="editTags" placeholder="анализ, дуа" 
+                       aria-describedby="tagsHelp">
+                <small id="tagsHelp" style="color:var(--text-muted);display:block;margin-top:4px">
+                    Через запятую
+                </small>
+            </div>
+            
+            <div class="modal-field">
+                <label for="editFileContent">HTML содержимое</label>
+                <textarea id="editFileContent" aria-label="Редактор HTML"></textarea>
+            </div>
+            
+            <div class="modal-actions">
+                <button type="button" id="modalCancelBtn">Отмена</button>
+                <button type="button" id="modalPreviewBtn" class="btn-with-text">👁 Предпросмотр</button>
+                <button type="button" id="modalSaveBtn" class="btn-success">💾 Сохранить</button>
+            </div>
         </div>
     </div>
-</div>
+    
+    <!-- Вспомогательный класс для скрытия лейблов -->
+    <style>
+        .visually-hidden {
+            position: absolute !important;
+            width: 1px !important; height: 1px !important;
+            padding: 0 !important; margin: -1px !important;
+            overflow: hidden !important; clip: rect(0, 0, 0, 0) !important;
+            white-space: nowrap !important; border: 0 !important;
+        }
+    </style>
 
-<!-- Вспомогательный класс для скрытия элементов от визуального отображения, но доступных скринридерам -->
-<style>.visually-hidden{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}</style>
-
-<script>
-(function(){
-    "use strict";
-
-    // ========== КОНФИГУРАЦИЯ ==========
-    const CONFIG = Object.freeze({
-        owner: 'kingboob8880-pixel',
-        repo: 'ruqya-healingg',
-        branch: 'main',
-        pagesBase: 'https://kingboob8880-pixel.github.io/ruqya-healingg',
-        cacheExpiry: 5 * 60 * 1000,
-        debounceDelay: 350,
-        maxRetries: 2,
-        retryDelay: 1500,
-    });
-
-    const LS_KEYS = {
-        ACTIVE_REPO: 'active_repo_full_name',
-        TOKEN: 'github_token',
-        FAVORITES: 'favorites',
-        READ_PROGRESS: 'readProgress',
-        SORT_BY: 'sortBy',
-        THEME: 'theme',
-    };
-
-    // ========== УТИЛИТЫ ==========
-    const Utils = {
-        escapeHtml: (s) => {
+    <script>
+    (function(){
+        'use strict';
+        
+        // ===== CONFIG =====
+        const CONFIG = {
+            owner: 'kingboob8880-pixel',
+            repo: 'ruqya-healingg',
+            branch: 'main',
+            pagesBase: 'https://kingboob8880-pixel.github.io/ruqya-healingg',
+            cacheExpiry: 5 * 60 * 1000,
+            debounceDelay: 350,
+            maxRetries: 2,
+            retryDelay: 1500,
+            storageKeys: {
+                token: 'github_token',
+                favorites: 'favorites',
+                readProgress: 'readProgress',
+                sortBy: 'sortBy',
+                theme: 'theme',
+                activeRepo: 'active_repo_full_name'
+            }
+        };
+        
+        // ===== STATE =====
+        let state = {
+            currentPath: '',
+            allItems: [],
+            favorites: [],
+            readProgress: {},
+            viewMode: 'grid',
+            sortBy: 'name',
+            filterTag: 'all',
+            searchQuery: '',
+            showFavoritesOnly: false,
+            githubToken: '',
+            githubSessionValid: false,
+            isWriteEnabled: false,
+            totalHtmlFiles: 0,
+            isMobileViewport: false,
+            folderPwdConfig: null,
+            activeRepo: null,
+            reposWithPush: [],
+            reposListLoadedForToken: null,
+            // Editing
+            editingFilePath: null,
+            editingFileSha: null
+        };
+        
+        // ===== UTILS =====
+        const $ = (sel, ctx = document) => ctx.querySelector(sel);
+        const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
+        
+        const escapeHtml = (s) => {
             if (!s) return s;
-            const map = {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"};
+            const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
             return s.replace(/[&<>"']/g, m => map[m]);
-        },
+        };
         
-        toBase64: (str) => {
+        const toBase64 = (str) => {
             const bytes = new TextEncoder().encode(str);
-            return btoa(String.fromCharCode(...bytes));
-        },
+            let binary = '';
+            bytes.forEach(b => binary += String.fromCharCode(b));
+            return btoa(binary);
+        };
         
-        fromBase64: (base64) => {
+        const fromBase64 = (base64) => {
             const binary = atob(base64);
-            return new TextDecoder().decode(Uint8Array.from(binary, c => c.charCodeAt(0)));
-        },
+            const bytes = Uint8Array.from(binary, c => c.charCodeAt(0));
+            return new TextDecoder().decode(bytes);
+        };
         
-        debounce: (fn, delay) => {
-            let timer;
+        const debounce = (fn, delay) => {
+            let timeout;
             return (...args) => {
-                clearTimeout(timer);
-                timer = setTimeout(() => fn.apply(this, args), delay);
+                clearTimeout(timeout);
+                timeout = setTimeout(() => fn.apply(this, args), delay);
             };
-        },
+        };
         
-        formatFileSize: (bytes) => {
+        const formatFileSize = (bytes) => {
             if (!bytes) return '';
-            const units = ['B','КБ','МБ','ГБ'];
+            const units = ['B', 'КБ', 'МБ', 'ГБ'];
             let i = 0;
-            while (bytes >= 1024 && i < units.length - 1) { bytes /= 1024; i++; }
-            return (i === 0 ? bytes : bytes.toFixed(1)) + ' ' + units[i];
-        },
-        
-        isMobile: () => window.matchMedia('(max-width: 768px)').matches || /Android|iPhone|iPad/i.test(navigator.userAgent),
-        
-        normalizePath: (raw) => {
-            if (!raw) return '';
-            const p = String(raw).replace(/\\/g,'/').trim().replace(/^\/+|\/+$/g,'');
-            return p && !p.split('/').some(x => x === '..' || x === '.') ? p : '';
-        },
-        
-        maskToken: (tk) => tk && tk.length >= 8 ? '····' + tk.slice(-4) : '****',
-    };
-
-    // ========== ГЛОБАЛЬНОЕ СОСТОЯНИЕ ==========
-    const State = {
-        currentPath: '',
-        allItems: [],
-        favorites: JSON.parse(localStorage.getItem(LS_KEYS.FAVORITES) || '[]'),
-        readProgress: JSON.parse(localStorage.getItem(LS_KEYS.READ_PROGRESS) || '{}'),
-        viewMode: Utils.isMobile() ? 'list' : 'grid',
-        sortBy: localStorage.getItem(LS_KEYS.SORT_BY) || 'name',
-        filterTag: 'all',
-        searchQuery: '',
-        showFavoritesOnly: false,
-        githubToken: localStorage.getItem(LS_KEYS.TOKEN) || '',
-        githubSessionValid: false,
-        isWriteEnabled: false,
-        totalHtmlFiles: 0,
-        folderPwdConfig: null,
-        editingFile: null,
-        reposWithPush: [],
-        activeRepo: null,
-    };
-
-    // ========== DOM КЭШ ==========
-    const DOM = {};
-    const cacheDOM = () => {
-        DOM.spinner = document.getElementById('globalSpinner');
-        DOM.quote = document.getElementById('quoteContainer');
-        DOM.progress = {
-            section: document.getElementById('progressSection'),
-            fill: document.getElementById('progressFill'),
-            count: document.getElementById('progressCount'),
+            while (bytes >= 1024 && i < units.length - 1) {
+                bytes /= 1024;
+                i++;
+            }
+            return bytes.toFixed(i ? 1 : 0) + ' ' + units[i];
         };
-        DOM.controls = {
-            repoWrap: document.getElementById('repoSelectWrap'),
-            repoSelect: document.getElementById('repoSelect'),
-            createRepoBtn: document.getElementById('createRepoBtn'),
-            deleteRepoBtn: document.getElementById('deleteRepoBtn'),
-            searchInput: document.getElementById('searchInput'),
-            searchClear: document.getElementById('searchClear'),
-            sortSelect: document.getElementById('sortSelect'),
-            filterTags: document.getElementById('filterTags'),
-            favFilterBtn: document.getElementById('favFilterBtn'),
-            themeToggle: document.getElementById('themeToggle'),
-            viewToggle: document.getElementById('viewToggle'),
-        };
-        DOM.token = {
-            toggle: document.getElementById('tokenToggle'),
-            body: document.getElementById('tokenBody'),
-            input: document.getElementById('githubToken'),
-            saveBtn: document.getElementById('saveTokenBtn'),
-            status: document.getElementById('tokenStatus'),
-            badge: document.getElementById('tokenBadge'),
-        };
-        DOM.banner = document.getElementById('writeModeBanner');
-        DOM.actionBar = document.getElementById('actionBar');
-        DOM.breadcrumb = document.getElementById('breadcrumbArea');
-        DOM.stats = document.getElementById('statsArea');
-        DOM.fileList = document.getElementById('fileListContainer');
-        DOM.modal = {
-            overlay: document.getElementById('editorModal'),
-            title: document.getElementById('modalTitle'),
-            fileName: document.getElementById('editFileName'),
-            patientName: document.getElementById('editPatientName'),
-            fileType: document.getElementById('editFileType'),
-            tags: document.getElementById('editTags'),
-            content: document.getElementById('editFileContent'),
-            saveBtn: document.getElementById('modalSaveBtn'),
-            cancelBtn: document.getElementById('modalCancelBtn'),
-            previewBtn: document.getElementById('modalPreviewBtn'),
-        };
-    };
-
-    // ========== API РАБОТА С GITHUB ==========
-    const GitHub = {
-        apiBase: () => `https://api.github.com/repos/${State.activeRepo?.owner}/${State.activeRepo?.repo}`,
         
-        headers: () => {
-            const h = {'Accept':'application/vnd.github.v3+json'};
-            if (State.githubToken) h.Authorization = `Bearer ${State.githubToken}`;
-            return h;
-        },
+        const showToast = (message, isError = false) => {
+            // Remove existing toasts
+            $$('.toast').forEach(t => t.remove());
+            
+            const toast = document.createElement('div');
+            toast.className = `toast${isError ? ' error' : ''}`;
+            toast.setAttribute('role', 'alert');
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            // Auto-remove
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(-50%) translateY(16px)';
+                setTimeout(() => toast.remove(), 200);
+            }, 2800);
+        };
         
-        request: async (method, url, body) => {
-            const opts = {method, headers: GitHub.headers()};
+        const maskToken = (token) => {
+            if (!token || token.length < 8) return '****';
+            return '····' + token.slice(-4);
+        };
+        
+        const setGlobalLoading = (loading) => {
+            const spinner = $('#globalSpinner');
+            if (spinner) {
+                spinner.classList.toggle('show', loading);
+                spinner.setAttribute('aria-busy', loading ? 'true' : 'false');
+            }
+        };
+        
+        const closeAllDropdowns = () => {
+            $$('.dropdown-menu').forEach(m => m.remove());
+            $$('.has-menu-open').forEach(c => c.classList.remove('has-menu-open'));
+        };
+        
+        // ===== CACHE =====
+        const apiCache = new Map();
+        const getCached = (key) => {
+            const entry = apiCache.get(key);
+            if (!entry) return null;
+            if (Date.now() - entry.ts > CONFIG.cacheExpiry) {
+                apiCache.delete(key);
+                return null;
+            }
+            return entry.data;
+        };
+        const setCache = (key, data) => {
+            apiCache.set(key, { data, ts: Date.now() });
+        };
+        const clearCache = () => apiCache.clear();
+        
+        // ===== API REQUESTS =====
+        const apiRequest = async (method, url, body = null) => {
+            const headers = { 'Accept': 'application/vnd.github.v3+json' };
+            if (state.githubToken) headers['Authorization'] = `Bearer ${state.githubToken}`;
             if (body) {
-                opts.headers['Content-Type'] = 'application/json';
-                opts.body = JSON.stringify(body);
+                headers['Content-Type'] = 'application/json';
             }
-            const r = await fetch(url, opts);
-            if (!r.ok) {
-                const err = await r.json().catch(() => ({}));
-                const e = new Error(err.message || `GitHub API: ${r.status}`);
-                e.status = r.status;
-                throw e;
+            
+            const options = { method, headers };
+            if (body) options.body = JSON.stringify(body);
+            
+            const response = await fetch(url, options);
+            
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                const error = new Error(errorData.message || `GitHub API: ${response.status}`);
+                error.status = response.status;
+                error.responseBody = errorData;
+                throw error;
             }
-            return r.status !== 204 ? await r.json() : null;
-        },
+            
+            return response.status !== 204 ? await response.json() : null;
+        };
         
-        fetchContents: async (path = '', retries = 0) => {
-            const cacheKey = `${State.activeRepo?.full_name}|${State.activeRepo?.branch}|c:${path}`;
-            // Простое кэширование можно расширить
-            const url = `${GitHub.apiBase()}/contents/${path}?ref=${State.activeRepo?.branch}`;
+        const fetchRepoContents = async (path = '', retries = 0) => {
+            const cacheKey = `${state.activeRepo.full_name}|${state.activeRepo.branch}|c:${path}`;
+            const cached = getCached(cacheKey);
+            if (cached) return cached;
+            
+            const url = `https://api.github.com/repos/${state.activeRepo.owner}/${state.activeRepo.repo}/contents/${path}?ref=${state.activeRepo.branch}`;
+            
             try {
-                const r = await fetch(url, {headers: GitHub.headers()});
-                if (r.status === 403 && retries < CONFIG.maxRetries) {
+                const headers = { 'Accept': 'application/vnd.github.v3+json' };
+                if (state.githubToken) headers['Authorization'] = `Bearer ${state.githubToken}`;
+                
+                const response = await fetch(url, { headers });
+                
+                if (response.status === 403 && retries < CONFIG.maxRetries) {
                     await new Promise(res => setTimeout(res, CONFIG.retryDelay));
-                    return GitHub.fetchContents(path, retries + 1);
+                    return fetchRepoContents(path, retries + 1);
                 }
-                if (r.status === 404) {
-                    const e = new Error('Папка не найдена');
-                    e.status = 404;
-                    throw e;
+                
+                if (response.status === 404) {
+                    const error = new Error(`Папка не найдена: ${path || '/'}`);
+                    error.status = 404;
+                    throw error;
                 }
-                if (!r.ok) throw new Error(`Ошибка API: ${r.status}`);
-                const data = await r.json();
+                
+                if (!response.ok) {
+                    throw new Error(`Ошибка API: ${response.status}`);
+                }
+                
+                const data = await response.json();
                 if (!Array.isArray(data)) {
-                    const e = new Error('Это файл, а не папка');
-                    e.notFolder = true;
-                    throw e;
+                    const error = new Error('Это файл, а не папка');
+                    error.notFolder = true;
+                    throw error;
                 }
+                
+                setCache(cacheKey, data);
                 return data;
-            } catch (e) {
+            } catch (error) {
                 if (retries < CONFIG.maxRetries) {
                     await new Promise(res => setTimeout(res, CONFIG.retryDelay));
-                    return GitHub.fetchContents(path, retries + 1);
+                    return fetchRepoContents(path, retries + 1);
                 }
+                throw error;
+            }
+        };
+        
+        // ===== REPO MANAGEMENT =====
+        const normalizePagesBase = (base) => (base || '').replace(/\/+$/, '');
+        
+        const repoFromConfig = () => ({
+            owner: CONFIG.owner,
+            repo: CONFIG.repo,
+            branch: CONFIG.branch,
+            pagesBase: normalizePagesBase(CONFIG.pagesBase),
+            full_name: `${CONFIG.owner}/${CONFIG.repo}`
+        });
+        
+        const githubPagesBaseFromRepo = (owner, name) => 
+            normalizePagesBase(`https://${owner}.github.io/${name}/`);
+        
+        const repoRecordFromApi = (r) => {
+            const owner = r.owner?.login;
+            const name = r.name;
+            if (!owner || !name) return null;
+            return {
+                owner,
+                repo: name,
+                branch: r.default_branch || 'main',
+                pagesBase: githubPagesBaseFromRepo(owner, name),
+                full_name: r.full_name || `${owner}/${name}`
+            };
+        };
+        
+        const parseNextLink = (linkHeader) => {
+            if (!linkHeader) return null;
+            const match = linkHeader.match(/<([^>]+)>;\s*rel="next"/);
+            return match ? match[1] : null;
+        };
+        
+        const fetchAllUserReposWithPush = async () => {
+            const collected = [];
+            let url = 'https://api.github.com/user/repos?per_page=100&affiliation=owner,collaborator,organization_member';
+            
+            while (url) {
+                const headers = { 'Accept': 'application/vnd.github.v3+json' };
+                if (state.githubToken) headers['Authorization'] = `Bearer ${state.githubToken}`;
+                
+                const response = await fetch(url, { headers });
+                if (!response.ok) {
+                    const error = await response.json().catch(() => ({}));
+                    throw new Error(error.message || `GitHub API: ${response.status}`);
+                }
+                
+                const page = await response.json();
+                if (Array.isArray(page)) {
+                    for (const item of page) {
+                        if (item.permissions?.push) {
+                            const record = repoRecordFromApi(item);
+                            if (record) collected.push(record);
+                        }
+                    }
+                }
+                url = parseNextLink(response.headers.get('Link'));
+            }
+            
+            return collected.sort((a, b) => a.full_name.localeCompare(b.full_name, 'en'));
+        };
+        
+        // ===== FOLDER PASSWORDS =====
+        const getFolderPwdConfig = async () => {
+            if (state.folderPwdConfig !== null) return state.folderPwdConfig;
+            
+            try {
+                const file = await apiRequest('GET', 
+                    `https://api.github.com/repos/${state.activeRepo.owner}/${state.activeRepo.repo}/contents/.folder-config?ref=${state.activeRepo.branch}`);
+                const parsed = JSON.parse(fromBase64(file.content));
+                state.folderPwdConfig = { hashes: parsed.hashes || {}, _sha: file.sha };
+            } catch (e) {
+                state.folderPwdConfig = { hashes: {}, _sha: null };
+            }
+            return state.folderPwdConfig;
+        };
+        
+        const hashPassword = async (pwd) => {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(pwd + state.activeRepo.owner + state.activeRepo.repo);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            return Array.from(new Uint8Array(hashBuffer))
+                .map(b => b.toString(16).padStart(2, '0'))
+                .join('');
+        };
+        
+        const folderLockKey = (path) => `flk_${state.activeRepo.full_name}|${path}`;
+        const isFolderUnlocked = (path) => sessionStorage.getItem(folderLockKey(path)) === '1';
+        const setFolderUnlocked = (path) => sessionStorage.setItem(folderLockKey(path), '1');
+        
+        // ===== FILE OPERATIONS =====
+        const itemExists = async (path) => {
+            try {
+                await apiRequest('GET', 
+                    `https://api.github.com/repos/${state.activeRepo.owner}/${state.activeRepo.repo}/contents/${path}?ref=${state.activeRepo.branch}`);
+                return true;
+            } catch (e) {
+                if (e.status === 404) return false;
                 throw e;
             }
-        },
+        };
         
-        verifyToken: async () => {
-            if (!State.githubToken) return false;
-            try {
-                const info = await GitHub.request('GET', GitHub.apiBase());
-                return !!(info?.permissions?.push);
-            } catch { return false; }
-        },
-    };
-
-    // ========== ГЕНЕРАЦИЯ КОНТЕНТА ==========
-    const Content = {
-        quotes: [
-            "«С именем Аллаха, Который исцеляет» — читайте рукъю с верой.",
-            "«Ниспосылаем в Коране то, что является исцелением» (17:82)",
-            "Пророк ﷺ сказал: «Нет болезни, для которой Аллах не создал лекарства».",
-            "Чтение Аль-Фатихи — величайшее исцеление.",
-            "Дуа — оружие верующего. Просите у Аллаха исцеления."
-        ],
+        const createFolder = async (name) => {
+            if (!state.githubToken) throw new Error('Токен не задан');
+            if (!state.isWriteEnabled) throw new Error('Режим записи не активирован');
+            
+            const folderPath = state.currentPath ? `${state.currentPath}/${name}` : name;
+            if (await itemExists(folderPath)) {
+                throw new Error('Папка уже существует');
+            }
+            
+            await apiRequest('PUT', 
+                `https://api.github.com/repos/${state.activeRepo.owner}/${state.activeRepo.repo}/contents/${folderPath}/.gitkeep`, {
+                message: `Создана папка ${name}`,
+                content: toBase64(''),
+                branch: state.activeRepo.branch
+            });
+            clearCache();
+        };
         
-        extractTags: (fileName, custom = '') => {
-            if (custom?.trim()) return custom.split(',').map(t=>t.trim()).filter(Boolean);
-            const l = fileName.toLowerCase();
-            const tags = [];
-            if (l.includes('анализ')||l.includes('analyz')) tags.push('анализ');
-            if (l.includes('дуа')||l.includes('dua')) tags.push('дуа');
-            if (l.includes('рукъя')||l.includes('ruqya')) tags.push('рукъя');
-            return tags.length ? tags : ['рукъя'];
-        },
+        const deleteItem = async (path, isFolder) => {
+            if (!state.githubToken) throw new Error('Токен не задан');
+            if (!state.isWriteEnabled) throw new Error('Режим записи не активирован');
+            
+            if (isFolder) {
+                // Recursive delete
+                const items = await fetchRepoContents(path);
+                for (const item of items) {
+                    const itemPath = `${path}/${item.name}`;
+                    if (item.type === 'dir') {
+                        await deleteItem(itemPath, true);
+                    } else {
+                        const meta = await apiRequest('GET', 
+                            `https://api.github.com/repos/${state.activeRepo.owner}/${state.activeRepo.repo}/contents/${itemPath}`);
+                        await apiRequest('DELETE', 
+                            `https://api.github.com/repos/${state.activeRepo.owner}/${state.activeRepo.repo}/contents/${itemPath}`, {
+                            message: `Удаление ${item.name}`,
+                            sha: meta.sha,
+                            branch: state.activeRepo.branch
+                        });
+                    }
+                }
+                // Try to remove .gitkeep
+                try {
+                    const keep = await apiRequest('GET', 
+                        `https://api.github.com/repos/${state.activeRepo.owner}/${state.activeRepo.repo}/contents/${path}/.gitkeep`);
+                    await apiRequest('DELETE', 
+                        `https://api.github.com/repos/${state.activeRepo.owner}/${state.activeRepo.repo}/contents/${path}/.gitkeep`, {
+                        message: `Удаление папки ${path.split('/').pop()}`,
+                        sha: keep.sha,
+                        branch: state.activeRepo.branch
+                    });
+                } catch (e) { /* Ignore if already empty */ }
+            } else {
+                const meta = await apiRequest('GET', 
+                    `https://api.github.com/repos/${state.activeRepo.owner}/${state.activeRepo.repo}/contents/${path}`);
+                await apiRequest('DELETE', 
+                    `https://api.github.com/repos/${state.activeRepo.owner}/${state.activeRepo.repo}/contents/${path}`, {
+                    message: `Удаление ${path.split('/').pop()}`,
+                    sha: meta.sha,
+                    branch: state.activeRepo.branch
+                });
+            }
+            clearCache();
+        };
         
-        getTagIcon: (tags) => tags.includes('анализ')?'🕯️':tags.includes('дуа')?'🤲':'📄',
-        
-        highlight: (text, query) => {
-            if (!query) return Utils.escapeHtml(text);
-            const q = query.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
-            return Utils.escapeHtml(text).replace(new RegExp(`(${q})`,'gi'),'<mark>$1</mark>');
-        },
-        
-        generatePatientHtml: (name, type, tags) => {
-            const emoji = type==='анализ'?'🕯️':type==='дуа'?'🤲':'📿';
-            const label = type.charAt(0).toUpperCase()+type.slice(1);
-            const date = new Date().toLocaleDateString('ru-RU');
-            const tagsBlock = tags?.trim() ? `\n            <div class="meta">🏷️ Теги: ${Utils.escapeHtml(tags)}</div>` : '';
+        // ===== HTML GENERATION =====
+        const generatePatientHtml = (patientName, fileType, tagsLine) => {
+            const typeEmoji = { 'анализ': '🕯️', 'дуа': '🤲', 'рукъя': '📿' }[fileType] || '📿';
+            const typeLabel = fileType.charAt(0).toUpperCase() + fileType.slice(1);
+            const now = new Date().toLocaleDateString('ru-RU');
+            const typeWord = { 'анализ': 'анализа', 'дуа': 'дуа', 'рукъя': 'рукъи' }[fileType] || 'рукъи';
+            const safeName = escapeHtml(patientName);
+            const tagsBlock = tagsLine?.trim() 
+                ? `\n            <div class="meta">🏷️ Теги: ${escapeHtml(tagsLine.trim())}</div>` 
+                : '';
+            
             return `<!DOCTYPE html>
-<html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>${emoji} ${label} — ${Utils.escapeHtml(name)}</title>
-<style>body{font-family:system-ui,sans-serif;background:#faf5eb;padding:2rem;color:#3d2e1e}.card{background:#fffcf5;border-radius:20px;padding:2rem;box-shadow:0 4px 20px rgba(0,0,0,.08);margin-bottom:1rem}h1{color:#b37b2e}</style></head>
-<body><div class="card"><h1>${emoji} ${label}: ${Utils.escapeHtml(name)}</h1><p>📅 ${date}</p>${tagsBlock}
-<p>Содержание страницы пациента...</p></div></body></html>`;
-        },
-    };
-
-    // ========== UI ФУНКЦИИ ==========
-    const UI = {
-        showToast: (msg, error = false) => {
-            document.querySelectorAll('.toast').forEach(t=>t.remove());
-            const t = document.createElement('div');
-            t.className = `toast${error?' error':''}`;
-            t.textContent = msg;
-            t.setAttribute('role','alert');
-            document.body.appendChild(t);
-            setTimeout(()=>t.remove(),2800);
-        },
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>${typeEmoji} ${typeLabel} — ${safeName}</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI','Noto Naskh Arabic',system-ui,sans-serif;
+  background:linear-gradient(135deg,#faf5eb,#f0e6d2);min-height:100vh;
+  padding:2rem;padding-bottom:5rem;color:#3d2e1e}
+.container{max-width:800px;margin:0 auto}
+.card{background:rgba(255,252,245,.95);border-radius:20px;padding:2rem;
+  margin-bottom:1.5rem;box-shadow:0 4px 20px rgba(60,40,10,.08);
+  border:1px solid #e8dcc4}
+h1{color:#b37b2e;font-size:1.6rem;margin-bottom:.5rem}
+.meta{color:#7a5f3a;font-size:.9rem;margin-bottom:1rem}
+.section-title{color:#b37b2e;font-size:1.1rem;font-weight:700;
+  margin:1rem 0 .5rem;border-bottom:2px solid #e8dcc4;padding-bottom:.3rem}
+p,li{line-height:1.7;margin-bottom:.5rem}
+ul{padding-left:1.5rem}
+.back-link{display:inline-block;margin-bottom:1rem;color:#b37b2e;
+  text-decoration:none;font-weight:600}
+.back-link:hover{text-decoration:underline}
+.export-toolbar{position:fixed;left:0;right:0;bottom:0;z-index:9999;
+  display:flex;gap:8px;justify-content:center;flex-wrap:wrap;
+  padding:10px 12px;background:rgba(61,46,30,.92);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  border-top:1px solid #e8dcc4}
+.exp-btn{padding:10px 16px;border-radius:12px;border:1px solid #e8dcc4;
+  background:#fffcf5;color:#3d2e1e;font-weight:600;cursor:pointer;
+  font:inherit;font-size:.9rem}
+.exp-btn:hover{background:#faf5eb}
+.exp-btn:disabled{opacity:.55;cursor:not-allowed}
+@media print{
+  .no-print{display:none!important}
+  body{background:#fff!important;padding:8mm!important}
+  .container{max-width:100%}
+  .card{box-shadow:none;border:1px solid #ccc;background:#fff}
+}
+@page{margin:12mm}
+</style>
+</head>
+<body>
+<div class="container">
+  <a href="${CONFIG.pagesBase}/index.html" class="back-link no-print">← Назад к архиву</a>
+  <div class="card" id="patientCard">
+    <h1>${typeEmoji} ${typeLabel}: ${safeName}</h1>
+    <div class="meta">📅 Дата: ${now}</div>${tagsBlock}
+    <div class="section-title">📋 Общая информация</div>
+    <p>Имя: ${safeName}</p>
+    <p>Возраст: </p>
+    <p>Жалобы: </p>
+    <div class="section-title">🔍 ${typeLabel}</div>
+    <p>Опишите здесь результаты ${typeWord}...</p>
+    <div class="section-title">📝 Рекомендации</div>
+    <ul><li>Рекомендация 1</li><li>Рекомендация 2</li><li>Рекомендация 3</li></ul>
+    <div class="section-title">🤲 Заключение</div>
+    <p>Да исцелит Аллах.</p>
+  </div>
+</div>
+<div class="export-toolbar no-print" role="toolbar" aria-label="Экспорт">
+  <button type="button" class="exp-btn" id="btnPrintPdf">Сохранить как PDF</button>
+  <button type="button" class="exp-btn" id="btnSavePng" disabled>Сохранить PNG</button>
+</div>
+<script>
+(function(){
+  function waitForFontsReady(timeoutMs){
+    if(!document.fonts?.ready) return Promise.resolve();
+    return Promise.race([document.fonts.ready, new Promise(r=>setTimeout(r,timeoutMs||2500))]).catch(()=>{});
+  }
+  function exportNodeAsPng(target,fileName,bgColor){
+    return waitForFontsReady(2500).then(()=>{
+      const holder=document.createElement('div');
+      Object.assign(holder.style,{position:'fixed',left:'-100000px',top:0,padding:0,margin:0,background:bgColor||'#fff'});
+      const clone=target.cloneNode(true);
+      clone.style.cssText='max-height:none;height:auto;overflow:visible;transform:none;width:'+Math.ceil(target.getBoundingClientRect().width)+'px';
+      holder.appendChild(clone);document.body.appendChild(holder);
+      return html2canvas(clone,{scale:2,useCORS:true,logging:false,backgroundColor:bgColor||'#fff'})
+        .then(canvas=>{const a=document.createElement('a');a.download=fileName;a.href=canvas.toDataURL('image/png');a.click();})
+        .finally(()=>holder.remove());
+    });
+  }
+  const btnPdf=document.getElementById('btnPrintPdf');
+  const btnPng=document.getElementById('btnSavePng');
+  if(btnPdf) btnPdf.onclick=()=>window.print();
+  if(btnPng) btnPng.onclick=()=>{
+    if(typeof html2canvas!=='function'){alert('Не удалось загрузить модуль для PNG');return;}
+    const el=document.getElementById('patientCard');if(!el)return;
+    btnPng.disabled=true;
+    exportNodeAsPng(el,(document.title||'export').replace(/[^\\w.-]+/g,'_').slice(0,120)+'.png','#fffcf5')
+      .catch(e=>{console.error(e);alert('Ошибка при создании PNG');})
+      .finally(()=>btnPng.disabled=false);
+  };
+  const s=document.createElement('script');
+  s.src='https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
+  s.onload=()=>{if(btnPng)btnPng.disabled=false;};
+  s.onerror=()=>alert('Не удалось загрузить библиотеку html2canvas');
+  document.head.appendChild(s);
+})();
+<\/script>
+</body>
+</html>`;
+        };
         
-        setLoading: (loading) => {
-            DOM.spinner?.classList.toggle('show', loading);
-        },
+        // ===== TAGS & FILTERING =====
+        const extractTags = (fileName, customTags = '') => {
+            if (customTags?.trim()) {
+                return customTags.split(',').map(t => t.trim()).filter(Boolean);
+            }
+            const lower = fileName.toLowerCase();
+            const tags = [];
+            if (lower.includes('анализ') || lower.includes('analyz')) tags.push('анализ');
+            if (lower.includes('дуа') || lower.includes('dua')) tags.push('дуа');
+            if (lower.includes('рукъя') || lower.includes('ruqya')) tags.push('рукъя');
+            return tags.length ? tags : ['рукъя'];
+        };
         
-        updateProgress: (total) => {
-            if (!total) { DOM.progress.section.style.display='none'; return; }
-            DOM.progress.section.style.display = 'flex';
-            const read = Object.keys(State.readProgress).length;
-            const pct = Math.min(100, Math.round(read/total*100));
-            DOM.progress.fill.style.width = pct+'%';
-            DOM.progress.count.textContent = `${read}/${total}`;
-            DOM.progress.fill.parentElement.setAttribute('aria-valuenow', pct);
-        },
+        const getTagIcon = (tags) => {
+            if (tags.includes('анализ')) return '🕯️';
+            if (tags.includes('дуа')) return '🤲';
+            return '📄';
+        };
         
-        updateStats: (files) => {
-            DOM.stats.innerHTML = `<span class="stat-item">📚 Файлов: ${files.length}</span>
-                <span class="stat-item">⭐ Избранное: ${State.favorites.length}</span>
-                <span class="stat-item">✅ Прочитано: ${Object.keys(State.readProgress).length}</span>`;
-        },
+        const highlightText = (text, query) => {
+            if (!query) return escapeHtml(text);
+            const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            return escapeHtml(text).replace(new RegExp(`(${escaped})`, 'gi'), '<mark>$1</mark>');
+        };
         
-        closeDropdowns: () => {
-            document.querySelectorAll('.dropdown-menu').forEach(m=>m.remove());
-            document.querySelectorAll('.has-menu-open').forEach(c=>c.classList.remove('has-menu-open'));
-        },
-        
-        showDropdown: (btn, data) => {
-            UI.closeDropdowns();
-            const menu = document.createElement('div');
-            menu.className = 'dropdown-menu';
-            menu.setAttribute('role','menu');
+        // ===== RENDERING =====
+        const renderBreadcrumb = () => {
+            const parts = state.currentPath.split('/').filter(Boolean);
+            const area = $('#breadcrumbArea');
+            if (!area) return;
             
-            const actions = data.type==='file' 
-                ? [
-                    {label:'📖 Открыть', act:()=>window.open(Content.getFileUrl(data.folder,data.name),'_blank')},
-                    {label:'📋 Копировать ссылку', act:()=>navigator.clipboard?.writeText(Content.getFileUrl(data.folder,data.name))},
-                    {label:'divider'},
-                    {label:State.favorites.includes(data.path)?'💛 Убрать из избранного':'⭐ В избранное', act:()=>Content.toggleFavorite(data.path)},
-                  ]
-                : [
-                    {label:'📂 Открыть', act:()=>{State.currentPath=data.path; App.render();}},
-                    {label:'📋 Копировать ссылку', act:()=>navigator.clipboard?.writeText(Content.getFolderUrl(data.path))},
-                  ];
+            let html = `<div class="breadcrumb"><button class="breadcrumb-root" id="rootCrumb" aria-label="В корень">🏠 ${escapeHtml(state.activeRepo.full_name)}</button>`;
+            let acc = '';
+            parts.forEach((part, i) => {
+                acc += (acc ? '/' : '') + part;
+                const display = (i === parts.length - 1 && part.length > 18 && window.innerWidth < 640) 
+                    ? part.slice(0, 12) + '…' : part;
+                html += `<span class="breadcrumb-sep" aria-hidden="true">/</span><button class="breadcrumb-item" data-path="${acc}">📁 ${escapeHtml(display)}</button>`;
+            });
+            html += '</div>';
+            area.innerHTML = html;
             
-            actions.forEach(a=>{
-                if(a.label==='divider'){const d=document.createElement('div');d.className='divider';menu.appendChild(d);return;}
-                const b=document.createElement('button');
-                b.textContent=a.label;
-                b.setAttribute('role','menuitem');
-                b.onclick=(e)=>{e.stopPropagation();a.act();UI.closeDropdowns();};
-                menu.appendChild(b);
+            $('#rootCrumb')?.addEventListener('click', () => {
+                state.currentPath = '';
+                updateUrlState();
+                renderCurrentView();
+            });
+            $$('.breadcrumb-item', area).forEach(el => {
+                el.addEventListener('click', () => {
+                    state.currentPath = el.dataset.path;
+                    updateUrlState();
+                    renderCurrentView();
+                });
+            });
+        };
+        
+        const renderFileList = (items, pwdCfg) => {
+            const container = $('#fileListContainer');
+            if (!container) return;
+            
+            const folders = items.filter(i => i.type === 'dir');
+            const htmlFiles = items.filter(i => i.type === 'file' && i.name.endsWith('.html') && i.name !== 'index.html');
+            
+            // Filter & sort
+            let filtered = htmlFiles.filter(f => {
+                const tags = extractTags(f.name);
+                const tagOk = state.filterTag === 'all' || tags.includes(state.filterTag);
+                const sq = state.searchQuery.toLowerCase();
+                const searchOk = !sq || f.name.toLowerCase().includes(sq) || tags.some(t => t.includes(sq));
+                const fp = state.currentPath ? `${state.currentPath}/${f.name}` : f.name;
+                const favOk = !state.showFavoritesOnly || state.favorites.includes(fp);
+                return tagOk && searchOk && favOk;
             });
             
-            btn.closest('.item-actions')?.appendChild(menu);
-            menu.style.display='flex';
-            btn.closest('.file-card,.folder-card')?.classList.add('has-menu-open');
-            
-            const handler=(e)=>{if(!menu.contains(e.target)&&e.target!==btn){UI.closeDropdowns();document.removeEventListener('click',handler);}};
-            document.addEventListener('click',handler);
-        },
-    };
-
-    // ========== ОСНОВНОЕ ПРИЛОЖЕНИЕ ==========
-    const App = {
-        init: async () => {
-            cacheDOM();
-            
-            // Тема
-            if(localStorage.getItem(LS_KEYS.THEME)==='dark')document.body.classList.add('dark');
-            DOM.controls.themeToggle.onclick = () => {
-                document.body.classList.toggle('dark');
-                localStorage.setItem(LS_KEYS.THEME, document.body.classList.contains('dark')?'dark':'light');
-                DOM.controls.themeToggle.textContent = document.body.classList.contains('dark')?'☀️':'🌙';
-            };
-            DOM.controls.themeToggle.textContent = document.body.classList.contains('dark')?'☀️':'🌙';
-            
-            // Цитата
-            DOM.quote.textContent = Content.quotes[Math.floor(Math.random()*Content.quotes.length)];
-            
-            // Поиск
-            const debouncedSearch = Utils.debounce(()=>App.render(), CONFIG.debounceDelay);
-            DOM.controls.searchInput.oninput = (e) => {
-                State.searchQuery = e.target.value;
-                DOM.controls.searchClear.style.display = State.searchQuery ? 'block' : 'none';
-                debouncedSearch();
-            };
-            DOM.controls.searchClear.onclick = () => {
-                DOM.controls.searchInput.value = '';
-                State.searchQuery = '';
-                DOM.controls.searchClear.style.display = 'none';
-                App.render();
-            };
-            
-            // Горячие клавиши
-            document.addEventListener('keydown', (e) => {
-                if(e.key==='/') { e.preventDefault(); DOM.controls.searchInput.focus(); }
-                if(e.key==='Escape') { UI.closeDropdowns(); DOM.modal.overlay.style.display='none'; }
-            });
-            
-            // Токен
-            if(State.githubToken) DOM.token.input.value = State.githubToken;
-            DOM.token.toggle.onclick = () => {
-                const open = DOM.token.toggle.classList.toggle('open');
-                DOM.token.body.classList.toggle('open');
-                DOM.token.toggle.setAttribute('aria-expanded', open);
-            };
-            DOM.token.saveBtn.onclick = async () => {
-                State.githubToken = DOM.token.input.value.trim();
-                localStorage.setItem(LS_KEYS.TOKEN, State.githubToken);
-                await App.enableWriteMode();
-                App.render();
-            };
-            
-            // Модальное окно
-            DOM.modal.cancelBtn.onclick = () => DOM.modal.overlay.style.display = 'none';
-            DOM.modal.overlay.onclick = (e) => { if(e.target===DOM.modal.overlay) DOM.modal.overlay.style.display='none'; };
-            
-            // Инициализация
-            if(State.githubToken) await App.enableWriteMode();
-            await App.render();
-            
-            // Event delegation для списка файлов
-            DOM.fileList.addEventListener('click', App.handleFileClick);
-        },
-        
-        enableWriteMode: async () => {
-            if(!State.githubToken) return;
-            DOM.token.status.textContent = '⏳ Проверка...';
-            
-            try {
-                const valid = await GitHub.verifyToken();
-                if(valid) {
-                    State.isWriteEnabled = true;
-                    State.githubSessionValid = true;
-                    DOM.token.status.innerHTML = `✅ Токен: ${Utils.maskToken(State.githubToken)}`;
-                    DOM.token.status.style.color = 'var(--success)';
-                    DOM.token.badge.textContent = '✅';
-                    document.body.classList.add('write-mode');
-                    DOM.actionBar.hidden = false;
-                } else {
-                    throw new Error('Нет прав на запись');
-                }
-            } catch(e) {
-                DOM.token.status.textContent = '❌ ' + e.message;
-                DOM.token.status.style.color = 'var(--danger)';
-                DOM.token.badge.textContent = '❌';
-                State.isWriteEnabled = false;
-            }
-        },
-        
-        handleFileClick: (e) => {
-            const menuBtn = e.target.closest('.menu-btn');
-            if(menuBtn) {
-                e.stopPropagation();
-                UI.showDropdown(menuBtn, menuBtn.dataset);
-                return;
-            }
-            const card = e.target.closest('.file-card,.folder-card');
-            if(!card) return;
-            
-            if(card.classList.contains('folder-card')) {
-                State.currentPath = card.dataset.folderPath;
-                App.render();
-            } else if(card.classList.contains('file-card')) {
-                const url = Content.getFileUrl(card.dataset.folder, card.dataset.fileName);
-                window.open(url, '_blank');
-                Content.markRead(card.dataset.filePath);
-                setTimeout(()=>App.render(), 300);
-            }
-        },
-        
-        render: async () => {
-            UI.setLoading(true);
-            DOM.fileList.innerHTML = '<div class="loading-skeleton"></div>'.repeat(3);
-            
-            try {
-                const items = await GitHub.fetchContents(State.currentPath);
-                State.allItems = items;
-                
-                // Фильтрация и сортировка
-                let files = items.filter(i=>i.type==='file'&&i.name.endsWith('.html')&&i.name!=='index.html');
-                
-                if(State.filterTag!=='all') {
-                    files = files.filter(f=>Content.extractTags(f.name).includes(State.filterTag));
-                }
-                if(State.searchQuery) {
-                    const q = State.searchQuery.toLowerCase();
-                    files = files.filter(f=>f.name.toLowerCase().includes(q));
-                }
-                if(State.showFavoritesOnly) {
-                    files = files.filter(f=>State.favorites.includes(f.path));
-                }
-                
-                files.sort((a,b)=>{
-                    if(State.sortBy==='name') return a.name.localeCompare(b.name,'ru');
-                    if(State.sortBy==='size') return (b.size||0)-(a.size||0);
-                    return 0;
+            // Sort
+            if (state.sortBy === 'name') {
+                filtered.sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+            } else if (state.sortBy === 'size') {
+                filtered.sort((a, b) => (b.size || 0) - (a.size || 0));
+            } else if (state.sortBy === 'type') {
+                filtered.sort((a, b) => {
+                    const ta = extractTags(a.name)[0];
+                    const tb = extractTags(b.name)[0];
+                    return ta.localeCompare(tb);
                 });
-                
-                State.totalHtmlFiles = files.length;
-                UI.updateStats(files);
-                UI.updateProgress(State.totalHtmlFiles);
-                App.renderBreadcrumb();
-                
-                // Рендер карточек
-                let html = '';
-                items.filter(i=>i.type==='dir').forEach((f,idx)=>{
-                    html += `<article class="folder-card" data-folder-path="${f.path}" data-folder-name="${Utils.escapeHtml(f.name)}" style="animation-delay:${idx*40}ms" role="listitem" tabindex="0">
-                        <div class="item-row"><div class="item-main">
-                            <div class="item-icon" aria-hidden="true">📁</div>
-                            <div class="item-info"><div class="item-name">${Content.highlight(f.name,State.searchQuery)}</div></div>
-                        </div><div class="item-actions">
-                            <button class="menu-btn" data-type="folder" data-path="${f.path}" data-name="${Utils.escapeHtml(f.name)}" aria-label="Меню папки">⋮</button>
-                        </div></div></article>`;
-                });
-                
-                files.forEach((f,idx)=>{
-                    const tags = Content.extractTags(f.name);
-                    const fp = f.path;
-                    const isFav = State.favorites.includes(fp);
-                    const isRead = State.readProgress[fp];
-                    html += `<article class="file-card${State.isWriteEnabled?' draggable':''}" 
-                        data-file-path="${fp}" data-file-name="${Utils.escapeHtml(f.name)}" 
-                        data-folder="${State.currentPath}" draggable="${State.isWriteEnabled}"
-                        style="animation-delay:${(items.filter(i=>i.type==='dir').length+idx)*40}ms"
-                        role="listitem" tabindex="0">
-                        <div class="item-row"><div class="item-main">
-                            <div class="item-icon" aria-hidden="true">${Content.getTagIcon(tags)}</div>
+            }
+            
+            // Stats
+            state.totalHtmlFiles = htmlFiles.length;
+            updateStats(filtered.length);
+            updateProgress(state.totalHtmlFiles);
+            renderBreadcrumb();
+            
+            // Build HTML using DocumentFragment for performance
+            const fragment = document.createDocumentFragment();
+            
+            // Folders
+            folders.forEach((f, i) => {
+                const isLocked = !!pwdCfg.hashes[f.path];
+                const card = document.createElement('div');
+                card.className = 'folder-card';
+                card.dataset.folderPath = f.path;
+                card.dataset.folderName = f.name;
+                card.style.animationDelay = `${i * 40}ms`;
+                card.setAttribute('role', 'listitem');
+                card.innerHTML = `
+                    <div class="item-row">
+                        <div class="item-main">
+                            <div class="item-icon" aria-hidden="true">${isLocked ? '🔒' : '📁'}</div>
                             <div class="item-info">
-                                <div class="item-name">${Content.highlight(f.name,State.searchQuery)}</div>
+                                <div class="item-name">${highlightText(f.name, state.searchQuery)}${isLocked ? '<span class="folder-lock-icon" title="Защищено паролем" aria-label="Защищено">🔒</span>' : ''}</div>
+                            </div>
+                        </div>
+                        <div class="item-actions">
+                            <button class="menu-btn" data-type="folder" data-path="${f.path}" data-name="${escapeHtml(f.name)}" aria-label="Меню папки">⋮</button>
+                        </div>
+                    </div>
+                `;
+                fragment.appendChild(card);
+            });
+            
+            // Files
+            filtered.forEach((f, i) => {
+                const tags = extractTags(f.name);
+                const fp = state.currentPath ? `${state.currentPath}/${f.name}` : f.name;
+                const isFav = state.favorites.includes(fp);
+                const isRead = state.readProgress[fp];
+                const delay = (folders.length + i) * 40;
+                
+                const card = document.createElement('div');
+                card.className = `file-card${state.isWriteEnabled ? ' draggable' : ''}`;
+                card.dataset.filePath = fp;
+                card.dataset.fileName = f.name;
+                card.dataset.folder = state.currentPath;
+                card.draggable = state.isWriteEnabled;
+                card.style.animationDelay = `${delay}ms`;
+                card.setAttribute('role', 'listitem');
+                
+                card.innerHTML = `
+                    <div class="item-row">
+                        <div class="item-main">
+                            <div class="item-icon" aria-hidden="true">${getTagIcon(tags)}</div>
+                            <div class="item-info">
+                                <div class="item-name">${highlightText(f.name, state.searchQuery)}</div>
                                 <div class="item-meta">
-                                    <div class="tags">${tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
-                                    ${Utils.formatFileSize(f.size)?`<span class="item-size">${Utils.formatFileSize(f.size)}</span>`:''}
+                                    <div class="tags" aria-label="Теги">
+                                        ${tags.map(t => `<span class="tag">${t}</span>`).join('')}
+                                    </div>
+                                    ${f.size ? `<span class="item-size">${formatFileSize(f.size)}</span>` : ''}
                                 </div>
                             </div>
-                        </div><div class="item-actions">
+                        </div>
+                        <div class="item-actions">
                             <div class="status-badges" aria-label="Статус">
-                                ${isFav?'<span class="badge active" title="Избранное">⭐</span>':''}
-                                ${isRead?'<span class="badge active" title="Прочитано">✅</span>':''}
+                                ${isFav ? '<span class="badge active" title="Избранное" aria-label="Избранное">⭐</span>' : ''}
+                                ${isRead ? '<span class="badge active" title="Прочитано" aria-label="Прочитано">✅</span>' : ''}
                             </div>
-                            <button class="menu-btn" data-type="file" data-path="${fp}" data-name="${Utils.escapeHtml(f.name)}" data-folder="${State.currentPath}" aria-label="Меню файла">⋮</button>
-                        </div></div></article>`;
-                });
+                            <button class="menu-btn" data-type="file" data-path="${fp}" data-name="${escapeHtml(f.name)}" data-folder="${state.currentPath}" aria-label="Меню файла">⋮</button>
+                        </div>
+                    </div>
+                `;
+                fragment.appendChild(card);
+            });
+            
+            // Empty state
+            if (filtered.length === 0 && folders.length === 0) {
+                const icon = state.showFavoritesOnly ? '⭐' : (state.searchQuery ? '🔍' : '🌙');
+                const text = state.showFavoritesOnly ? 'Нет избранных файлов' : (state.searchQuery ? 'Ничего не найдено' : 'Папка пуста');
+                const hint = state.showFavoritesOnly ? 'Добавьте файлы через меню ⋮' : (state.searchQuery ? 'Попробуйте другой запрос' : 'Загрузите файлы');
                 
-                if(!files.length && !items.filter(i=>i.type==='dir').length) {
-                    html = `<div class="empty-state" role="status"><div class="empty-icon">🌙</div>
-                        <div class="empty-text">Папка пуста</div>
-                        <div class="empty-hint">Загрузите файлы или создайте новый</div></div>`;
+                const empty = document.createElement('div');
+                empty.className = 'empty-state';
+                empty.setAttribute('role', 'status');
+                empty.innerHTML = `
+                    <div class="empty-icon" aria-hidden="true">${icon}</div>
+                    <div class="empty-text">${text}</div>
+                    <div class="empty-hint">${hint}</div>
+                `;
+                fragment.appendChild(empty);
+            }
+            
+            container.innerHTML = '';
+            container.appendChild(fragment);
+            container.className = `files-grid ${state.viewMode === 'grid' ? 'grid-view' : ''}`;
+        };
+        
+        const updateStats = (count) => {
+            const area = $('#statsArea');
+            if (!area) return;
+            area.innerHTML = `
+                <span class="stat-item">📚 Файлов: ${count}</span>
+                <span class="stat-item">⭐ Избранное: ${state.favorites.length}</span>
+                <span class="stat-item">✅ Прочитано: ${Object.keys(state.readProgress).length}</span>
+            `;
+        };
+        
+        const updateProgress = (total) => {
+            const section = $('#progressSection');
+            const fill = $('#progressFill');
+            const count = $('#progressCount');
+            if (!section) return;
+            
+            if (total === 0) {
+                section.style.display = 'none';
+                return;
+            }
+            section.style.display = 'flex';
+            const read = Object.keys(state.readProgress).length;
+            const pct = Math.min(100, Math.round((read / total) * 100));
+            fill.style.width = pct + '%';
+            count.textContent = `${read}/${total}`;
+            section.querySelector('.progress-track')?.setAttribute('aria-valuenow', pct);
+        };
+        
+        // ===== RENDER MAIN =====
+        const renderCurrentView = async () => {
+            const container = $('#fileListContainer');
+            if (!container) return;
+            
+            // Password check for folder
+            if (state.currentPath) {
+                const cfg = await getFolderPwdConfig();
+                if (cfg.hashes[state.currentPath] && !isFolderUnlocked(state.currentPath)) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-icon">🔒</div>
+                            <div class="empty-text">Папка защищена паролем</div>
+                            <div class="empty-hint">Введите пароль для доступа</div>
+                        </div>
+                    `;
+                    showPasswordModal({
+                        title: '🔒 Защищённая папка',
+                        fieldLabel: 'Пароль',
+                        placeholder: 'Введите пароль',
+                        confirmLabel: 'Открыть',
+                        onConfirm: async (pwd) => {
+                            const h = await hashPassword(pwd);
+                            if (h === cfg.hashes[state.currentPath]) {
+                                setFolderUnlocked(state.currentPath);
+                                renderCurrentView();
+                            } else {
+                                showToast('❌ Неверный пароль', true);
+                            }
+                        },
+                        onCancel: () => {
+                            state.currentPath = state.currentPath.includes('/') 
+                                ? state.currentPath.substring(0, state.currentPath.lastIndexOf('/')) 
+                                : '';
+                            updateUrlState();
+                            renderCurrentView();
+                        }
+                    });
+                    return;
+                }
+            }
+            
+            // Loading state
+            container.innerHTML = `
+                <div class="loading-skeleton"></div>
+                <div class="loading-skeleton"></div>
+                <div class="loading-skeleton"></div>
+            `;
+            
+            try {
+                const [items, pwdCfg] = await Promise.all([
+                    fetchRepoContents(state.currentPath),
+                    getFolderPwdConfig()
+                ]);
+                state.allItems = items;
+                renderFileList(items, pwdCfg);
+            } catch (err) {
+                if ((err?.notFolder || err?.status === 404) && state.currentPath) {
+                    state.currentPath = '';
+                    updateUrlState();
+                    showToast(err.message || 'Возвращаемся в корень', true);
+                    return renderCurrentView();
+                }
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">⚠️</div>
+                        <div class="empty-text">Ошибка загрузки</div>
+                        <div class="empty-hint">${escapeHtml(err.message || 'Неизвестная ошибка')}</div>
+                    </div>
+                `;
+            }
+        };
+        
+        // ===== URL STATE =====
+        const updateUrlState = () => {
+            const url = new URL(window.location);
+            if (state.currentPath) {
+                url.searchParams.set('path', state.currentPath);
+            } else {
+                url.searchParams.delete('path');
+            }
+            // Handle repo param
+            if (!state.githubToken || state.reposWithPush.length === 0) {
+                url.searchParams.delete('repo');
+            } else {
+                const def = `${CONFIG.owner}/${CONFIG.repo}`;
+                if (state.activeRepo.full_name.toLowerCase() !== def.toLowerCase()) {
+                    url.searchParams.set('repo', state.activeRepo.full_name);
+                } else {
+                    url.searchParams.delete('repo');
+                }
+            }
+            history.replaceState({}, '', url);
+        };
+        
+        // ===== EVENT DELEGATION =====
+        const bindFileListEvents = () => {
+            const container = $('#fileListContainer');
+            if (!container || container.dataset.bound === '1') return;
+            container.dataset.bound = '1';
+            
+            // Click delegation
+            container.addEventListener('click', (e) => {
+                const menuBtn = e.target.closest('.menu-btn');
+                if (menuBtn) {
+                    e.stopPropagation();
+                    showDropdown(menuBtn, menuBtn.dataset);
+                    return;
                 }
                 
-                DOM.fileList.innerHTML = html;
-                DOM.fileList.className = 'files-grid ' + (State.viewMode==='grid'?'grid-view':'');
+                const fileCard = e.target.closest('.file-card');
+                if (fileCard && !e.target.closest('.menu-btn, .status-badges')) {
+                    const fp = fileCard.dataset.filePath;
+                    const name = fileCard.dataset.fileName;
+                    const folder = fileCard.dataset.folder || '';
+                    const url = getFileUrl(folder, name);
+                    openFileUrl(url);
+                    markRead(fp);
+                    setTimeout(renderCurrentView, 300);
+                    return;
+                }
                 
-            } catch(err) {
-                console.error(err);
-                DOM.fileList.innerHTML = `<div class="empty-state"><div class="empty-icon">⚠️</div>
-                    <div class="empty-text">Ошибка загрузки</div>
-                    <div class="empty-hint">${Utils.escapeHtml(err.message)}</div></div>`;
-            } finally {
-                UI.setLoading(false);
-            }
-        },
-        
-        renderBreadcrumb: () => {
-            const parts = State.currentPath.split('/').filter(Boolean);
-            let html = `<nav class="breadcrumb" aria-label="Путь"><a href="#" class="breadcrumb-root" id="rootCrumb">🏠 ${Utils.escapeHtml(State.activeRepo?.full_name||'')}</a>`;
-            let acc = '';
-            parts.forEach((part,i)=>{
-                acc += (acc?'/':'') + part;
-                const display = part.length>18&&window.innerWidth<640?part.slice(0,12)+'…':part;
-                html += `<span class="breadcrumb-sep" aria-hidden="true">/</span><button class="breadcrumb-item" data-path="${acc}">📁 ${Utils.escapeHtml(display)}</button>`;
+                const folderCard = e.target.closest('.folder-card');
+                if (folderCard && !e.target.closest('.menu-btn')) {
+                    state.currentPath = folderCard.dataset.folderPath;
+                    updateUrlState();
+                    renderCurrentView();
+                }
             });
-            html += '</nav>';
-            DOM.breadcrumb.innerHTML = html;
             
-            document.getElementById('rootCrumb')?.addEventListener('click',(e)=>{
-                e.preventDefault(); State.currentPath=''; App.render();
-            });
-            DOM.breadcrumb.querySelectorAll('.breadcrumb-item').forEach(btn=>{
-                btn.addEventListener('click',(e)=>{
-                    e.preventDefault(); State.currentPath=btn.dataset.path; App.render();
+            // Drag & drop
+            if (state.isWriteEnabled) {
+                container.addEventListener('dragstart', (e) => {
+                    const card = e.target.closest('.file-card.draggable');
+                    if (!card) return;
+                    e.dataTransfer.setData('text/plain', JSON.stringify({
+                        filePath: card.dataset.filePath,
+                        fileName: card.dataset.fileName
+                    }));
+                    e.dataTransfer.effectAllowed = 'move';
+                    card.style.opacity = '0.5';
                 });
+                
+                container.addEventListener('dragend', (e) => {
+                    const card = e.target.closest('.file-card');
+                    if (card) card.style.opacity = '1';
+                });
+                
+                container.addEventListener('dragover', (e) => {
+                    const folder = e.target.closest('.folder-card');
+                    if (!folder) return;
+                    e.preventDefault();
+                    e.dataTransfer.dropEffect = 'move';
+                    folder.classList.add('drag-over');
+                });
+                
+                container.addEventListener('dragleave', (e) => {
+                    const folder = e.target.closest('.folder-card');
+                    if (folder) folder.classList.remove('drag-over');
+                });
+                
+                container.addEventListener('drop', async (e) => {
+                    const folder = e.target.closest('.folder-card');
+                    if (!folder) return;
+                    e.preventDefault();
+                    folder.classList.remove('drag-over');
+                    
+                    const raw = e.dataTransfer.getData('text/plain');
+                    if (!raw) return;
+                    
+                    try {
+                        const { filePath, fileName } = JSON.parse(raw);
+                        const destPath = folder.dataset.folderPath;
+                        if (filePath === `${destPath}/${fileName}`) return;
+                        
+                        setGlobalLoading(true);
+                        await moveFile(filePath, destPath, fileName);
+                        showToast('✅ Перемещено');
+                        renderCurrentView();
+                    } catch (err) {
+                        showToast(err.message, true);
+                    } finally {
+                        setGlobalLoading(false);
+                    }
+                });
+            }
+        };
+        
+        // ===== DROPDOWN MENU =====
+        const showDropdown = (btn, data) => {
+            closeAllDropdowns();
+            
+            const menu = document.createElement('div');
+            menu.className = 'dropdown-menu';
+            menu.setAttribute('role', 'menu');
+            
+            const actions = [];
+            
+            if (data.type === 'file') {
+                const url = getFileUrl(data.folder, data.name);
+                const fp = data.path;
+                actions.push({ label: '📖 Открыть', action: () => { openFileUrl(url); markRead(fp); setTimeout(renderCurrentView, 300); } });
+                actions.push({ label: '📋 Копировать ссылку', action: () => copyToClipboard(url) });
+                actions.push({ divider: true });
+                actions.push({ 
+                    label: state.favorites.includes(fp) ? '💛 Убрать из избранного' : '⭐ В избранное', 
+                    action: () => { toggleFavorite(fp); renderCurrentView(); } 
+                });
+                actions.push({ 
+                    label: state.readProgress[fp] ? '✅ Уже прочитано' : '📌 Отметить прочитанным', 
+                    action: () => { markRead(fp); renderCurrentView(); } 
+                });
+                
+                if (state.isWriteEnabled) {
+                    actions.push({ divider: true });
+                    actions.push({ label: '✏️ Редактировать', action: () => openEditorForFile(fp, data.name) });
+                    actions.push({ 
+                        label: '✏️ Переименовать', 
+                        action: async () => {
+                            const newName = prompt('Новое имя:', data.name);
+                            if (newName && newName !== data.name) {
+                                setGlobalLoading(true);
+                                try {
+                                    await renameItem(fp, newName);
+                                    showToast('✅ Переименовано');
+                                    renderCurrentView();
+                                } catch (e) { showToast(e.message, true); }
+                                finally { setGlobalLoading(false); }
+                            }
+                        }
+                    });
+                    actions.push({ 
+                        label: '🗑️ Удалить', 
+                        action: async () => {
+                            if (confirm(`Удалить «${data.name}»?`)) {
+                                setGlobalLoading(true);
+                                try {
+                                    await deleteItem(fp, false);
+                                    showToast('Файл удалён');
+                                    renderCurrentView();
+                                } catch (e) { showToast(e.message, true); }
+                                finally { setGlobalLoading(false); }
+                            }
+                        }
+                    });
+                }
+            } else {
+                actions.push({ label: '📂 Открыть папку', action: () => { state.currentPath = data.path; updateUrlState(); renderCurrentView(); } });
+                actions.push({ label: '📋 Копировать ссылку', action: () => copyToClipboard(getFolderUrl(data.path)) });
+                actions.push({ label: '📋 Копировать (только чтение)', action: () => copyToClipboard(getFolderUrl(data.path, true)) });
+                
+                if (state.isWriteEnabled) {
+                    actions.push({ divider: true });
+                    const cfg = state.folderPwdConfig;
+                    const isLocked = cfg?.hashes?.[data.path];
+                    if (!isLocked) {
+                        actions.push({ label: '🔒 Установить пароль', action: () => manageFolderPassword(data.path, 'set') });
+                    } else {
+                        actions.push({ label: '🔑 Сменить пароль', action: () => manageFolderPassword(data.path, 'change') });
+                        actions.push({ label: '🔓 Снять пароль', action: () => manageFolderPassword(data.path, 'remove') });
+                    }
+                    actions.push({ divider: true });
+                    actions.push({ 
+                        label: '🗑️ Удалить папку', 
+                        action: async () => {
+                            if (confirm(`Удалить папку «${data.name}» и всё содержимое?`)) {
+                                setGlobalLoading(true);
+                                try {
+                                    await deleteItem(data.path, true);
+                                    showToast('Папка удалена');
+                                    renderCurrentView();
+                                } catch (e) { showToast(e.message, true); }
+                                finally { setGlobalLoading(false); }
+                            }
+                        }
+                    });
+                }
+            }
+            
+            actions.forEach(item => {
+                if (item.divider) {
+                    const div = document.createElement('div');
+                    div.className = 'divider';
+                    div.setAttribute('role', 'separator');
+                    menu.appendChild(div);
+                    return;
+                }
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.textContent = item.label;
+                btn.setAttribute('role', 'menuitem');
+                btn.onclick = (e) => {
+                    e.stopPropagation();
+                    item.action();
+                    closeAllDropdowns();
+                };
+                menu.appendChild(btn);
             });
-        },
-    };
-
-    // Вспомогательные методы для Content
-    Content.getFileUrl = (folder, name) => {
-        const parts = [State.activeRepo?.pagesBase];
-        if(folder) parts.push(folder);
-        parts.push(name);
-        return parts.join('/');
-    };
-    Content.getFolderUrl = (path) => {
-        const url = new URL(window.location);
-        if(path) url.searchParams.set('path',path); else url.searchParams.delete('path');
-        return url.toString();
-    };
-    Content.toggleFavorite = (path) => {
-        const i = State.favorites.indexOf(path);
-        i>=0 ? State.favorites.splice(i,1) : State.favorites.push(path);
-        localStorage.setItem(LS_KEYS.FAVORITES, JSON.stringify(State.favorites));
-        App.render();
-    };
-    Content.markRead = (path) => {
-        State.readProgress[path] = true;
-        localStorage.setItem(LS_KEYS.READ_PROGRESS, JSON.stringify(State.readProgress));
-    };
-
-    // Инициализация при загрузке
-    document.addEventListener('DOMContentLoaded', App.init);
-    
-})();
-</script>
+            
+            // Position & show
+            const parentCard = btn.closest('.file-card, .folder-card');
+            if (parentCard) parentCard.classList.add('has-menu-open');
+            btn.closest('.item-actions')?.appendChild(menu);
+            menu.style.display = 'flex';
+            
+            // Close on outside click
+            requestAnimationFrame(() => {
+                const handler = (e) => {
+                    if (!menu.contains(e.target) && e.target !== btn) {
+                        closeAllDropdowns();
+                        document.removeEventListener('click', handler);
+                    }
+                };
+                document.addEventListener('click', handler);
+            });
+        };
+        
+        // ===== HELPERS =====
+        const getFileUrl = (folder, fileName) => {
+            const parts = [state.activeRepo.pagesBase];
+            if (folder) parts.push(folder);
+            parts.push(fileName);
+            return parts.join('/');
+        };
+        
+        const getFolderUrl = (folderPath, readOnly = false) => {
+            const url = new URL(window.location);
+            url.hash = '';
+            if (folderPath) url.searchParams.set('path', folderPath);
+            else url.searchParams.delete('path');
+            if (readOnly) url.searchParams.set('readonly', '1');
+            else url.searchParams.delete('readonly');
+            // Repo param
+            if (!state.githubToken || state.reposWithPush.length === 0) {
+                url.searchParams.delete('repo');
+            } else {
+                const def = `${CONFIG.owner}/${CONFIG.repo}`;
+                if (state.activeRepo.full_name.toLowerCase() !== def.toLowerCase()) {
+                    url.searchParams.set('repo', state.activeRepo.full_name);
+                } else {
+                    url.searchParams.delete('repo');
+                }
+            }
+            return url.toString();
+        };
+        
+        const openFileUrl = (url) => {
+            const w = window.open(url, '_blank', 'noopener,noreferrer');
+            if (!w || w.closed || typeof w.closed === 'undefined') {
+                window.location.href = url;
+            }
+        };
+        
+        const copyToClipboard = async (text) => {
+            try {
+                if (navigator.clipboard?.writeText) {
+                    await navigator.clipboard.writeText(text);
+                } else {
+                    const ta = document.createElement('textarea');
+                    ta.value = text;
+                    ta.setAttribute('readonly', '');
+                    ta.style.cssText = 'position:fixed;top:-1000px';
+                    document.body.appendChild(ta);
+                    ta.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(ta);
+                }
+                showToast('✅ Ссылка скопирована');
+            } catch {
+                showToast('Не удалось скопировать. Скопируйте вручную', true);
+            }
+        };
+        
+        const toggleFavorite = (fp) => {
+            const idx = state.favorites.indexOf(fp);
+            if (idx > -1) {
+                state.favorites.splice(idx, 1);
+            } else {
+                state.favorites.push(fp);
+            }
+            localStorage.setItem(CONFIG.storageKeys.favorites, JSON.stringify(state.favorites));
+        };
+        
+        const markRead = (fp) => {
+            state.readProgress[fp] = true;
+            localStorage.setItem(CONFIG.storageKeys.readProgress, JSON.stringify(state.readProgress));
+        };
+        
+        // ===== MODAL: PASSWORD =====
+        const showPasswordModal = (opts) => {
+            const overlay = document.createElement('div');
+            overlay.className = 'modal-overlay';
+            overlay.setAttribute('role', 'dialog');
+            overlay.setAttribute('aria-modal', 'true');
+            overlay.innerHTML = `
+                <div class="modal-card" style="max-width:380px">
+                    <h2 class="modal-title">${opts.title || '🔒 Введите пароль'}</h2>
+                    <div class="modal-field">
+                        <label for="pwdInput">${opts.fieldLabel || 'Пароль'}</label>
+                        <input type="password" id="pwdInput" placeholder="${opts.placeholder || ''}" autocomplete="current-password" autofocus>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" id="pwdCancel">Отмена</button>
+                        <button type="button" id="pwdConfirm" class="btn-success">${opts.confirmLabel || 'Войти'}</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(overlay);
+            
+            const input = $('#pwdInput', overlay);
+            const confirmBtn = $('#pwdConfirm', overlay);
+            const cancelBtn = $('#pwdCancel', overlay);
+            
+            const cleanup = () => {
+                overlay.remove();
+                opts.onCancel?.();
+            };
+            
+            cancelBtn.onclick = cleanup;
+            overlay.onclick = (e) => { if (e.target === overlay) cleanup(); };
+            confirmBtn.onclick = () => opts.onConfirm?.(input.value);
+            input.onkeydown = (e) => { if (e.key === 'Enter') confirmBtn.click(); };
+            input.focus();
+        };
+        
+        // ===== MODAL: EDITOR =====
+        const openEditor = (isEdit = false, filePath = null, fileSha = null, content = '', fileName = '', patientName = '', fileType = 'анализ', tags = '') => {
+            const modal = $('#editorModal');
+            if (!modal) return;
+            
+            state.editingFilePath = filePath;
+            state.editingFileSha = fileSha;
+            
+            $('#modalTitle').textContent = isEdit ? `✏️ Редактирование: ${fileName}` : '➕ Новая страница';
+            $('#editFileName').value = fileName.replace(/\.html$/, '');
+            $('#editPatientName').value = patientName;
+            $('#editFileType').value = fileType;
+            if ($('#editTags')) $('#editTags').value = tags;
+            $('#editFileContent').value = content || generatePatientHtml(patientName || 'Имя пациента', fileType, tags);
+            
+            modal.style.display = 'flex';
+            closeAllDropdowns();
+            
+            // Focus first input
+            setTimeout(() => $('#editFileName')?.focus(), 100);
+        };
+        
+        const closeEditor = () => {
+            const modal = $('#editorModal');
+            if (modal) modal.style.display = 'none';
+            state.editingFilePath = null;
+            state.editingFileSha = null;
+        };
+        
+        // ===== INIT =====
+        const init = async () => {
+            // Load from localStorage
+            state.favorites = JSON.parse(localStorage.getItem(CONFIG.storageKeys.favorites) || '[]');
+            state.readProgress = JSON.parse(localStorage.getItem(CONFIG.storageKeys.readProgress) || '{}');
+            state.sortBy = localStorage.getItem(CONFIG.storageKeys.sortBy) || 'name';
+            state.githubToken = localStorage.getItem(CONFIG.storageKeys.token) || '';
+            
+            // Theme
+            if (localStorage.getItem(CONFIG.storageKeys.theme) === 'dark') {
+                document.body.classList.add('dark');
+            }
+            
+            // View mode (auto-detect mobile)
+            state.isMobileViewport = window.matchMedia('(max-width: 768px)').matches;
+            state.viewMode = state.isMobileViewport ? 'list' : 'grid';
+            
+            // Quotes
+            const quotes = [
+                "«С именем Аллаха, Который исцеляет» — читайте рукъю с верой.",
+                "«Ниспосылаем в Коране то, что является исцелением» (17:82)",
+                "Пророк ﷺ сказал: «Нет болезни, для которой Аллах не создал лекарства».",
+                "Чтение Аль-Фатихи — величайшее исцеление.",
+                "Дуа — оружие верующего. Просите у Аллаха исцеления."
+            ];
+            const quoteEl = $('#quoteContainer');
+            if (quoteEl) {
+                quoteEl.textContent = quotes[Math.floor(Math.random() * quotes.length)];
+            }
+            
+            // Theme toggle
+            const themeBtn = $('#themeToggle');
+            if (themeBtn) {
+                themeBtn.onclick = () => {
+                    document.body.classList.toggle('dark');
+                    const isDark = document.body.classList.contains('dark');
+                    localStorage.setItem(CONFIG.storageKeys.theme, isDark ? 'dark' : 'light');
+                    themeBtn.textContent = isDark ? '☀️' : '🌙';
+                    themeBtn.setAttribute('aria-label', isDark ? 'Светлая тема' : 'Тёмная тема');
+                };
+                themeBtn.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+            }
+            
+            // Search
+            const searchInput = $('#searchInput');
+            const searchClear = $('#searchClear');
+            const debouncedSearch = debounce(() => renderCurrentView(), CONFIG.debounceDelay);
+            
+            if (searchInput) {
+                searchInput.oninput = (e) => {
+                    state.searchQuery = e.target.value;
+                    if (searchClear) searchClear.style.display = state.searchQuery ? 'block' : 'none';
+                    debouncedSearch();
+                };
+            }
+            if (searchClear) {
+                searchClear.onclick = () => {
+                    if (searchInput) {
+                        searchInput.value = '';
+                        state.searchQuery = '';
+                        searchClear.style.display = 'none';
+                    }
+                    renderCurrentView();
+                };
+            }
+            
+            // Keyboard shortcuts
+            document.addEventListener('keydown', (e) => {
+                if (e.key === '/' && !e.ctrlKey && !e.metaKey && 
+                    document.activeElement.tagName !== 'INPUT' && 
+                    document.activeElement.tagName !== 'TEXTAREA') {
+                    e.preventDefault();
+                    searchInput?.focus();
+                }
+                if (e.key === 'Escape') {
+                    searchInput?.blur();
+                    closeAllDropdowns();
+                    closeEditor();
+                }
+            });
+            
+            // Token toggle
+            const tokenToggle = $('#tokenToggle');
+            const tokenBody = $('#tokenBody');
+            if (tokenToggle && tokenBody) {
+                tokenToggle.onclick = () => {
+                    const isOpen = tokenToggle.classList.toggle('open');
+                    tokenBody.classList.toggle('open');
+                    tokenToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                };
+            }
+            
+            // Save token
+            const saveTokenBtn = $('#saveTokenBtn');
+            if (saveTokenBtn) {
+                saveTokenBtn.onclick = async () => {
+                    const token = $('#githubToken')?.value.trim();
+                    if (token) {
+                        state.githubToken = token;
+                        localStorage.setItem(CONFIG.storageKeys.token, token);
+                        await tryEnableWrite();
+                        await renderCurrentView();
+                    }
+                };
+            }
+            
+            // Action buttons
+            $('#newHtmlBtn')?.addEventListener('click', () => openEditor());
+            $('#createFolderBtn')?.addEventListener('click', showCreateFolderModal);
+            $('#uploadFileBtn')?.addEventListener('click', handleFileUpload);
+            
+            // Feedback
+            $('#feedbackBtn')?.addEventListener('click', () => {
+                const choice = prompt('Способ связи:\n1 — Telegram\n2 — Email\n\nВведите 1 или 2:');
+                if (choice === '1') window.open('https://t.me/abu_muhammad_ruqya', '_blank');
+                else if (choice === '2') window.location.href = 'mailto:admin@example.com?subject=Архив рукъи';
+            });
+            
+            // Initialize repo
+            state.activeRepo = repoFromConfig();
+            
+            // Try enable write mode
+            if (state.githubToken) {
+                await tryEnableWrite();
+            }
+            
+            // Bind events
+            bindFileListEvents();
+            
+            // Initial render
+            await renderCurrentView();
+        };
+        
+        // Placeholder functions for modals
+        const showCreateFolderModal = () => showToast('Создание папки (демо)', false);
+        const handleFileUpload = () => showToast('Загрузка файлов (демо)', false);
+        const tryEnableWrite = async () => {
+            if (!state.githubToken) {
+                state.isWriteEnabled = false;
+                updateWriteModeUI();
+                return;
+            }
+            try {
+                // Verify token
+                await apiRequest('GET', 'https://api.github.com/user');
+                state.githubSessionValid = true;
+                
+                // Load repos
+                state.reposWithPush = await fetchAllUserReposWithPush();
+                
+                // Verify repo access
+                const repoInfo = await apiRequest('GET', 
+                    `https://api.github.com/repos/${state.activeRepo.owner}/${state.activeRepo.repo}`);
+                state.isWriteEnabled = !!repoInfo?.permissions?.push;
+                
+            } catch (e) {
+                console.error('Token verification failed:', e);
+                state.isWriteEnabled = false;
+            }
+            updateWriteModeUI();
+        };
+        
+        const updateWriteModeUI = () => {
+            document.body.classList.toggle('write-mode', state.isWriteEnabled);
+            document.body.classList.toggle('readonly-share', false);
+            
+            const banner = $('#writeModeBanner');
+            if (banner) {
+                banner.hidden = !state.isWriteEnabled;
+                if (state.isWriteEnabled) {
+                    banner.textContent = '✅ Режим записи активен';
+                }
+            }
+            
+            const actionBar = $('#actionBar');
+            if (actionBar) {
+                actionBar.hidden = !state.isWriteEnabled;
+            }
+            
+            // Update button states
+            $('#uploadFileBtn')?.toggleAttribute('disabled', !state.isWriteEnabled);
+            $('#createFolderBtn')?.toggleAttribute('disabled', !state.isWriteEnabled);
+        };
+        
+        // Move file helper
+        const moveFile = async (src, destFolder, fileName) => {
+            const destPath = destFolder ? `${destFolder}/${fileName}` : fileName;
+            if (src === destPath) return;
+            if (await itemExists(destPath)) throw new Error('Файл уже существует');
+            
+            const srcMeta = await apiRequest('GET', 
+                `https://api.github.com/repos/${state.activeRepo.owner}/${state.activeRepo.repo}/contents/${src}?ref=${state.activeRepo.branch}`);
+            
+            // Create at new location
+            await apiRequest('PUT', 
+                `https://api.github.com/repos/${state.activeRepo.owner}/${state.activeRepo.repo}/contents/${destPath}`, {
+                message: `Перемещение ${fileName}`,
+                content: srcMeta.content,
+                branch: state.activeRepo.branch
+            });
+            
+            // Delete old
+            await apiRequest('DELETE', 
+                `https://api.github.com/repos/${state.activeRepo.owner}/${state.activeRepo.repo}/contents/${src}`, {
+                message: 'Удаление после перемещения',
+                sha: srcMeta.sha,
+                branch: state.activeRepo.branch
+            });
+            clearCache();
+        };
+        
+        const renameItem = async (path, newName) => {
+            const parent = path.substring(0, path.lastIndexOf('/'));
+            const newPath = parent ? `${parent}/${newName}` : newName;
+            if (await itemExists(newPath)) throw new Error('Элемент уже существует');
+            
+            const meta = await apiRequest('GET', 
+                `https://api.github.com/repos/${state.activeRepo.owner}/${state.activeRepo.repo}/contents/${path}?ref=${state.activeRepo.branch}`);
+            
+            await apiRequest('PUT', 
+                `https://api.github.com/repos/${state.activeRepo.owner}/${state.activeRepo.repo}/contents/${newPath}`, {
+                message: `Переименование в ${newName}`,
+                content: meta.content,
+                branch: state.activeRepo.branch
+            });
+            await apiRequest('DELETE', 
+                `https://api.github.com/repos/${state.activeRepo.owner}/${state.activeRepo.repo}/contents/${path}`, {
+                message: 'Удаление старого',
+                sha: meta.sha,
+                branch: state.activeRepo.branch
+            });
+            clearCache();
+        };
+        
+        const manageFolderPassword = (path, action) => {
+            showToast(`Управление паролем: ${action} (демо)`, false);
+        };
+        
+        // Start
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+        
+    })();
+    </script>
 </body>
 </html>
