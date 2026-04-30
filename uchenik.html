@@ -1,0 +1,1445 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0a0a1a">
+    <title>Духовная прокачка</title>
+    <link rel="manifest" href="data:application/json,{}">
+    <style>
+        :root {
+            --bg: #0a0a1a;
+            --bg2: #111128;
+            --bg3: #1a1a3e;
+            --gold: #d4a574;
+            --gold2: #e8c547;
+            --gold-dim: rgba(212,165,116,0.15);
+            --green: #2d6a4f;
+            --green-light: #6fcf97;
+            --blue: #4361ee;
+            --purple: #7209b7;
+            --red: #ef4444;
+            --text: #e8e8f0;
+            --dim: #6b6b8d;
+            --border: #2a2a4a;
+            --card: #13132d;
+            --nav-h: 64px;
+            --safe-b: env(safe-area-inset-bottom, 0px);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: -apple-system, 'SF Pro', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            padding-bottom: calc(var(--nav-h) + var(--safe-b) + 10px);
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== AMBIENT GLOW ===== */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background:
+                radial-gradient(ellipse at 30% 20%, rgba(212,165,116,0.06) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 80%, rgba(67,97,238,0.04) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ===== FLOATING PARTICLES ===== */
+        .particles {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .p {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--gold);
+            opacity: 0;
+            animation: fp linear infinite;
+        }
+
+        @keyframes fp {
+            0% { opacity: 0; transform: translateY(100vh) scale(0); }
+            15% { opacity: 0.5; }
+            85% { opacity: 0.4; }
+            100% { opacity: 0; transform: translateY(-5vh) scale(1); }
+        }
+
+        /* ===== SCREENS ===== */
+        .screen {
+            display: none;
+            position: relative;
+            z-index: 1;
+            animation: fadeUp 0.35s ease;
+        }
+
+        .screen.active { display: block; }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== TOP HEADER ===== */
+        .top-bar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(10,10,26,0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .top-title {
+            font-size: 1.1em;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--gold), var(--gold2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .top-streak {
+            font-size: 0.8em;
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* ===== HOME SCREEN ===== */
+        .home-hero {
+            text-align: center;
+            padding: 32px 20px 24px;
+        }
+
+        .hero-icon {
+            font-size: 3.5em;
+            animation: breathe 4s ease-in-out infinite;
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(212,165,116,0.3)); }
+            50% { transform: scale(1.08); filter: drop-shadow(0 0 20px rgba(212,165,116,0.6)); }
+        }
+
+        .hero-title {
+            font-size: 1.6em;
+            font-weight: 800;
+            margin-top: 12px;
+            background: linear-gradient(135deg, var(--gold), var(--gold2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-sub {
+            color: var(--dim);
+            font-size: 0.9em;
+            margin-top: 6px;
+        }
+
+        /* ===== ENERGY BAR ===== */
+        .energy-section {
+            padding: 0 16px 20px;
+        }
+
+        .energy-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 16px;
+        }
+
+        .energy-label {
+            font-size: 0.8em;
+            color: var(--dim);
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .energy-bar-bg {
+            height: 10px;
+            background: var(--bg3);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .energy-bar-fill {
+            height: 100%;
+            border-radius: 5px;
+            background: linear-gradient(90deg, var(--green), var(--gold), var(--gold2));
+            transition: width 0.8s ease;
+            position: relative;
+        }
+
+        .energy-bar-fill::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; bottom: 0; width: 30px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3));
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        .energy-level-text {
+            text-align: center;
+            margin-top: 10px;
+            font-weight: 700;
+            color: var(--gold);
+            font-size: 0.9em;
+        }
+
+        /* ===== QUICK STATS ===== */
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            padding: 0 16px 20px;
+        }
+
+        .q-stat {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 14px 10px;
+            text-align: center;
+        }
+
+        .q-stat-icon { font-size: 1.4em; }
+
+        .q-stat-num {
+            font-size: 1.4em;
+            font-weight: 800;
+            color: var(--gold);
+            margin-top: 4px;
+        }
+
+        .q-stat-label {
+            font-size: 0.65em;
+            color: var(--dim);
+            margin-top: 2px;
+        }
+
+        /* ===== MENU GRID ===== */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            padding: 0 16px 20px;
+        }
+
+        .menu-item {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 18px 14px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            -webkit-user-select: none;
+            user-select: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 3px;
+            border-radius: 3px 3px 0 0;
+        }
+
+        .menu-item:active {
+            transform: scale(0.96);
+            background: var(--bg3);
+        }
+
+        .menu-item .m-icon { font-size: 2em; margin-bottom: 8px; }
+        .menu-item .m-title { font-weight: 700; font-size: 0.85em; margin-bottom: 3px; }
+        .menu-item .m-sub { font-size: 0.7em; color: var(--dim); }
+
+        .mi-1::before { background: var(--green); }
+        .mi-2::before { background: var(--gold); }
+        .mi-3::before { background: var(--blue); }
+        .mi-4::before { background: var(--purple); }
+        .mi-5::before { background: var(--gold2); }
+        .mi-6::before { background: #40c057; }
+        .mi-7::before { background: var(--red); }
+        .mi-8::before { background: #e066ff; }
+
+        /* ===== DETAIL SCREEN ===== */
+        .detail-header {
+            padding: 20px 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .back-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            cursor: pointer;
+            color: var(--text);
+            transition: all 0.2s;
+        }
+
+        .back-btn:active {
+            background: var(--bg3);
+            transform: scale(0.95);
+        }
+
+        .detail-title-area { flex: 1; }
+        .detail-title { font-size: 1.2em; font-weight: 800; }
+        .detail-sub { font-size: 0.8em; color: var(--dim); }
+
+        .detail-content {
+            padding: 0 16px 20px;
+        }
+
+        /* ===== PRACTICE CARDS ===== */
+        .pcard {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .pcard-head {
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .pcard-head:active {
+            background: var(--bg3);
+        }
+
+        .pcard-icon { font-size: 1.4em; flex-shrink: 0; }
+
+        .pcard-info { flex: 1; }
+        .pcard-name { font-weight: 700; font-size: 0.95em; }
+        .pcard-brief { font-size: 0.75em; color: var(--dim); margin-top: 2px; }
+
+        .pcard-arrow {
+            color: var(--dim);
+            font-size: 0.8em;
+            transition: transform 0.3s;
+        }
+
+        .pcard-arrow.open { transform: rotate(180deg); }
+
+        .pcard-body {
+            display: none;
+            padding: 0 16px 16px;
+            animation: fadeUp 0.3s ease;
+        }
+
+        .pcard-body.open { display: block; }
+
+        .pcard-desc {
+            font-size: 0.85em;
+            color: var(--dim);
+            margin-bottom: 12px;
+            line-height: 1.7;
+        }
+
+        .pcard-how {
+            background: var(--gold-dim);
+            border: 1px solid rgba(212,165,116,0.2);
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 0.85em;
+            margin-bottom: 10px;
+            line-height: 1.8;
+        }
+
+        .pcard-how strong { color: var(--gold); }
+
+        .pcard-ayah {
+            background: rgba(45,106,79,0.1);
+            border: 1px solid rgba(45,106,79,0.2);
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 0.82em;
+            color: var(--green-light);
+            font-style: italic;
+            margin-bottom: 10px;
+            line-height: 1.7;
+        }
+
+        .pcard-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .ptag {
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.65em;
+            font-weight: 600;
+        }
+
+        .ptag-d { background: rgba(64,192,87,0.15); color: #40c057; }
+        .ptag-e { background: rgba(212,165,116,0.15); color: var(--gold); }
+        .ptag-a { background: rgba(114,9,183,0.15); color: #b766e8; }
+        .ptag-n { background: rgba(30,30,80,0.5); color: #8888cc; border: 1px solid #3a3a6a; }
+        .ptag-w { background: rgba(67,97,238,0.15); color: var(--blue); }
+
+        /* ===== SCHEDULE SCREEN ===== */
+        .time-row {
+            display: flex;
+            gap: 12px;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .time-row:last-child { border-bottom: none; }
+
+        .time-badge {
+            min-width: 55px;
+            font-size: 0.7em;
+            font-weight: 700;
+            color: var(--gold);
+            padding-top: 3px;
+        }
+
+        .time-items { flex: 1; }
+
+        .time-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            padding: 4px 0;
+            font-size: 0.85em;
+        }
+
+        .time-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--gold);
+            flex-shrink: 0;
+            margin-top: 8px;
+        }
+
+        /* ===== TRACKER SCREEN ===== */
+        .tracker-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 6px;
+            padding: 0 16px 16px;
+        }
+
+        .tr-day {
+            aspect-ratio: 1;
+            border-radius: 10px;
+            background: var(--bg3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .tr-day:active { transform: scale(0.9); }
+
+        .tr-day.done {
+            background: rgba(212,165,116,0.2);
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .tr-day.today {
+            border-color: var(--gold2);
+            box-shadow: 0 0 12px rgba(232,197,71,0.3);
+        }
+
+        .tracker-summary {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            padding: 0 16px 20px;
+        }
+
+        .tr-sum {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 14px;
+            text-align: center;
+        }
+
+        .tr-sum-n {
+            font-size: 1.5em;
+            font-weight: 800;
+            color: var(--gold);
+        }
+
+        .tr-sum-l {
+            font-size: 0.65em;
+            color: var(--dim);
+            margin-top: 2px;
+        }
+
+        /* ===== LEVELS SCREEN ===== */
+        .lvl-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 12px;
+            transition: all 0.3s;
+        }
+
+        .lvl-card.current {
+            border-color: var(--gold);
+            box-shadow: 0 0 20px rgba(212,165,116,0.1);
+        }
+
+        .lvl-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .lvl-name {
+            font-weight: 700;
+            font-size: 0.95em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .lvl-dur {
+            font-size: 0.7em;
+            color: var(--dim);
+            padding: 3px 8px;
+            background: var(--bg3);
+            border-radius: 20px;
+        }
+
+        .lvl-desc {
+            font-size: 0.8em;
+            color: var(--dim);
+            margin-bottom: 10px;
+        }
+
+        .lvl-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .lvl-skill {
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: 0.7em;
+            background: var(--gold-dim);
+            color: var(--gold);
+            border: 1px solid rgba(212,165,116,0.2);
+        }
+
+        /* ===== AQEEDAH ===== */
+        .aqeedah-box {
+            background: rgba(45,106,79,0.08);
+            border: 1px solid rgba(45,106,79,0.25);
+            border-radius: 14px;
+            padding: 16px;
+            margin: 0 16px 20px;
+        }
+
+        .aqeedah-box h3 {
+            color: var(--green-light);
+            font-size: 0.95em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .aq-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            padding: 6px 0;
+            font-size: 0.82em;
+            color: #a0b0a8;
+            border-bottom: 1px solid rgba(45,106,79,0.12);
+        }
+
+        .aq-item:last-child { border-bottom: none; }
+
+        /* ===== BOTTOM NAV ===== */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: calc(var(--nav-h) + var(--safe-b));
+            padding-bottom: var(--safe-b);
+            background: rgba(10,10,26,0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            z-index: 200;
+        }
+
+        .nav-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            padding: 8px 12px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            -webkit-user-select: none;
+            user-select: none;
+            border: none;
+            background: none;
+            color: var(--dim);
+        }
+
+        .nav-btn:active { transform: scale(0.9); }
+
+        .nav-btn.active {
+            color: var(--gold);
+        }
+
+        .nav-btn .nav-icon { font-size: 1.4em; }
+        .nav-btn .nav-label { font-size: 0.6em; font-weight: 600; }
+
+        /* ===== SCROLL SMOOTH ===== */
+        html { scroll-behavior: smooth; }
+
+        /* ===== PULL INDICATOR ===== */
+        .section-count {
+            text-align: center;
+            padding: 10px;
+            font-size: 0.75em;
+            color: var(--dim);
+        }
+    </style>
+</head>
+<body>
+
+<div class="particles" id="particles"></div>
+
+<!-- ===== TOP BAR ===== -->
+<div class="top-bar">
+    <div class="top-title">🤲 Духовная прокачка</div>
+    <div class="top-streak" id="topStreak">🔥 0 дней</div>
+</div>
+
+<!-- ========================================== -->
+<!-- SCREEN: HOME -->
+<!-- ========================================== -->
+<div id="s-home" class="screen active">
+    <div class="home-hero">
+        <div class="hero-icon">🌟</div>
+        <div class="hero-title">Усиление силы</div>
+        <div class="hero-sub">Духовная прокачка для практики Рукия</div>
+    </div>
+
+    <div class="energy-section">
+        <div class="energy-card">
+            <div class="energy-label">
+                <span>Духовная сила</span>
+                <span id="energyPct">0%</span>
+            </div>
+            <div class="energy-bar-bg">
+                <div class="energy-bar-fill" id="energyFill" style="width:0%"></div>
+            </div>
+            <div class="energy-level-text" id="energyLvl">🌑 Начало пути</div>
+        </div>
+    </div>
+
+    <div class="quick-stats">
+        <div class="q-stat">
+            <div class="q-stat-icon">📅</div>
+            <div class="q-stat-num" id="qDays">0</div>
+            <div class="q-stat-label">Дней</div>
+        </div>
+        <div class="q-stat">
+            <div class="q-stat-icon">🔥</div>
+            <div class="q-stat-num" id="qStreak">0</div>
+            <div class="q-stat-label">Серия</div>
+        </div>
+        <div class="q-stat">
+            <div class="q-stat-icon">🎯</div>
+            <div class="q-stat-num" id="qLeft">40</div>
+            <div class="q-stat-label">Осталось</div>
+        </div>
+    </div>
+
+    <div class="aqeedah-box">
+        <h3>🕌 Основа акиды</h3>
+        <div class="aq-item">☝️ Вся сила — от Аллаха. Ты — причина (сабаб)</div>
+        <div class="aq-item">📖 Лечит Коран. Аллах исцеляет через тебя</div>
+        <div class="aq-item">🤲 Ля хауля уа ля куввата илля билляхи</div>
+        <div class="aq-item">🚫 Не смешивай с оккультизмом и рэйки</div>
+        <div class="aq-item">🔒 Таваккуль — главный источник силы</div>
+    </div>
+
+    <div class="menu-grid">
+        <div class="menu-item mi-1" onclick="openDetail('nafs')">
+            <div class="m-icon">🪞</div>
+            <div class="m-title">Тазкият ан-Нафс</div>
+            <div class="m-sub">Очищение души</div>
+        </div>
+        <div class="menu-item mi-2" onclick="openDetail('quran')">
+            <div class="m-icon">📖</div>
+            <div class="m-title">Сила Корана</div>
+            <div class="m-sub">Куввату-ль-Куран</div>
+        </div>
+        <div class="menu-item mi-3" onclick="openDetail('energy')">
+            <div class="m-icon">⚡</div>
+            <div class="m-title">Направление энергии</div>
+            <div class="m-sub">Тавджих уль-Кувва</div>
+        </div>
+        <div class="menu-item mi-4" onclick="openDetail('shield')">
+            <div class="m-icon">🛡️</div>
+            <div class="m-title">Щит азкаров</div>
+            <div class="m-sub">Хисн уль-Муслим</div>
+        </div>
+        <div class="menu-item mi-5" onclick="openDetail('dua')">
+            <div class="m-icon">🤲</div>
+            <div class="m-title">Сила дуа</div>
+            <div class="m-sub">Куввату д-Дуа</div>
+        </div>
+        <div class="menu-item mi-6" onclick="openDetail('body')">
+            <div class="m-icon">💪</div>
+            <div class="m-title">Тело + Дух</div>
+            <div class="m-sub">Джисм + Рух</div>
+        </div>
+        <div class="menu-item mi-7" onclick="openDetail('diag')">
+            <div class="m-icon">🔍</div>
+            <div class="m-title">Диагностика</div>
+            <div class="m-sub">Ташхис</div>
+        </div>
+        <div class="menu-item mi-8" onclick="openDetail('adv')">
+            <div class="m-icon">🌟</div>
+            <div class="m-title">Продвинутое</div>
+            <div class="m-sub">Высший уровень</div>
+        </div>
+    </div>
+
+    <div class="section-count">8 разделов • 30+ практик</div>
+</div>
+
+<!-- ========================================== -->
+<!-- SCREEN: DETAIL -->
+<!-- ========================================== -->
+<div id="s-detail" class="screen">
+    <div class="detail-header">
+        <div class="back-btn" onclick="goHome()">←</div>
+        <div class="detail-title-area">
+            <div class="detail-title" id="detailTitle"></div>
+            <div class="detail-sub" id="detailSub"></div>
+        </div>
+    </div>
+    <div class="detail-content" id="detailContent"></div>
+</div>
+
+<!-- ========================================== -->
+<!-- SCREEN: SCHEDULE -->
+<!-- ========================================== -->
+<div id="s-schedule" class="screen">
+    <div class="detail-header">
+        <div class="detail-title-area" style="text-align:center; width:100%;">
+            <div class="detail-title">📅 Ежедневный режим</div>
+            <div class="detail-sub">Полное духовное расписание</div>
+        </div>
+    </div>
+    <div class="detail-content">
+        <div class="pcard" style="border-color: rgba(212,165,116,0.2);">
+            <div style="padding:16px;">
+                <div class="time-row">
+                    <div class="time-badge">До фаджра</div>
+                    <div class="time-items">
+                        <div class="time-item"><div class="time-dot"></div>Тахаджуд — 2-8 ракаатов</div>
+                        <div class="time-item"><div class="time-dot"></div>Дуа с плачем и смирением</div>
+                        <div class="time-item"><div class="time-dot"></div>Истигфар 100 раз</div>
+                        <div class="time-item"><div class="time-dot"></div>Проси усиления способности</div>
+                    </div>
+                </div>
+                <div class="time-row">
+                    <div class="time-badge">Фаджр</div>
+                    <div class="time-items">
+                        <div class="time-item"><div class="time-dot"></div>Утренние азкары — полностью</div>
+                        <div class="time-item"><div class="time-dot"></div>Коран — 1 джуз / 30 мин</div>
+                        <div class="time-item"><div class="time-dot"></div>Тадаббур — 5 аятов</div>
+                        <div class="time-item"><div class="time-dot"></div>Тренировка рук — 5 мин</div>
+                    </div>
+                </div>
+                <div class="time-row">
+                    <div class="time-badge">Утро</div>
+                    <div class="time-items">
+                        <div class="time-item"><div class="time-dot"></div>Мёд + чёрный тмин натощак</div>
+                        <div class="time-item"><div class="time-dot"></div>7 фиников Аджва</div>
+                        <div class="time-item"><div class="time-dot"></div>Спорт — 30 мин</div>
+                    </div>
+                </div>
+                <div class="time-row">
+                    <div class="time-badge">Сессии</div>
+                    <div class="time-items">
+                        <div class="time-item"><div class="time-dot"></div>Вуду + защитные азкары</div>
+                        <div class="time-item"><div class="time-dot"></div>Ният + визуализация</div>
+                        <div class="time-item"><div class="time-dot"></div>Чтение + направление</div>
+                        <div class="time-item"><div class="time-dot"></div>Очищение после</div>
+                        <div class="time-item"><div class="time-dot"></div>Запись в журнал</div>
+                    </div>
+                </div>
+                <div class="time-row">
+                    <div class="time-badge">Аср</div>
+                    <div class="time-items">
+                        <div class="time-item"><div class="time-dot"></div>Книги учёных — 30 мин</div>
+                        <div class="time-item"><div class="time-dot"></div>Дуа за пациентов</div>
+                    </div>
+                </div>
+                <div class="time-row">
+                    <div class="time-badge">Иша</div>
+                    <div class="time-items">
+                        <div class="time-item"><div class="time-dot"></div>Вечерние азкары</div>
+                        <div class="time-item"><div class="time-dot"></div>Обзор дня</div>
+                        <div class="time-item"><div class="time-dot"></div>Тауба + истигфар</div>
+                        <div class="time-item"><div class="time-dot"></div>Ранний сон</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ========================================== -->
+<!-- SCREEN: TRACKER -->
+<!-- ========================================== -->
+<div id="s-tracker" class="screen">
+    <div class="detail-header">
+        <div class="detail-title-area" style="text-align:center; width:100%;">
+            <div class="detail-title">📊 Трекер 40 дней</div>
+            <div class="detail-sub">Нажми на день, чтобы отметить</div>
+        </div>
+    </div>
+    <div class="tracker-grid" id="trackerGrid"></div>
+    <div class="tracker-summary">
+        <div class="tr-sum">
+            <div class="tr-sum-n" id="trDone">0</div>
+            <div class="tr-sum-l">Выполнено</div>
+        </div>
+        <div class="tr-sum">
+            <div class="tr-sum-n" id="trStreak">0</div>
+            <div class="tr-sum-l">Серия</div>
+        </div>
+        <div class="tr-sum">
+            <div class="tr-sum-n" id="trLeft">40</div>
+            <div class="tr-sum-l">Осталось</div>
+        </div>
+    </div>
+
+    <!-- Levels -->
+    <div class="detail-content">
+        <div style="font-weight:700; font-size:1.1em; margin-bottom:14px; color:var(--gold);">📈 Система уровней</div>
+
+        <div class="lvl-card" id="lvl1">
+            <div class="lvl-head">
+                <div class="lvl-name">🌱 Основа</div>
+                <div class="lvl-dur">Месяц 1-2</div>
+            </div>
+            <div class="lvl-desc">Очищение, азкары, базовый хифз</div>
+            <div class="lvl-skills">
+                <span class="lvl-skill">Тауба</span>
+                <span class="lvl-skill">Азкары</span>
+                <span class="lvl-skill">Хифз</span>
+                <span class="lvl-skill">Халяль</span>
+                <span class="lvl-skill">Вуду</span>
+            </div>
+        </div>
+
+        <div class="lvl-card" id="lvl2">
+            <div class="lvl-head">
+                <div class="lvl-name">🌿 Рост</div>
+                <div class="lvl-dur">Месяц 3-4</div>
+            </div>
+            <div class="lvl-desc">Тадаббур, направление энергии, боевые аяты</div>
+            <div class="lvl-skills">
+                <span class="lvl-skill">Тадаббур</span>
+                <span class="lvl-skill">Энергия</span>
+                <span class="lvl-skill">Боевые аяты</span>
+                <span class="lvl-skill">Вода</span>
+                <span class="lvl-skill">Руки</span>
+            </div>
+        </div>
+
+        <div class="lvl-card" id="lvl3">
+            <div class="lvl-head">
+                <div class="lvl-name">⚡ Сила</div>
+                <div class="lvl-dur">Месяц 5-8</div>
+            </div>
+            <div class="lvl-desc">Тахаджуд, диагностика, пост, журнал</div>
+            <div class="lvl-skills">
+                <span class="lvl-skill">Тахаджуд</span>
+                <span class="lvl-skill">Диагностика</span>
+                <span class="lvl-skill">Пост</span>
+                <span class="lvl-skill">Журнал</span>
+            </div>
+        </div>
+
+        <div class="lvl-card" id="lvl4">
+            <div class="lvl-head">
+                <div class="lvl-name">🌟 Мастерство</div>
+                <div class="lvl-dur">Месяц 9-12+</div>
+            </div>
+            <div class="lvl-desc">Полный контроль, дистанционная рукия, обучение</div>
+            <div class="lvl-skills">
+                <span class="lvl-skill">Джинн</span>
+                <span class="lvl-skill">Дистанция</span>
+                <span class="lvl-skill">Обучение</span>
+                <span class="lvl-skill">Фираса</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== BOTTOM NAV ===== -->
+<div class="bottom-nav">
+    <button class="nav-btn active" onclick="switchTab('home')" id="nav-home">
+        <span class="nav-icon">🏠</span>
+        <span class="nav-label">Главная</span>
+    </button>
+    <button class="nav-btn" onclick="switchTab('schedule')" id="nav-schedule">
+        <span class="nav-icon">📅</span>
+        <span class="nav-label">Режим</span>
+    </button>
+    <button class="nav-btn" onclick="switchTab('tracker')" id="nav-tracker">
+        <span class="nav-icon">📊</span>
+        <span class="nav-label">Трекер</span>
+    </button>
+</div>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+const DATA = {
+    nafs: {
+        title: "🪞 Тазкият ан-Нафс",
+        sub: "Очищение души — фундамент силы",
+        items: [
+            {
+                icon: "🔄", name: "Постоянная тауба",
+                brief: "Очищение духовных каналов",
+                desc: "Грехи — пробки в духовных каналах. Каждый грех ослабляет энергию. Тауба очищает и восстанавливает поток.",
+                how: "Каждый вечер перед сном — истигфар 100 раз. Вспомни ошибки дня. Проси прощения с намерением не повторять.",
+                ayah: "«Астагфируллаха ва атубу илейхи» — Пророк ﷺ говорил это более 70 раз в день",
+                tags: [["Ежедневно","d"],["Обязательно","e"]]
+            },
+            {
+                icon: "👁️", name: "Муракаба",
+                brief: "Осознание присутствия Аллаха",
+                desc: "Постоянное осознание что Аллах видит тебя. Создаёт мощнейшее поле духовной чистоты.",
+                how: "Перед каждым действием спроси: «Если бы Аллах стоял передо мной видимо — я бы это делал?»",
+                ayah: "«Ихсан — это поклоняться Аллаху так, как будто ты видишь Его» — Хадис Джибриля",
+                tags: [["Постоянно","d"],["Обязательно","e"]]
+            },
+            {
+                icon: "🍽️", name: "Контроль халяль-питания",
+                brief: "Чистая еда = топливо для нур",
+                desc: "Харам-еда — яд для духовной силы. Сомнительная пища ослабляет дуа.",
+                how: "Проверяй источник дохода, состав еды. Бисмиллях перед, Альхамдулиллях после.",
+                ayah: "«О посланники! Ешьте дозволенное и совершайте праведные деяния» — аль-Му'минун, 51",
+                tags: [["Ежедневно","d"],["Обязательно","e"]]
+            },
+            {
+                icon: "🔇", name: "Хранение языка",
+                brief: "Закрой дыры утечки силы",
+                desc: "Гыба, ложь, пустословие — дыры, через которые утекает духовная сила.",
+                how: "3 фильтра: это правда? это полезно? это доброе? Если нет — молчи.",
+                tags: [["Постоянно","d"],["Обязательно","e"]]
+            },
+            {
+                icon: "👀", name: "Контроль взгляда",
+                brief: "Взгляд на харам = потеря нура",
+                desc: "Опускание взгляда — мгновенное усиление сердца. Каждый отведённый взгляд — нур.",
+                how: "Сознательно отводи взгляд. Почувствуй, как сердце наполняется светом.",
+                ayah: "«Скажи верующим, чтобы они опускали свои взоры» — ан-Нур, 30",
+                tags: [["Постоянно","d"]]
+            }
+        ]
+    },
+    quran: {
+        title: "📖 Сила Корана",
+        sub: "Твоё главное оружие",
+        items: [
+            {
+                icon: "🎯", name: "Тадаббур",
+                brief: "Глубокое размышление над аятами",
+                desc: "Не просто читать — ПОНИМАТЬ и ЧУВСТВОВАТЬ. Сила увеличивается в разы.",
+                how: "5 аятов в день: арабский → перевод → тафсир → закрой глаза, представь → прочитай снова с пониманием.",
+                tags: [["Ежедневно","d"],["Критически важно","e"]]
+            },
+            {
+                icon: "🗣️", name: "Таджвид + Тартиль",
+                brief: "Каждая буква несёт вибрацию",
+                desc: "Правильное произношение — не просто красота. Махрадж влияет на силу воздействия.",
+                how: "Читай медленно. Отрабатывай: ر, ع, ح, خ, ق — эти звуки несут особую силу при рукия.",
+                tags: [["Ежедневно","d"],["Продвинутое","a"]]
+            },
+            {
+                icon: "🌙", name: "Ночное чтение",
+                brief: "Последняя треть ночи — максимум",
+                desc: "Аллах спускается на ближнее небо. Дуа принимается. Коран в 10 раз мощнее.",
+                how: "40 мин до фаджра. 2-4 ракаата тахаджуд. Длинные суры. Потом дуа — проси усиления.",
+                ayah: "«Бодрствуй часть ночи, читая Коран» — аль-Исра, 79",
+                tags: [["Ночь","n"],["Максимальная сила","e"]]
+            },
+            {
+                icon: "💨", name: "Нафс (дуновение)",
+                brief: "Направление энергии через дыхание",
+                desc: "Пророк ﷺ дул на ладони. Нафс — способ направления духовной энергии.",
+                how: "После аята собери ладони, подуй, проведи по телу. Представляй нур, выходящий с дыханием.",
+                tags: [["При рукия","d"],["Сунна","e"]]
+            },
+            {
+                icon: "🔁", name: "Хифз боевых аятов",
+                brief: "Наизусть = в 10 раз сильнее",
+                desc: "Чтение наизусть с пониманием — максимальная мощность.",
+                how: "Аль-Фатиха • Аят уль-Курси • Последние 2 аята аль-Бакара • Муаввизат • Аяты сихр: 7:117-122, 10:81-82, 20:69 • Аяты шифа: 9:14, 10:57, 16:69, 17:82, 26:80, 41:44",
+                tags: [["Обязательно","e"],["Постепенно","a"]]
+            }
+        ]
+    },
+    energy: {
+        title: "⚡ Направление энергии",
+        sub: "Чувствуй, концентрируй, направляй",
+        items: [
+            {
+                icon: "🤲", name: "Ният + Визуализация",
+                brief: "Намерение — руль, визуализация — прицел",
+                desc: "ЧЁТКО представь, что хочешь сделать. Не просто читать — НАПРАВЛЯТЬ.",
+                how: "1. Закрой глаза на 10 сек\n2. Ният: «О Аллах, для исцеления этого человека»\n3. Представь нур от Корана → через тебя → к пациенту\n4. Представь как болезнь отступает\n5. НЕ ОТРИЦАЙ ощущение",
+                tags: [["Критически важно","e"],["При рукия","d"]]
+            },
+            {
+                icon: "✋", name: "Тренировка рук",
+                brief: "Руки — каналы передачи нура",
+                desc: "Пророк ﷺ клал руку на больное место. Руки нужно «раскрыть» и натренировать.",
+                how: "1. Потри ладони 10 сек\n2. Разведи на 5 см — почувствуй тепло\n3. Прочитай аль-Фатиху\n4. Почувствуй покалывание\n5. Приложи к телу — направь\n6. Повторяй ежедневно",
+                tags: [["Ежедневно","d"],["Продвинутое","a"]]
+            },
+            {
+                icon: "🫁", name: "Контроль дыхания",
+                brief: "Дыхание — мост между телом и духом",
+                desc: "Контролируемое дыхание усиливает концентрацию и направление энергии.",
+                how: "Вдох 4 сек (вдыхаешь нур) → задержка 4 сек (нур наполняет грудь) → выдох 8 сек (читаешь аят) → нафс (направляешь)",
+                tags: [["При чтении","d"],["Продвинутое","a"]]
+            },
+            {
+                icon: "🎯", name: "Фокусировка на точке",
+                brief: "Не читай в воздух — направляй",
+                desc: "Направляй чтение к конкретному месту: больной орган, голова, грудь.",
+                how: "1. Спроси пациента: где болит?\n2. Положи руку / направь ладонь\n3. Читай, визуализируя нур\n4. Представь как тьма выходит\n5. Следи за реакцией",
+                tags: [["При рукия","d"],["Ключевой навык","e"]]
+            },
+            {
+                icon: "💧", name: "Программирование воды",
+                brief: "Вода принимает духовный заряд",
+                desc: "Подтверждено практикой саляф. Пациент пьёт — лечение продолжается.",
+                how: "Чистая вода (зам-зам идеально) → читай аяты → дуй в воду → представляй нур → пациент пьёт утром натощак и перед сном",
+                ayah: "Ибн аль-Каййим: саляф читали на воду и давали больным — они исцелялись с позволения Аллаха",
+                tags: [["Сунна","e"],["При рукия","d"]]
+            }
+        ]
+    },
+    shield: {
+        title: "🛡️ Щит азкаров",
+        sub: "Защита прежде лечения других",
+        items: [
+            {
+                icon: "🌅", name: "Утренние азкары",
+                brief: "Полная броня на день",
+                desc: "Без утренних азкаров — на бой без защиты.",
+                how: "• Аят уль-Курси — 1 раз\n• Ихляс, Фалак, Нас — по 3\n• «Бисмилляхи ллязи ля ядурру...» — 3\n• «Аузу бикалиматилляхи...» — 3\n• «Хасбиялляху ля иляха...» — 7\n• Истигфар — 100\n• Салават — 100",
+                tags: [["Каждое утро","d"],["НЕ ПРОПУСКАЙ","e"]]
+            },
+            {
+                icon: "🌙", name: "Вечерние азкары",
+                brief: "Ночной щит",
+                desc: "Ночь — время активности шайатин. Особенно важно для практика рукии.",
+                how: "Тот же набор + последние 2 аята аль-Бакара + три кул → подуть на ладони, протереть тело",
+                tags: [["Каждый вечер","n"],["НЕ ПРОПУСКАЙ","e"]]
+            },
+            {
+                icon: "⚔️", name: "Щит перед/после сессии",
+                brief: "Дезинфекция для духовного врача",
+                desc: "Перед — усиленная защита. После — очищение.",
+                how: "ДО: Вуду → Аят уль-Курси → Муаввизат → Аузу билляхи → Ният\n\nПОСЛЕ: Муаввизат ×3 → Вымой руки → Ля хауля ×10 → Если тяжесть — душ",
+                tags: [["При сессии","e"]]
+            },
+            {
+                icon: "🏠", name: "Защита дома",
+                brief: "Твоя база должна быть чистой",
+                desc: "Если в доме шайатины — ты ослаблен.",
+                how: "• Аль-Бакара каждые 3 дня\n• Убери изображения\n• Бисмиллях при входе\n• Без музыки с инструментами",
+                ayah: "«Шайтан бежит из дома, где читается аль-Бакара» — Муслим",
+                tags: [["Каждые 3 дня","w"],["Обязательно","e"]]
+            }
+        ]
+    },
+    dua: {
+        title: "🤲 Сила дуа",
+        sub: "Прямая линия к Аллаху",
+        items: [
+            {
+                icon: "⏰", name: "Времена принятия",
+                brief: "Не все моменты одинаковы",
+                desc: "Есть «окна», когда дуа принимается с большей вероятностью.",
+                how: "• Последняя треть ночи\n• Между азаном и икамой\n• В суджуде\n• После намазов\n• Пятница (перед магрибом)\n• Во время дождя\n• При ифтаре\n• День Арафа",
+                tags: [["Каждый день","d"]]
+            },
+            {
+                icon: "🔥", name: "Дуа с плачем",
+                brief: "Пробивает небеса",
+                desc: "Дуа со сломленным сердцем — максимальная сила. Это не слабость.",
+                how: "Вспомни грехи → осознай зависимость от Аллаха → проси как в последний раз → плачь или старайся",
+                tags: [["Ночью","n"],["Высший уровень","a"]]
+            },
+            {
+                icon: "📜", name: "Дуа за пациента по имени",
+                brief: "Ангел говорит: и тебе того же",
+                desc: "Дуа за отсутствующего брата — ангел при тебе молит за тебя так же.",
+                how: "После каждого намаза вспомни пациентов. «О Аллах, исцели [имя]». Особенно — в суджуде.",
+                ayah: "«Дуа за брата в его отсутствие принимается...» — Муслим",
+                tags: [["После намазов","d"],["Очень мощно","e"]]
+            },
+            {
+                icon: "💎", name: "Дуа за себя",
+                brief: "Проси усиления способности",
+                desc: "Проси Аллаха больше нура, баракята, силы в практике.",
+                how: "• «О Аллах, усиль мою способность»\n• «Дай мне нур в руках, голосе, сердце»\n• «Сделай Коран весной моего сердца»\n• «Научи меня полезному»",
+                tags: [["Ежедневно","d"],["Не забывай","e"]]
+            }
+        ]
+    },
+    body: {
+        title: "💪 Тело + Дух",
+        sub: "Слабое тело = слабый поток",
+        items: [
+            {
+                icon: "🏋️", name: "Физическая сила",
+                brief: "Сильный верующий лучше",
+                desc: "Физическая сила = присутствие, уверенность, выносливость при длинных сессиях.",
+                how: "• Ходьба 30 мин/день\n• Отжимания, приседания\n• Плавание (сунна)\n• Стрельба (сунна)",
+                tags: [["3-4 раза в неделю","w"]]
+            },
+            {
+                icon: "🍯", name: "Тибб Набави",
+                brief: "Пророческая медицина",
+                desc: "Средства для здоровья тела и духа от Пророка ﷺ.",
+                how: "• Мёд натощак\n• Чёрный тмин ежедневно\n• Зам-зам с нийятом\n• Хиджама раз в месяц\n• Оливковое масло\n• 7 фиников Аджва утром",
+                ayah: "«7 фиников Аджва утром — защита от яда и колдовства» — Бухари, Муслим",
+                tags: [["Ежедневно","d"],["Сунна","e"]]
+            },
+            {
+                icon: "😴", name: "Качественный сон",
+                brief: "Восстановление духа и тела",
+                desc: "Недосып разрушает духовную силу. Следуй сунне сна.",
+                how: "• На правом боку\n• Вуду перед сном\n• Азкары\n• Рано ложись (после иша)\n• Рано вставай (до фаджра)\n• 6-8 часов",
+                tags: [["Каждую ночь","n"]]
+            },
+            {
+                icon: "🚿", name: "Ритуальная чистота",
+                brief: "Вуду — зарядка нура",
+                desc: "С каждым вуду грехи смываются, нур усиливается.",
+                how: "• Будь на вуду ВСЕГДА\n• Обновляй перед рукия\n• Гусль перед важными сессиями\n• Чистая одежда, миск/уд",
+                tags: [["Постоянно","d"],["Обязательно","e"]]
+            },
+            {
+                icon: "🧘", name: "Пост",
+                brief: "Усилитель чувствительности",
+                desc: "Сердце чище, интуиция острее, дуа сильнее.",
+                how: "• Пн/Чт по сунне\n• 13, 14, 15 лунного месяца\n• Пост Дауда — через день\n• Перед сложными сессиями",
+                tags: [["Пн/Чт","w"],["Усиление","a"]]
+            }
+        ]
+    },
+    diag: {
+        title: "🔍 Диагностика",
+        sub: "Определение типа проблемы",
+        items: [
+            {
+                icon: "👁️", name: "Чтение реакций",
+                brief: "Тело пациента говорит",
+                desc: "При чтении Корана джинн/сихр проявляется через реакции.",
+                how: "• Зевота — лёгкая блокировка\n• Плач — сердце реагирует (хорошо)\n• Тремор — джинн реагирует\n• Тошнота — сихр в желудке\n• Головная боль — сихр/айн\n• Крик — сильная реакция\n• Обморок — будь осторожен\n• Спокойствие — нет проблемы или блокировка",
+                tags: [["Критический навык","e"],["Опыт","a"]]
+            },
+            {
+                icon: "🧩", name: "Типы поражения",
+                brief: "Каждый тип — свой подход",
+                desc: "Неправильная диагностика = неэффективное лечение.",
+                how: "СИХР: резкие изменения, ненависть к супругу, кошмары\n\nАЙН/ХАСАД: болезнь после взгляда, резкое ухудшение\n\nМАСС: изменение голоса, потеря сознания, паралич сна\n\nВАСВАСА: навязчивые мысли, сомнения в вере",
+                tags: [["Изучай постоянно","e"]]
+            },
+            {
+                icon: "📋", name: "Протокол диагностики",
+                brief: "Пошаговое диагностическое чтение",
+                desc: "Определённые аяты вызывают реакцию при определённых проблемах.",
+                how: "1. Аль-Фатиха — общая реакция\n2. Аят уль-Курси — джинн\n3. Аяты сихр (7:117-122) — колдовство\n4. Аль-Фалак — сихр/хасад\n5. Ан-Нас — васваса\n6. 68:51 — айн\n7. Записывай реакции",
+                tags: [["При диагностике","e"]]
+            }
+        ]
+    },
+    adv: {
+        title: "🌟 Продвинутое",
+        sub: "Для освоивших основы",
+        items: [
+            {
+                icon: "💬", name: "Общение с джинном",
+                brief: "При масс — с позиции силы",
+                desc: "Иногда джинн говорит через пациента. Веди переговоры правильно.",
+                how: "• Не верь ему — он лжец\n• Не бойся — он боится Корана\n• Спроси: кто ты? мусульманин?\n• Призови к исламу\n• Если отказ — боевые аяты\n• Никаких сделок\n• Прикажи выйти именем Аллаха",
+                tags: [["Только с опытом","a"]]
+            },
+            {
+                icon: "🌊", name: "Рукия на расстоянии",
+                brief: "Дуа не имеет расстояния",
+                desc: "Читай на воду и отправь. Или направляй намерение.",
+                how: "• Читай на воду → отправь\n• Представляй пациента\n• Дуа по имени\n• Аудио рукии\n• Видеозвонок — прямое чтение",
+                tags: [["Продвинутое","a"]]
+            },
+            {
+                icon: "📝", name: "Журнал практики",
+                brief: "Через 6 мес — бесценная база",
+                desc: "Записывай каждую сессию для анализа и роста.",
+                how: "• Дата, имя\n• Симптомы\n• Что читал\n• Реакции\n• Твои ощущения\n• Что сработало\n• Рекомендации\n• Результат через 7/14/30 дней",
+                tags: [["После сессии","d"],["Очень важно","e"]]
+            },
+            {
+                icon: "📚", name: "Книги учёных",
+                brief: "Не останавливайся",
+                desc: "Постоянно учись у учёных.",
+                how: "• «Зад уль-Маад» — Ибн уль-Каййим\n• «Аль-Азкар» — ан-Навави\n• «Хисн уль-Муслим» — аль-Кахтани\n• «Алям уль-Джинн» — аль-Ашкар\n• «Ас-Сарим аль-Батар»\n• Фатвы Ибн База, Ибн Усаймина",
+                tags: [["Постоянно","w"],["Ильм — основа","e"]]
+            }
+        ]
+    }
+};
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+function switchTab(tab) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+
+    document.getElementById('s-'+tab).classList.add('active');
+    document.getElementById('nav-'+tab).classList.add('active');
+    window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function goHome() {
+    switchTab('home');
+}
+
+function openDetail(key) {
+    const d = DATA[key];
+    if (!d) return;
+
+    document.getElementById('detailTitle').textContent = d.title;
+    document.getElementById('detailSub').textContent = d.sub;
+
+    const container = document.getElementById('detailContent');
+    container.innerHTML = '';
+
+    d.items.forEach((item, i) => {
+        const tagMap = {d:'ptag-d', e:'ptag-e', a:'ptag-a', n:'ptag-n', w:'ptag-w'};
+        const tagsHTML = (item.tags||[]).map(t =>
+            `<span class="ptag ${tagMap[t[1]]||'ptag-d'}">${t[0]}</span>`
+        ).join('');
+
+        const howText = (item.how||'').replace(/\n/g, '<br>');
+
+        container.innerHTML += `
+            <div class="pcard">
+                <div class="pcard-head" onclick="togglePCard(this)">
+                    <div class="pcard-icon">${item.icon}</div>
+                    <div class="pcard-info">
+                        <div class="pcard-name">${item.name}</div>
+                        <div class="pcard-brief">${item.brief}</div>
+                    </div>
+                    <div class="pcard-arrow">▼</div>
+                </div>
+                <div class="pcard-body">
+                    <div class="pcard-desc">${item.desc}</div>
+                    <div class="pcard-how"><strong>Как практиковать:</strong><br>${howText}</div>
+                    ${item.ayah ? `<div class="pcard-ayah">${item.ayah}</div>` : ''}
+                    <div class="pcard-tags">${tagsHTML}</div>
+                </div>
+            </div>
+        `;
+    });
+
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('s-detail').classList.add('active');
+    document.getElementById('nav-home').classList.add('active');
+    window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function togglePCard(head) {
+    const body = head.nextElementSibling;
+    const arrow = head.querySelector('.pcard-arrow');
+    body.classList.toggle('open');
+    arrow.classList.toggle('open');
+}
+
+// ============================================================
+// TRACKER
+// ============================================================
+function initTracker() {
+    const grid = document.getElementById('trackerGrid');
+    grid.innerHTML = '';
+    const saved = JSON.parse(localStorage.getItem('sp40') || '[]');
+
+    for (let i = 1; i <= 40; i++) {
+        const d = document.createElement('div');
+        d.className = 'tr-day';
+        if (saved.includes(i)) d.classList.add('done');
+        d.textContent = i;
+        d.onclick = () => toggleDay(i, d);
+        grid.appendChild(d);
+    }
+    updateStats();
+}
+
+function toggleDay(n, el) {
+    let saved = JSON.parse(localStorage.getItem('sp40') || '[]');
+    if (!localStorage.getItem('sp40start')) {
+        localStorage.setItem('sp40start', Date.now().toString());
+    }
+    if (saved.includes(n)) {
+        saved = saved.filter(x => x !== n);
+        el.classList.remove('done');
+    } else {
+        saved.push(n);
+        el.classList.add('done');
+    }
+    localStorage.setItem('sp40', JSON.stringify(saved));
+    updateStats();
+}
+
+function updateStats() {
+    const saved = JSON.parse(localStorage.getItem('sp40') || '[]');
+    const done = saved.length;
+    const left = 40 - done;
+    const pct = Math.round((done / 40) * 100);
+
+    // Streak
+    let streak = 0;
+    const sorted = [...saved].sort((a,b) => b-a);
+    for (let i = 0; i < sorted.length; i++) {
+        if (i === 0 || sorted[i] === sorted[i-1] - 1) streak++;
+        else break;
+    }
+
+    // Update all displays
+    document.getElementById('trDone').textContent = done;
+    document.getElementById('trStreak').textContent = streak;
+    document.getElementById('trLeft').textContent = left;
+
+    document.getElementById('qDays').textContent = done;
+    document.getElementById('qStreak').textContent = streak;
+    document.getElementById('qLeft').textContent = left;
+
+    document.getElementById('topStreak').innerHTML = '🔥 ' + streak + ' дн';
+
+    document.getElementById('energyFill').style.width = pct + '%';
+    document.getElementById('energyPct').textContent = pct + '%';
+
+    let lvl = '🌑 Начало пути';
+    if (pct >= 15) lvl = '🌒 Основа';
+    if (pct >= 35) lvl = '🌱 Рост';
+    if (pct >= 60) lvl = '⚡ Сила';
+    if (pct >= 85) lvl = '🌟 Мастерство';
+    if (pct >= 100) lvl = '✨ 40 дней завершено!';
+    document.getElementById('energyLvl').textContent = lvl;
+
+    // Highlight current level
+    document.querySelectorAll('.lvl-card').forEach(c => c.classList.remove('current'));
+    if (pct < 25) document.getElementById('lvl1').classList.add('current');
+    else if (pct < 50) document.getElementById('lvl2').classList.add('current');
+    else if (pct < 80) document.getElementById('lvl3').classList.add('current');
+    else document.getElementById('lvl4').classList.add('current');
+}
+
+// ============================================================
+// PARTICLES
+// ============================================================
+function makeParticles() {
+    const c = document.getElementById('particles');
+    for (let i = 0; i < 20; i++) {
+        const p = document.createElement('div');
+        p.className = 'p';
+        p.style.left = Math.random()*100+'%';
+        p.style.animationDuration = (10+Math.random()*15)+'s';
+        p.style.animationDelay = Math.random()*8+'s';
+        const s = 2+Math.random()*2;
+        p.style.width = s+'px';
+        p.style.height = s+'px';
+        c.appendChild(p);
+    }
+}
+
+// ============================================================
+// INIT
+// ============================================================
+makeParticles();
+initTracker();
+</script>
+</body>
+</html>
