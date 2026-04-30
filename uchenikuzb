@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0a0a1a">
+    <title>Духовная прокачка | Ruhiy rivojlanish</title>
+    <style>
+        :root {
+            --bg:#0a0a1a;--bg2:#111128;--bg3:#1a1a3e;--gold:#d4a574;--gold2:#e8c547;
+            --gold-dim:rgba(212,165,116,0.15);--green:#2d6a4f;--green-l:#6fcf97;
+            --blue:#4361ee;--purple:#7209b7;--red:#ef4444;--text:#e8e8f0;--dim:#6b6b8d;
+            --border:#2a2a4a;--card:#13132d;--nav-h:64px;--safe-b:env(safe-area-inset-bottom,0px);
+        }
+        *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+        body{font-family:-apple-system,'SF Pro',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;padding-bottom:calc(var(--nav-h) + var(--safe-b) + 10px);min-height:100vh;-webkit-font-smoothing:antialiased}
+        body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 20%,rgba(212,165,116,0.06) 0%,transparent 60%),radial-gradient(ellipse at 70% 80%,rgba(67,97,238,0.04) 0%,transparent 60%);pointer-events:none;z-index:0}
+
+        .particles{position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:0;overflow:hidden}
+        .p{position:absolute;border-radius:50%;background:var(--gold);opacity:0;animation:fp linear infinite}
+        @keyframes fp{0%{opacity:0;transform:translateY(100vh) scale(0)}15%{opacity:.5}85%{opacity:.4}100%{opacity:0;transform:translateY(-5vh) scale(1)}}
+
+        .screen{display:none;position:relative;z-index:1;animation:fadeUp .35s ease}
+        .screen.active{display:block}
+        @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+        /* TOP BAR */
+        .top-bar{position:sticky;top:0;z-index:100;background:rgba(10,10,26,0.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
+        .top-title{font-size:1em;font-weight:700;background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .top-right{display:flex;align-items:center;gap:10px}
+        .top-streak{font-size:.75em;color:var(--gold)}
+
+        /* LANG SWITCHER */
+        .lang-sw{display:flex;background:var(--bg3);border-radius:20px;overflow:hidden;border:1px solid var(--border)}
+        .lang-btn{padding:5px 12px;font-size:.7em;font-weight:700;border:none;background:none;color:var(--dim);cursor:pointer;transition:all .2s}
+        .lang-btn.active{background:var(--gold);color:#000;border-radius:20px}
+        .lang-btn:active{transform:scale(.95)}
+
+        /* HERO */
+        .home-hero{text-align:center;padding:28px 20px 20px}
+        .hero-icon{font-size:3.2em;animation:breathe 4s ease-in-out infinite}
+        @keyframes breathe{0%,100%{transform:scale(1);filter:drop-shadow(0 0 8px rgba(212,165,116,.3))}50%{transform:scale(1.08);filter:drop-shadow(0 0 20px rgba(212,165,116,.6))}}
+        .hero-title{font-size:1.5em;font-weight:800;margin-top:10px;background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .hero-sub{color:var(--dim);font-size:.85em;margin-top:4px}
+
+        /* ENERGY */
+        .energy-section{padding:0 16px 16px}
+        .energy-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px}
+        .energy-label{font-size:.75em;color:var(--dim);margin-bottom:6px;display:flex;justify-content:space-between}
+        .energy-bar-bg{height:10px;background:var(--bg3);border-radius:5px;overflow:hidden}
+        .energy-bar-fill{height:100%;border-radius:5px;background:linear-gradient(90deg,var(--green),var(--gold),var(--gold2));transition:width .8s ease;position:relative}
+        .energy-bar-fill::after{content:'';position:absolute;top:0;right:0;bottom:0;width:30px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3));animation:shimmer 2s infinite}
+        @keyframes shimmer{0%,100%{opacity:0}50%{opacity:1}}
+        .energy-level-text{text-align:center;margin-top:8px;font-weight:700;color:var(--gold);font-size:.85em}
+
+        /* QUICK STATS */
+        .quick-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 16px 16px}
+        .q-stat{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px 8px;text-align:center}
+        .q-stat-icon{font-size:1.3em}
+        .q-stat-num{font-size:1.3em;font-weight:800;color:var(--gold);margin-top:2px}
+        .q-stat-label{font-size:.6em;color:var(--dim);margin-top:1px}
+
+        /* AQEEDAH */
+        .aqeedah-box{background:rgba(45,106,79,.08);border:1px solid rgba(45,106,79,.25);border-radius:14px;padding:14px;margin:0 16px 16px}
+        .aqeedah-box h3{color:var(--green-l);font-size:.9em;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+        .aq-item{display:flex;align-items:flex-start;gap:6px;padding:5px 0;font-size:.78em;color:#a0b0a8;border-bottom:1px solid rgba(45,106,79,.12)}
+        .aq-item:last-child{border-bottom:none}
+
+        /* MENU */
+        .menu-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:0 16px 16px}
+        .menu-item{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px 12px;text-align:center;cursor:pointer;transition:all .3s;-webkit-user-select:none;user-select:none;position:relative;overflow:hidden}
+        .menu-item::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:3px 3px 0 0}
+        .menu-item:active{transform:scale(.96);background:var(--bg3)}
+        .menu-item .m-icon{font-size:1.8em;margin-bottom:6px}
+        .menu-item .m-title{font-weight:700;font-size:.82em;margin-bottom:2px}
+        .menu-item .m-sub{font-size:.65em;color:var(--dim)}
+        .mi-1::before{background:var(--green)}.mi-2::before{background:var(--gold)}.mi-3::before{background:var(--blue)}.mi-4::before{background:var(--purple)}.mi-5::before{background:var(--gold2)}.mi-6::before{background:#40c057}.mi-7::before{background:var(--red)}.mi-8::before{background:#e066ff}
+        .section-count{text-align:center;padding:8px;font-size:.7em;color:var(--dim)}
+
+        /* DETAIL */
+        .detail-header{padding:16px;display:flex;align-items:center;gap:12px}
+        .back-btn{width:38px;height:38px;border-radius:12px;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.1em;cursor:pointer;color:var(--text);transition:all .2s}
+        .back-btn:active{background:var(--bg3);transform:scale(.95)}
+        .detail-title-area{flex:1}
+        .detail-title{font-size:1.1em;font-weight:800}
+        .detail-sub{font-size:.75em;color:var(--dim)}
+        .detail-content{padding:0 16px 20px}
+
+        /* PRACTICE CARDS */
+        .pcard{background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:10px;overflow:hidden;transition:all .3s}
+        .pcard-head{padding:12px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;-webkit-user-select:none;user-select:none}
+        .pcard-head:active{background:var(--bg3)}
+        .pcard-icon{font-size:1.3em;flex-shrink:0}
+        .pcard-info{flex:1}
+        .pcard-name{font-weight:700;font-size:.9em}
+        .pcard-brief{font-size:.7em;color:var(--dim);margin-top:1px}
+        .pcard-arrow{color:var(--dim);font-size:.75em;transition:transform .3s}
+        .pcard-arrow.open{transform:rotate(180deg)}
+        .pcard-body{display:none;padding:0 14px 14px;animation:fadeUp .3s ease}
+        .pcard-body.open{display:block}
+        .pcard-desc{font-size:.82em;color:var(--dim);margin-bottom:10px;line-height:1.7}
+        .pcard-how{background:var(--gold-dim);border:1px solid rgba(212,165,116,.2);border-radius:10px;padding:10px;font-size:.82em;margin-bottom:8px;line-height:1.8}
+        .pcard-how strong{color:var(--gold)}
+        .pcard-ayah{background:rgba(45,106,79,.1);border:1px solid rgba(45,106,79,.2);border-radius:10px;padding:10px;font-size:.78em;color:var(--green-l);font-style:italic;margin-bottom:8px;line-height:1.7}
+        .pcard-tags{display:flex;flex-wrap:wrap;gap:5px}
+        .ptag{padding:2px 8px;border-radius:20px;font-size:.6em;font-weight:600}
+        .ptag-d{background:rgba(64,192,87,.15);color:#40c057}
+        .ptag-e{background:rgba(212,165,116,.15);color:var(--gold)}
+        .ptag-a{background:rgba(114,9,183,.15);color:#b766e8}
+        .ptag-n{background:rgba(30,30,80,.5);color:#8888cc;border:1px solid #3a3a6a}
+        .ptag-w{background:rgba(67,97,238,.15);color:var(--blue)}
+
+        /* SCHEDULE */
+        .time-row{display:flex;gap:10px;padding:12px 0;border-bottom:1px solid var(--border)}
+        .time-row:last-child{border-bottom:none}
+        .time-badge{min-width:50px;font-size:.65em;font-weight:700;color:var(--gold);padding-top:2px}
+        .time-items{flex:1}
+        .time-item{display:flex;align-items:flex-start;gap:6px;padding:3px 0;font-size:.8em}
+        .time-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:7px}
+
+        /* TRACKER */
+        .tracker-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;padding:0 16px 14px}
+        .tr-day{aspect-ratio:1;border-radius:10px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:.8em;font-weight:600;cursor:pointer;transition:all .2s;border:2px solid transparent;-webkit-user-select:none;user-select:none}
+        .tr-day:active{transform:scale(.9)}
+        .tr-day.done{background:rgba(212,165,116,.2);border-color:var(--gold);color:var(--gold)}
+        .tr-day.today{border-color:var(--gold2);box-shadow:0 0 12px rgba(232,197,71,.3)}
+        .tracker-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 16px 16px}
+        .tr-sum{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px;text-align:center}
+        .tr-sum-n{font-size:1.4em;font-weight:800;color:var(--gold)}
+        .tr-sum-l{font-size:.6em;color:var(--dim);margin-top:1px}
+
+        /* LEVELS */
+        .lvl-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:10px;transition:all .3s}
+        .lvl-card.current{border-color:var(--gold);box-shadow:0 0 20px rgba(212,165,116,.1)}
+        .lvl-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+        .lvl-name{font-weight:700;font-size:.9em;display:flex;align-items:center;gap:6px}
+        .lvl-dur{font-size:.65em;color:var(--dim);padding:2px 8px;background:var(--bg3);border-radius:20px}
+        .lvl-desc{font-size:.75em;color:var(--dim);margin-bottom:8px}
+        .lvl-skills{display:flex;flex-wrap:wrap;gap:5px}
+        .lvl-skill{padding:2px 8px;border-radius:6px;font-size:.65em;background:var(--gold-dim);color:var(--gold);border:1px solid rgba(212,165,116,.2)}
+
+        /* BOTTOM NAV */
+        .bottom-nav{position:fixed;bottom:0;left:0;right:0;height:calc(var(--nav-h) + var(--safe-b));padding-bottom:var(--safe-b);background:rgba(10,10,26,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-around;z-index:200}
+        .nav-btn{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 12px;border-radius:12px;cursor:pointer;transition:all .2s;-webkit-user-select:none;user-select:none;border:none;background:none;color:var(--dim)}
+        .nav-btn:active{transform:scale(.9)}
+        .nav-btn.active{color:var(--gold)}
+        .nav-btn .nav-icon{font-size:1.3em}
+        .nav-btn .nav-label{font-size:.55em;font-weight:600}
+    </style>
+</head>
+<body>
+<div class="particles" id="particles"></div>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+    <div class="top-title" id="topTitle">🤲 Духовная прокачка</div>
+    <div class="top-right">
+        <div class="top-streak" id="topStreak">🔥 0</div>
+        <div class="lang-sw">
+            <button class="lang-btn active" id="langRu" onclick="setLang('ru')">RU</button>
+            <button class="lang-btn" id="langUz" onclick="setLang('uz')">UZ</button>
+        </div>
+    </div>
+</div>
+
+<!-- HOME -->
+<div id="s-home" class="screen active">
+    <div class="home-hero">
+        <div class="hero-icon">🌟</div>
+        <div class="hero-title" data-t="heroTitle"></div>
+        <div class="hero-sub" data-t="heroSub"></div>
+    </div>
+    <div class="energy-section">
+        <div class="energy-card">
+            <div class="energy-label"><span data-t="spiritPower"></span><span id="energyPct">0%</span></div>
+            <div class="energy-bar-bg"><div class="energy-bar-fill" id="energyFill" style="width:0%"></div></div>
+            <div class="energy-level-text" id="energyLvl"></div>
+        </div>
+    </div>
+    <div class="quick-stats">
+        <div class="q-stat"><div class="q-stat-icon">📅</div><div class="q-stat-num" id="qDays">0</div><div class="q-stat-label" data-t="days"></div></div>
+        <div class="q-stat"><div class="q-stat-icon">🔥</div><div class="q-stat-num" id="qStreak">0</div><div class="q-stat-label" data-t="streak"></div></div>
+        <div class="q-stat"><div class="q-stat-icon">🎯</div><div class="q-stat-num" id="qLeft">40</div><div class="q-stat-label" data-t="remaining"></div></div>
+    </div>
+    <div class="aqeedah-box">
+        <h3>🕌 <span data-t="aqeedahTitle"></span></h3>
+        <div id="aqeedahList"></div>
+    </div>
+    <div class="menu-grid" id="menuGrid"></div>
+    <div class="section-count" data-t="sectionCount"></div>
+</div>
+
+<!-- DETAIL -->
+<div id="s-detail" class="screen">
+    <div class="detail-header">
+        <div class="back-btn" onclick="goHome()">←</div>
+        <div class="detail-title-area">
+            <div class="detail-title" id="detailTitle"></div>
+            <div class="detail-sub" id="detailSub"></div>
+        </div>
+    </div>
+    <div class="detail-content" id="detailContent"></div>
+</div>
+
+<!-- SCHEDULE -->
+<div id="s-schedule" class="screen">
+    <div class="detail-header">
+        <div class="detail-title-area" style="text-align:center;width:100%">
+            <div class="detail-title" data-t="scheduleTitle"></div>
+            <div class="detail-sub" data-t="scheduleSub"></div>
+        </div>
+    </div>
+    <div class="detail-content" id="scheduleContent"></div>
+</div>
+
+<!-- TRACKER -->
+<div id="s-tracker" class="screen">
+    <div class="detail-header">
+        <div class="detail-title-area" style="text-align:center;width:100%">
+            <div class="detail-title" data-t="trackerTitle"></div>
+            <div class="detail-sub" data-t="trackerSub"></div>
+        </div>
+    </div>
+    <div class="tracker-grid" id="trackerGrid"></div>
+    <div class="tracker-summary">
+        <div class="tr-sum"><div class="tr-sum-n" id="trDone">0</div><div class="tr-sum-l" data-t="completed"></div></div>
+        <div class="tr-sum"><div class="tr-sum-n" id="trStreak">0</div><div class="tr-sum-l" data-t="streak"></div></div>
+        <div class="tr-sum"><div class="tr-sum-n" id="trLeft">40</div><div class="tr-sum-l" data-t="remaining"></div></div>
+    </div>
+    <div class="detail-content">
+        <div style="font-weight:700;font-size:1em;margin-bottom:12px;color:var(--gold)" data-t="levelsTitle"></div>
+        <div id="levelsContainer"></div>
+    </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+    <button class="nav-btn active" onclick="switchTab('home')" id="nav-home">
+        <span class="nav-icon">🏠</span><span class="nav-label" data-t="navHome"></span>
+    </button>
+    <button class="nav-btn" onclick="switchTab('schedule')" id="nav-schedule">
+        <span class="nav-icon">📅</span><span class="nav-label" data-t="navSchedule"></span>
+    </button>
+    <button class="nav-btn" onclick="switchTab('tracker')" id="nav-tracker">
+        <span class="nav-icon">📊</span><span class="nav-label" data-t="navTracker"></span>
+    </button>
+</div>
+
+<script>
+// ================================================================
+// TRANSLATIONS
+// ================================================================
+const T = {
+ru: {
+    topTitle: "🤲 Духовная прокачка",
+    heroTitle: "Усиление силы",
+    heroSub: "Духовная прокачка для практики Рукия",
+    spiritPower: "Духовная сила",
+    days: "Дней",
+    streak: "Серия",
+    remaining: "Осталось",
+    aqeedahTitle: "Основа акиды",
+    aqeedah: [
+        "☝️ Вся сила — от Аллаха. Ты — причина (сабаб)",
+        "📖 Лечит Коран. Аллах исцеляет через тебя",
+        "🤲 Ля хауля уа ля куввата илля билляхи",
+        "🚫 Не смешивай с оккультизмом и рэйки",
+        "🔒 Таваккуль — главный источник силы"
+    ],
+    sectionCount: "8 разделов • 30+ практик",
+    scheduleTitle: "📅 Ежедневный режим",
+    scheduleSub: "Полное духовное расписание",
+    trackerTitle: "📊 Трекер 40 дней",
+    trackerSub: "Нажми на день, чтобы отметить",
+    completed: "Выполнено",
+    levelsTitle: "📈 Система уровней",
+    navHome: "Главная",
+    navSchedule: "Режим",
+    navTracker: "Трекер",
+    howLabel: "Как практиковать:",
+    levels: [
+        {icon:"🌱",name:"Основа",dur:"Месяц 1-2",desc:"Очищение, азкары, базовый хифз",skills:["Тауба","Азкары","Хифз","Халяль","Вуду"]},
+        {icon:"🌿",name:"Рост",dur:"Месяц 3-4",desc:"Тадаббур, направление энергии, боевые аяты",skills:["Тадаббур","Энергия","Боевые аяты","Вода","Руки"]},
+        {icon:"⚡",name:"Сила",dur:"Месяц 5-8",desc:"Тахаджуд, диагностика, пост, журнал",skills:["Тахаджуд","Диагностика","Пост","Журнал"]},
+        {icon:"🌟",name:"Мастерство",dur:"Месяц 9-12+",desc:"Полный контроль, дистанционная рукия",skills:["Джинн","Дистанция","Обучение","Фираса"]}
+    ],
+    energyLevels: ["🌑 Начало пути","🌒 Основа","🌱 Рост","⚡ Сила","🌟 Мастерство","✨ 40 дней!"],
+    schedule: [
+        {time:"До фаджра",items:["Тахаджуд — 2-8 ракаатов","Дуа с плачем и смирением","Истигфар 100 раз","Проси усиления способности"]},
+        {time:"Фаджр",items:["Утренние азкары — полностью","Коран — 1 джуз / 30 мин","Тадаббур — 5 аятов","Тренировка рук — 5 мин"]},
+        {time:"Утро",items:["Мёд + чёрный тмин натощак","7 фиников Аджва","Спорт — 30 мин"]},
+        {time:"Сессии",items:["Вуду + защитные азкары","Ният + визуализация","Чтение + направление","Очищение после","Запись в журнал"]},
+        {time:"Аср",items:["Книги учёных — 30 мин","Дуа за пациентов"]},
+        {time:"Иша",items:["Вечерние азкары","Обзор дня","Тауба + истигфар","Ранний сон"]}
+    ],
+    menu: [
+        {key:"nafs",icon:"🪞",title:"Тазкият ан-Нафс",sub:"Очищение души",cls:"mi-1"},
+        {key:"quran",icon:"📖",title:"Сила Корана",sub:"Куввату-ль-Куран",cls:"mi-2"},
+        {key:"energy",icon:"⚡",title:"Направление энергии",sub:"Тавджих уль-Кувва",cls:"mi-3"},
+        {key:"shield",icon:"🛡️",title:"Щит азкаров",sub:"Хисн уль-Муслим",cls:"mi-4"},
+        {key:"dua",icon:"🤲",title:"Сила дуа",sub:"Куввату д-Дуа",cls:"mi-5"},
+        {key:"body",icon:"💪",title:"Тело + Дух",sub:"Джисм + Рух",cls:"mi-6"},
+        {key:"diag",icon:"🔍",title:"Диагностика",sub:"Ташхис",cls:"mi-7"},
+        {key:"adv",icon:"🌟",title:"Продвинутое",sub:"Высший уровень",cls:"mi-8"}
+    ],
+    // SECTIONS DATA
+    sections: {
+        nafs: {
+            title:"🪞 Тазкият ан-Нафс", sub:"Очищение души — фундамент силы",
+            items:[
+                {icon:"🔄",name:"Постоянная тауба",brief:"Очищение духовных каналов",desc:"Грехи — пробки в духовных каналах. Тауба очищает и восстанавливает поток.",how:"Каждый вечер — истигфар 100 раз. Вспомни ошибки дня. Проси прощения с намерением не повторять.",ayah:"Пророк ﷺ говорил «Астагфируллах» более 70 раз в день",tags:[["Ежедневно","d"],["Обязательно","e"]]},
+                {icon:"👁️",name:"Муракаба",brief:"Осознание присутствия Аллаха",desc:"Постоянное осознание что Аллах видит тебя. Мощнейшее поле чистоты.",how:"Перед каждым действием: «Если бы Аллах стоял видимо — я бы это делал?»",ayah:"«Ихсан — поклоняться так, как будто ты видишь Его» — Хадис Джибриля",tags:[["Постоянно","d"],["Обязательно","e"]]},
+                {icon:"🍽️",name:"Контроль питания",brief:"Чистая еда = топливо для нур",desc:"Харам-еда — яд для духовной силы. Сомнительная пища ослабляет дуа.",how:"Проверяй источник дохода, состав еды. Бисмиллях перед, Альхамдулиллях после.",ayah:"«Ешьте дозволенное и совершайте праведные деяния» — аль-Му'минун, 51",tags:[["Ежедневно","d"],["Обязательно","e"]]},
+                {icon:"🔇",name:"Хранение языка",brief:"Закрой дыры утечки силы",desc:"Гыба, ложь, пустословие — дыры утечки духовной силы.",how:"3 фильтра: правда? полезно? доброе? Если нет — молчи.",tags:[["Постоянно","d"],["Обязательно","e"]]},
+                {icon:"👀",name:"Контроль взгляда",brief:"Взгляд на харам = потеря нура",desc:"Опускание взгляда — мгновенное усиление сердца.",how:"Сознательно отводи взгляд. Почувствуй, как сердце наполняется светом.",ayah:"«Скажи верующим опускать взоры» — ан-Нур, 30",tags:[["Постоянно","d"]]}
+            ]
+        },
+        quran: {
+            title:"📖 Сила Корана", sub:"Твоё главное оружие",
+            items:[
+                {icon:"🎯",name:"Тадаббур",brief:"Глубокое размышление",desc:"Не просто читать — ПОНИМАТЬ. Сила увеличивается в разы.",how:"5 аятов/день: арабский → перевод → тафсир → представь → прочитай с пониманием.",tags:[["Ежедневно","d"],["Критически важно","e"]]},
+                {icon:"🗣️",name:"Таджвид + Тартиль",brief:"Каждая буква несёт вибрацию",desc:"Правильный махрадж влияет на силу воздействия при рукия.",how:"Читай медленно. Отрабатывай: ر, ع, ح, خ, ق — особая сила при рукия.",tags:[["Ежедневно","d"],["Продвинутое","a"]]},
+                {icon:"🌙",name:"Ночное чтение",brief:"Последняя треть ночи — максимум",desc:"Аллах спускается на ближнее небо. Коран в 10 раз мощнее.",how:"40 мин до фаджра. 2-4 ракаата тахаджуд. Длинные суры. Дуа на усиление.",ayah:"«Бодрствуй часть ночи, читая Коран» — аль-Исра, 79",tags:[["Ночь","n"],["Макс. сила","e"]]},
+                {icon:"💨",name:"Нафс (дуновение)",brief:"Направление энергии дыханием",desc:"Пророк ﷺ дул на ладони. Нафс — направление духовной энергии.",how:"После аята собери ладони, подуй, проведи по телу. Представляй нур.",tags:[["При рукия","d"],["Сунна","e"]]},
+                {icon:"🔁",name:"Хифз боевых аятов",brief:"Наизусть = в 10 раз сильнее",desc:"Чтение наизусть с пониманием — максимальная мощность.",how:"Фатиха • Аят уль-Курси • Последние 2 аята Бакара • Муаввизат • Аяты сихр: 7:117-122, 10:81-82 • Аяты шифа: 17:82, 26:80",tags:[["Обязательно","e"],["Постепенно","a"]]}
+            ]
+        },
+        energy: {
+            title:"⚡ Направление энергии", sub:"Чувствуй, концентрируй, направляй",
+            items:[
+                {icon:"🤲",name:"Ният + Визуализация",brief:"Намерение — руль, визуализация — прицел",desc:"ЧЁТКО представь что делаешь. Не просто читать — НАПРАВЛЯТЬ.",how:"1. Закрой глаза 10 сек\n2. Ният для исцеления\n3. Представь нур → к пациенту\n4. Болезнь отступает\n5. НЕ ОТРИЦАЙ ощущение",tags:[["Критически важно","e"],["При рукия","d"]]},
+                {icon:"✋",name:"Тренировка рук",brief:"Руки — каналы нура",desc:"Пророк ﷺ клал руку на больное место. Руки нужно натренировать.",how:"1. Потри ладони 10 сек\n2. Разведи — почувствуй тепло\n3. Читай Фатиху\n4. Почувствуй покалывание\n5. Направь к телу\n6. Повторяй ежедневно",tags:[["Ежедневно","d"],["Продвинутое","a"]]},
+                {icon:"🫁",name:"Контроль дыхания",brief:"Мост между телом и духом",desc:"Контролируемое дыхание усиливает направление энергии.",how:"Вдох 4с (нур) → задержка 4с → выдох 8с (аят) → нафс",tags:[["При чтении","d"],["Продвинутое","a"]]},
+                {icon:"🎯",name:"Фокусировка на точке",brief:"Не читай в воздух — направляй",desc:"Направляй к больному месту: орган, голова, грудь.",how:"1. Спроси: где болит?\n2. Положи руку\n3. Визуализируй нур\n4. Тьма выходит\n5. Следи за реакцией",tags:[["При рукия","d"],["Ключевой навык","e"]]},
+                {icon:"💧",name:"Программирование воды",brief:"Вода принимает заряд Корана",desc:"Практика саляф. Пациент пьёт — лечение продолжается.",how:"Чистая вода → читай аяты → дуй → представляй нур → пациент пьёт утром и перед сном",ayah:"Ибн аль-Каййим: саляф читали на воду и исцеляли",tags:[["Сунна","e"],["При рукия","d"]]}
+            ]
+        },
+        shield: {
+            title:"🛡️ Щит азкаров", sub:"Защита прежде лечения",
+            items:[
+                {icon:"🌅",name:"Утренние азкары",brief:"Броня на день",desc:"Без утренних азкаров — на бой без защиты.",how:"• Аят уль-Курси ×1\n• Ихляс, Фалак, Нас ×3\n• «Бисмилляхи ллязи...» ×3\n• «Аузу бикалиматилляхи...» ×3\n• «Хасбиялляху...» ×7\n• Истигфар ×100\n• Салават ×100",tags:[["Каждое утро","d"],["НЕ ПРОПУСКАЙ","e"]]},
+                {icon:"🌙",name:"Вечерние азкары",brief:"Ночной щит",desc:"Ночь — время активности шайатин.",how:"Тот же набор + последние 2 аята Бакара + три кул → подуть на ладони → протереть тело",tags:[["Каждый вечер","n"],["НЕ ПРОПУСКАЙ","e"]]},
+                {icon:"⚔️",name:"Щит до/после сессии",brief:"Духовная дезинфекция",desc:"Перед — усиленная защита. После — очищение.",how:"ДО: Вуду → Аят уль-Курси → Муаввизат → Ният\n\nПОСЛЕ: Муаввизат ×3 → Вымой руки → Ля хауля ×10",tags:[["При сессии","e"]]},
+                {icon:"🏠",name:"Защита дома",brief:"База должна быть чистой",desc:"Шайатины в доме — ты ослаблен.",how:"• Аль-Бакара каждые 3 дня\n• Убери изображения\n• Бисмиллях при входе",ayah:"«Шайтан бежит из дома, где читается аль-Бакара» — Муслим",tags:[["Каждые 3 дня","w"],["Обязательно","e"]]}
+            ]
+        },
+        dua: {
+            title:"🤲 Сила дуа", sub:"Прямая линия к Аллаху",
+            items:[
+                {icon:"⏰",name:"Времена принятия",brief:"Не все моменты одинаковы",desc:"Есть окна когда дуа принимается.",how:"• Последняя треть ночи\n• Между азаном и икамой\n• В суджуде\n• После намазов\n• Пятница перед магрибом\n• Во время дождя",tags:[["Каждый день","d"]]},
+                {icon:"🔥",name:"Дуа с плачем",brief:"Пробивает небеса",desc:"Со сломленным сердцем — максимальная сила.",how:"Вспомни грехи → осознай зависимость → проси как в последний раз → плачь",tags:[["Ночью","n"],["Высший уровень","a"]]},
+                {icon:"📜",name:"Дуа за пациента",brief:"Ангел молит за тебя так же",desc:"Дуа в отсутствие — ангел говорит: и тебе того же.",how:"После каждого намаза: «О Аллах, исцели [имя]». Особенно в суджуде.",ayah:"«Дуа за брата в его отсутствие принимается» — Муслим",tags:[["После намазов","d"],["Мощно","e"]]},
+                {icon:"💎",name:"Дуа за себя",brief:"Проси усиления",desc:"Проси больше нура, баракята, силы.",how:"• «Усиль мою способность»\n• «Дай нур в руках, голосе, сердце»\n• «Сделай Коран весной сердца»",tags:[["Ежедневно","d"],["Не забывай","e"]]}
+            ]
+        },
+        body: {
+            title:"💪 Тело + Дух", sub:"Слабое тело = слабый поток",
+            items:[
+                {icon:"🏋️",name:"Физическая сила",brief:"Сильный верующий лучше",desc:"Физическая сила = выносливость при длинных сессиях.",how:"• Ходьба 30 мин/день\n• Отжимания, приседания\n• Плавание (сунна)",tags:[["3-4 раза/нед","w"]]},
+                {icon:"🍯",name:"Тибб Набави",brief:"Пророческая медицина",desc:"Средства здоровья тела и духа от Пророка ﷺ.",how:"• Мёд натощак\n• Чёрный тмин\n• Зам-зам\n• Хиджама раз/мес\n• 7 фиников Аджва утром",ayah:"«7 фиников Аджва — защита от яда и колдовства» — Бухари",tags:[["Ежедневно","d"],["Сунна","e"]]},
+                {icon:"😴",name:"Качественный сон",brief:"Восстановление духа",desc:"Недосып разрушает духовную силу.",how:"• На правом боку\n• Вуду перед сном\n• Азкары\n• После иша → до фаджра\n• 6-8 часов",tags:[["Каждую ночь","n"]]},
+                {icon:"🚿",name:"Ритуальная чистота",brief:"Вуду — зарядка нура",desc:"С каждым вуду нур усиливается.",how:"• Будь на вуду ВСЕГДА\n• Обновляй перед рукия\n• Гусль перед важными сессиями",tags:[["Постоянно","d"],["Обязательно","e"]]},
+                {icon:"🧘",name:"Пост",brief:"Усилитель чувствительности",desc:"Сердце чище, дуа сильнее.",how:"• Пн/Чт\n• 13-15 лунного месяца\n• Перед сложными сессиями",tags:[["Пн/Чт","w"],["Усиление","a"]]}
+            ]
+        },
+        diag: {
+            title:"🔍 Диагностика", sub:"Определение типа проблемы",
+            items:[
+                {icon:"👁️",name:"Чтение реакций",brief:"Тело пациента говорит",desc:"Джинн/сихр проявляется через реакции.",how:"• Зевота — блокировка\n• Плач — хороший знак\n• Тремор — джинн\n• Тошнота — сихр в желудке\n• Головная боль — айн\n• Крик — сильная реакция",tags:[["Критический навык","e"]]},
+                {icon:"🧩",name:"Типы поражения",brief:"Каждый тип — свой подход",desc:"Неправильная диагностика = неэффективное лечение.",how:"СИХР: резкие изменения, кошмары\nАЙН: болезнь после взгляда\nМАСС: потеря сознания, паралич сна\nВАСВАСА: навязчивые мысли",tags:[["Изучай","e"]]},
+                {icon:"📋",name:"Протокол диагностики",brief:"Пошаговое чтение",desc:"Определённые аяты — определённые реакции.",how:"1. Фатиха — общая\n2. Аят уль-Курси — джинн\n3. 7:117-122 — сихр\n4. Фалак — хасад\n5. Нас — васваса\n6. 68:51 — айн",tags:[["При диагностике","e"]]}
+            ]
+        },
+        adv: {
+            title:"🌟 Продвинутое", sub:"Для освоивших основы",
+            items:[
+                {icon:"💬",name:"Общение с джинном",brief:"С позиции силы",desc:"Иногда джинн говорит. Веди переговоры правильно.",how:"• Не верь — лжец\n• Не бойся\n• Спроси: кто? мусульманин?\n• Призови к исламу\n• Боевые аяты\n• Никаких сделок",tags:[["Только с опытом","a"]]},
+                {icon:"🌊",name:"Рукия на расстоянии",brief:"Дуа не имеет расстояния",desc:"Читай на воду и отправь. Направляй намерение.",how:"• Вода → отправь\n• Представляй пациента\n• Дуа по имени\n• Аудио рукии\n• Видеозвонок",tags:[["Продвинутое","a"]]},
+                {icon:"📝",name:"Журнал практики",brief:"Бесценная база опыта",desc:"Записывай каждую сессию.",how:"• Дата, имя\n• Симптомы\n• Что читал\n• Реакции\n• Что сработало\n• Результат через 7/14/30 дней",tags:[["После сессии","d"],["Важно","e"]]},
+                {icon:"📚",name:"Книги учёных",brief:"Не останавливайся",desc:"Постоянно учись.",how:"• «Зад уль-Маад» — Ибн уль-Каййим\n• «Аль-Азкар» — ан-Навави\n• «Хисн уль-Муслим»\n• «Ас-Сарим аль-Батар»\n• Фатвы Ибн База",tags:[["Постоянно","w"],["Ильм","e"]]}
+            ]
+        }
+    }
+},
+// ================================================================
+// UZBEK
+// ================================================================
+uz: {
+    topTitle: "🤲 Ruhiy rivojlanish",
+    heroTitle: "Kuchni oshirish",
+    heroSub: "Ruqya amaliyoti uchun ruhiy rivojlanish",
+    spiritPower: "Ruhiy kuch",
+    days: "Kunlar",
+    streak: "Ketma-ket",
+    remaining: "Qoldi",
+    aqeedahTitle: "Aqida asosi",
+    aqeedah: [
+        "☝️ Barcha kuch — Allohdan. Sen — sababsan",
+        "📖 Qur'on davolaydi. Alloh sen orqali shifo beradi",
+        "🤲 Laa havla va laa quvvata illa billahi",
+        "🚫 Okkultizm va reyki bilan aralashtirma",
+        "🔒 Tavakkul — kuchning asosiy manbai"
+    ],
+    sectionCount: "8 bo'lim • 30+ amaliyot",
+    scheduleTitle: "📅 Kundalik tartib",
+    scheduleSub: "To'liq ruhiy jadval",
+    trackerTitle: "📊 40 kunlik trek",
+    trackerSub: "Belgilash uchun kunga bos",
+    completed: "Bajarildi",
+    levelsTitle: "📈 Darajalar tizimi",
+    navHome: "Bosh sahifa",
+    navSchedule: "Tartib",
+    navTracker: "Trek",
+    howLabel: "Qanday amaliyot qilish:",
+    levels: [
+        {icon:"🌱",name:"Asos",dur:"1-2 oy",desc:"Poklanish, azkorlar, asosiy hifz",skills:["Tavba","Azkorlar","Hifz","Halol","Vuzu"]},
+        {icon:"🌿",name:"O'sish",dur:"3-4 oy",desc:"Tadabbur, energiya yo'naltirish, jangovar oyatlar",skills:["Tadabbur","Energiya","Oyatlar","Suv","Qo'llar"]},
+        {icon:"⚡",name:"Kuch",dur:"5-8 oy",desc:"Tahajjud, diagnostika, ro'za, jurnal",skills:["Tahajjud","Diagnostika","Ro'za","Jurnal"]},
+        {icon:"🌟",name:"Mahorat",dur:"9-12+ oy",desc:"To'liq nazorat, masofadan ruqya",skills:["Jinn","Masofa","Ta'lim","Firosa"]}
+    ],
+    energyLevels: ["🌑 Yo'l boshida","🌒 Asos","🌱 O'sish","⚡ Kuch","🌟 Mahorat","✨ 40 kun tamom!"],
+    schedule: [
+        {time:"Fajrdan oldin",items:["Tahajjud — 2-8 rakat","Yig'lab duo qilish","Istighfor 100 marta","Kuchaytirishni so'ra"]},
+        {time:"Fajr",items:["Ertalabki azkorlar — to'liq","Qur'on — 1 juz / 30 min","Tadabbur — 5 oyat","Qo'l mashqi — 5 min"]},
+        {time:"Ertalab",items:["Asal + qora zig'ir","7 dona Ajva xurmosi","Sport — 30 min"]},
+        {time:"Seanslar",items:["Vuzu + himoya azkorlari","Niyat + tasavvur","O'qish + yo'naltirish","Keyin tozalash","Jurnalga yozish"]},
+        {time:"Asr",items:["Olimlar kitoblari — 30 min","Bemorlar uchun duo"]},
+        {time:"Ishaa",items:["Kechki azkorlar","Kunni tahlil","Tavba + istighfor","Erta uxlash"]}
+    ],
+    menu: [
+        {key:"nafs",icon:"🪞",title:"Nafsni tozalash",sub:"Tazkiyat an-nafs",cls:"mi-1"},
+        {key:"quran",icon:"📖",title:"Qur'on kuchi",sub:"Quvvatul-Qur'on",cls:"mi-2"},
+        {key:"energy",icon:"⚡",title:"Energiya yo'naltirish",sub:"Tavjih ul-quvva",cls:"mi-3"},
+        {key:"shield",icon:"🛡️",title:"Azkor qalqoni",sub:"Hisn ul-Muslim",cls:"mi-4"},
+        {key:"dua",icon:"🤲",title:"Duo kuchi",sub:"Quvvatud-duo",cls:"mi-5"},
+        {key:"body",icon:"💪",title:"Tana + Ruh",sub:"Jism + Ruh",cls:"mi-6"},
+        {key:"diag",icon:"🔍",title:"Diagnostika",sub:"Tashxis",cls:"mi-7"},
+        {key:"adv",icon:"🌟",title:"Ilg'or daraja",sub:"Yuqori daraja",cls:"mi-8"}
+    ],
+    sections: {
+        nafs: {
+            title:"🪞 Nafsni tozalash", sub:"Ruhiy kuchning asosi",
+            items:[
+                {icon:"🔄",name:"Doimiy tavba",brief:"Ruhiy kanallarni tozalash",desc:"Gunohlar — ruhiy kanallardagi tiqin. Tavba tozalaydi va oqimni tiklaydi.",how:"Har kuni kechqurun — istighfor 100 marta. Kunning xatolarini esla. Takrorlamaslik niyati bilan kechirim so'ra.",ayah:"Payg'ambar ﷺ «Astag'firulloh» ni kuniga 70 martadan ko'p aytganlar",tags:[["Har kuni","d"],["Majburiy","e"]]},
+                {icon:"👁️",name:"Muroqaba",brief:"Alloh huzurini his qilish",desc:"Alloh seni ko'rishini doimiy anglash. Eng kuchli poklik maydoni.",how:"Har bir ishdan oldin: «Alloh ko'rinib turganida — men buni qilarmidim?»",ayah:"«Ihson — go'yo Uni ko'rib ibodat qilish» — Jibril hadisi",tags:[["Doimiy","d"],["Majburiy","e"]]},
+                {icon:"🍽️",name:"Ovqatni nazorat",brief:"Toza taom = nurning yoqilg'isi",desc:"Harom taom — ruhiy kuchga zahar. Shubhali taom duoni zaiflashtiradi.",how:"Daromad manbayini tekshir, taom tarkibini. Bismillah oldin, Alhamdulillah keyin.",ayah:"«Halol yenglar va yaxshi amallar qilinglar» — al-Mu'minun, 51",tags:[["Har kuni","d"],["Majburiy","e"]]},
+                {icon:"🔇",name:"Tilni saqlash",brief:"Kuch oqib ketadigan teshiklarni yop",desc:"G'iybat, yolg'on, bekor gap — ruhiy kuch oqib ketadigan teshiklar.",how:"3 filtr: rost? foydali? yaxshi? Agar yo'q — jim tur.",tags:[["Doimiy","d"],["Majburiy","e"]]},
+                {icon:"👀",name:"Nigohni nazorat",brief:"Haromga qarash = nur yo'qotish",desc:"Nigohni tushirish — yurakni bir zumda kuchaytirish.",how:"Ongli ravishda nigohni bur. Yurak nur bilan to'lganini his qil.",ayah:"«Mo'minlarga ko'zlarini tushirishni ayt» — an-Nur, 30",tags:[["Doimiy","d"]]}
+            ]
+        },
+        quran: {
+            title:"📖 Qur'on kuchi", sub:"Sening asosiy quroling",
+            items:[
+                {icon:"🎯",name:"Tadabbur",brief:"Chuqur fikrlash",desc:"Faqat o'qish emas — TUSHUNISH. Kuch bir necha baravar oshadi.",how:"Kuniga 5 oyat: arabcha → tarjima → tafsir → tasavvur → tushunib o'qi.",tags:[["Har kuni","d"],["Juda muhim","e"]]},
+                {icon:"🗣️",name:"Tajvid + Tartil",brief:"Har bir harf tebranish beradi",desc:"To'g'ri maxraj ruqyadagi ta'sir kuchiga ta'sir qiladi.",how:"Sekin o'qi. Mashq qil: ر, ع, ح, خ, ق — ruqyada alohida kuch.",tags:[["Har kuni","d"],["Ilg'or","a"]]},
+                {icon:"🌙",name:"Tungi qiroat",brief:"Tunning oxirgi uchdanligi — maksimum",desc:"Alloh yaqin osmonga tushadi. Qur'on 10 baravar kuchliroq.",how:"Fajrdan 40 min oldin. 2-4 rakat tahajjud. Uzun suralar. Kuchayish uchun duo.",ayah:"«Tunning bir qismida Qur'on o'qi» — al-Isro, 79",tags:[["Tun","n"],["Maks. kuch","e"]]},
+                {icon:"💨",name:"Nafs (puflash)",brief:"Nafas orqali energiya yo'naltirish",desc:"Payg'ambar ﷺ kaflariga puflagan. Nafs — ruhiy energiya yo'naltirish.",how:"Oyatdan keyin kaftlarni yig', pufla, tanaga surt. Nurni tasavvur qil.",tags:[["Ruqyada","d"],["Sunna","e"]]},
+                {icon:"🔁",name:"Jangovar oyatlarni hifz",brief:"Yoddan = 10 baravar kuchliroq",desc:"Tushunib yoddan o'qish — maksimal quvvat.",how:"Fotiha • Oyatul Kursiy • Baqaraning oxirgi 2 oyati • Muavvizot • Sehr oyatlari: 7:117-122 • Shifo oyatlari: 17:82, 26:80",tags:[["Majburiy","e"],["Asta-sekin","a"]]}
+            ]
+        },
+        energy: {
+            title:"⚡ Energiya yo'naltirish", sub:"His qil, jamlash, yo'naltir",
+            items:[
+                {icon:"🤲",name:"Niyat + Tasavvur",brief:"Niyat — rul, tasavvur — nishon",desc:"Nima qilayotganingni ANIQ tasavvur qil. Faqat o'qish emas — YO'NALTIRISH.",how:"1. Ko'zni yum 10 sek\n2. Shifo uchun niyat\n3. Nur → bemorga tasavvur qil\n4. Kasallik chekinadi\n5. Hisni INKOR QILMA",tags:[["Juda muhim","e"],["Ruqyada","d"]]},
+                {icon:"✋",name:"Qo'l mashqi",brief:"Qo'llar — nur kanallari",desc:"Payg'ambar ﷺ qo'lini og'riq joyiga qo'ygan. Qo'llarni mashq qilish kerak.",how:"1. Kaftlarni ishqa 10 sek\n2. Issiqlikni his qil\n3. Fotiha o'qi\n4. Titroqni his qil\n5. Tanaga yo'naltir\n6. Har kuni takrorla",tags:[["Har kuni","d"],["Ilg'or","a"]]},
+                {icon:"🫁",name:"Nafas nazorati",brief:"Tana va ruh orasidagi ko'prik",desc:"Boshqariladigan nafas energiya yo'naltirishni kuchaytiradi.",how:"4s kirish (nur) → 4s ushlab turish → 8s chiqarish (oyat) → nafs",tags:[["O'qishda","d"],["Ilg'or","a"]]},
+                {icon:"🎯",name:"Nuqtaga fokuslash",brief:"Havoga o'qima — yo'naltir",desc:"Og'riq joyiga yo'naltir: a'zo, bosh, ko'krak.",how:"1. So'ra: qayerda og'riydi?\n2. Qo'l qo'y\n3. Nurni tasavvur qil\n4. Zulmat chiqadi\n5. Reakqiyani kuzat",tags:[["Ruqyada","d"],["Asosiy ko'nikma","e"]]},
+                {icon:"💧",name:"Suvni dasturlash",brief:"Suv Qur'on zaryadini oladi",desc:"Salaf amaliyoti. Bemor ichadi — davolash davom etadi.",how:"Toza suv → oyatlar o'qi → pufla → nurni tasavvur qil → bemor ertalab va uxlashdan oldin ichadi",ayah:"Ibn al-Qayyim: salaflar suvga o'qib, bemorlarni shifoyab qilganlar",tags:[["Sunna","e"],["Ruqyada","d"]]}
+            ]
+        },
+        shield: {
+            title:"🛡️ Azkor qalqoni", sub:"Avval o'zingni himoya qil",
+            items:[
+                {icon:"🌅",name:"Ertalabki azkorlar",brief:"Kunga to'liq qalqon",desc:"Ertalabki azkorsiz — himoyasiz jangga kirish.",how:"• Oyatul Kursiy ×1\n• Ixlos, Falaq, Nos ×3\n• «Bismillahillazi...» ×3\n• «A'uzu bikalimatillahi...» ×3\n• «Hasbiyallohu...» ×7\n• Istighfor ×100\n• Salavot ×100",tags:[["Har ertalab","d"],["TASHLAB QO'YMA","e"]]},
+                {icon:"🌙",name:"Kechki azkorlar",brief:"Tungi qalqon",desc:"Tun — shaytonlar faollashadi.",how:"Xuddi shu to'plam + Baqaraning oxirgi 2 oyati + uch qul → kafga pufla → tanani sila",tags:[["Har kechasi","n"],["TASHLAB QO'YMA","e"]]},
+                {icon:"⚔️",name:"Seans qalqoni",brief:"Ruhiy dezinfeksiya",desc:"Oldin — kuchli himoya. Keyin — tozalash.",how:"OLDIN: Vuzu → Oyatul Kursiy → Muavvizot → Niyat\n\nKEYIN: Muavvizot ×3 → Qo'l yuv → Laa havla ×10",tags:[["Har seansda","e"]]},
+                {icon:"🏠",name:"Uy himoyasi",brief:"Bazang toza bo'lishi kerak",desc:"Uyda shaytonlar bo'lsa — zaifsan.",how:"• Baqara har 3 kunda\n• Rasmlarni olib tashla\n• Kirishda Bismillah",ayah:"«Baqara o'qilgan uydan shayton qochadi» — Muslim",tags:[["Har 3 kunda","w"],["Majburiy","e"]]}
+            ]
+        },
+        dua: {
+            title:"🤲 Duo kuchi", sub:"Allohga to'g'ridan-to'g'ri yo'l",
+            items:[
+                {icon:"⏰",name:"Qabul vaqtlari",brief:"Hamma vaqt bir xil emas",desc:"Duo qabul bo'ladigan oynalar bor.",how:"• Tunning oxirgi uchdanligi\n• Azon va iqomat orasida\n• Sajdada\n• Namozdan keyin\n• Juma mag'ribdan oldin\n• Yomg'irda",tags:[["Har kuni","d"]]},
+                {icon:"🔥",name:"Yig'lab duo",brief:"Osmonga yetadi",desc:"Singan qalb bilan — maksimal kuch.",how:"Gunohlarni esla → bog'liqlikni angla → oxirgi marta so'ragandek so'ra → yig'la",tags:[["Tunda","n"],["Eng yuqori","a"]]},
+                {icon:"📜",name:"Bemor uchun duo",brief:"Farishta senga ham duo qiladi",desc:"G'oyibona duo — farishta: «Senga ham xuddi shunday».",how:"Har namozdan keyin: «Allohim, [ism]ni shifola». Ayniqsa sajdada.",ayah:"«Ukasi uchun g'oyibona duo qabul bo'ladi» — Muslim",tags:[["Namozdan keyin","d"],["Kuchli","e"]]},
+                {icon:"💎",name:"O'zing uchun duo",brief:"Kuchayishni so'ra",desc:"Ko'proq nur, baraka, kuch so'ra.",how:"• «Qobiliyatimni oshir»\n• «Qo'l, ovoz, yurakka nur ber»\n• «Qur'onni yuragim bahori qil»",tags:[["Har kuni","d"],["Unutma","e"]]}
+            ]
+        },
+        body: {
+            title:"💪 Tana + Ruh", sub:"Zaif tana = zaif oqim",
+            items:[
+                {icon:"🏋️",name:"Jismoniy kuch",brief:"Kuchli mo'min yaxshiroq",desc:"Jismoniy kuch = uzoq seanslarda chidamlilik.",how:"• Yurish 30 min/kun\n• Otjimanie, o'tirish\n• Suzish (sunna)",tags:[["Haftada 3-4","w"]]},
+                {icon:"🍯",name:"Tibb Nabaviy",brief:"Payg'ambar tibbiyoti",desc:"Payg'ambar ﷺ dan tana va ruh sog'ligi vositalari.",how:"• Asal och qoringa\n• Qora zig'ir\n• Zamzam\n• Hijoma oyda 1\n• 7 Ajva xurmosi",ayah:"«7 Ajva xurmosi — zahar va sehrdan himoya» — Buxoriy",tags:[["Har kuni","d"],["Sunna","e"]]},
+                {icon:"😴",name:"Sifatli uyqu",brief:"Ruh tiklanishi",desc:"Uyqu yetishmasligi ruhiy kuchni buzadi.",how:"• O'ng tomonda\n• Uyqudan oldin vuzu\n• Azkorlar\n• Ishodan keyin → fajrgacha\n• 6-8 soat",tags:[["Har kecha","n"]]},
+                {icon:"🚿",name:"Ritaul tozalik",brief:"Vuzu — nurni zaryadlash",desc:"Har vuzu bilan nur kuchayadi.",how:"• DOIM vuzuda bo'l\n• Ruqyadan oldin yangila\n• Muhim seanslardan oldin g'usl",tags:[["Doimiy","d"],["Majburiy","e"]]},
+                {icon:"🧘",name:"Ro'za",brief:"Sezgirlik kuchaytirgich",desc:"Yurak tozaroq, duo kuchliroq.",how:"• Dush/Paysh\n• Qamariy oyning 13-15 kunlari\n• Og'ir seanslardan oldin",tags:[["Dush/Paysh","w"],["Kuchaytirish","a"]]}
+            ]
+        },
+        diag: {
+            title:"🔍 Diagnostika", sub:"Muammo turini aniqlash",
+            items:[
+                {icon:"👁️",name:"Reaksiyalarni o'qish",brief:"Bemor tanasi gapiradi",desc:"Jinn/sehr Qur'on o'qishda reaksiyalar orqali namoyon bo'ladi.",how:"• Esnash — to'siq\n• Yig'lash — yaxshi belgi\n• Titroq — jinn\n• Ko'ngil aynish — oshqozdagi sehr\n• Bosh og'rig'i — ayn\n• Qichqiriq — kuchli reaksiya",tags:[["Muhim ko'nikma","e"]]},
+                {icon:"🧩",name:"Zararlantirish turlari",brief:"Har turi — o'z yondashuvi",desc:"Noto'g'ri diagnostika = samarasiz davolash.",how:"SEHR: keskin o'zgarishlar, dahshatli tushlar\nAYN: qarashdan keyin kasallik\nMASS: hushdan ketish, uyqu falaji\nVASVASA: obsessiv fikrlar",tags:[["O'rganib bor","e"]]},
+                {icon:"📋",name:"Diagnostika protokoli",brief:"Bosqichma-bosqich o'qish",desc:"Ma'lum oyatlar — ma'lum reaksiyalar.",how:"1. Fotiha — umumiy\n2. Oyatul Kursiy — jinn\n3. 7:117-122 — sehr\n4. Falaq — hasad\n5. Nos — vasvasa\n6. 68:51 — ayn",tags:[["Diagnostikada","e"]]}
+            ]
+        },
+        adv: {
+            title:"🌟 Ilg'or daraja", sub:"Asoslarni o'zlashtirganlar uchun",
+            items:[
+                {icon:"💬",name:"Jinn bilan muloqot",brief:"Kuch pozitsiyasidan",desc:"Ba'zan jinn gapiradi. To'g'ri muzokaralar yurgiz.",how:"• Ishonma — yolg'onchi\n• Qo'rqma\n• So'ra: kim? musulmon?\n• Islomga chaqir\n• Jangovar oyatlar\n• Hech qanday kelishuv",tags:[["Faqat tajribali","a"]]},
+                {icon:"🌊",name:"Masofadan ruqya",brief:"Duo masofani bilmaydi",desc:"Suvga o'qi va jo'nat. Niyatni yo'naltir.",how:"• Suv → jo'nat\n• Bemorni tasavvur qil\n• Ism bilan duo\n• Audio ruqya\n• Video qo'ng'iroq",tags:[["Ilg'or","a"]]},
+                {icon:"📝",name:"Amaliyot jurnali",brief:"Bebaho tajriba bazasi",desc:"Har seansni yozib bor.",how:"• Sana, ism\n• Belgilar\n• Nima o'qildi\n• Reaksiyalar\n• Nima ishladi\n• 7/14/30 kun natija",tags:[["Seansdan keyin","d"],["Muhim","e"]]},
+                {icon:"📚",name:"Olimlar kitoblari",brief:"To'xtama",desc:"Doimiy o'rgan.",how:"• «Zod ul-Ma'od» — Ibn ul-Qayyim\n• «Al-Azkor» — an-Navaviy\n• «Hisn ul-Muslim»\n• «As-Sorim al-Battor»\n• Ibn Boz fatvolari",tags:[["Doimiy","w"],["Ilm","e"]]}
+            ]
+        }
+    }
+}
+};
+
+// ================================================================
+// LANGUAGE ENGINE
+// ================================================================
+let LANG = localStorage.getItem('appLang') || 'ru';
+
+function setLang(lang) {
+    LANG = lang;
+    localStorage.setItem('appLang', lang);
+    document.getElementById('langRu').classList.toggle('active', lang==='ru');
+    document.getElementById('langUz').classList.toggle('active', lang==='uz');
+    renderAll();
+}
+
+function t(key) { return T[LANG][key] || T['ru'][key] || key; }
+
+function renderAll() {
+    // Simple text bindings
+    document.querySelectorAll('[data-t]').forEach(el => {
+        el.textContent = t(el.dataset.t);
+    });
+    document.getElementById('topTitle').textContent = t('topTitle');
+
+    // Aqeedah
+    const aqBox = document.getElementById('aqeedahList');
+    aqBox.innerHTML = t('aqeedah').map(a => `<div class="aq-item">${a}</div>`).join('');
+
+    // Menu
+    const mg = document.getElementById('menuGrid');
+    mg.innerHTML = t('menu').map(m =>
+        `<div class="menu-item ${m.cls}" onclick="openDetail('${m.key}')">
+            <div class="m-icon">${m.icon}</div>
+            <div class="m-title">${m.title}</div>
+            <div class="m-sub">${m.sub}</div>
+        </div>`
+    ).join('');
+
+    // Schedule
+    renderSchedule();
+
+    // Levels
+    renderLevels();
+
+    // Stats
+    updateStats();
+}
+
+function renderSchedule() {
+    const sc = document.getElementById('scheduleContent');
+    const sched = t('schedule');
+    sc.innerHTML = `<div class="pcard" style="border-color:rgba(212,165,116,.2)"><div style="padding:14px">
+        ${sched.map(s => `
+            <div class="time-row">
+                <div class="time-badge">${s.time}</div>
+                <div class="time-items">
+                    ${s.items.map(i => `<div class="time-item"><div class="time-dot"></div>${i}</div>`).join('')}
+                </div>
+            </div>
+        `).join('')}
+    </div></div>`;
+}
+
+function renderLevels() {
+    const lc = document.getElementById('levelsContainer');
+    const lvls = t('levels');
+    lc.innerHTML = lvls.map((l,i) => `
+        <div class="lvl-card" id="lvl${i+1}">
+            <div class="lvl-head">
+                <div class="lvl-name">${l.icon} ${l.name}</div>
+                <div class="lvl-dur">${l.dur}</div>
+            </div>
+            <div class="lvl-desc">${l.desc}</div>
+            <div class="lvl-skills">${l.skills.map(s => `<span class="lvl-skill">${s}</span>`).join('')}</div>
+        </div>
+    `).join('');
+}
+
+// ================================================================
+// NAVIGATION
+// ================================================================
+function switchTab(tab) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('s-'+tab).classList.add('active');
+    document.getElementById('nav-'+tab).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function goHome() { switchTab('home'); }
+
+function openDetail(key) {
+    const sections = T[LANG].sections || T['ru'].sections;
+    const d = sections[key];
+    if (!d) return;
+
+    document.getElementById('detailTitle').textContent = d.title;
+    document.getElementById('detailSub').textContent = d.sub;
+
+    const tagMap = {d:'ptag-d',e:'ptag-e',a:'ptag-a',n:'ptag-n',w:'ptag-w'};
+    const howLbl = t('howLabel');
+
+    const container = document.getElementById('detailContent');
+    container.innerHTML = d.items.map(item => {
+        const tagsHTML = (item.tags||[]).map(t => `<span class="ptag ${tagMap[t[1]]||'ptag-d'}">${t[0]}</span>`).join('');
+        const howText = (item.how||'').replace(/\n/g,'<br>');
+        return `
+        <div class="pcard">
+            <div class="pcard-head" onclick="togglePCard(this)">
+                <div class="pcard-icon">${item.icon}</div>
+                <div class="pcard-info">
+                    <div class="pcard-name">${item.name}</div>
+                    <div class="pcard-brief">${item.brief}</div>
+                </div>
+                <div class="pcard-arrow">▼</div>
+            </div>
+            <div class="pcard-body">
+                <div class="pcard-desc">${item.desc}</div>
+                <div class="pcard-how"><strong>${howLbl}</strong><br>${howText}</div>
+                ${item.ayah ? `<div class="pcard-ayah">${item.ayah}</div>` : ''}
+                <div class="pcard-tags">${tagsHTML}</div>
+            </div>
+        </div>`;
+    }).join('');
+
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('s-detail').classList.add('active');
+    document.getElementById('nav-home').classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function togglePCard(head) {
+    const body = head.nextElementSibling;
+    const arrow = head.querySelector('.pcard-arrow');
+    body.classList.toggle('open');
+    arrow.classList.toggle('open');
+}
+
+// ================================================================
+// TRACKER
+// ================================================================
+function initTracker() {
+    const grid = document.getElementById('trackerGrid');
+    grid.innerHTML = '';
+    const saved = JSON.parse(localStorage.getItem('sp40')||'[]');
+    for (let i=1;i<=40;i++) {
+        const d = document.createElement('div');
+        d.className = 'tr-day';
+        if (saved.includes(i)) d.classList.add('done');
+        d.textContent = i;
+        d.onclick = () => toggleDay(i,d);
+        grid.appendChild(d);
+    }
+    updateStats();
+}
+
+function toggleDay(n,el) {
+    let saved = JSON.parse(localStorage.getItem('sp40')||'[]');
+    if (!localStorage.getItem('sp40start')) localStorage.setItem('sp40start',Date.now().toString());
+    if (saved.includes(n)) { saved=saved.filter(x=>x!==n); el.classList.remove('done'); }
+    else { saved.push(n); el.classList.add('done'); }
+    localStorage.setItem('sp40',JSON.stringify(saved));
+    updateStats();
+}
+
+function updateStats() {
+    const saved = JSON.parse(localStorage.getItem('sp40')||'[]');
+    const done = saved.length;
+    const left = 40 - done;
+    const pct = Math.round((done/40)*100);
+
+    let streak = 0;
+    const sorted = [...saved].sort((a,b)=>b-a);
+    for (let i=0;i<sorted.length;i++) {
+        if (i===0||sorted[i]===sorted[i-1]-1) streak++;
+        else break;
+    }
+
+    // Update displays
+    const ids = {trDone:done,trStreak:streak,trLeft:left,qDays:done,qStreak:streak,qLeft:left};
+    Object.entries(ids).forEach(([id,val])=>{const el=document.getElementById(id);if(el)el.textContent=val});
+
+    document.getElementById('topStreak').innerHTML = '🔥 '+streak;
+    document.getElementById('energyFill').style.width = pct+'%';
+    document.getElementById('energyPct').textContent = pct+'%';
+
+    const elvls = t('energyLevels');
+    let lvl = elvls[0];
+    if(pct>=15) lvl=elvls[1];
+    if(pct>=35) lvl=elvls[2];
+    if(pct>=60) lvl=elvls[3];
+    if(pct>=85) lvl=elvls[4];
+    if(pct>=100) lvl=elvls[5];
+    document.getElementById('energyLvl').textContent = lvl;
+
+    // Highlight level
+    for(let i=1;i<=4;i++){const el=document.getElementById('lvl'+i);if(el)el.classList.remove('current');}
+    let cl = pct<25?1:pct<50?2:pct<80?3:4;
+    const clEl = document.getElementById('lvl'+cl);
+    if(clEl) clEl.classList.add('current');
+}
+
+// ================================================================
+// PARTICLES
+// ================================================================
+function makeParticles() {
+    const c = document.getElementById('particles');
+    for(let i=0;i<18;i++){
+        const p=document.createElement('div');p.className='p';
+        p.style.left=Math.random()*100+'%';
+        p.style.animationDuration=(10+Math.random()*15)+'s';
+        p.style.animationDelay=Math.random()*8+'s';
+        const s=2+Math.random()*2;p.style.width=s+'px';p.style.height=s+'px';
+        c.appendChild(p);
+    }
+}
+
+// ================================================================
+// INIT
+// ================================================================
+makeParticles();
+initTracker();
+setLang(LANG);
+</script>
+</body>
+</html>
