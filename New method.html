@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Методы Рукьи / Ruqya Usullari</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            padding: 30px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .lang-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: white;
+            border-radius: 30px;
+            padding: 5px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .lang-btn {
+            padding: 10px 20px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .lang-btn.active {
+            background: #2a5298;
+            color: white;
+        }
+
+        .lang-btn:hover:not(.active) {
+            background: #f0f0f0;
+        }
+
+        .intro {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .intro h2 {
+            color: #2a5298;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+
+        .sihr-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .sihr-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-top: 5px solid #2a5298;
+        }
+
+        .sihr-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+        }
+
+        .sihr-title {
+            color: #2a5298;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sihr-arabic {
+            font-size: 0.9em;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .solution {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .solution-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: #2a5298;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .solution-number {
+            background: #2a5298;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .arabic-text {
+            font-family: 'Traditional Arabic', 'Arial', sans-serif;
+            font-size: 1.4em;
+            text-align: right;
+            direction: rtl;
+            color: #1a1a1a;
+            margin: 15px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            line-height: 2;
+        }
+
+        .transliteration {
+            color: #666;
+            font-style: italic;
+            margin: 10px 0;
+            padding: 10px;
+            background: #fff3cd;
+            border-radius: 5px;
+            font-size: 0.95em;
+        }
+
+        .translation {
+            color: #333;
+            margin: 10px 0;
+            padding: 10px;
+            background: #d4edda;
+            border-radius: 5px;
+            font-weight: 500;
+        }
+
+        .application {
+            margin-top: 15px;
+            padding: 15px;
+            background: #e7f3ff;
+            border-radius: 8px;
+            border-left: 4px solid #2a5298;
+        }
+
+        .application strong {
+            color: #2a5298;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .icon {
+            font-size: 1.3em;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .footer {
+            background: rgba(255,255,255,0.95);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .warning h3 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .sihr-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .lang-switcher {
+                position: relative;
+                top: 0;
+                right: 0;
+                margin-bottom: 20px;
+                display: inline-block;
+            }
+            
+            header {
+                padding-top: 80px;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="lang-switcher">
+        <button class="lang-btn active" onclick="switchLang('ru')">Русский</button>
+        <button class="lang-btn" onclick="switchLang('uz')">O'zbekcha</button>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>
+                <span class="ru">Методы Пророческой Рукьи</span>
+                <span class="uz hidden">Payg'ambarona Ruqya Usullari</span>
+            </h1>
+            <p class="subtitle">
+                <span class="ru">Прибежище в Могуществе Аллаха</span>
+                <span class="uz hidden">Allohning Qudratiga Panoh</span>
+            </p>
+        </header>
+
+        <div class="intro">
+            <h2>
+                <span class="ru">О методе</span>
+                <span class="uz hidden">Usul haqida</span>
+            </h2>
+            <p class="ru">
+                Этот метод основан на хадисе из Сахих Муслим. Положите руку на больное место, 
+                скажите 3 раза «Бисмиллях» (последние два — в сердце), затем 7 раз произнесите 
+                дуа с умеренным давлением, визуализируя исцеление.
+            </p>
+            <p class="uz hidden">
+                Bu usul Sahih Muslim hadisiga asoslangan. Qo'lingizni og'riqli joyga qo'ying, 
+                3 marta "Bismillah" deb ayting (oxirgi ikkitasini yurakda), so'ngra 7 marta 
+                duoni o'rtacha bosim bilan aytib, shifoni tasavvur qiling.
+            </p>
+        </div>
+
+        <div id="content-ru" class="sihr-grid">
+            <!-- Content will be inserted here -->
+        </div>
+
+        <div id="content-uz" class="sihr-grid hidden">
+            <!-- Content will be inserted here -->
+        </div>
+
+        <div class="footer">
+            <div class="warning">
+                <h3>
+                    <span class="ru">⚠️ Важные предостережения</span>
+                    <span class="uz hidden">⚠️ Muhim ogohlantirishlar</span>
+                </h3>
+                <ul class="ru" style="text-align: left; padding-left: 20px;">
+                    <li>Не заменяйте медицинское лечение духовным</li>
+                    <li>Сила исцеления — только от Аллаха</li>
+                    <li>Соблюдайте правильность произношения (таджвид)</li>
+                    <li>При отсутствии результата после 3 циклов обратитесь к специалисту</li>
+                </ul>
+                <ul class="uz hidden" style="text-align: left; padding-left: 20px;">
+                    <li>Tibbiy davoni ruhiy davoga almashtirmang</li>
+                    <li>Shifo kuchi faqat Allohdan</li>
+                    <li>To'g'ri talaffuzni (tajvid) saqlang</li>
+                    <li>3 tsikldan keyin natija bo'lmasa, mutaxassisga murojaat qiling</li>
+                </ul>
+            </div>
+            <p style="color: #666; margin-top: 20px;">
+                <span class="ru">Шифа — только от Аллаха</span>
+                <span class="uz hidden">Shifo faqat Allohdan</span>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const data = {
+            ru: [
+                {
+                    title: "Машруб (Выпитое)",
+                    arabic: "المشروب",
+                    desc: "Колдовство в жидкости. Вызывает боли в желудке, спазмы.",
+                    solutions: [
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْعَظِيمِ، أَعُوذُ بِعِزَّةِ اللَّهِ وَرَحْمَتِهِ مِنْ شَرِّ كُلِّ سِحْرٍ مَشْرُوبٍ",
+                            trans: "Бисмилляхиль-'Азым, а'узу би-'иззатилляхи ва рахматихи мин шарри кулли сихрин машрубин",
+                            transRu: "Именем Аллаха Великого, прибегаю к Могуществу и Милости Аллаха от зла всякого выпитого колдовства",
+                            app: "Ладонь на эпигастрий. 3× «Бисмиллях» в сердце → 7× дуа с давлением."
+                        },
+                        {
+                            arabic: "بِسْمِ اللَّهِ الشَّافِي، أَرْقِي مِنْ كُلِّ سِحْرٍ دَخَلَ فِي الْجَوْفِ، فَاخْرُجْ بِقُدْرَةِ الرَّحْمَنِ",
+                            trans: "Бисмилляхих-Шафи, арки мин кулли сихрин дахале филь-джауф, фахрудж би-кудратир-Рахман",
+                            transRu: "Именем Аллаха Исцеляющего, читаю рукью от всякого колдовства, вошедшего в нутро; выходи Могуществом Милостивого",
+                            app: "Рука на живот, круговое давление. 7× формула → переход к аяту 69-70 Суры Та-Ха."
+                        },
+                        {
+                            arabic: "Сура Аль-Фалак (полностью)",
+                            trans: "Чтение на ладонь → протирание живота от пупка вверх",
+                            transRu: "3 раза. Визуализация: Невидимые нити сжигаются светом аятов",
+                            app: "Дни 1-3: утро/вечер"
+                        }
+                    ]
+                },
+                {
+                    title: "Маъкуль (Съеденное)",
+                    arabic: "المأكول",
+                    desc: "Колдовство в твёрдой пище. Более тяжёлое воздействие.",
+                    solutions: [
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْمُنْعِمِ، أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا أُكِلَ",
+                            trans: "Бисмилляхиль-Мун'им, а'узу би-калимати-лляхит-таммати мин шарри ма укиле",
+                            transRu: "Именем Аллаха Дарующего блага, прибегаю к совершенным словам Аллаха от зла съеденного",
+                            app: "Ладонь на центр живота. 7× дуа + фиксация отклика."
+                        },
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْكَرِيمِ، أَرْقِي مِنْ كُلِّ عَقْدٍ مَأْكُولٍ، فَاذْبُلْ وَتَفَرَّقْ",
+                            trans: "Бисмилляхиль-Карим, арки мин кулли 'акдин ма'кулин, фазбхуль ва тафаррак",
+                            transRu: "Именем Аллаха Щедрого, читаю рукью от съеденного узла; распадайся дозволением Аллаха",
+                            app: "Давление + лёгкое выщипывание кожи вокруг пупка. 7×."
+                        },
+                        {
+                            arabic: "Аятуль-Курси (255 Аль-Бакара)",
+                            trans: "Чтение вслух 3× → протирание живота влажной ладонью",
+                            transRu: "Дни 1-3: утро/вечер. Дни 6-7: как печать защиты",
+                            app: "Интеграция в 7-дневный график"
+                        }
+                    ]
+                },
+                {
+                    title: "Машмум (Нюхаемое)",
+                    arabic: "المشموم",
+                    desc: "Порча через запах. Джинн входит через дыхание.",
+                    solutions: [
+                        {
+                            arabic: "بِسْمِ اللَّهِ الطَّيِّبِ، أَعُوذُ بِسَمْعِ اللَّهِ مِنْ شَرِّ رَائِحَةٍ مَسْحُورَةٍ",
+                            trans: "Бисмилляхит-Таййиб, а'узу би-сам'илляхи мин шарри ра'ихатин масхуратин",
+                            transRu: "Именем Аллаха Чистого, прибегаю к Слуху Аллаха от зла заколдованного запаха",
+                            app: "Рука на переносицу/лоб. 7× дуа. Визуализация очищения носовых путей."
+                        },
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْمُطَهِّرِ، أَرْقِي مِنْ كُلِّ جِنٍّ دَخَلَ بِالنَّسَمِ",
+                            trans: "Бисмилляхиль-Муттаххир, арки мин кулли джиннин дахале би-насам",
+                            transRu: "Именем Аллаха Очищающего, читаю рукью от джинна, вошедшего с дыханием",
+                            app: "Ладонь на грудь → глубокое дыхание на выдохе. 7×."
+                        },
+                        {
+                            arabic: "Сура Ан-Нас (полностью)",
+                            trans: "Чтение на ладонь → протирание лица, шеи, ключиц. 3×",
+                            transRu: "Дни 4-5: вместе с методом выщипывания вокруг носа",
+                            app: "Интеграция в систему"
+                        }
+                    ]
+                },
+                {
+                    title: "Маршуш (Разбрызганное)",
+                    arabic: "المرشوش",
+                    desc: "Окропление дороги, одежды, постели.",
+                    solutions: [
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْحَفِيظِ، أَعُوذُ بِعِزَّةِ اللَّهِ مِنْ شَرِّ مَا رُشَّ",
+                            trans: "Бисмилляхиль-Хафиз, а'узу би-'иззатилляхи мин шарри ма рушша",
+                            transRu: "Именем Аллаха Хранящего, прибегаю к Могуществу от зла разбрызганного",
+                            app: "Рука на место контакта. 7× дуа + давление."
+                        },
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْغَفَّارِ، أَرْقِي مِنْ كُلِّ أَثَرٍ مَرْشُوشٍ",
+                            trans: "Бисмилляхиль-Гаффар, арки мин кулли асарин маршушин",
+                            transRu: "Именем Аллаха Прощающего, читаю рукью от разбрызганного следа",
+                            app: "Чтение на воду → умывание поражённых участков 3×."
+                        },
+                        {
+                            arabic: "Аят 82 Аль-Исра",
+                            trans: "«И Мы ниспосылаем из Корана то, что является исцелением...» 7×",
+                            transRu: "Протирание кожи. Дни 1-3: интенсив",
+                            app: "Основное лечение"
+                        }
+                    ]
+                },
+                {
+                    title: "Мадфун (Закопанное)",
+                    arabic: "المدفون",
+                    desc: "Подкладная порча под порогом, во дворе.",
+                    solutions: [
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْعَالِمِ، أَعُوذُ بِقُدْرَةِ اللَّهِ مِنْ شَرِّ مَا دُفِنَ",
+                            trans: "Бисмилляхиль-'Алим, а'узу би-кудратилляхи мин шарри ма дуфина",
+                            transRu: "Именем Аллаха Знающего, прибегаю к Мощи от зла закопанного",
+                            app: "Рука на стопы/поясницу. 7× дуа. Визуализация: предмет рассыпается."
+                        },
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْفَتَّاحِ، أَرْقِي مِنْ كُلِّ عَقْدٍ مَدْفُونٍ",
+                            trans: "Бисмилляхиль-Фаттах, арки мин кулли 'акдин мадфунин",
+                            transRu: "Именем Аллаха Открывающего, читаю рукью от закопанного узла",
+                            app: "Давление на пятки + чтение на соль (посыпать углы)."
+                        },
+                        {
+                            arabic: "Аль-Бакара 1-5 + Аятуль-Курси",
+                            trans: "Чтение вслух в доме 3×",
+                            transRu: "Дни 6-7: как печать территории",
+                            app: "Защита дома"
+                        }
+                    ]
+                },
+                {
+                    title: "Му'аллак (Подвешенное)",
+                    arabic: "المعلق",
+                    desc: "Порча, висящая в воздухе или на дереве.",
+                    solutions: [
+                        {
+                            arabic: "بِسْمِ اللَّهِ الرَّفِيعِ، أَعُوذُ بِسَطْحِ اللَّهِ مِنْ شَرِّ مَا عُلِّقَ",
+                            trans: "Бисмилляхир-Рафи', а'узу би-сахилляхи мин шарри ма 'уллика",
+                            transRu: "Именем Аллаха Возвышенного, прибегаю к Простору от зла подвешенного",
+                            app: "Рука на темя/макушку. 7× дуа. Визуализация: нити обрываются."
+                        },
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْمُعِلِّ، أَرْقِي مِنْ كُلِّ حِجَابٍ مُعَلَّقٍ",
+                            trans: "Бисмилляхиль-Му'илль, арки мин кулли хиджабин му'аллак",
+                            transRu: "Именем Аллаха Возвышающего, читаю рукью от подвешенной преграды",
+                            app: "Чтение на воду + окропление головы/плеч 3×."
+                        },
+                        {
+                            arabic: "Аль-Хашр 21-24",
+                            trans: "Чтение на ладонь → прикладывание к макушке 5×",
+                            transRu: "Дни 1-3: утро",
+                            app: "Снятие блока с небес"
+                        }
+                    ]
+                },
+                {
+                    title: "Мактуб (Написанное)",
+                    arabic: "المكتوب",
+                    desc: "Талисман с магическими квадратами и буквами.",
+                    solutions: [
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْحَكِيمِ، أَعُوذُ بِعِلْمِ اللَّهِ مِنْ شَرِّ كِتَابٍ سِحْرِيٍّ",
+                            trans: "Бисмилляхиль-Хаким, а'узу би-'ильмилляхи мин шарри китабин сихриййин",
+                            transRu: "Именем Аллаха Мудрого, прибегаю к Знанию Аллаха от зла колдовского письма",
+                            app: "Рука на затылок/шея. 7× дуа. Визуализация: буквы стираются."
+                        },
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْمُبِينِ، أَرْقِي مِنْ كُلِّ طِلْسَمٍ مَكْتُوبٍ",
+                            trans: "Бисмилляхиль-Мубин, арки мин кулли тильсамин мактубин",
+                            transRu: "Именем Аллаха Ясного, читаю рукью от написанного талисмана",
+                            app: "Чтение на бумагу → сжигание (символическое уничтожение)."
+                        },
+                        {
+                            arabic: "Аят 81 Юнус",
+                            trans: "«Если Аллах коснётся тебя вредом...» 7×",
+                            transRu: "Протирание висков",
+                            app: "Уничтожение талисмана"
+                        }
+                    ]
+                },
+                {
+                    title: "Тафрикъ (Разделение)",
+                    arabic: "التفريق",
+                    desc: "Порча на развод, ссору между супругами.",
+                    solutions: [
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْوَادِّ، أَعُوذُ بِمَحَبَّةِ اللَّهِ مِنْ شَرِّ فُرْقَةٍ",
+                            trans: "Бисмилляхиль-Вадд, а'узу би-махаббатилляхи мин шарри фуркатин",
+                            transRu: "Именем Аллаха Любящего, прибегаю к Любви Аллаха от зла разлуки",
+                            app: "Рука на сердце. 7× дуа. Визуализация: трещина затягивается."
+                        },
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْجَامِعِ، أَرْقِي مِنْ كُلِّ سَبَبِ تَفْرِيقٍ",
+                            trans: "Бисмилляхиль-Джами', арки мин кулли сабабин тафрик",
+                            transRu: "Именем Аллаха Собирающего, читаю рукью от причины разделения",
+                            app: "Чтение на воду → совместное питьё. 3 дня."
+                        },
+                        {
+                            arabic: "Ар-Рум 21-22",
+                            trans: "Чтение вслух 3× → дуа о возвращении любви",
+                            transRu: "Дни 4-5: закрепление",
+                            app: "Восстановление отношений"
+                        }
+                    ]
+                },
+                {
+                    title: "Атфаль (Привязка)",
+                    arabic: "العطف",
+                    desc: "Любовный приворот, подчинение.",
+                    solutions: [
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْحُرِّ، أَعُوذُ بِعِزَّةِ اللَّهِ مِنْ شَرِّ عَطْفٍ",
+                            trans: "Бисмилляхиль-Хурр, а'узу би-'иззатилляхи мин шарри 'атфин",
+                            transRu: "Именем Аллаха Свободного, прибегаю к Могуществу от зла привязки",
+                            app: "Рука на грудину. 7× дуа. Визуализация: цепи рассыпаются."
+                        },
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْمُخَلِّصِ، أَرْقِي مِنْ كُلِّ قَيْدِ مَحَبَّةٍ",
+                            trans: "Бисмилляхиль-Мухаллис, арки мин кулли кайди махаббатин",
+                            transRu: "Именем Аллаха Освобождающего, читаю рукью от цепи запретной любви",
+                            app: "Давление на грудь + чтение на ладонь → протирание лба."
+                        },
+                        {
+                            arabic: "Аят 256 Аль-Бакара",
+                            trans: "«Нет принуждения в религии...» 7×",
+                            transRu: "Чтение над головой",
+                            app: "Освобождение от приворота"
+                        }
+                    ]
+                },
+                {
+                    title: "Рабт (Завязывание)",
+                    arabic: "الربط",
+                    desc: "Порча на импотенцию, бесплодие, блокировку.",
+                    solutions: [
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْحَلَّالِ، أَعُوذُ بِقُدْرَةِ اللَّهِ مِنْ شَرِّ عَقْدٍ",
+                            trans: "Бисмилляхиль-Халляль, а'узу би-кудратилляхи мин шарри 'акдин",
+                            transRu: "Именем Аллаха Развязывающего, прибегаю к Мощи от зла узла",
+                            app: "Рука на пах/поясницу. 7× дуа."
+                        },
+                        {
+                            arabic: "بِسْمِ اللَّهِ النَّاصِرِ، أَرْقِي مِنْ كُلِّ عُقَدِ الْفَسَادِ",
+                            trans: "Бисмилляхин-Насир, арки мин кулли 'укадиль-фасад",
+                            transRu: "Именем Аллаха Победоносного, читаю рукью от узлов порчи",
+                            app: "Чтение на 7 узелков → развязывание по 1 после каждого аята."
+                        },
+                        {
+                            arabic: "Аль-Фалак аят 4",
+                            trans: "«...и от зла дующих на узлы» 11×",
+                            transRu: "Чтение на масло → массаж поражённой зоны",
+                            app: "Развязывание узлов"
+                        }
+                    ]
+                },
+                {
+                    title: "Джуннун (Безумие)",
+                    arabic: "الجنون",
+                    desc: "Наведение сумасшествия, одержимость.",
+                    solutions: [
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْعَقِيلِ، أَعُوذُ بِحِكْمَةِ اللَّهِ مِنْ جُنُونٍ",
+                            trans: "Бисмилляхиль-'Акыл, а'узу би-хикматилляхи мин джунунин",
+                            transRu: "Именем Аллаха Разумного, прибегаю к Мудрости от безумия",
+                            app: "Рука на темя/виски. 7× дуа. Визуализация: туман рассеивается."
+                        },
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْمُهَيْمِنِ، أَرْقِي مِنْ كُلِّ شَيْطَانٍ تَلَبَّسَ",
+                            trans: "Бисмилляхиль-Мухаймин, арки мин кулли шайтанин талаббас",
+                            transRu: "Именем Аллаха Властвующего, читаю рукью от вселившегося шайтана",
+                            app: "Громкое чтение + давление на лоб. При реакции — не останавливаться."
+                        },
+                        {
+                            arabic: "Аль-Бакара 1-5 + Аятуль-Курси + последние 2 аята",
+                            trans: "Чтение вслух 3× в комнате",
+                            transRu: "Изгнание джинна",
+                            app: "Полная очистка"
+                        }
+                    ]
+                },
+                {
+                    title: "Марад (Болезнь)",
+                    arabic: "المرض",
+                    desc: "Хроническая болезнь, не поддающаяся лечению.",
+                    solutions: [
+                        {
+                            arabic: "بِسْمِ اللَّهِ الشَّافِي، أَعُوذُ بِرَحْمَةِ اللَّهِ مِنْ مَرَضٍ",
+                            trans: "Бисмилляхих-Шафи, а'узу би-рахматилляхи мин марадин",
+                            transRu: "Именем Аллаха Исцеляющего, прибегаю к Милости от болезни",
+                            app: "Рука на очаг боли. 7× дуа + визуализация обновления."
+                        },
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْمُبَارِكِ، أَرْقِي مِنْ كُلِّ عِلَّةٍ",
+                            trans: "Бисмилляхиль-Мубарик, арки мин кулли 'иллятин",
+                            transRu: "Именем Аллаха Благословляющего, читаю рукью от хвори",
+                            app: "Чтение на воду → питьё + протирание. 3× в день."
+                        },
+                        {
+                            arabic: "Аят 80 Аш-Шу'ара",
+                            trans: "«...когда я болею, Он исцеляет меня» 7×",
+                            transRu: "Чтение на поражённый орган",
+                            app: "Исцеление"
+                        }
+                    ]
+                },
+                {
+                    title: "Назаф ад-дам (Кровотечение)",
+                    arabic: "نزف الدم",
+                    desc: "Непрекращающиеся кровотечения.",
+                    solutions: [
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْحَافِظِ، أَعُوذُ بِعِزَّةِ اللَّهِ مِنْ نَزِيفٍ",
+                            trans: "Бисмилляхиль-Хафиз, а'узу би-'иззатилляхи мин назифин",
+                            transRu: "Именем Аллаха Сохраняющего, прибегаю к Могуществу от кровотечения",
+                            app: "Рука на низ живота/поясницу. 7× дуа + лёгкое давление."
+                        },
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْمُمِيتِ وَالْمُحْيِي، أَرْقِي مِنْ دَمٍ مَفْتُوحٍ",
+                            trans: "Бисмилляхиль-Мумити валь-Мухйи, арки мин дамин мафтухин",
+                            transRu: "Именем Аллаха Оживляющего и Умерщвляющего, читаю от открытой крови",
+                            app: "Чтение на гранат/соль → прикладывание к месту."
+                        },
+                        {
+                            arabic: "Аят 7 Ар-Ра'д",
+                            trans: "«Аллах знает, что носит каждая утроба...» 3×",
+                            transRu: "Чтение над телом",
+                            app: "Остановка кровотечения"
+                        }
+                    ]
+                },
+                {
+                    title: "Тайярат (Воздушная)",
+                    arabic: "الطيارة",
+                    desc: "Быстрая порча, «летающая стрела».",
+                    solutions: [
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْمَانِعِ، أَعُوذُ بِحِفْظِ اللَّهِ مِنْ سَهْمٍ",
+                            trans: "Бисмилляхиль-Ман'и', а'узу би-хифзилляхи мин сахмин",
+                            transRu: "Именем Аллаха Защищающего, прибегаю к Хранению от стрелы",
+                            app: "Рука на затылок/шея. 7× дуа. Визуализация: щит из света."
+                        },
+                        {
+                            arabic: "بِسْمِ اللَّهِ الدَّافِعِ، أَرْقِي مِنْ هَجْمَةٍ هَوَائِيَّةٍ",
+                            trans: "Бисмилляхид-Дафи', арки мин хаджматин хава'иййа",
+                            transRu: "Именем Аллаха Отталкивающего, читаю от воздушной атаки",
+                            app: "Чтение на ладонь → резкое движение руки вниз."
+                        },
+                        {
+                            arabic: "Аль-Ихлас + Аль-Фаляк + Ан-Нас",
+                            trans: "11× вслух при симптоме",
+                            transRu: "Экстренная защита",
+                            app: "Мгновенная реакция"
+                        }
+                    ]
+                },
+                {
+                    title: "Рабт аль-бахр (Море)",
+                    arabic: "ربط البحر",
+                    desc: "Блокировка ризка, удачи, дыхания.",
+                    solutions: [
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْفَتَّاحِ، أَعُوذُ بِسَطْحِ اللَّهِ مِنْ حِجَابٍ",
+                            trans: "Бисмилляхиль-Фаттах, а'узу би-сахилляхи мин хиджабин",
+                            transRu: "Именем Аллаха Открывающего, прибегаю к Простору от преграды",
+                            app: "Рука на солнечное сплетение. 7× дуа."
+                        },
+                        {
+                            arabic: "بِسْمِ اللَّهِ الرَّزَّاقِ، أَرْقِي مِنْ رَبْطِ الْمَاءِ",
+                            trans: "Бисмилляхир-Раззак, арки мин рабтиль-ма'и",
+                            transRu: "Именем Аллаха Наделяющего, читаю от завязывания воды",
+                            app: "Чтение на воду → питьё + глубокие вдохи."
+                        },
+                        {
+                            arabic: "Аят 11 Худ",
+                            trans: "«Он дарует вам дождь...» 7×",
+                            transRu: "Чтение у открытого окна",
+                            app: "Открытие путей"
+                        }
+                    ]
+                },
+                {
+                    title: "Сихр аль-хаяван (Животное)",
+                    arabic: "سحر الحيوان",
+                    desc: "Фантом животного, укусы, царапины.",
+                    solutions: [
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْقَاهِرِ، أَعُوذُ بِعِزَّةِ اللَّهِ مِنْ فَنْتَاسْمٍ",
+                            trans: "Бисмилляхиль-Кахир, а'узу би-'иззатилляхи мин фантасмин",
+                            transRu: "Именем Аллаха Всесильного, прибегаю к Могуществу от фантома",
+                            app: "Рука на место укуса. 7× дуа + давление."
+                        },
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْمُذِلِّ، أَرْقِي مِنْ خَيَالِ دَابَّةٍ",
+                            trans: "Бисмилляхиль-Мудилль, арки мин хайали даббати",
+                            transRu: "Именем Аллаха Смиряющего, читаю от образа твари",
+                            app: "Чтение на соль → посыпание → визуализация испарения."
+                        },
+                        {
+                            arabic: "Аят 65 Аль-Ан'ам",
+                            trans: "«Скажи: никто не избавит...» 7×",
+                            transRu: "Чтение на поражённый участок",
+                            app: "Уничтожение фантома"
+                        }
+                    ]
+                },
+                {
+                    title: "Сихр ат-танаффус (Дыхание)",
+                    arabic: "سحر التنفس",
+                    desc: "Заговорённое дыхание колдуна.",
+                    solutions: [
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْمُصَوِّرِ، أَعُوذُ بِرُوحِ اللَّهِ مِنْ نَفَسٍ",
+                            trans: "Бисмилляхиль-Мусаввир, а'узу би-рухилляхи мин нафасин",
+                            transRu: "Именем Аллаха Придающего формы, прибегаю к Духу от дыхания",
+                            app: "Рука на грудь/горло. 7× дуа + глубокое дыхание."
+                        },
+                        {
+                            arabic: "بِسْمِ اللَّهِ الطَّاهِرِ، أَرْقِي مِنْ هَمْسٍ شَيْطَانِيٍّ",
+                            trans: "Бисмилляхит-Тахир, арки мин хамсин шайтаниййин",
+                            transRu: "Именем Аллаха Чистого, читаю от шайтанского шёпота",
+                            app: "Чтение вслух → ровное дыхание → визуализация очищения."
+                        },
+                        {
+                            arabic: "Аль-Мульк аят 2",
+                            trans: "3× → протирание шеи и висков",
+                            transRu: "Очищение дыхания",
+                            app: "Защита лёгких"
+                        }
+                    ]
+                }
+            ],
+            uz: [
+                {
+                    title: "Mashrub (Ichilgan)",
+                    arabic: "المشروب",
+                    desc: "Suyqlikdagi sehr. Oshqozon og'rig'i, spazmlar.",
+                    solutions: [
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْعَظِيمِ، أَعُوذُ بِعِزَّةِ اللَّهِ وَرَحْمَتِهِ مِنْ شَرِّ كُلِّ سِحْرٍ مَشْرُوبٍ",
+                            trans: "Bismillahil-'Azim, a'uzu bi-'izzatillahi va rahmatihii min sharri kulli sihrin mashrubin",
+                            transRu: "Ulug' Alloh nomi bilan, ichilgan sehrlarning yomonligidan Allohning qudrati va rahmatiga panohman",
+                            app: "Qo'lni epigastriyga qo'ying. 3× «Bismillah» yurakda → 7× dua bosim bilan."
+                        },
+                        {
+                            arabic: "بِسْمِ اللَّهِ الشَّافِي، أَرْقِي مِنْ كُلِّ سِحْرٍ دَخَلَ فِي الْجَوْفِ، فَاخْرُجْ بِقُدْرَةِ الرَّحْمَنِ",
+                            trans: "Bismillahish-Shafi, arqi min kulli sihrin dahala fil-javf, faxruj bi-qudratir-Rahman",
+                            transRu: "Shifo beruvchi Alloh nomi bilan, ichga kirgan sehrga ruqya o'qiyman; Rahmonning qudrati bilan chiq",
+                            app: "Qo'l qoringa, doiraviy bosim. 7× formula → Ta-Ha surasi 69-70."
+                        },
+                        {
+                            arabic: "Al-Falaq surasi (to'liq)",
+                            trans: "Qo'lga o'qish → kindikdan yuqoriga qorinni silash",
+                            transRu: "3 marta. Tasavvur: Ko'rinmas iplar nur bilan yonadi",
+                            app: "Kun 1-3: ertalab/kechqurun"
+                        }
+                    ]
+                },
+                {
+                    title: "Ma'kul (Yeyilgan)",
+                    arabic: "المأكول",
+                    desc: "Qattiq ovqatdagi sehr. Og'irroq ta'sir.",
+                    solutions: [
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْمُنْعِمِ، أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا أُكِلَ",
+                            trans: "Bismillahil-Mun'im, a'uzu bi-kalimatillahi-t-tammati min sharri ma ukile",
+                            transRu: "Ne'mat beruvchi Alloh nomi bilan, yeyilgan narsaning yomonligidan Allohning komil so'zlariga panohman",
+                            app: "Qo'l qorning markaziga. 7× dua + javobni kuzatish."
+                        },
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْكَرِيمِ، أَرْقِي مِنْ كُلِّ عَقْدٍ مَأْكُولٍ، فَاذْبُلْ وَتَفَرَّقْ",
+                            trans: "Bismillahil-Karim, arqi min kulli 'aqdin ma'kulin, fazbhul va tafarraq",
+                            transRu: "Saxovatli Alloh nomi bilan, yeyilgan tugunga ruqya o'qiyman; Alloh izni bilan parchalan",
+                            app: "Bosim + kindik atrofida terini chimchilash. 7×."
+                        },
+                        {
+                            arabic: "Oyatul-Kursi (Al-Baqara 255)",
+                            trans: "Ovoz chiqarib 3× → ho'l qo'l bilan qorinni silash",
+                            transRu: "Kun 1-3: ertalab/kechqurun. Kun 6-7: himoha muhri",
+                            app: "7 kunlik grafikga integratsiya"
+                        }
+                    ]
+                },
+                {
+                    title: "Mashmum (Hidlangan)",
+                    arabic: "المشموم",
+                    desc: "Hid orqali sehr. Jin nafas orqali kiradi.",
+                    solutions: [
+                        {
+                            arabic: "بِسْمِ اللَّهِ الطَّيِّبِ، أَعُوذُ بِسَمْعِ اللَّهِ مِنْ شَرِّ رَائِحَةٍ مَسْحُورَةٍ",
+                            trans: "Bismillahit-Tayyib, a'uzu bi-sam'illahi min sharri ra'ihatin mashuratin",
+                            transRu: "Pok Alloh nomi bilan, sehrli hidning yomonligidan Allohning Eshituvchisiga panohman",
+                            app: "Qo'l peshona/ko'prikka. 7× dua. Tasavvur: burun yo'llari tozalanadi."
+                        },
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْمُطَهِّرِ، أَرْقِي مِنْ كُلِّ جِنٍّ دَخَلَ بِالنَّسَمِ",
+                            trans: "Bismillahil-Mutahhir, arqi min kulli jinnin dahala bi-nasam",
+                            transRu: "Tozalovchi Alloh nomi bilan, nafas bilan kirgan jinga ruqya o'qiyman",
+                            app: "Qo'l ko'krakka → chuqur nafas chiqarishda. 7×."
+                        },
+                        {
+                            arabic: "An-Nas surasi (to'liq)",
+                            trans: "Qo'lga o'qish → yuz, bo'yin, kalitlarni silash. 3×",
+                            transRu: "Kun 4-5: burun atrofida chimchilash usuli bilan",
+                            app: "Tizimga integratsiya"
+                        }
+                    ]
+                },
+                {
+                    title: "Marshush (Sepilgan)",
+                    arabic: "المرشوش",
+                    desc: "Yo'l, kiyim, to'shakni sepish.",
+                    solutions: [
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْحَفِيظِ، أَعُوذُ بِعِزَّةِ اللَّهِ مِنْ شَرِّ مَا رُشَّ",
+                            trans: "Bismillahil-Hafiz, a'uzu bi-'izzatillahi min sharri ma rushsha",
+                            transRu: "Saqlaguvchi Alloh nomi bilan, sepilgan narsaning yomonligidan Allohning qudratiga panohman",
+                            app: "Qo'l aloqa joyiga. 7× dua + bosim."
+                        },
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْغَفَّارِ، أَرْقِي مِنْ كُلِّ أَثَرٍ مَرْشُوشٍ",
+                            trans: "Bismillahil-Ghaffar, arqi min kulli asarin marshushin",
+                            transRu: "Kechirimli Alloh nomi bilan, sepilgan izga ruqya o'qiyman",
+                            app: "Suvga o'qish → zararlangan joylarni yuvish 3×."
+                        },
+                        {
+                            arabic: "Al-Isro 82-oyat",
+                            trans: "«Biz Qur'ondan shifo bo'lgan narsani nozil qilamiz...» 7×",
+                            transRu: "Terini silash. Kun 1-3: intensiv",
+                            app: "Asosiy davolash"
+                        }
+                    ]
+                },
+                {
+                    title: "Madfun (Ko'milgan)",
+                    arabic: "المدفون",
+                    desc: "Eshik oldi, hovliga ko'milgan sehr.",
+                    solutions: [
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْعَالِمِ، أَعُوذُ بِقُدْرَةِ اللَّهِ مِنْ شَرِّ مَا دُفِنَ",
+                            trans: "Bismillahil-'Alim, a'uzu bi-qudratillahi min sharri ma dufina",
+                            transRu: "Biluvchi Alloh nomi bilan, ko'milgan narsaning yomonligidan Allohning qudratiga panohman",
+                            app: "Qo'l oyoq/belga. 7× dua. Tasavvur: narsa parchalanadi."
+                        },
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْفَتَّاحِ، أَرْقِي مِنْ كُلِّ عَقْدٍ مَدْفُونٍ",
+                            trans: "Bismillahil-Fattah, arqi min kulli 'aqdin madfunin",
+                            transRu: "Ochuvchi Alloh nomi bilan, ko'milgan tugunga ruqya o'qiyman",
+                            app: "To'piqqa bosim + tuzga o'qish (burchaklarga sepish)."
+                        },
+                        {
+                            arabic: "Al-Baqara 1-5 + Ayatul-Kursi",
+                            trans: "Uyda ovoz chiqarib 3× o'qish",
+                            transRu: "Kun 6-7: hudud muhri",
+                            app: "Uyni himoya qilish"
+                        }
+                    ]
+                },
+                {
+                    title: "Mu'allak (Osilgan)",
+                    arabic: "المعلق",
+                    desc: "Havoda yoki daraxtda osilgan sehr.",
+                    solutions: [
+                        {
+                            arabic: "بِسْمِ اللَّهِ الرَّفِيعِ، أَعُوذُ بِسَطْحِ اللَّهِ مِنْ شَرِّ مَا عُلِّقَ",
+                            trans: "Bismillahir-Rafi', a'uzu bi-sahillahi min sharri ma 'ulliq",
+                            transRu: "Yuksak Alloh nomi bilan, osilgan narsaning yomonligidan Allohning kengligiga panohman",
+                            app: "Qo'l tepaga/boshga. 7× dua. Tasavvur: iplar uziladi."
+                        },
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْمُعِلِّ، أَرْقِي مِنْ كُلِّ حِجَابٍ مُعَلَّقٍ",
+                            trans: "Bismillahil-Mu'ill, arqi min kulli hijabin mu'allak",
+                            transRu: "Yuksaltiruvchi Alloh nomi bilan, osilgan to'siqga ruqya o'qiyman",
+                            app: "Suvga o'qish → bosh/yelkaga sepish 3×."
+                        },
+                        {
+                            arabic: "Al-Hashr 21-24",
+                            trans: "Qo'lga o'qish → boshga qo'yish 5×",
+                            transRu: "Kun 1-3: ertalab",
+                            app: "Osmondan blokni olish"
+                        }
+                    ]
+                },
+                {
+                    title: "Maktub (Yozilgan)",
+                    arabic: "المكتوب",
+                    desc: "Sehrli kvadratlar va harflar bilan tilism.",
+                    solutions: [
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْحَكِيمِ، أَعُوذُ بِعِلْمِ اللَّهِ مِنْ شَرِّ كِتَابٍ سِحْرِيٍّ",
+                            trans: "Bismillahil-Hakim, a'uzu bi-'ilmillahi min sharri kitabin sihriyyin",
+                            transRu: "Dono Alloh nomi bilan, sehrli yozuvning yomonligidan Allohning ilmidan panohman",
+                            app: "Qo'l bo'yin/orqaga. 7× dua. Tasavvur: harflar o'chadi."
+                        },
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْمُبِينِ، أَرْقِي مِنْ كُلِّ طِلْسَمٍ مَكْتُوبٍ",
+                            trans: "Bismillahil-Mubin, arqi min kulli tilisamin maktubin",
+                            transRu: "Oshkor Alloh nomi bilan, yozilgan tilismga ruqya o'qiyman",
+                            app: "Qog'ozga o'qish → yoqish (ramziy yo'q qilish)."
+                        },
+                        {
+                            arabic: "Yunus 81-oyat",
+                            trans: "«Agar Alloh senga zarar yetkazsa...» 7×",
+                            transRu: "Chakkalarni silash",
+                            app: "Tilismni yo'q qilish"
+                        }
+                    ]
+                },
+                {
+                    title: "Tafriq (Ajratish)",
+                    arabic: "التفريق",
+                    desc: "Erxotin ajratish, janjal uchun sehr.",
+                    solutions: [
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْوَادِّ، أَعُوذُ بِمَحَبَّةِ اللَّهِ مِنْ شَرِّ فُرْقَةٍ",
+                            trans: "Bismillahil-Vadd, a'uzu bi-mahabbatillahi min sharri furqatin",
+                            transRu: "Sevuvchi Alloh nomi bilan, ajralishning yomonligidan Allohning muhabbatiga panohman",
+                            app: "Qo'l yurakka. 7× dua. Tasavvur: yoriq bitadi."
+                        },
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْجَامِعِ، أَرْقِي مِنْ كُلِّ سَبَبِ تَفْرِيقٍ",
+                            trans: "Bismillahil-Jami', arqi min kulli sababin tafriq",
+                            transRu: "Yig'uvchi Alloh nomi bilan, ajratish sababiga ruqya o'qiyman",
+                            app: "Suvga o'qish → birga ichish. 3 kun."
+                        },
+                        {
+                            arabic: "Ar-Rum 21-22",
+                            trans: "Ovoz chiqarib 3× → muhabbatni qaytarish duosi",
+                            transRu: "Kun 4-5: mustahkamlash",
+                            app: "Munosabatlarni tiklash"
+                        }
+                    ]
+                },
+                {
+                    title: "Atfal (Bog'lash)",
+                    arabic: "العطف",
+                    desc: "Muhabbat sehr, bo'ysundirish.",
+                    solutions: [
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْحُرِّ، أَعُوذُ بِعِزَّةِ اللَّهِ مِنْ شَرِّ عَطْفٍ",
+                            trans: "Bismillahil-Hurr, a'uzu bi-'izzatillahi min sharri 'atfin",
+                            transRu: "Erkin Alloh nomi bilan, bog'lashning yomonligidan Allohning qudratiga panohman",
+                            app: "Qo'l ko'krakka. 7× dua. Tasavvur: zanjirlar parchalanadi."
+                        },
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْمُخَلِّصِ، أَرْقِي مِنْ كُلِّ قَيْدِ مَحَبَّةٍ",
+                            trans: "Bismillahil-Mukhallis, arqi min kulli qaydi mahabbatin",
+                            transRu: "Qutqaruvchi Alloh nomi bilan, harom muhabbat zanjiriga ruqya o'qiyman",
+                            app: "Ko'krakka bosim + qo'lga o'qish → peshonani silash."
+                        },
+                        {
+                            arabic: "Al-Baqara 256-oyat",
+                            trans: "«Dinda majburlash yo'q...» 7×",
+                            transRu: "Bosh ustiga o'qish",
+                            app: "Sehrdan ozod qilish"
+                        }
+                    ]
+                },
+                {
+                    title: "Rabt (Tugun)",
+                    arabic: "الربط",
+                    desc: "Impotensiya, bepushtlik, blokirovka.",
+                    solutions: [
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْحَلَّالِ، أَعُوذُ بِقُدْرَةِ اللَّهِ مِنْ شَرِّ عَقْدٍ",
+                            trans: "Bismillahil-Hallal, a'uzu bi-qudratillahi min sharri 'aqdin",
+                            transRu: "Yechuvchi Alloh nomi bilan, tugunning yomonligidan Allohning qudratiga panohman",
+                            app: "Qo'l chov/belga. 7× dua."
+                        },
+                        {
+                            arabic: "بِسْمِ اللَّهِ النَّاصِرِ، أَرْقِي مِنْ كُلِّ عُقَدِ الْفَسَادِ",
+                            trans: "Bismillahin-Nasir, arqi min kulli 'uqadil-fasad",
+                            transRu: "Yordam beruvchi Alloh nomi bilan, sehr tugunlariga ruqya o'qiyman",
+                            app: "7 tugunchaga o'qish → har bir oyatdan keyin 1 tadan yechish."
+                        },
+                        {
+                            arabic: "Al-Falaq 4-oyat",
+                            trans: "«...tugunlarga puflaganlarning yomonligidan» 11×",
+                            transRu: "Moyga o'qish → zararlangan joyga massaj",
+                            app: "Tugunlarni yechish"
+                        }
+                    ]
+                },
+                {
+                    title: "Junun (Jinnilik)",
+                    arabic: "الجنون",
+                    desc: "Jinnilik, jin tushishi.",
+                    solutions: [
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْعَقِيلِ، أَعُوذُ بِحِكْمَةِ اللَّهِ مِنْ جُنُونٍ",
+                            trans: "Bismillahil-'Aqil, a'uzu bi-hikmatillahi min jununin",
+                            transRu: "Aqlli Alloh nomi bilan, jinnilikning yomonligidan Allohning hikmatiga panohman",
+                            app: "Qo'l bosh/chakkaga. 7× dua. Tasavvur: tuman tarqaladi."
+                        },
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْمُهَيْمِنِ، أَرْقِي مِنْ كُلِّ شَيْطَانٍ تَلَبَّسَ",
+                            trans: "Bismillahil-Muhaymin, arqi min kulli shaytanin talabbas",
+                            transRu: "Hukmron Alloh nomi bilan, kirgan shaytonga ruqya o'qiyman",
+                            app: "Ovoz chiqarib o'qish + peshonaga bosim. Reaksiya bo'lsa - to'xtamang."
+                        },
+                        {
+                            arabic: "Al-Baqara 1-5 + Ayatul-Kursi + oxirgi 2 oyat",
+                            trans: "Xonada ovoz chiqarib 3× o'qish",
+                            transRu: "Jinni haydash",
+                            app: "To'liq tozalash"
+                        }
+                    ]
+                },
+                {
+                    title: "Marad (Kasallik)",
+                    arabic: "المرض",
+                    desc: "Davolanmaydigan surunkali kasallik.",
+                    solutions: [
+                        {
+                            arabic: "بِسْمِ اللَّهِ الشَّافِي، أَعُوذُ بِرَحْمَةِ اللَّهِ مِنْ مَرَضٍ",
+                            trans: "Bismillahish-Shafi, a'uzu bi-rahmatillahi min maradin",
+                            transRu: "Shifo beruvchi Alloh nomi bilan, kasallikning yomonligidan Allohning rahmatiga panohman",
+                            app: "Qo'l og'riqli joyga. 7× dua + yangilanishni tasavvur qilish."
+                        },
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْمُبَارِكِ، أَرْقِي مِنْ كُلِّ عِلَّةٍ",
+                            trans: "Bismillahil-Mubarak, arqi min kulli 'illatin",
+                            transRu: "Barakali Alloh nomi bilan, kasallikka ruqya o'qiyman",
+                            app: "Suvga o'qish → ichish + tanani silash. 3× kuniga."
+                        },
+                        {
+                            arabic: "Ash-Shu'ara 80-oyat",
+                            trans: "«...kasal bo'lsam, U shifo beradi» 7×",
+                            transRu: "Zararlangan organga o'qish",
+                            app: "Shifo"
+                        }
+                    ]
+                },
+                {
+                    title: "Nazaf ad-dam (Qon ketish)",
+                    arabic: "نزف الدم",
+                    desc: "To'xtamas qon ketish.",
+                    solutions: [
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْحَافِظِ، أَعُوذُ بِعِزَّةِ اللَّهِ مِنْ نَزِيفٍ",
+                            trans: "Bismillahil-Hafiz, a'uzu bi-'izzatillahi min nazifin",
+                            transRu: "Saqlaguvchi Alloh nomi bilan, qon ketishning yomonligidan Allohning qudratiga panohman",
+                            app: "Qo'l pastki qorin/belga. 7× dua + yengil bosim."
+                        },
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْمُمِيتِ وَالْمُحْيِي، أَرْقِي مِنْ دَمٍ مَفْتُوحٍ",
+                            trans: "Bismillahil-Mumiti val-Muhyi, arqi min damin maftuhin",
+                            transRu: "O'ldiruvchi va Tiriltiruvchi Alloh nomi bilan, ochiq qonga ruqya o'qiyman",
+                            app: "Anor/tuzga o'qish → joyga qo'yish."
+                        },
+                        {
+                            arabic: "Ar-Ra'd 7-oyat",
+                            trans: "«Alloh har bir bachadonda bo'lgan narsani biladi...» 3×",
+                            transRu: "Tana ustiga o'qish",
+                            app: "Qon ketishni to'xtatish"
+                        }
+                    ]
+                },
+                {
+                    title: "Tayyarat (Havo)",
+                    arabic: "الطيارة",
+                    desc: "Tez sehr, «uchar o'q».",
+                    solutions: [
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْمَانِعِ، أَعُوذُ بِحِفْظِ اللَّهِ مِنْ سَهْمٍ",
+                            trans: "Bismillahil-Mani', a'uzu bi-hifzillahi min sahmin",
+                            transRu: "Himoya qiluvchi Alloh nomi bilan, o'qning yomonligidan Allohning himoyasiga panohman",
+                            app: "Qo'l bo'yin/orqaga. 7× dua. Tasavvur: nurdan qalqon."
+                        },
+                        {
+                            arabic: "بِسْمِ اللَّهِ الدَّافِعِ، أَرْقِي مِنْ هَجْمَةٍ هَوَائِيَّةٍ",
+                            trans: "Bismillahid-Dafi', arqi min hajmatin havo'iyya",
+                            transRu: "Qaytaruvchi Alloh nomi bilan, havo hujumiga ruqya o'qiyman",
+                            app: "Qo'lga o'qish → qo'lni keskin pastga harakatlantirish."
+                        },
+                        {
+                            arabic: "Al-Ixlos + Al-Falaq + An-Nas",
+                            trans: "Belgida 11× ovoz chiqarib",
+                            transRu: "Tezkor himoya",
+                            app: "Darhol reaksiya"
+                        }
+                    ]
+                },
+                {
+                    title: "Rabt al-bahr (Dengiz)",
+                    arabic: "ربط البحر",
+                    desc: "Rizq, omad, nafasni bloklash.",
+                    solutions: [
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْفَتَّاحِ، أَعُوذُ بِسَطْحِ اللَّهِ مِنْ حِجَابٍ",
+                            trans: "Bismillahil-Fattah, a'uzu bi-sahillahi min hijabin",
+                            transRu: "Ochuvchi Alloh nomi bilan, to'siqning yomonligidan Allohning kengligiga panohman",
+                            app: "Qo'l quyosh chiganoqqa. 7× dua."
+                        },
+                        {
+                            arabic: "بِسْمِ اللَّهِ الرَّزَّاقِ، أَرْقِي مِنْ رَبْطِ الْمَاءِ",
+                            trans: "Bismillahir-Razzaq, arqi min rabtil-ma'i",
+                            transRu: "Rizq beruvchi Alloh nomi bilan, suvni bog'lashga ruqya o'qiyman",
+                            app: "Suvga o'qish → ichish + chuqur nafas."
+                        },
+                        {
+                            arabic: "Hud 11-oyat",
+                            trans: "«U sizlarga yomg'ir beradi...» 7×",
+                            transRu: "Ochiq deraza oldida o'qish",
+                            app: "Yo'llarni ochish"
+                        }
+                    ]
+                },
+                {
+                    title: "Sihr al-hayavan (Hayvon)",
+                    arabic: "سحر الحيوان",
+                    desc: "Hayvon fantomi, tishlash, chizish.",
+                    solutions: [
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْقَاهِرِ، أَعُوذُ بِعِزَّةِ اللَّهِ مِنْ فَنْتَاسْمٍ",
+                            trans: "Bismillahil-Qahir, a'uzu bi-'izzatillahi min fantasmin",
+                            transRu: "Qodir Alloh nomi bilan, fantomning yomonligidan Allohning qudratiga panohman",
+                            app: "Qo'l tishlangan joyga. 7× dua + bosim."
+                        },
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْمُذِلِّ، أَرْقِي مِنْ خَيَالِ دَابَّةٍ",
+                            trans: "Bismillahil-Muzill, arqi min xayali dabbatin",
+                            transRu: "Xorlovchi Alloh nomi bilan, maxluq tasviriga ruqya o'qiyman",
+                            app: "Tuzga o'qish → sepish → bug'lanishni tasavvur qilish."
+                        },
+                        {
+                            arabic: "Al-An'am 65-oyat",
+                            trans: "«Ayt: hech kim qutqarmaydi...» 7×",
+                            transRu: "Zararlangan joyga o'qish",
+                            app: "Fantomni yo'q qilish"
+                        }
+                    ]
+                },
+                {
+                    title: "Sihr at-tanaffus (Nafas)",
+                    arabic: "سحر التنفس",
+                    desc: "Sehrgarning sehrli nafasi.",
+                    solutions: [
+                        {
+                            arabic: "بِسْمِ اللَّهِ الْمُصَوِّرِ، أَعُوذُ بِرُوحِ اللَّهِ مِنْ نَفَسٍ",
+                            trans: "Bismillahil-Musavvir, a'uzu bi-ruhillahi min nafasin",
+                            transRu: "Shakl beruvchi Alloh nomi bilan, nafasning yomonligidan Allohning Ruhiga panohman",
+                            app: "Qo'l ko'krak/tomoqqa. 7× dua + chuqur nafas."
+                        },
+                        {
+                            arabic: "بِسْمِ اللَّهِ الطَّاهِرِ، أَرْقِي مِنْ هَمْسٍ شَيْطَانِيٍّ",
+                            trans: "Bismillahit-Tahir, arqi min hamsin shaytaniyyin",
+                            transRu: "Pok Alloh nomi bilan, shaytoniy pichirga ruqya o'qiyman",
+                            app: "Ovoz chiqarib o'qish → tekis nafas → tozalanishni tasavvur qilish."
+                        },
+                        {
+                            arabic: "Al-Mulk 2-oyat",
+                            trans: "3× → bo'yin va chakkalarni silash",
+                            transRu: "Nafasni tozalash",
+                            app: "O'pkani himoya qilish"
+                        }
+                    ]
+                }
+            ]
+        };
+
+        function renderContent(lang) {
+            const container = document.getElementById(`content-${lang}`);
+            const items = data[lang];
+            
+            container.innerHTML = items.map((item, index) => `
+                <div class="sihr-card fade-in" style="animation-delay: ${index * 0.1}s">
+                    <div class="sihr-title">
+                        <span class="icon">🔮</span>
+                        <span>${item.title}</span>
+                    </div>
+                    <div class="sihr-arabic">${item.arabic}</div>
+                    <p style="margin-bottom: 15px; color: #555; font-size: 0.95em;">${item.desc}</p>
+                    
+                    ${item.solutions.map((sol, idx) => `
+                        <div class="solution">
+                            <div class="solution-header">
+                                <span class="solution-number">${idx + 1}</span>
+                                <span>${lang === 'ru' ? 'Решение' : 'Yechim'} ${idx + 1}</span>
+                            </div>
+                            <div class="arabic-text">${sol.arabic}</div>
+                            <div class="transliteration">
+                                <strong>${lang === 'ru' ? 'Транскрипция:' : 'Transkripsiya:'}</strong><br>
+                                ${sol.trans}
+                            </div>
+                            <div class="translation">
+                                <strong>${lang === 'ru' ? 'Перевод:' : 'Tarjima:'}</strong><br>
+                                ${sol.transRu}
+                            </div>
+                            <div class="application">
+                                <strong>${lang === 'ru' ? 'Применение:' : 'Qo\'llash:'}</strong>
+                                ${sol.app}
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `).join('');
+        }
+
+        function switchLang(lang) {
+            // Update buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Show/hide content
+            const ruContent = document.getElementById('content-ru');
+            const uzContent = document.getElementById('content-uz');
+            const ruElements = document.querySelectorAll('.ru');
+            const uzElements = document.querySelectorAll('.uz');
+
+            if (lang === 'uz') {
+                ruContent.classList.add('hidden');
+                uzContent.classList.remove('hidden');
+                uzContent.classList.add('fade-in');
+                ruElements.forEach(el => el.classList.add('hidden'));
+                uzElements.forEach(el => el.classList.remove('hidden'));
+            } else {
+                uzContent.classList.add('hidden');
+                ruContent.classList.remove('hidden');
+                ruContent.classList.add('fade-in');
+                uzElements.forEach(el => el.classList.add('hidden'));
+                ruElements.forEach(el => el.classList.remove('hidden'));
+            }
+
+            // Render content if not already rendered
+            if (lang === 'uz' && uzContent.innerHTML === '') {
+                renderContent('uz');
+            } else if (lang === 'ru' && ruContent.innerHTML === '') {
+                renderContent('ru');
+            }
+        }
+
+        // Initial render
+        renderContent('ru');
+    </script>
+</body>
+</html>
