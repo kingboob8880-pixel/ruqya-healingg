@@ -1,0 +1,1341 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#faf8f3">
+<meta name="color-scheme" content="light">
+<title>Намерение — Сила</title>
+<meta name="author" content="Абу Мухаммад">
+<meta name="generator" content="Китаб аль-Ильм">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Noto+Naskh+Arabic:wght@400;500;700&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Scheherazade+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #ffffff;
+  --paper-alt: #f5f7f5;
+  --ink: #1b221f;
+  --ink-soft: #4a5751;
+  --rule: #dce1dd;
+  --accent: #2f6b4f;
+  --accent-soft: #eaf2ed;
+  --gold: #9a7b32;
+  --serif: "PT Serif", "Merriweather", Georgia, "Times New Roman", serif;
+  --sans: Inter, "Segoe UI", system-ui, sans-serif;
+  --arabic: "Amiri", "Scheherazade New", "Noto Naskh Arabic", "Lateef", serif;
+  --title-font: var(--serif);
+  --shadow: 0 1px 2px rgba(20,30,25,.05);
+  --measure: 68ch;
+  --base: 18px;
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
+  font-size: var(--base);
+}
+
+/* Отступ для якорей — чтобы заголовок не перекрывался при прокрутке */
+[id] {
+  scroll-margin-top: 100px;
+  scroll-snap-align: start;
+}
+
+/* Специально для заголовков */
+h2[id], h3[id], h4[id], h5[id] {
+  scroll-margin-top: 100px;
+}
+
+/* Для секций с id */
+section[id], .chapter[id], .section[id] {
+  scroll-margin-top: 100px;
+}
+
+body {
+  margin: 0;
+  background: var(--paper-alt);
+  color: var(--ink);
+  font-family: var(--serif);
+  line-height: 1.72;
+  font-kerning: normal;
+  font-variant-numeric: oldstyle-nums proportional-nums;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  /* Мобильная читаемость */
+  text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  overflow-wrap: break-word;
+  word-break: normal;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ---- Страница ---- */
+.page {
+  max-width: calc(var(--measure) + 14rem);
+  margin: 0 auto;
+  background: var(--paper);
+  padding: 4.8rem 7.5rem 6.5rem;
+  box-shadow: 0 0 0 1px var(--rule), 0 2px 8px -4px rgba(0,0,0,.08), 0 24px 60px -40px rgba(0,0,0,.35);
+  min-height: 100vh;
+}
+
+.wrap { max-width: var(--measure); margin: 0 auto; }
+
+/* ========== ТИТУЛ ========== */
+.title-page {
+  text-align: center;
+  padding: 1.5rem 0 4rem;
+  margin-bottom: 3.5rem;
+  border-bottom: 2px solid var(--rule);
+  position: relative;
+}
+.title-page::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: var(--gold);
+  margin: 0 auto;
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+
+/* ---- Басмаля: база ---- */
+.bismillah-slot {
+  display: flex;
+  width: 100%;
+  direction: ltr;
+}
+.bismillah {
+  display: block;
+  max-width: 100%;
+  font-family: var(--arabic);
+  direction: rtl;
+  font-size: 1.75em;
+  color: var(--gold);
+  line-height: 2.1;
+  margin: 0;
+  letter-spacing: 0.02em;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* Позиции */
+.bismillah-slot.bism-pos-above-title { margin-bottom: 2.6rem; }
+.bismillah-slot.bism-pos-below-title { margin-top: .5rem; margin-bottom: 1.5rem; }
+.bism-pos-center-page {
+  margin-bottom: 3rem;
+  padding: 1.5rem 0;
+  position: relative;
+}
+.bism-pos-center-page::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 1px;
+  background: var(--gold);
+  margin: .8rem auto 0;
+  opacity: .45;
+}
+.title-page-bism-center {
+  padding-top: 3rem;
+}
+.title-page-bism-center .bismillah-slot {
+  margin-top: 1.5rem;
+  margin-bottom: 3.5rem;
+}
+.title-page-bism-center .title-page-body {
+  text-align: center;
+}
+
+/* Выравнивание */
+.bismillah-slot.bism-align-center { justify-content: center; }
+.bismillah-slot.bism-align-right { justify-content: flex-end; }
+.bismillah-slot.bism-align-left { justify-content: flex-start; }
+
+/* Басмаля без арабского направления (например, русская транслитерация) */
+.bismillah:not([dir="rtl"]) {
+  font-family: var(--serif);
+  font-style: italic;
+  direction: ltr;
+  letter-spacing: .04em;
+}
+
+.institution {
+  font-family: var(--sans);
+  font-size: .76em;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 3rem;
+}
+
+.book-title {
+  font-family: var(--title-font);
+  font-size: 2.5em;
+  line-height: 1.22;
+  font-weight: 700;
+  margin: 0 0 .7rem;
+  letter-spacing: -.01em;
+  text-wrap: balance;
+}
+
+.book-subtitle {
+  font-size: 1.15em;
+  font-style: italic;
+  color: var(--ink-soft);
+  margin: 0 0 1.8rem;
+  font-weight: 400;
+}
+
+.rule-orn {
+  width: 160px;
+  height: 14px;
+  margin: 2rem auto;
+  background: linear-gradient(var(--gold), var(--gold)) center / 100% 1px no-repeat;
+  position: relative;
+}
+.rule-orn::after {
+  content: "❦";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 1.8em;
+  height: 1em;
+  line-height: .85;
+  background: var(--paper);
+  color: var(--gold);
+  font-size: .85rem;
+}
+
+.book-author {
+  font-size: 1.08em;
+  font-weight: 700;
+  margin: 0 0 .4rem;
+  letter-spacing: .02em;
+}
+.book-meta {
+  font-family: var(--sans);
+  font-size: .84em;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+.epigraph {
+  max-width: 38ch;
+  margin: 2.8rem auto 0;
+  font-style: italic;
+  color: var(--ink-soft);
+  font-size: .96em;
+  line-height: 1.5;
+}
+
+/* ========== ОГЛАВЛЕНИЕ ========== */
+.toc {
+  margin: 0 0 3.5rem;
+  padding: 2rem 2.2rem 2.2rem;
+  background: var(--paper-alt);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+}
+.toc h2 {
+  font-family: var(--sans);
+  font-size: .78em;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0 0 1.3rem;
+  font-weight: 600;
+  border: 0;
+  padding: 0;
+}
+.toc ol { list-style: none; margin: 0; padding: 0; }
+.toc li { margin: .35rem 0; }
+.toc ol ol { padding-left: 1.6rem; margin-top: .15rem; }
+.toc a {
+  color: var(--ink);
+  text-decoration: none;
+  display: flex;
+  gap: .6rem;
+  align-items: baseline;
+  padding: .15rem 0;
+  border-radius: 2px;
+  transition: color .15s, background .15s;
+}
+.toc a:hover {
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
+  border-radius: 3px;
+  padding-left: .3rem;
+  margin-left: -.3rem;
+}
+.toc .num {
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  min-width: 2.8em;
+  font-size: .9em;
+  font-weight: 500;
+}
+.toc .lbl { flex: 1; }
+.toc-l2 a { font-size: .94em; color: var(--ink-soft); }
+.toc-l3 a { font-size: .88em; color: var(--ink-soft); }
+
+/* ========== ЗАГОЛОВКИ ========== */
+h1, h2, h3, h4 {
+  font-family: var(--title-font);
+  line-height: 1.32;
+  text-wrap: balance;
+}
+
+.chapter > h2 {
+  font-size: 1.65em;
+  font-weight: 700;
+  margin: 3.6rem 0 1.5rem;
+  padding-bottom: .6rem;
+  border-bottom: 1px solid var(--rule);
+  position: relative;
+}
+.chapter > h2 .num,
+.section > h3 .num,
+.subsection > h4 .num {
+  color: var(--accent);
+  font-weight: 400;
+  margin-right: .55em;
+  font-variant-numeric: tabular-nums;
+}
+
+.section > h3 {
+  font-size: 1.25em;
+  font-weight: 700;
+  margin: 2.6rem 0 1rem;
+  color: var(--ink);
+}
+.subsection > h4 {
+  font-size: 1.08em;
+  font-weight: 700;
+  margin: 1.9rem 0 .8rem;
+  color: var(--ink-soft);
+}
+.chapter:first-of-type > h2 { margin-top: 0; }
+
+section[data-kind="front"] > h2,
+section[data-kind="back"] > h2 {
+  text-align: center;
+  border-bottom: 0;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  font-size: 1.3em;
+  font-weight: 700;
+}
+section[data-kind="front"] > h2::after,
+section[data-kind="back"] > h2::after {
+  content: "";
+  display: block;
+  width: 72px;
+  height: 1.5px;
+  background: var(--gold);
+  margin: .9rem auto 0;
+  border-radius: 1px;
+}
+
+/* ========== ТЕКСТ ========== */
+p {
+  margin: 0 0 .2rem;
+  text-indent: 1.6em;
+  
+  hyphens: auto; -webkit-hyphens: auto;
+}
+p + p { margin-top: .6rem; }
+h2 + p, h3 + p, h4 + p,
+blockquote + p, .toc + p, figure + p,
+ul + p, ol + p, table + p,
+.callout + p, .ayah + p, .hadith + p, .dua + p {
+  text-indent: 0;
+}
+
+
+
+.lead {
+  font-size: 1.07em;
+  color: var(--ink-soft);
+  text-indent: 0;
+  line-height: 1.65;
+}
+
+strong { font-weight: 700; }
+em { font-style: italic; }
+em.spaced { font-style: normal; letter-spacing: .14em; }
+
+a {
+  color: var(--accent);
+  text-underline-offset: .22em;
+  text-decoration-thickness: .6px;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+a:hover { color: var(--gold); }
+
+code {
+  font-family: ui-monospace, "SF Mono", Menlo, "Cascadia Code", monospace;
+  font-size: .86em;
+  background: var(--paper-alt);
+  padding: .12em .4em;
+  border-radius: 3px;
+  border: 1px solid var(--rule);
+}
+
+hr, .divider {
+  border: 0;
+  text-align: center;
+  margin: 2.6rem 0;
+  color: var(--gold);
+}
+.divider::before {
+  content: "❦   ❦   ❦";
+  letter-spacing: .8em;
+  font-size: .65em;
+  opacity: .75;
+}
+
+/* ========== СПИСКИ ========== */
+ul, ol {
+  margin: 1rem 0 1.2rem;
+  padding-left: 1.7rem;
+}
+li { margin: .4rem 0; padding-left: .2rem; line-height: 1.6; }
+ul li::marker { color: var(--accent); }
+ol li::marker {
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+}
+
+/* ========== ЦИТАТЫ ========== */
+blockquote.quote {
+  margin: 1.8rem 0;
+  padding: .4rem 0 .4rem 1.8rem;
+  border-left: 2.5px solid var(--gold);
+  font-style: italic;
+  color: var(--ink-soft);
+}
+blockquote.quote p { text-indent: 0; margin-bottom: .35rem; }
+.source,
+blockquote.quote footer {
+  display: block;
+  margin-top: .7rem;
+  font-family: var(--sans);
+  font-style: normal;
+  font-size: .78em;
+  color: var(--ink-soft);
+  letter-spacing: .03em;
+}
+.source::before { content: "— "; }
+
+/* ========== АЯТ ========== */
+.ayah {
+  margin: 2rem 0;
+  padding: 1.8rem 2rem;
+  background: var(--accent-soft);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  position: relative;
+  text-align: center;
+}
+.ayah::before,
+.ayah::after {
+  content: "";
+  position: absolute;
+  left: 1.6rem;
+  right: 1.6rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: .45;
+}
+.ayah::before { top: .65rem; }
+.ayah::after { bottom: .65rem; }
+
+.ar-block {
+  font-family: var(--arabic);
+  direction: rtl;
+  unicode-bidi: isolate;
+  text-align: center;
+  font-size: 1.6em;
+  line-height: 2.3;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+.ayah .ar-block { margin-bottom: .3rem; }
+
+.ayah-tr {
+  margin-top: 1rem;
+  font-style: italic;
+  font-size: .97em;
+  text-indent: 0;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+.ayah .source {
+  margin-top: .7rem;
+  text-align: center;
+  color: var(--accent);
+  font-weight: 500;
+  font-size: .8em;
+}
+.ayah .source::before { content: ""; }
+
+/* ========== ХАДИС ========== */
+.hadith {
+  margin: 1.9rem 0;
+  padding: 1.3rem 1.6rem 1.2rem;
+  border: 1px solid var(--rule);
+  border-left: 3.5px solid var(--accent);
+  border-radius: 5px;
+  background: var(--paper-alt);
+  position: relative;
+}
+.hadith .label,
+.dua .label,
+.callout .label {
+  display: block;
+  font-family: var(--sans);
+  font-size: .66em;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: .65rem;
+  font-weight: 600;
+}
+.hadith p, .dua p, .callout p { text-indent: 0; margin: 0 0 .4rem; }
+.hadith .ar-block { font-size: 1.35em; margin-bottom: .8rem; }
+
+/* ========== ДУА ========== */
+.dua {
+  margin: 1.9rem 0;
+  padding: 1.5rem 1.8rem;
+  background: var(--paper-alt);
+  border: 1.5px dashed var(--gold);
+  border-radius: 8px;
+  text-align: center;
+}
+.dua .label { color: var(--gold); }
+.dua .ar-block { font-size: 1.5em; margin-bottom: .8rem; }
+.dua p { font-style: italic; color: var(--ink-soft); }
+
+/* ========== ПРИМЕЧАНИЕ ========== */
+.callout {
+  margin: 1.8rem 0;
+  padding: 1.1rem 1.4rem;
+  background: var(--paper-alt);
+  border: 1px solid var(--rule);
+  border-radius: 5px;
+  font-size: .94em;
+}
+
+/* ========== ИНЛАЙН-АРАБСКИЙ ========== */
+.ar-inline {
+  font-family: var(--arabic);
+  font-size: 1.2em;
+  line-height: 1.9;
+  unicode-bidi: isolate;
+  direction: rtl;
+}
+[dir="rtl"] { text-align: right; }
+p[dir="rtl"] {
+  font-family: var(--arabic);
+  font-size: 1.35em;
+  line-height: 2.2;
+  text-indent: 0;
+}
+
+/* ========== ТАБЛИЦЫ ========== */
+figure.table {
+  margin: 2.2rem 0;
+  overflow-x: auto;
+}
+figure img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+figcaption {
+  font-family: var(--sans);
+  font-size: .78em;
+  color: var(--ink-soft);
+  text-align: center;
+  margin-top: .7rem;
+  font-style: italic;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: .92em;
+  font-family: var(--sans);
+  font-variant-numeric: tabular-nums;
+}
+th, td {
+  border: 1px solid var(--rule);
+  padding: .6rem .8rem;
+  text-align: left;
+  vertical-align: top;
+}
+thead th {
+  background: var(--paper-alt);
+  font-weight: 600;
+  color: var(--ink);
+  font-size: .82em;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+tbody tr:nth-child(even) td {
+  background: color-mix(in srgb, var(--paper-alt) 60%, transparent);
+}
+
+/* ========== СНОСКИ ========== */
+sup.fn-ref a {
+  text-decoration: none;
+  color: var(--accent);
+  font-size: .82em;
+  padding: 0 .1em;
+  font-weight: 600;
+}
+.footnotes {
+  margin-top: 4rem;
+  padding-top: 1.4rem;
+  border-top: 1.5px solid var(--rule);
+  font-size: .85em;
+  color: var(--ink-soft);
+}
+.footnotes h2,
+.bibliography h2 {
+  font-family: var(--sans);
+  font-size: .76em;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0 0 1rem;
+  font-weight: 600;
+}
+.footnote { margin: .5rem 0; text-indent: 0; }
+.footnote .fn-num {
+  color: var(--accent);
+  margin-right: .55em;
+  font-weight: 700;
+}
+
+/* ========== БИБЛИОГРАФИЯ ========== */
+.bibliography ol {
+  list-style: none;
+  counter-reset: bib;
+  padding-left: 0;
+}
+.bibliography li {
+  counter-increment: bib;
+  padding-left: 2.8rem;
+  position: relative;
+  margin: .7rem 0;
+  font-size: .94em;
+  line-height: 1.55;
+}
+.bibliography li::before {
+  content: counter(bib) ".";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+}
+
+/* ========== ПОДВАЛ ========== */
+.doc-footer {
+  margin-top: 4.5rem;
+  padding-top: 1.4rem;
+  border-top: 1.5px solid var(--rule);
+  font-family: var(--sans);
+  font-size: .72em;
+  color: var(--ink-soft);
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+/* ========== АДАПТИВ ========== */
+@media (max-width: 820px) {
+  .page {
+    padding: 2.2rem 1.4rem 3rem;
+  }
+  .wrap { width: 100%; }
+  .book-title { font-size: 2em; }
+  .toc { padding: 1.3rem; }
+  .toc a { padding: .35rem 0; }
+  .ayah { padding: 1.2rem 1rem; }
+  .hadith { padding: 1.1rem 1.1rem; }
+  .dua { padding: 1.2rem 1.1rem; }
+  .ar-block { font-size: 1.3em; line-height: 2.1; }
+  figure.table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  table { min-width: 36rem; }
+}
+
+@media (max-width: 560px) {
+  body { font-size: 17px; line-height: 1.66; }
+  .page { padding: 1.6rem 1rem 2.4rem; }
+  .title-page { padding: 1rem 0 2.5rem; }
+  .book-title { font-size: 1.7em; }
+  .chapter > h2 { font-size: 1.4em; margin: 2.6rem 0 1.1rem; }
+  .section > h3 { font-size: 1.12em; }
+  .subsection > h4 { font-size: 1.02em; }
+  .ar-block { font-size: 1.18em; line-height: 2; }
+  .ayah, .hadith, .dua { padding: 1rem .8rem; }
+  .toc { padding: 1.1rem; }
+  .doc-footer { flex-direction: column; gap: .4rem; }
+  .bismillah-slot { margin-bottom: 1.8rem; }
+}
+
+@media (max-width: 380px) {
+  body { font-size: 16px; }
+  .page { padding: 1.2rem .7rem 2rem; }
+  .book-title { font-size: 1.5em; }
+  .ar-block { font-size: 1.05em; }
+  .toc, .ayah, .hadith, .dua { padding: .9rem .7rem; }
+}
+
+/* ========== ПЕЧАТЬ ========== */
+@page {
+  size: A4;
+  margin: 22mm 20mm 22mm;
+  @bottom-center {
+    content: counter(page);
+    font-family: var(--sans);
+    font-size: 9pt;
+    color: var(--ink-soft);
+  }
+}
+@media print {
+  body {
+    background: #fff;
+    font-size: 11.5pt;
+    line-height: 1.55;
+  }
+  .page {
+    box-shadow: none;
+    padding: 0;
+    max-width: none;
+    min-height: 0;
+  }
+  .wrap { max-width: none; }
+  .title-page {
+    page-break-after: always;
+    border-bottom: 0;
+  }
+  .title-page::after { display: none; }
+  .toc {
+    page-break-after: always;
+    background: none;
+    border: 0;
+    padding: 0;
+  }
+  .chapter { page-break-before: always; }
+  .chapter:first-of-type { page-break-before: avoid; }
+  section[data-kind="front"],
+  section[data-kind="back"] { page-break-before: always; }
+
+  h2, h3, h4 { page-break-after: avoid; break-after: avoid; }
+  p, blockquote, .ayah, .hadith, .dua, table, figure { page-break-inside: avoid; }
+
+  a { color: inherit; text-decoration: none; }
+  .toc a::after { content: ""; }
+  .doc-footer { display: none; }
+
+  .ayah { background: none; border-color: var(--rule); }
+  .hadith { background: none; }
+  .dua { background: none; }
+}
+
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="title-page">
+  <div class="bismillah-slot bism-pos-above-title bism-align-center" data-align="center" style="justify-content:center">
+  <div class="bismillah" lang="ar" dir="rtl" style="font-size:1.750em;text-align:center">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+</div>
+  
+  <h1 class="book-title">Намерение — Сила</h1>
+  
+  <div class="rule-orn" aria-hidden="true"></div>
+  <p class="book-author">Абу Мухаммад</p>
+  
+  <p class="book-meta">2026</p>
+  
+  
+</header>
+  <div class="wrap">
+  <nav class="toc" aria-label="Оглавление"><h2>Оглавление</h2><ol><li class="toc-l1">
+      <a href="#glava-1-dva-kornya-otkuda-beretsya-sila"><span class="num"></span><span class="lbl">Глава 1. Два корня: откуда берётся сила</span></a><ol><li class="toc-l2">
+      <a href="#koren-namereniya-n-v-y"><span class="num"></span><span class="lbl">1.1. Корень намерения:<span class="ar-inline" lang="ar" dir="rtl">ن</span>-و-<span class="ar-inline" lang="ar" dir="rtl">ي</span>(н-в-й)</span></a></li>
+<li class="toc-l2">
+      <a href="#koren-sily-k-v-y"><span class="num"></span><span class="lbl">1.2. Корень силы:<span class="ar-inline" lang="ar" dir="rtl">ق</span>-و-<span class="ar-inline" lang="ar" dir="rtl">ي</span>(к-в-й)</span></a></li>
+<li class="toc-l2">
+      <a href="#kak-dva-kornya-soedinyayutsya-v-odin-mehanizm"><span class="num"></span><span class="lbl">1.3. Как два корня соединяются в один механизм</span></a></li></ol></li>
+<li class="toc-l1">
+      <a href="#glava-2-mehanizm-kak-namerenie-rozhdaet-silu"><span class="num"></span><span class="lbl">Глава 2. Механизм: как намерение рождает силу</span></a><ol><li class="toc-l2">
+      <a href="#odin-ayat-kotoryy-obyasnyaet-vse"><span class="num"></span><span class="lbl">2.1. Один аят, который объясняет всё</span></a></li>
+<li class="toc-l2">
+      <a href="#namerenie-kak-prikaz"><span class="num"></span><span class="lbl">2.2. Намерение как приказ</span></a></li>
+<li class="toc-l2">
+      <a href="#pochemu-povtorenie-sozdaet-silu"><span class="num"></span><span class="lbl">2.3. Почему повторение создаёт силу</span></a></li>
+<li class="toc-l2">
+      <a href="#serdce-kak-generator"><span class="num"></span><span class="lbl">2.4. Сердце как генератор</span></a></li></ol></li>
+<li class="toc-l1">
+      <a href="#glava-3-namerenie-kak-oruzhie-voinskiy-princip"><span class="num"></span><span class="lbl">Глава 3. Намерение как оружие: воинский принцип</span></a><ol><li class="toc-l2">
+      <a href="#ty-ne-passiv-ty-voin"><span class="num"></span><span class="lbl">3.1. Ты не пассив. Ты воин</span></a></li>
+<li class="toc-l2">
+      <a href="#namerenie-v-boyu"><span class="num"></span><span class="lbl">3.2. Намерение в бою</span></a></li>
+<li class="toc-l2">
+      <a href="#namerenie-v-namaze"><span class="num"></span><span class="lbl">3.3. Намерение в намазе</span></a></li>
+<li class="toc-l2">
+      <a href="#namerenie-v-lechenii-i-ruke"><span class="num"></span><span class="lbl">3.4. Намерение в лечении и рукье</span></a></li></ol></li>
+<li class="toc-l1">
+      <a href="#glava-4-istoriya-sily-spodvizhnik-i-al-fatiha"><span class="num"></span><span class="lbl">Глава 4. История силы: сподвижник и аль-Фатиха</span></a><ol><li class="toc-l2">
+      <a href="#sluchay-kotoryy-izmenil-ponimanie-ruki"><span class="num"></span><span class="lbl">4.1. Случай, который изменил понимание рукьи</span></a></li>
+<li class="toc-l2">
+      <a href="#chto-zdes-proizoshlo"><span class="num"></span><span class="lbl">4.2. Что здесь произошло</span></a></li>
+<li class="toc-l2">
+      <a href="#urok-dlya-kazhdogo"><span class="num"></span><span class="lbl">4.3. Урок для каждого</span></a></li></ol></li>
+<li class="toc-l1">
+      <a href="#glava-5-namerenie-v-povsednevnoy-zhizni-universalnyy-princip"><span class="num"></span><span class="lbl">Глава 5. Намерение в повседневной жизни: универсальный принцип</span></a><ol><li class="toc-l2">
+      <a href="#namerenie-v-dua"><span class="num"></span><span class="lbl">5.1. Намерение в дуа</span></a></li>
+<li class="toc-l2">
+      <a href="#namerenie-v-protivostoyanii-shaytanu"><span class="num"></span><span class="lbl">5.2. Намерение в противостоянии шайтану</span></a></li>
+<li class="toc-l2">
+      <a href="#namerenie-v-borbe-s-nafsom"><span class="num"></span><span class="lbl">5.3. Намерение в борьбе с нафсом</span></a></li></ol></li>
+<li class="toc-l1">
+      <a href="#glava-6-vrag-namereniya-kak-kradut-tvoyu-silu"><span class="num"></span><span class="lbl">Глава 6. Враг намерения: как крадут твою силу</span></a><ol><li class="toc-l2">
+      <a href="#shaytan-voruet-namerenie"><span class="num"></span><span class="lbl">6.1. Шайтан ворует намерение</span></a></li>
+<li class="toc-l2">
+      <a href="#nafs-rasseivaet-namerenie"><span class="num"></span><span class="lbl">6.2. Нафс рассеивает намерение</span></a></li>
+<li class="toc-l2">
+      <a href="#okruzhenie-kradet-namerenie"><span class="num"></span><span class="lbl">6.3. Окружение крадёт намерение</span></a></li>
+<li class="toc-l2">
+      <a href="#muzyka-i-videoigry-tihie-ubiycy-namereniya"><span class="num"></span><span class="lbl">6.4. Музыка и видеоигры: тихие убийцы намерения</span></a></li>
+<li class="toc-l2">
+      <a href="#kak-vernut-ukradennoe-namerenie"><span class="num"></span><span class="lbl">6.5. Как вернуть украденное намерение</span></a></li></ol></li>
+<li class="toc-l1">
+      <a href="#glava-7-urovni-sily-namereniya"><span class="num"></span><span class="lbl">Глава 7. Уровни силы намерения</span></a><ol><li class="toc-l2">
+      <a href="#sem-urovney"><span class="num"></span><span class="lbl">7.1. Семь уровней</span></a></li>
+<li class="toc-l2">
+      <a href="#kak-rastet-sila"><span class="num"></span><span class="lbl">7.2. Как растёт сила</span></a></li></ol></li>
+<li class="toc-l1">
+      <a href="#glava-8-praktika-malye-uprazhneniya-dlya-demonstracii"><span class="num"></span><span class="lbl">Глава 8. Практика: малые упражнения для демонстрации</span></a><ol><li class="toc-l2">
+      <a href="#uprazhnenie-pervoe-tishina-i-namerenie"><span class="num"></span><span class="lbl">8.1. Упражнение первое: Тишина и намерение</span></a></li>
+<li class="toc-l2">
+      <a href="#uprazhnenie-vtoroe-namerenie-na-vodu"><span class="num"></span><span class="lbl">8.2. Упражнение второе: Намерение на воду</span></a></li>
+<li class="toc-l2">
+      <a href="#uprazhnenie-trete-boevoe-namerenie"><span class="num"></span><span class="lbl">8.3. Упражнение третье: Боевое намерение</span></a></li>
+<li class="toc-l2">
+      <a href="#forma-namereniya-pravilo-treh-slov"><span class="num"></span><span class="lbl">8.5. Форма намерения: правило трёх слов</span></a></li>
+<li class="toc-l2">
+      <a href="#chastaya-oshibka-v-namerenii"><span class="num"></span><span class="lbl">8.6. Частая ошибка в намерении</span></a></li></ol></li>
+<li class="toc-l1">
+      <a href="#glava-9-kodeks-voina-namereniya"><span class="num"></span><span class="lbl">Глава 9. Кодекс воина намерения</span></a><ol><li class="toc-l2">
+      <a href="#desyat-pravil"><span class="num"></span><span class="lbl">9.1. Десять правил</span></a></li>
+<li class="toc-l2">
+      <a href="#molba-voina-namereniya"><span class="num"></span><span class="lbl">9.2. Мольба воина намерения</span></a></li></ol></li>
+<li class="toc-l1">
+      <a href="#glava-10-namerenie-i-voznagrazhdenie-chto-obeschal-allah"><span class="num"></span><span class="lbl">Глава 10. Намерение и вознаграждение: что обещал Аллах</span></a><ol><li class="toc-l2">
+      <a href="#za-odno-namerenie-odno-blagoe-delo"><span class="num"></span><span class="lbl">10.1. За одно намерение — одно благое дело</span></a></li>
+<li class="toc-l2">
+      <a href="#namerenie-umnozhaet-delo"><span class="num"></span><span class="lbl">10.2. Намерение умножает дело</span></a></li></ol></li>
+<li class="toc-l1">
+      <a href="#h-209"><span class="num">11.</span><span class="lbl"><span class="ar-inline" lang="ar" dir="rtl">بِسْمِ اللَّهِ أَبْدَأ</span></span></a></li>
+<li class="toc-l1">
+      <a href="#h-212"><span class="num">12.</span><span class="lbl"><span class="ar-inline" lang="ar" dir="rtl">وَاللَّهُ أَعْلَمُ</span></span></a></li>
+<li class="toc-l1">
+      <a href="#svyaschennyy-koran"><span class="num"></span><span class="lbl">1. Священный Коран</span></a></li>
+<li class="toc-l1">
+      <a href="#sahih-al-buhari"><span class="num"></span><span class="lbl">2. Сахих аль-Бухари</span></a></li>
+<li class="toc-l1">
+      <a href="#sahih-muslim"><span class="num"></span><span class="lbl">3. Сахих Муслим</span></a></li>
+<li class="toc-l1">
+      <a href="#sunan-at-tirmizi"><span class="num"></span><span class="lbl">4. Сунан ат-Тирмизи</span></a></li>
+<li class="toc-l1">
+      <a href="#musnad-ahmada"><span class="num"></span><span class="lbl">5. Муснад Ахмада</span></a></li>
+<li class="toc-l1">
+      <a href="#ibn-al-kayyim-madaridzh-as-salikin"><span class="num"></span><span class="lbl">6. Ибн аль-Каййим, «Мадаридж ас-Саликин»</span></a></li>
+<li class="toc-l1">
+      <a href="#an-navavi-sharh-sahih-muslim"><span class="num"></span><span class="lbl">7. Ан-Навави, «Шарх Сахих Муслим»</span></a></li>
+<li class="toc-l1">
+      <a href="#ibn-hadzhar-fath-al-bari"><span class="num"></span><span class="lbl">8. Ибн Хаджар, «Фатх аль-Бари»</span></a></li></ol></nav>
+  <main>
+<blockquote class="hadith">
+  <span class="label">Хадис</span>
+  <div class="ar-block" lang="ar" dir="rtl">إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى</div>
+  <p>Поистине, дела — только по намерениям, и поистине, каждому человеку — только то, что он намеревался</p>
+  <footer class="source">Источник: аль-Бухари, № 1; Муслим, № 1907</footer>
+</blockquote>
+<blockquote class="hadith">
+  <span class="label">Хадис</span>
+  <div class="ar-block" lang="ar" dir="rtl">إِنَّ اللَّهَ كَتَبَ الْحَسَنَاتِ وَالسَّيِّئَاتِ ثُمَّ بَيَّنَ ذَلِكَ: فَمَنْ هَمَّ بِحَسَنَةٍ فَلَمْ يَعْمَلْهَا كَتَبَهَا اللَّهُ لَهُ عِنْدَهُ حَسَنَةً كَامِلَةً، فَإِنْ هُوَ هَمَّ بِهَا فَعَمِلَهَا كَتَبَهَا اللَّهُ لَهُ عِنْدَهُ عَشْرَ حَسَنَاتٍ إِلَى سَبْعِمِائَةِ ضِعْفٍ إِلَى أَضْعَافٍ كَثِيرَةٍ</div>
+  <p>Поистине, Аллах записал добрые и дурные дела, а затем разъяснил это: кто задумал совершить благое дело, но не совершил его, тому Аллах запишет у Себя одно полноценное благое дело. А если он задумал его и совершил, Аллах запишет ему от десяти до семисот и более благих дел</p>
+  <footer class="source">Источник: аль-Бухари, № 6491; Муслим, № 131</footer>
+</blockquote>
+<p>Введение</p>
+<p>Есть люди, которые читают Коран часами — и ничего не меняется. Ни в них самих, ни в тех, над кем они читают. Слова идут — жизнь стоит. Болезнь не уходит. Шайтан не дрогнет. Сердце не наполняется.</p>
+<p>А есть люди, которые произносят одно дуа — и небо открывается. Которые читают одну суру — и болезнь отступает. Которые говорят «Бисмиллях» — и вокруг них рушатся крепости шайтана.</p>
+<p>В чём разница?</p>
+<p>Не в красоте голоса. Не в количестве прочитанного. Не в том, сколько лет человек учит арабский.</p>
+<p>Разница — в одном. В том, что стоит за словом. В силе, которая рождается внутри человека до того, как слово выйдет наружу.</p>
+<p>Эта сила называется намерение.</p>
+<p>Настоящее намерение — не мысль «я хочу помочь». Не желание «пусть будет хорошо». Не разовая фраза перед действием. Настоящее намерение — это сила. Живая, плотная, направленная. Она рождается в сердце, растёт через повторение, крепнет через присутствие и бьёт точно в цель.</p>
+<p>Эта книга — о том, как намерение становится силой. Как одно сердце, обращённое к Аллаху, приобретает мощь, перед которой отступают джинны, рассыпается колдовство, исцеляются болезни и меняется судьба.</p>
+<p>Это книга-фундамент. Без неё всё остальное — техника без духа, слова без меча. Прочитай её первой. Пойми её сердцем. И тогда всё, что ты будешь делать после — намаз, дуа, рукья, лечение, жизнь — обретёт ту силу, которую Аллах вложил в намерение.</p>
+<p>Эта книга написана для того, кто впервые слышит: намерение — это не формальность. Намерение — это оружие. И Аллах дал его каждому.</p>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="glava-1-dva-kornya-otkuda-beretsya-sila">Глава 1. Два корня: откуда берётся сила</h2>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="koren-namereniya-n-v-y">1.1. Корень намерения:<span class="ar-inline" lang="ar" dir="rtl">ن</span>-و-<span class="ar-inline" lang="ar" dir="rtl">ي</span>(н-в-й)</h3>
+<p>В арабском языке намерение выражается словом<span class="ar-inline" lang="ar" dir="rtl">النِّيَّة</span>(ан-ниййа). Его корень —<span class="ar-inline" lang="ar" dir="rtl">ن</span>-و-<span class="ar-inline" lang="ar" dir="rtl">ي</span>(нун-вав-йа).</p>
+<p>Этот корень несёт в себе значение направления, устремлённости, внутреннего движения к цели.</p>
+<p>Глагол<span class="ar-inline" lang="ar" dir="rtl">نَوَى</span>(нава) означает: «намереваться», «направить себя к чему-то», «решить внутри себя». Это не внешнее действие. Это внутреннее. Человек ещё не пошевелился — но внутри него уже произошло движение. Воля уже направлена. Путь уже выбран.</p>
+<p>Это ключевой момент: намерение рождается до действия. Оно предшествует ему. Оно формирует его. Оно определяет его.</p>
+<figure class="ayah">
+  <div class="ar-block" lang="ar" dir="rtl">وَمَا أُمِرُوا إِلَّا لِيَعْبُدُوا اللَّهَ مُخْلِصِينَ لَهُ الدِّينَ</div>
+  <figcaption class="ayah-tr">А ведь им было велено лишь поклоняться Аллаху, очищая перед Ним веру</figcaption>
+  <div class="source">Источник: Сура «аль-Баййина», аят 5</div>
+</figure>
+<p>Здесь слово<span class="ar-inline" lang="ar" dir="rtl">مُخْلِصِينَ</span>(мухлисин) — от корня<span class="ar-inline" lang="ar" dir="rtl">خ</span>-ل-<span class="ar-inline" lang="ar" dir="rtl">ص</span>— означает «очищенный», «направленный только к одному». Намерение, очищенное от всего, кроме Аллаха. Намерение, которое стало чистым лучом.</p>
+</section>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="koren-sily-k-v-y">1.2. Корень силы:<span class="ar-inline" lang="ar" dir="rtl">ق</span>-و-<span class="ar-inline" lang="ar" dir="rtl">ي</span>(к-в-й)</h3>
+<p>Сила в арабском языке —<span class="ar-inline" lang="ar" dir="rtl">القُوَّة</span>(аль-кувва). Корень —<span class="ar-inline" lang="ar" dir="rtl">ق</span>-و-<span class="ar-inline" lang="ar" dir="rtl">ي</span>(каф-вав-йа).</p>
+<p>Этот корень несёт значение мощи, крепости, способности, непоколебимости.</p>
+<p>От этого же корня — имя Аллаха<span class="ar-inline" lang="ar" dir="rtl">القَوِيّ</span>(аль-Кавийй) — Могущественный, Сильный.</p>
+<figure class="ayah">
+  <div class="ar-block" lang="ar" dir="rtl">إِنَّ اللَّهَ هُوَ الرَّزَّاقُ ذُو الْقُوَّةِ الْمَتِينُ</div>
+  <figcaption class="ayah-tr">Поистине, Аллах — Наделяющий уделом, Обладающий силой, Непоколебимый</figcaption>
+  <div class="source">Источник: Сура «аз-Зарият», аят 58</div>
+</figure>
+<p>Сила принадлежит Аллаху. Он — аль-Кавийй. Но Он даёт её тому, кого избирает. И один из главных каналов, через которые эта сила приходит к человеку, — намерение.</p>
+</section>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="kak-dva-kornya-soedinyayutsya-v-odin-mehanizm">1.3. Как два корня соединяются в один механизм</h3>
+<p>Теперь посмотри на связь.</p>
+<p>Намерение (ن-و-ي) — это направление. Это внутренний вектор. Это то, куда ты направляешь себя.</p>
+<p>Сила (ق-و-ي) — это мощь. Это энергия. Это то, что движется по направлению.</p>
+<p>Без направления — сила рассеивается. Как вода без русла: она просто растекается и исчезает.</p>
+<p>Без силы — направление бессильно. Как стрела без тетивы: она направлена, но не летит.</p>
+<p>Намерение — это русло. Сила Аллаха — это вода. Когда намерение чёткое, плотное, удерживаемое — сила Аллаха течёт по нему и достигает цели. Когда намерение слабое, дырявое, рассеянное — сила утекает, и до цели доходят лишь капли.</p>
+<p>Вот формула:</p>
+<p>Намерение + Сила Аллаха = Воздействие</p>
+<p>Человек не создаёт силу. Сила — от Аллаха. Но человек создаёт русло. И чем плотнее русло, тем мощнее поток.</p>
+<p>Намерение — это и есть русло.</p>
+</section>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="glava-2-mehanizm-kak-namerenie-rozhdaet-silu">Глава 2. Механизм: как намерение рождает силу</h2>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="odin-ayat-kotoryy-obyasnyaet-vse">2.1. Один аят, который объясняет всё</h3>
+<figure class="ayah">
+  <div class="ar-block" lang="ar" dir="rtl">إِنَّ اللَّهَ لَا يُغَيِّرُ مَا بِقَوْمٍ حَتَّىٰ يُغَيِّرُوا مَا بِأَنْفُسِهِمْ</div>
+  <figcaption class="ayah-tr">Поистине, Аллах не меняет положения людей, пока они не изменят самих себя</figcaption>
+  <div class="source">Источник: Сура «ар-Ра'д», аят 11</div>
+</figure>
+<p>Обрати внимание: Аллах не меняет. Пока человек не изменит себя сам. Изменение начинается внутри. С сердца. С намерения. С решения.</p>
+<p>Это не метафора. Это закон. Аллах встроил этот механизм в устройство мира. Намерение — это ключ, который открывает дверь. Пока ключ не вставлен и не повёрнут — дверь закрыта. Как бы ты ни стучал.</p>
+</section>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="namerenie-kak-prikaz">2.2. Намерение как приказ</h3>
+<p>Когда ты делаешь намерение — ты отдаёшь приказ. Не шайтану. Не болезни. Не обстоятельствам. Ты отдаёшь приказ себе. Своему сердцу. Своему телу. Своей душе.</p>
+<p>Ты говоришь: «Я направляюсь. Я действую. Я не стою на месте.»</p>
+<p>И этот приказ запускает механизм. Тело подчиняется. Сердце собирается. Разум фокусируется. Всё внутри тебя выстраивается в одном направлении.</p>
+<p>Это и есть рождение силы. Не извне. Изнутри. Из одного решения, которое стало плотным и непоколебимым.</p>
+</section>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="pochemu-povtorenie-sozdaet-silu">2.3. Почему повторение создаёт силу</h3>
+<p>Одно намерение — это одна капля. Она может испариться.</p>
+<p>Сорок намерений подряд — это ручей. Он уже не исчезнет.</p>
+<p>Сто намерений — это река. Она ломает камень.</p>
+<p>Когда ты повторяешь намерение в сердце — раз, два, десять, сорок, семьдесят — с каждым повторением оно становится плотнее. Тяжелее. Реальнее. Оно перестаёт быть мыслью и становится состоянием. Ты уже не «думаешь» о намерении. Ты находишься в нём. Оно живёт в тебе.</p>
+<p>Это как кузнец, который бьёт по мечу. Один удар — ничего. Сто ударов — клинок. Тысяча ударов — меч, который режет железо.</p>
+<p>Каждое повторение намерения — это удар молота по клинку твоей воли.</p>
+</section>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="serdce-kak-generator">2.4. Сердце как генератор</h3>
+<blockquote class="hadith">
+  <span class="label">Хадис</span>
+  <div class="ar-block" lang="ar" dir="rtl">إِنَّ اللَّهَ لَا يَنْظُرُ إِلَى أَجْسَادِكُمْ وَلَا إِلَى صُوَرِكُمْ، وَلَكِنْ يَنْظُرُ إِلَى قُلُوبِكُمْ وَأَعْمَالِكُمْ</div>
+  <p>Поистине, Аллах смотрит не на ваши тела и не на ваши облики, но смотрит на ваши сердца и ваши деяния</p>
+  <footer class="source">Источник: Муслим, № 2564</footer>
+</blockquote>
+<p>Аллах смотрит на сердце. Не на язык. Не на громкость голоса. Не на количество прочитанных аятов. На сердце.</p>
+<p>Это значит: сила приходит туда, где сердце присутствует. Пустое сердце — пустое воздействие. Полное сердце — полное воздействие.</p>
+<p>Сердце — это генератор намерения. Когда оно включено — сила течёт. Когда оно выключено — слова остаются звуком. Красивым. Священным. Но звуком.</p>
+</section>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="glava-3-namerenie-kak-oruzhie-voinskiy-princip">Глава 3. Намерение как оружие: воинский принцип</h2>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="ty-ne-passiv-ty-voin">3.1. Ты не пассив. Ты воин</h3>
+<p>Большинство людей живут как листья на ветру. Ветер дунул — полетели. Шайтан шепнул — поверили. Нафс потребовал — поддались. Окружение надавило — сломались.</p>
+<p>Намерение — это то, что превращает лист в меч.</p>
+<p>Когда ты делаешь намерение — ты перестаёшь быть пассивом. Ты становишься первым лицом. Ты говоришь: «Я. Я решаю. Я направляюсь. Я действую.»</p>
+<p>Это воинский акт. Это объявление: «Я больше не жертва обстоятельств. Я — тот, кто направляет.»</p>
+</section>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="namerenie-v-boyu">3.2. Намерение в бою</h3>
+<p>Когда воин выходит на бой — он не выходит рассеянным. Он не думает об ужине. Он не сомневается, победит ли. Он не смотрит по сторонам.</p>
+<p>Он собран. Его взгляд — в одну точку. Его сердце — в одном решении. Его тело — в одной готовности.</p>
+<p>Это и есть намерение. Собранный, направленный, непоколебимый.</p>
+<p>Когда ты выходишь на рукью против джинна — ты выходишь как этот воин. Твой меч — слово Аллаха. Твоя рука — намерение. Твой щит — упование на Аллаха.</p>
+<p>Без намерения меч не поднимется.</p>
+</section>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="namerenie-v-namaze">3.3. Намерение в намазе</h3>
+<blockquote class="hadith">
+  <span class="label">Хадис</span>
+  <div class="ar-block" lang="ar" dir="rtl">إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ</div>
+  <p>Поистине, дела — только по намерениям</p>
+  <footer class="source">Источник: аль-Бухари, № 1</footer>
+</blockquote>
+<p>Намаз без намерения — это набор движений. Встал, поклонился, упал. Что-то произнёс. Выпрямился.</p>
+<p>Намаз с намерением — это встреча с Аллахом. Это разговор. Это момент, когда небо открывается и земля замирает.</p>
+<p>Разница — не в движениях. Разница — в том, что стоит за ними. В силе, которая родилась в сердце до того, как тело сделало первый такбир.</p>
+<p>То же самое — в дуа. То же самое — в посте. То же самое — в чтении Корана. Форма одна. Сила — разная. И сила определяется намерением.</p>
+</section>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="namerenie-v-lechenii-i-ruke">3.4. Намерение в лечении и рукье</h3>
+<p>Когда раки читает над больным — он не просто произносит аяты. Он направляет. Он заклинает. Он действует.</p>
+<p>Когда Пророк<span class="ar-inline" lang="ar" dir="rtl">ﷺ</span>заболел, ангел Джибриль (мир ему) пришёл к нему и произнёс:</p>
+<blockquote class="hadith">
+  <span class="label">Хадис</span>
+  <div class="ar-block" lang="ar" dir="rtl">بِسْمِ اللَّهِ أَرْقِيكَ، مِنْ كُلِّ شَيْءٍ يُؤْذِيكَ</div>
+  <p>С именем Аллаха заклинаю тебя — от всего, что причиняет тебе вред</p>
+  <footer class="source">Источник: Муслим, № 2186</footer>
+</blockquote>
+<p>Джибриль сказал Пророку<span class="ar-inline" lang="ar" dir="rtl">ﷺ</span>:<span class="ar-inline" lang="ar" dir="rtl">أَرْقِيكَ</span>— «Я заклинаю тебя». Первое лицо. Активное. Волевое. Не «пусть исцелится». Не «может быть, поможет». А «Я — заклинаю». Это и есть намерение в действии. Не пассивное ожидание. Активное направление силы. Когда раки делает намерение — он создаёт русло и сила Аллаха течёт по этому руслу — через его голос, через его руки, через его дыхание — и достигает болезни. Разрушает её. Изгоняет джинна. Аннулирует колдовство. Без намерения — аяты остаются над больным, как облако над землёй. Они есть. Но дождь не идёт. С намерением — аяты входят в больного, как меч входит в доспех. Точно. С силой. С результатом.</p>
+</section>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="glava-4-istoriya-sily-spodvizhnik-i-al-fatiha">Глава 4. История силы: сподвижник и аль-Фатиха</h2>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="sluchay-kotoryy-izmenil-ponimanie-ruki">4.1. Случай, который изменил понимание рукьи</h3>
+<blockquote class="hadith">
+  <span class="label">Хадис</span>
+  
+  <p>Группа сподвижников Пророка<span class="ar-inline" lang="ar" dir="rtl">ﷺ</span>отправилась в путешествие и остановилась у одного арабского племени. Они попросили приют, но им отказали. Тогда вождя этого племени ужалила скорпион (в другой версии — змея). Его люди искали целителя, но не нашли. Кто-то из них сказал: «Может, обратимся к тем путникам?» Сподвижники согласились помочь, но при условии, что им дадут стадо овец. Один из сподвижников подошёл к вождю и прочитал над ним суру аль-Фатиха семь раз. Вождь исцелился — как будто его и не кусали. Сподвижники получили обещанных овец. Когда они вернулись к Пророку<span class="ar-inline" lang="ar" dir="rtl">ﷺ</span>и рассказали ему, он сказал: «Откуда ты знал, что аль-Фатиха — рукья? Разделите овец и выделите мне долю».</p>
+  <footer class="source">Источник: аль-Бухари, № 5736; Муслим, № 2201</footer>
+</blockquote>
+</section>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="chto-zdes-proizoshlo">4.2. Что здесь произошло</h3>
+<p>Один сподвижник. Одна сура. Семь повторений. И вождь, которого ужалила скорпион, исцелился полностью.</p>
+<p>Не было длинного чтения. Не было десятков аятов. Не было специальных ритуалов. Не было масел, компрессов, воды.</p>
+<p>Было одно: аль-Фатиха. Семь раз. И намерение.</p>
+<p>Что отличало этого сподвижника от остальных? Он не был известным лекарем. Не был учёным. Не имел «специализации» в рукье.</p>
+<p>Но у него было намерение. Живое. Направленное. Плотное. Он не «попробовал прочитать». Он решил: «Я исцелю этого человека через слово Аллаха». И слово Аллаха подействовало.</p>
+</section>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="urok-dlya-kazhdogo">4.3. Урок для каждого</h3>
+<p>Пророк<span class="ar-inline" lang="ar" dir="rtl">ﷺ</span>спросил: «Откуда ты знал, что аль-Фатиха — рукья?»</p>
+<p>Сподвижник не знал «технически». Он не учил, что аль-Фатиха — средство от укусов. Он просто поверил. Направил. Действовал.</p>
+<p>И это сработало.</p>
+<p>Урок: не количество аятов определяет силу рукьи. Не длительность чтения. Не громкость голоса. Сила определяется намерением, которое стоит за каждым словом.</p>
+<p>Одна сура с полным намерением бьёт сильнее, чем десять сур с пустым сердцем.</p>
+</section>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="glava-5-namerenie-v-povsednevnoy-zhizni-universalnyy-princip">Глава 5. Намерение в повседневной жизни: универсальный принцип</h2>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="namerenie-v-dua">5.1. Намерение в дуа</h3>
+<p>Когда ты поднимаешь руки и говоришь: «О Аллах, исцели моего отца» — это может быть просто звук. А может быть стрела, которая пробивает небо.</p>
+<p>Разница — в намерении. В том, как ты собрал себя перед этим дуа. В том, сколько раз повторил его в сердце, прежде чем произнести языком. В том, насколько ты уверен, что Аллах слышит.</p>
+<blockquote class="hadith">
+  <span class="label">Хадис</span>
+  <div class="ar-block" lang="ar" dir="rtl">ادْعُوا اللَّهَ وَأَنْتُمْ مُوقِنُونَ بِالإِجَابَةِ، وَاعْلَمُوا أَنَّ اللَّهَ لَا يَسْتَجِيبُ دُعَاءً مِنْ قَلْبٍ غَافِلٍ لَاهٍ</div>
+  <p>Взывайте к Аллаху, будучи уверенными в ответе, и знайте, что Аллах не отвечает на мольбу сердца рассеянного и беспечного</p>
+  <footer class="source">Источник: ат-Тирмизи, № 3479</footer>
+</blockquote>
+<p>Аллах не отвечает на мольбу рассеянного сердца. Это закон. Не наказание. Закон. Рассеянное сердце не создаёт русло. Силе некуда течь.</p>
+</section>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="namerenie-v-protivostoyanii-shaytanu">5.2. Намерение в противостоянии шайтану</h3>
+<p>Шайтан не боится слов. Он боится силы, которая стоит за словами.</p>
+<p>Когда ты говоришь «А'узу билляхи минаш-шайтанир-раджим» механически — шайтан не уходит. Он слышит звук и игнорирует его. Как человек игнорирует фоновый шум.</p>
+<p>Когда ты говоришь то же самое с намерением — с собранным сердцем, с волевым направлением, с решимостью воина — шайтан уходит. Потому что за словами стоит сила. И эта сила его жжёт.</p>
+<p>Намерение превращает слова в оружие. Без намерения — слова остаются звуком. Звук не ранит. Оружие ранит.</p>
+</section>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="namerenie-v-borbe-s-nafsom">5.3. Намерение в борьбе с нафсом</h3>
+<p>Нафс — это враг внутри. Он шепчет: «Отложи намаз. Поешь сначала. Поспи ещё. Посмотри видео. Завтра покаешься.»</p>
+<p>Намерение — это ответ нафсу. Твёрдое, непоколебимое: «Нет. Я встаю. Я иду. Я делаю. Сейчас.»</p>
+<p>Каждый раз, когда ты делаешь намерение вопреки нафсу — ты побеждаешь. Каждый раз, когда ты уступаешь — нафс побеждает. И с каждой победой нафса — твоё намерение слабеет. А с каждой твоей победой — оно крепнет.</p>
+<p>Это как мышца. Чем больше работаешь — тем сильнее становится. Чем больше бездействуешь — тем слабее.</p>
+</section>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="glava-6-vrag-namereniya-kak-kradut-tvoyu-silu">Глава 6. Враг намерения: как крадут твою силу</h2>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="shaytan-voruet-namerenie">6.1. Шайтан ворует намерение</h3>
+<p>Шайтан знает: сила человека — в его намерении. Поэтому его главная цель — разрушить намерение. Не помешать действию. Не помешать чтению. А разрушить то, что стоит за действием.</p>
+<p>Как он это делает:</p>
+<ul><li>Шепчет сомнение: «А точно ли это поможет? А вдруг ты делаешь неправильно?»</li><li>Бросает отвлечение: посреди чтения вспоминается что-то неважное, и внимание уходит.</li><li>Подбрасывает гордыню: «Ты сильный. Ты справишься. Тебе не нужно столько готовиться.»</li><li>Сеет спешку: «Давай быстрее. Хватит тратить время. Прочитай и иди.»</li></ul>
+<p>Каждый из этих шёпотов — это кража. Кража твоей силы. Кража твоего намерения. И если ты не замечаешь его — намерение гаснет. И ты продолжаешь читать. Но читаешь пусто.</p>
+</section>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="nafs-rasseivaet-namerenie">6.2. Нафс рассеивает намерение</h3>
+<p>Нафс не хочет, чтобы ты был сильным. Сильный человек подчиняет нафс. Слабый — подчиняется ему.</p>
+<p>Поэтому нафс постоянно рассеивает. Он говорит:</p>
+<ul><li>«Зачем тебе это? Отдохни.»</li><li>«Ты уже сделал достаточно. Хватит.»</li><li>«Посмотри, как другие живут. Они не напрягаются.»</li><li>«Тебе это не нужно. Ты и так хороший.»</li></ul>
+<p>Нафс создаёт лень. Создаёт безразличие. Создаёт ощущение, что всё и так нормально. А когда всё «и так нормально» — намерение не рождается. Потому что намерение рождается из потребности. Из решения. Из воли.</p>
+</section>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="okruzhenie-kradet-namerenie">6.3. Окружение крадёт намерение</h3>
+<p>Люди вокруг тебя — не всегда союзники твоего намерения.</p>
+<p>Когда ты говоришь: «Я хочу выучить Коран», а тебе отвечают: «Зачем? Ты и так мусульманин» — это кража намерения.</p>
+<p>Когда ты делаешь дуа, а рядом смеются и отвлекают — это кража намерения.</p>
+<p>Когда ты держишь пост, а тебя зовут на пир — это испытание намерения.</p>
+<p>Окружение не обязано поддерживать твоё намерение. Но ты обязан его защищать.</p>
+</section>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="muzyka-i-videoigry-tihie-ubiycy-namereniya">6.4. Музыка и видеоигры: тихие убийцы намерения</h3>
+<p>Это то, о чём мало говорят. Но это одна из главных причин, почему у современного мусульманина нет силы.</p>
+<p>Музыка рассеивает сердце. Она заполняет то пространство, где должно жить намерение. Когда в голове постоянно звучит мелодия — там нет тишины. А без тишины намерение не может сформироваться.</p>
+<figure class="ayah">
+  <div class="ar-block" lang="ar" dir="rtl">وَمِنَ النَّاسِ مَنْ يَشْتَرِي لَهْوَ الْحَدِيثِ لِيُضِلَّ عَنْ سَبِيلِ اللَّهِ بِغَيْرِ عِلْمٍ</div>
+  <figcaption class="ayah-tr">Среди людей есть те, кто покупает забавные речи, чтобы сбивать с пути Аллаха без знания</figcaption>
+  <div class="source">Источник: Сура «Лукман», аят 6</div>
+</figure>
+<p>Ибн Мас'уд, да будет доволен им Аллах, поклялся трижды, что «забавные речи» в этом аяте — это пение.</p>
+<p>Видеоигры делают то же самое. Они захватывают внимание на часы. Они создают ложное ощущение достижения: «Я прошёл уровень. Я победил.» Но это ложная победа. В реальности — ни одного настоящего намерения не было сделано. Ни одного дуа. Ни одного аята. Ни одного решения.</p>
+<p>Часы, потраченные на экран — это часы, украденные у твоего намерения. Это время, когда сердце не тренировалось. Не собиралось. Не крепло. А слабело.</p>
+<p>Результат: человек садится читать Коран — и не может сосредоточиться. Поднимает руки для дуа — и мысли разбегаются. Выходит на рукью — и чувствует пустоту.</p>
+<p>Потому что сердце натренировано на рассеянность. На переключение. На быстрый дофамин. А намерение требует тишины. Требует удержания. Требует глубины.</p>
+</section>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="kak-vernut-ukradennoe-namerenie">6.5. Как вернуть украденное намерение</h3>
+<ul><li>Убери музыку. Полностью. Дай сердцу тишину. Через неделю ты почувствуешь разницу.</li><li>Убери видеоигры. Или сократи до минимума. Освободившиеся часы — на Коран, на зикр, на тишину.</li><li>Уменьши время в телефоне. Каждый час экрана — это час украденного намерения.</li><li>Создай тишину. Хоть десять минут в день. Без звука. Без экрана. Только ты и твоё сердце.</li><li>В этой тишине — делай намерение. Простое. Одно. «Намереваюсь быть ближе к Аллаху». И держи его.</li></ul>
+<p>Это не аскетизм. Это гигиена сердца. Как ты моешь тело — мой сердце от шума.</p>
+</section>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="glava-7-urovni-sily-namereniya">Глава 7. Уровни силы намерения</h2>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="sem-urovney">7.1. Семь уровней</h3>
+<p>Сила намерения не одинакова у всех. Она растёт. Как мышца. Как клинок. Как дерево.</p>
+<p>Уровень первый — Уста (<span class="ar-inline" lang="ar" dir="rtl">اللِّسَان</span>— аль-лисан). Ты произносишь слова намерения языком. Сердце не участвует. Это минимум. Здесь большинство людей.</p>
+<p>Уровень второй — Пробуждение (<span class="ar-inline" lang="ar" dir="rtl">اليَقَظَة</span>— аль-яказа). Ты осознаёшь, что делаешь намерение. Но оно появляется и исчезает. Ты его теряешь.</p>
+<p>Уровень третий — Присутствие (<span class="ar-inline" lang="ar" dir="rtl">الحُضُور</span>— аль-худур). Намерение живёт во время действия. Ты чувствуешь его. Не теряешь.</p>
+<p>Уровень четвёртый — Направление (<span class="ar-inline" lang="ar" dir="rtl">التَّوْجِيه</span>— ат-тауджих). Ты научился направлять намерение на конкретную цель. Ты чувствуешь, как сила выходит из тебя.</p>
+<p>Уровень пятый — Заряжение (<span class="ar-inline" lang="ar" dir="rtl">الشَّحْن</span>— аш-шахн). Ты накапливаешь силу через повторение. Намерение становится плотным, тяжёлым.</p>
+<p>Уровень шестой — Постоянство (<span class="ar-inline" lang="ar" dir="rtl">الثَّبَات</span>— ас-сабат). Намерение стало естественным. Оно живёт всегда. Не только в рукье — в намазе, в еде, в разговоре.</p>
+<p>Уровень седьмой — Единство (<span class="ar-inline" lang="ar" dir="rtl">التَّوْحِيد</span>— ат-таухид). Намерение и действие стали одним. Ты уже не «делаешь намерение и потом действие». Они слились. Каждое слово несёт всю силу.</p>
+</section>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="kak-rastet-sila">7.2. Как растёт сила</h3>
+<p>От первого уровня ко второму — через осознание. Просто начни замечать: делаю ли я намерение? Или действую на автомате?</p>
+<p>От второго к третьему — через повторение. Повторяй намерение сорок, семьдесят, сто раз. Пока оно не станет плотным.</p>
+<p>От третьего к четвёртому — через направление. Учись направлять на конкретную цель. На орган. На человека. На воду.</p>
+<p>От четвёртого к пятому — через боевое применение. Направь намерение против шайтана. Против болезни. Против колдовства.</p>
+<p>От пятого к шестому — через постоянство. Делай намерение на всё. На еду. На сон. На разговор. На каждый шаг.</p>
+<p>От шестого к седьмому — через годы. Через искренность. Через упование на Аллаха. Этот уровень — дар, а не результат усилий.</p>
+</section>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="glava-8-praktika-malye-uprazhneniya-dlya-demonstracii">Глава 8. Практика: малые упражнения для демонстрации</h2>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="uprazhnenie-pervoe-tishina-i-namerenie">8.1. Упражнение первое: Тишина и намерение</h3>
+<p>Цель: почувствовать, как намерение рождается в тишине. Порядок: Сядь в тихом месте. Телефон выключен. Никаких звуков. Закрой глаза. Сделай три глубоких вдоха. Произнеси внутри сердца, не двигая губами: «Ля иляха илля Аллах». Десять раз. Медленно. После десятого раза — остановись. Тишина. Пять секунд. В этой тишине сформулируй одно намерение: «Ради Аллаха, чтобы Аллах укрепил моё сердце Кораном, читаю Коран». Повтори это намерение в сердце — двадцать раз. После двадцатого раза — открой глаза. Ты почувствуешь лёгкую тяжесть в груди. Это и есть намерение. Малое. Но живое.</p>
+</section>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="uprazhnenie-vtoroe-namerenie-na-vodu">8.2. Упражнение второе: Намерение на воду</h3>
+<p>Цель: направить намерение на объект и почувствовать результат. Порядок: Поставь перед собой стакан воды. Закрой глаза. Прибежище от шайтана. Сформулируй намерение: «Ради Аллаха, чтобы Аллах сделал эту воду исцелением через Коран, читаю Коран над ней». Повтори намерение в сердце — сорок раз. Открой глаза. Смотри на стакан широким взглядом. Не в одну точку — охватывая весь стакан. Прочитай аль-Фатиху семь раз вслух над стаканом. Выпей воду. Отметь ощущение.</p>
+</section>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="uprazhnenie-trete-boevoe-namerenie">8.3. Упражнение третье: Боевое намерение</h3>
+<p>Цель: почувствовать намерение как оружие. Порядок: Сядь. Прибежище. Закрой глаза. Сформулируй: «Ради Аллаха, чтобы Аллах защитил меня и мою семью Кораном от шайтана, читаю Коран». Повтори в сердце — семьдесят раз. Медленно. С нарастающей твёрдостью. После семидесятого раза — открой глаза. Прочитай Аят аль-Курси три раза вслух. Не громко. Но с внутренней твёрдостью. Как приказ. Почувствуй: пространство вокруг тебя изменилось. Стало чище. Тише. Защищённее. 8.4. Упражнение четвёртое: Удержание Цель: научиться не терять намерение во время чтения. Порядок: Сделай намерение: «Ради Аллаха, чтобы Аллах наполнил моё сердце светом Корана, читаю суру аль-Ихлас». Заряди намерение — тридцать повторений в сердце. Открой глаза. Начни читать аль-Ихлас вслух. Твоя задача: не потерять намерение. Между аятами — мысленно возвращайся: «Ради чего я читаю? Ради Аллаха. Чтобы Аллах наполнил сердце Кораном». Прочитай три раза. Если потерял намерение — остановись. Верни его. Продолжай. Это упражнение кажется простым. Но оно одно из самых трудных. Потому что ум будет убегать. Каждые несколько секунд. И каждый раз, когда ты его возвращаешь — ты укрепляешь мышцу намерения.</p>
+</section>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="forma-namereniya-pravilo-treh-slov">8.5. Форма намерения: правило трёх слов</h3>
+<p>Каждое намерение строится на трёх частях. Запомни эту формулу: Ради кого? — Ради Аллаха. Зачем? — Чтобы Аллах сделал [конкретное действие] через Коран. Что делаю? — Читаю Коран. Три части. Три слова смысла. Коротко. Чётко. Общее. Не нужно усложнять. Не нужно перечислять десять целей. Одно намерение — одна цель — одна формула. Примеры правильных намерений по этой формуле: Ради Аллаха, чтобы Аллах исцелил меня Кораном, читаю Коран. Ради Аллаха, чтобы Аллах защитил мой дом Кораном, читаю Коран. Ради Аллаха, чтобы Аллах изгнал шайтана Кораном, читаю Коран. Ради Аллаха, чтобы Аллах сделал эту воду лекарством через Коран, читаю Коран над ней. Ради Аллаха, чтобы Аллах укрепил мою веру Кораном, читаю Коран. Коротко. Ясно. Без лишних слов. Чем проще намерение — тем легче его удержать. Чем легче удержать — тем плотнее оно становится. Чем плотнее — тем сильнее бьёт.</p>
+</section>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="chastaya-oshibka-v-namerenii">8.6. Частая ошибка в намерении</h3>
+<p>Ошибка — делать намерение длинным и сложным. Неправильно: «Намереваюсь именем Аллаха Всевышнего, Господа миров, Милостивого, Милосердного, через силу суры аль-Бакара, аятов 140–150, с добавлением мольбы из Сунны, разрушить колдовство на разлуку в сердце и груди Фатимы, чтобы вернуть любовь между ней и мужем, ища довольства Аллаха и награды в Судный день...» Это слишком. Ум не удержит такую конструкцию. Намерение рассыпется через три секунды. Правильно: «Ради Аллаха, чтобы Аллах исцелил Фатиму Кораном, читаю Коран». Коротко. Чётко. Сердце удержит. Сила потечёт. Конкретизация (какой орган, какой вид колдовства) — это уже следующий уровень. Он приходит после того, как ты научился держать простое намерение. Сначала научись держать одну нить. Потом плети узор.</p>
+</section>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="glava-9-kodeks-voina-namereniya">Глава 9. Кодекс воина намерения</h2>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="desyat-pravil">9.1. Десять правил</h3>
+<p>Правило первое: Никогда не действуй без намерения. Ни намаз. Ни дуа. Ни рукья. Ни еда. Ни сон. Всё — через намерение.</p>
+<p>Правило второе: Намерение делается в сердце. Не языком. Не вслух. В сердце.</p>
+<p>Правило третье: Одно намерение — на одно действие. Не смешивай. Не рассеивай.</p>
+<p>Правило четвёртое: Повторяй намерение, пока оно не станет плотным. Минимум сорок раз.</p>
+<p>Правило пятое: Не начинай, пока не почувствуешь готовность. Лучше подождать минуту и войти с силой, чем войти пустым.</p>
+<p>Правило шестое: Во время действия — возвращайся к намерению каждые несколько секунд. Не давай ему угаснуть.</p>
+<p>Правило седьмой: Не хвались после. Скажи: «Аллах дал силу». Не «я сильный».</p>
+<p>Правило восьмое: Если намерение потеряно — остановись. Верни его. Продолжай. Не читай пусто.</p>
+<p>Правило девятое: Защищай тишину. Музыка, шум, экраны — враги намерения. Убери их.</p>
+<p>Правило десятое: Намерение растёт через постоянство. Каждый день. Каждое действие. Без выходных.</p>
+</section>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="molba-voina-namereniya">9.2. Мольба воина намерения</h3>
+<aside class="dua">
+  <span class="label">Дуа</span>
+  <div class="ar-block" lang="ar" dir="rtl">اللَّهُمَّ إِنِّي أَسْأَلُكَ الإِخْلَاصَ فِي القَوْلِ وَالعَمَلِ وَالنِّيَّةِ، وَالثَّبَاتَ فِي الأَمْرِ، وَالقُوَّةَ فِي القَلْبِ، وَالْيَقِينَ فِي الصَّدْرِ</div>
+  <p>О Аллах, прошу у Тебя искренности в словах, делах и намерениях, твёрдости в деле, силы в сердце и убеждённости в груди</p>
+  <div class="source">Источник: Мольба Абу Мухаммада</div>
+</aside>
+<aside class="dua">
+  <span class="label">Дуа</span>
+  <div class="ar-block" lang="ar" dir="rtl">يَا مُقَلِّبَ القُلُوبِ ثَبِّتْ قَلْبِي عَلَى دِينِكَ</div>
+  <p>О Переворачивающий сердца, укрепи моё сердце на Твоей религии</p>
+  <div class="source">Источник: ат-Тирмизи, № 2140</div>
+</aside>
+<aside class="dua">
+  <span class="label">Дуа</span>
+  <div class="ar-block" lang="ar" dir="rtl">رَبَّنَا لَا تُزِغْ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا وَهَبْ لَنَا مِنْ لَدُنْكَ رَحْمَةً إِنَّكَ أَنْتَ الوَهَّابُ</div>
+  <p>Господь наш! Не отклоняй наши сердца после того, как Ты наставил нас на прямой путь, и даруй нам от Себя милость. Поистине, Ты — Дарующий</p>
+  <div class="source">Источник: Сура «Али 'Имран», аят 8</div>
+</aside>
+</section>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="glava-10-namerenie-i-voznagrazhdenie-chto-obeschal-allah">Глава 10. Намерение и вознаграждение: что обещал Аллах</h2>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="za-odno-namerenie-odno-blagoe-delo">10.1. За одно намерение — одно благое дело</h3>
+<blockquote class="hadith">
+  <span class="label">Хадис</span>
+  <div class="ar-block" lang="ar" dir="rtl">إِنَّ اللَّهَ كَتَبَ الْحَسَنَاتِ وَالسَّيِّئَاتِ ثُمَّ بَيَّنَ ذَلِكَ: فَمَنْ هَمَّ بِحَسَنَةٍ فَلَمْ يَعْمَلْهَا كَتَبَهَا اللَّهُ لَهُ عِنْدَهُ حَسَنَةً كَامِلَةً</div>
+  <p>Поистине, Аллах записал добрые и дурные дела, а затем разъяснил это: кто задумал совершить благое дело, но не совершил его, тому Аллах запишет у Себя одно полноценное благое дело</p>
+  <footer class="source">Источник: аль-Бухари, № 6491; Муслим, № 131</footer>
+</blockquote>
+<p>Даже если ты не совершил действие — одно намерение на благое уже записано как полноценное благое дело. Одно намерение. Одна мысль. Одно решение внутри сердца. И Аллах уже записал.</p>
+<p>А если ты ещё и совершил — от десяти до семисот и более.</p>
+<p>Это значит: намерение — это не «подготовка к действию». Намерение — это уже действие. Уже вознаграждение. Уже сила.</p>
+</section>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="namerenie-umnozhaet-delo">10.2. Намерение умножает дело</h3>
+<p>Одно и то же действие может быть равно одному благому делу или миллиону. Разница — в намерении.</p>
+<p>Намаз, совершённый с полным намерением, с присутствием сердца, с искренностью — весит больше, чем сто намазов, совершённых механически.</p>
+<p>Одна аль-Фатиха, прочитанная с намерением исцелить — исцеляет. Сто аль-Фатих, прочитанных пусто — остаются звуком.</p>
+<p>Не количество. Качество. А качество определяется намерением.</p>
+<p>Заключение</p>
+<p>Эта книга — не о технике. Не о приёмах. Не о методах.</p>
+<p>Эта книга — о самом главном. О том, что стоит за каждым словом, за каждым действием, за каждой мольбой. О силе, которую Аллах вложил в одно решение сердца.</p>
+<p>Намерение — это не формальность. Намерение — это оружие. Намерение — это ключ. Намерение — это русло, по которому течёт сила Аллаха.</p>
+<p>Когда ты поймёшь это — всё изменится. Твой намаз станет другим. Твоё дуа станет другим. Твоя рукья станет другой. Твоя жизнь станет другой.</p>
+<p>Потому что ты перестанешь быть пассивом. Ты станешь первым лицом. Ты скажешь: «Я намереваюсь. Я направляюсь. Я действую. С именем Аллаха.»</p>
+<p>И Аллах даст силу. Потому что Он обещал.</p>
+<figure class="ayah">
+  <div class="ar-block" lang="ar" dir="rtl">وَالَّذِينَ جَاهَدُوا فِينَا لَنَهْدِيَنَّهُمْ سُبُلَنَا وَإِنَّ اللَّهَ لَمَعَ الْمُحْسِنِينَ</div>
+  <figcaption class="ayah-tr">А тех, которые усердствуют ради Нас, Мы непременно поведём Нашими путями. Поистине, Аллах — с теми, кто творит добро</figcaption>
+  <div class="source">Источник: Сура «аль-'Анкабут», аят 69</div>
+</figure>
+<p>Усердствуй. Намеревайся. Направляйся. И Аллах поведёт тебя.</p>
+<p>Начни сегодня. С одного намерения. С одного решения. С одной минуты тишины, в которой ты скажешь своему сердцу: «Я просыпаюсь. Я больше не сплю. Я намереваюсь.»</p>
+<p>И это будет первый удар молота по клинку. А клинок куётся долго. Но первый удар — самый важный.</p>
+</section>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="h-209"><span class="num">11.</span><span class="ar-inline" lang="ar" dir="rtl">بِسْمِ اللَّهِ أَبْدَأ</span></h2>
+<p><em>Бисмилляхи абда'</em></p>
+<p>С именем Аллаха начинаю.</p>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="h-212"><span class="num">12.</span><span class="ar-inline" lang="ar" dir="rtl">وَاللَّهُ أَعْلَمُ</span></h2>
+<p><em>Валлаху а'лям</em></p>
+<p>А Аллах знает лучше.</p>
+<p>Список литературы</p>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="svyaschennyy-koran">1. Священный Коран</h2>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="sahih-al-buhari">2. Сахих аль-Бухари</h2>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="sahih-muslim">3. Сахих Муслим</h2>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="sunan-at-tirmizi">4. Сунан ат-Тирмизи</h2>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="musnad-ahmada">5. Муснад Ахмада</h2>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="ibn-al-kayyim-madaridzh-as-salikin">6. Ибн аль-Каййим, «Мадаридж ас-Саликин»</h2>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="an-navavi-sharh-sahih-muslim">7. Ан-Навави, «Шарх Сахих Муслим»</h2>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="ibn-hadzhar-fath-al-bari">8. Ибн Хаджар, «Фатх аль-Бари»</h2>
+</section>
+  </main>
+  
+  <div class="doc-footer">
+    <span>Намерение — Сила · Абу Мухаммад</span>
+    <span>Подготовил Лекарь Абу Мухаммад</span>
+  </div>
+  </div>
+</div>
+<style>
+html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+[id] { scroll-margin-top: 100px; }
+a[href^="#"] { cursor: pointer; }
+</style>
+<script>
+(function(){
+  var offset = 100;
+  function scrollToId(id) {
+    var el = document.getElementById(id);
+    if (!el) return false;
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    return true;
+  }
+  // Обработчик на весь документ
+  document.addEventListener('click', function(e) {
+    var link = e.target.closest('a[href^="#"]');
+    if (link) {
+      var href = link.getAttribute('href');
+      if (href && href.length > 1) {
+        e.preventDefault();
+        var id = href.substring(1);
+        if (scrollToId(id)) {
+          try { history.pushState(null, '', href); } catch(err) {}
+        }
+      }
+    }
+  }, true);
+  // При загрузке
+  setTimeout(function() {
+    if (location.hash && location.hash.length > 1) {
+      scrollToId(location.hash.substring(1));
+    }
+  }, 100);
+})();
+</script>
+</body>
+</html>
