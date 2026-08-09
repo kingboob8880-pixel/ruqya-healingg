@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Анализ ситуации — Лекарь Абу Мухаммад</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0e14;
+            --bg-secondary: #111820;
+            --bg-card: #1a2230;
+            --bg-card-hover: #1f2a3a;
+            --gold: #d4a853;
+            --gold-light: #e8c478;
+            --gold-dark: #b8922e;
+            --green: #2d8a56;
+            --green-light: #3aaf6e;
+            --green-dark: #1e6b40;
+            --text-primary: #f0ede6;
+            --text-secondary: #a8a4a0;
+            --text-muted: #6b6862;
+            --border: #2a3545;
+            --accent-red: #c44d4d;
+            --accent-blue: #4d8bc4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            text-align: center;
+            padding: 40px 0 30px;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .header-icon {
+            font-size: 40px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .header-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .header-subtitle {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 300;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* ===== GREETING ===== */
+        .greeting {
+            background: linear-gradient(135deg, var(--bg-card) 0%, #1e2a3a 100%);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px 24px;
+            margin-bottom: 24px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .greeting::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold-light), var(--gold-dark));
+        }
+
+        .greeting-arabic {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 17px;
+            color: var(--gold-light);
+            margin-bottom: 12px;
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        .greeting-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .greeting-text strong {
+            color: var(--text-primary);
+        }
+
+        /* ===== SECTIONS ===== */
+        .section {
+            margin-bottom: 28px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .section-icon.green {
+            background: rgba(45, 138, 86, 0.15);
+        }
+
+        .section-icon.gold {
+            background: rgba(212, 168, 83, 0.15);
+        }
+
+        .section-icon.red {
+            background: rgba(196, 77, 77, 0.15);
+        }
+
+        .section-icon.blue {
+            background: rgba(77, 139, 196, 0.15);
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 19px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* ===== SYMPTOM CARDS ===== */
+        .symptom-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 22px 20px;
+            margin-bottom: 14px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .symptom-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--gold-dark);
+        }
+
+        .symptom-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 16px;
+            bottom: 16px;
+            width: 3px;
+            border-radius: 0 3px 3px 0;
+        }
+
+        .symptom-card.critical::before {
+            background: var(--accent-red);
+        }
+
+        .symptom-card.warning::before {
+            background: var(--gold);
+        }
+
+        .symptom-card.info::before {
+            background: var(--accent-blue);
+        }
+
+        .symptom-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 6px;
+        }
+
+        .symptom-label.critical {
+            background: rgba(196, 77, 77, 0.15);
+            color: #e87070;
+        }
+
+        .symptom-label.warning {
+            background: rgba(212, 168, 83, 0.15);
+            color: var(--gold-light);
+        }
+
+        .symptom-label.info {
+            background: rgba(77, 139, 196, 0.15);
+            color: #7cb3e0;
+        }
+
+        .symptom-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+
+        .symptom-desc {
+            font-size: 13.5px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .symptom-desc strong {
+            color: var(--gold-light);
+            font-weight: 500;
+        }
+
+        /* ===== VERDICT BOX ===== */
+        .verdict-box {
+            background: linear-gradient(135deg, #1a1208 0%, #1e2a3a 100%);
+            border: 1px solid var(--gold-dark);
+            border-radius: 16px;
+            padding: 26px 22px;
+            margin-bottom: 28px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .verdict-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-red), var(--gold), var(--accent-red));
+        }
+
+        .verdict-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 14px;
+            text-align: center;
+        }
+
+        .verdict-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.9;
+            text-align: center;
+        }
+
+        .verdict-text strong {
+            color: var(--text-primary);
+        }
+
+        .verdict-highlight {
+            display: inline-block;
+            background: rgba(212, 168, 83, 0.12);
+            border: 1px solid rgba(212, 168, 83, 0.25);
+            border-radius: 8px;
+            padding: 4px 12px;
+            margin: 4px 2px;
+            font-size: 13px;
+            color: var(--gold-light);
+            font-weight: 500;
+        }
+
+        /* ===== COMPLEXITY METER ===== */
+        .complexity {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 22px 20px;
+            margin-bottom: 28px;
+        }
+
+        .complexity-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 14px;
+            text-align: center;
+        }
+
+        .complexity-bar {
+            height: 8px;
+            background: var(--bg-primary);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .complexity-fill {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, var(--green), var(--gold), var(--accent-red));
+            width: 75%;
+            transition: width 1.5s ease;
+        }
+
+        .complexity-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .complexity-value {
+            text-align: center;
+            font-size: 13px;
+            color: var(--gold-light);
+            margin-top: 10px;
+            font-weight: 500;
+        }
+
+        /* ===== ASSESSMENT LIST ===== */
+        .assessment-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .assessment-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .assessment-item:last-child {
+            border-bottom: none;
+        }
+
+        .assessment-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .assessment-icon.check {
+            background: rgba(45, 138, 86, 0.2);
+            color: var(--green-light);
+        }
+
+        .assessment-icon.warn {
+            background: rgba(212, 168, 83, 0.2);
+            color: var(--gold-light);
+        }
+
+        .assessment-icon.alert {
+            background: rgba(196, 77, 77, 0.2);
+            color: #e87070;
+        }
+
+        .assessment-text {
+            font-size: 13.5px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .assessment-text strong {
+            color: var(--text-primary);
+        }
+
+        /* ===== PRICING ===== */
+        .pricing-section {
+            margin-bottom: 28px;
+        }
+
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .pricing-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .pricing-subtitle {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .pricing-card {
+            border-radius: 18px;
+            padding: 28px 24px;
+            margin-bottom: 16px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-2px);
+        }
+
+        /* FULL TREATMENT */
+        .pricing-card.full {
+            background: linear-gradient(145deg, #1a2820 0%, #1e2a3a 100%);
+            border: 1px solid var(--green-dark);
+        }
+
+        .pricing-card.full::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--green-dark), var(--green-light), var(--green-dark));
+        }
+
+        /* SINGLE SESSION */
+        .pricing-card.single {
+            background: linear-gradient(145deg, var(--bg-card) 0%, #1a2230 100%);
+            border: 1px solid var(--border);
+        }
+
+        .pricing-badge {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 4px 12px;
+            border-radius: 6px;
+            margin-bottom: 14px;
+        }
+
+        .pricing-badge.recommended {
+            background: rgba(45, 138, 86, 0.2);
+            color: var(--green-light);
+            border: 1px solid rgba(45, 138, 86, 0.3);
+        }
+
+        .pricing-badge.basic {
+            background: rgba(77, 139, 196, 0.15);
+            color: #7cb3e0;
+            border: 1px solid rgba(77, 139, 196, 0.2);
+        }
+
+        .pricing-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .pricing-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 18px;
+        }
+
+        .pricing-features {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 22px;
+        }
+
+        .pricing-features li {
+            font-size: 13px;
+            color: var(--text-secondary);
+            padding: 5px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            color: var(--green-light);
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .pricing-amount {
+            text-align: center;
+            margin-bottom: 18px;
+        }
+
+        .pricing-currency {
+            font-size: 14px;
+            color: var(--text-muted);
+            vertical-align: super;
+            margin-right: 2px;
+        }
+
+        .pricing-value {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 38px;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1;
+        }
+
+        .pricing-period {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 16px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.3px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(45, 138, 86, 0.3);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 6px 25px rgba(45, 138, 86, 0.45);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--gold-dark);
+            background: var(--bg-secondary);
+        }
+
+        .btn-icon {
+            margin-right: 8px;
+        }
+
+        /* ===== QURAN QUOTE ===== */
+        .quran-quote {
+            background: linear-gradient(135deg, #141c26 0%, #1a2230 100%);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 26px 22px;
+            margin-bottom: 28px;
+            text-align: center;
+            position: relative;
+        }
+
+        .quran-quote::before {
+            content: '"';
+            position: absolute;
+            top: 8px;
+            left: 18px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 48px;
+            color: var(--gold-dark);
+            opacity: 0.3;
+            line-height: 1;
+        }
+
+        .quran-arabic {
+            font-size: 18px;
+            color: var(--gold-light);
+            margin-bottom: 12px;
+            line-height: 2;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .quran-translation {
+            font-size: 13.5px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        .quran-reference {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* ===== DUA FOOTER ===== */
+        .dua-footer {
+            text-align: center;
+            padding: 30px 0 50px;
+            border-top: 1px solid var(--border);
+        }
+
+        .dua-footer-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 16px;
+            color: var(--gold);
+            font-style: italic;
+            line-height: 1.8;
+            margin-bottom: 12px;
+        }
+
+        .dua-footer-sub {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* ===== DIVIDER ===== */
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+            margin: 10px 0 28px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 360px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .pricing-card {
+                padding: 22px 18px;
+            }
+
+            .greeting {
+                padding: 22px 18px;
+            }
+
+            .pricing-value {
+                font-size: 34px;
+            }
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- HEADER -->
+        <div class="header animate">
+            <span class="header-icon">☽</span>
+            <div class="header-title">Шариатская Рукия</div>
+            <div class="header-subtitle">Лекарь Абу Мухаммад</div>
+        </div>
+
+        <!-- GREETING -->
+        <div class="greeting animate delay-1">
+            <div class="greeting-arabic">
+                بسم الله الرحمن الرحيم<br>
+                السلام عليكم ورحمة الله وبركاته
+            </div>
+            <div class="greeting-text">
+                Уважаемая сестра, я внимательно изучил ваше обращение. Нижеследующий анализ написан мной лично, основываясь на многолетнем опыте проведения Шариатской Рукии и помощи людям, столкнувшимся с подобными испытаниями. Прошу Аллаха облегчить ваше положение и даровать исцеление.
+            </div>
+        </div>
+
+        <!-- ANALYSIS SECTION -->
+        <div class="section animate delay-2">
+            <div class="section-header">
+                <div class="section-icon red">🔍</div>
+                <div class="section-title">Разбор ваших симптомов</div>
+            </div>
+
+            <!-- Symptom 1 -->
+            <div class="symptom-card critical">
+                <span class="symptom-label critical">Критический признак</span>
+                <div class="symptom-title">Непреодолимая сонливость при чтении Корана</div>
+                <div class="symptom-desc">
+                    Сильное желание спать, слипание глаз, невозможность соображать при прослушивании или чтении аятов — это <strong>один из самых явных и достоверных признаков духовного поражения</strong>. Когда Слова Аллаха произносятся или слушаются, шайтаны и джинны, находящиеся рядом с человеком или внутри него, начинают сопротивляться. Они создают ощущение тяжести, тумана в голове и непреодолимой сонливости, чтобы отвлечь человека от Слова Всевышнего.
+                    <br><br>
+                    Это не обычная усталость. Это <strong>духовная реакция</strong>, указывающая на присутствие инородной сущности (джинна), связанного с сихром или айном, который не выносит Слова Аллаха.
+                </div>
+            </div>
+
+            <!-- Symptom 2 -->
+            <div class="symptom-card critical">
+                <span class="symptom-label critical">Критический признак</span>
+                <div class="symptom-title">Насекомые в чистой квартире</div>
+                <div class="symptom-desc">
+                    Появление муравьёв и термитов в чистом доме, где ранее не было насекомых — <strong>серьёзный признак присутствия сихра в самом жилище</strong>. Это подтверждается опытом многих практикующих ракы. Насекомые в исламской метафизике часто указывают на «нечистоту» места в духовном смысле.
+                    <br><br>
+                    Особенно показательно, что они <strong>лезут из-под пола</strong> и из-под плитки. Это классическое место сокрытия сихров (закопанные узлы, свёртки с письменами, кости с руническими символами). Ваши подозрения абсолютно обоснованны — Аллаху алям.
+                </div>
+            </div>
+
+            <!-- Symptom 3 -->
+            <div class="symptom-card warning">
+                <span class="symptom-label warning">Тревожный признак</span>
+                <div class="symptom-title">Перегоревшие лампы во время вашего отсутствия</div>
+                <div class="symptom-desc">
+                    Две лампы, перегоревшие одновременно в ваше отсутствие, — <strong>ещё один классический признак активности джиннов в доме</strong>. В практике Рукии известно, что шайтаны часто взаимодействуют с электричеством и источниками света. Перегорание ламп без видимой причины (скачка напряжения, старости) указывает на сильное духовное присутствие и активность недобрых сущностей.
+                    <br><br>
+                    Тот факт, что это произошло именно после вашего возвращения из отпуска, говорит о том, что <strong>в ваше отсутствие дом был «захвачен»</strong> и использовался как база для духовного воздействия на вас и вашу семью.
+                </div>
+            </div>
+
+            <!-- Symptom 4 -->
+            <div class="symptom-card warning">
+                <span class="symptom-label warning">Тревожный признак</span>
+                <div class="symptom-title">Повторяющиеся находки сихров</div>
+                <div class="symptom-desc">
+                    Вы упоминаете, что <strong>много раз находили сихры</strong> в нынешней и предыдущей квартире. Это указывает на целенаправленную и длительную атаку колдовством. Человек, который сам находит сихры в своём жилище — это тот, против кого ведётся систематическая работа. Кто-то (или группа людей) <strong>упорно наводит на вас порчу</strong>, и это не случайность, а преследование.
+                    <br><br>
+                    То, что термиты и муравьи идут именно к порогу спальни — не совпадение. В практике известно, что <strong>спальня супругов — излюбленная цель для сихра</strong>, направленного на разрушение семьи.
+                </div>
+            </div>
+
+            <!-- Symptom 5 -->
+            <div class="symptom-card info">
+                <span class="symptom-label info">Подтверждение</span>
+                <div class="symptom-title">Комплексное воздействие: сихр + айн + хасад</div>
+                <div class="symptom-desc">
+                    Ваше предположение о том, что <strong>«всё намешано»</strong> — колдовство, зависть и сглаз — с высокой долей вероятности является верным. В практике Рукии часто встречается именно такая комбинация:
+                    <br><br>
+                    <strong>1)</strong> Кто-то завидует (хасад) →<br>
+                    <strong>2)</strong> Завистник прибегает к сглазу (айн) →<br>
+                    <strong>3)</strong> Для усиления эффекта обращается к колдуну (сахир) →<br>
+                    <strong>4)</strong> Колдун подсылает джиннов-слуг и размещает сихры.
+                    <br><br>
+                    Такая цепочка особенно часто направлена против <strong>семейных пар</strong>, особенно против женщин.
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- VERDICT -->
+        <div class="verdict-box animate delay-3">
+            <div class="verdict-title">⚠️ Заключение по вашему состоянию</div>
+            <div class="verdict-text">
+                Сестра, на основании всех описанных вами признаков, я, как практикующий лекарь Шариатской Рукии, делаю следующий вывод:
+                <br><br>
+                Вы и ваша семья подвергаетесь <strong>серьёзному комплексному духовному поражению</strong>, включающему:
+                <br><br>
+                <span class="verdict-highlight">Сихр (колдовство)</span>
+                <span class="verdict-highlight">Айн (сглаз)</span>
+                <span class="verdict-highlight">Масс (одержимость)</span>
+                <br><br>
+                С высокой вероятностью в вашем жилище <strong>скрыт физический сихр</strong> (под плиткой, в полу или в стенах), который является «якорем» для джиннов-слуг. Пока он не будет обнаружен и уничтожен, <strong>воздействие будет возобновляться</strong>, даже если вы будете читать Рукию самостоятельно.
+                <br><br>
+                Ваше состояние <strong>требует профессиональной помощи</strong>, а не самостоятельного лечения по курсам. При таком уровне поражения самолечение может затянуть процесс и усугубить ситуацию.
+            </div>
+        </div>
+
+        <!-- COMPLEXITY METER -->
+        <div class="complexity animate delay-3">
+            <div class="complexity-title">Оценка тяжести поражения</div>
+            <div class="complexity-bar">
+                <div class="complexity-fill"></div>
+            </div>
+            <div class="complexity-labels">
+                <span>Лёгкое</span>
+                <span>Среднее</span>
+                <span>Тяжёлое</span>
+            </div>
+            <div class="complexity-value">Тяжёлое — требуется комплексное лечение</div>
+        </div>
+
+        <!-- ASSESSMENT LIST -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon gold">📋</div>
+                <div class="section-title">Оценка текущего состояния</div>
+            </div>
+
+            <ul class="assessment-list">
+                <li class="assessment-item">
+                    <div class="assessment-icon alert">!</div>
+                    <div class="assessment-text">
+                        <strong>Духовный иммунитет ослаблен.</strong> Сонливость при чтении Корана говорит о том, что ваши защитные барьеры (азкар, утренние и вечерние дуа, омовение) пробиты и не работают в полную силу.
+                    </div>
+                </li>
+                <li class="assessment-item">
+                    <div class="assessment-icon alert">!</div>
+                    <div class="assessment-text">
+                        <strong>Дом заражён духовно.</strong> Наличие физических сихров + активность насекомых + перегорание ламп = дом стал «открытой дверью» для шайтанов. Требуется очищение жилища.
+                    </div>
+                </li>
+                <li class="assessment-item">
+                    <div class="assessment-icon warn">!</div>
+                    <div class="assessment-text">
+                        <strong>Семейные отношения под ударом.</strong> Спальня супругов — мишень для сихра, направленного на разлучение (сихр ат-тасфира). Это один из самых опасных видов колдовства.
+                    </div>
+                </li>
+                <li class="assessment-item">
+                    <div class="assessment-icon check">✓</div>
+                    <div class="assessment-text">
+                        <strong>Вы осознали проблему.</strong> Тот факт, что вы обращаетесь за помощью, изучаете признаки, находите сихры — это <strong>первый и важнейший шаг к исцелению</strong>. Многие живут годами, не понимая, что с ними происходит.
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- QURAN QUOTE -->
+        <div class="quran-quote">
+            <div class="quran-arabic">
+                وَنُنَزِّلُ مِنَ الْقُرْآنِ مَا هُوَ شِفَاءٌ وَرَحْمَةٌ لِّلْمُؤْمِنِينَ
+            </div>
+            <div class="quran-translation">
+                «Мы ниспосылаем из Корана то, что является исцелением и милостью для верующих»
+            </div>
+            <div class="quran-reference">— Сура «Аль-Исра», аят 82</div>
+        </div>
+
+        <!-- PRICING -->
+        <div class="pricing-section">
+            <div class="pricing-header">
+                <div class="pricing-title">Предложение лечения</div>
+                <div class="pricing-subtitle">Выберите подходящий формат</div>
+            </div>
+
+            <!-- FULL TREATMENT -->
+            <div class="pricing-card full">
+                <span class="pricing-badge recommended">Рекомендуется</span>
+                <div class="pricing-name">Полный курс лечения</div>
+                <div class="pricing-desc">
+                    Комплексная программа Шариатской Рукии, разработанная индивидуально под вашу ситуацию. Включает диагностику, поэтапное лечение, поиск и уничтожение сихров в жилище, а также постоянную поддержку на протяжении всего курса.
+                </div>
+                <ul class="pricing-features">
+                    <li>Полная диагностика и определение типа воздействия</li>
+                    <li>Индивидуальная программа чтения аятов и дуа</li>
+                    <li>Помощь в обнаружении и уничтожении сихров</li>
+                    <li>Работа с джиннами-слугами (изгнание)</li>
+                    <li>Очищение жилища и установка духовной защиты</li>
+                    <li>Лечение супруга и защита семьи</li>
+                    <li>Сопровождение до полного исцеления</li>
+                </ul>
+                <div class="pricing-amount">
+                    <span class="pricing-currency">₽</span><span class="pricing-value">20 000</span>
+                    <div class="pricing-period">полный курс лечения</div>
+                </div>
+                <a href="https://t.me/Ruqoq" target="_blank" class="btn btn-primary">
+                    <span class="btn-icon">✉</span>Связаться с лекарем
+                </a>
+            </div>
+
+            <!-- SINGLE SESSION -->
+            <div class="pricing-card single">
+                <span class="pricing-badge basic">Разовый сеанс</span>
+                <div class="pricing-name">Разовое лечение</div>
+                <div class="pricing-desc">
+                    Однократный сеанс Шариатской Рукии с диагностикой текущего состояния. Подходит для первичной оценки ситуации и определения дальнейших шагов. Не заменяет полный курс при комплексном поражении.
+                </div>
+                <ul class="pricing-features">
+                    <li>Первичная диагностика духовного состояния</li>
+                    <li>Один сеанс чтения Рукии</li>
+                    <li>Определение типа воздействия</li>
+                    <li>Рекомендации по дальнейшим действиям</li>
+                </ul>
+                <div class="pricing-amount">
+                    <span class="pricing-currency">₽</span><span class="pricing-value">3 000</span>
+                    <div class="pricing-period">разовый сеанс</div>
+                </div>
+                <a href="https://t.me/Ruqoq" target="_blank" class="btn btn-secondary">
+                    <span class="btn-icon">✉</span>Связаться с лекарем
+                </a>
+            </div>
+        </div>
+
+        <!-- CLOSING WORDS -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon green">💚</div>
+                <div class="section-title">Слово от лекаря</div>
+            </div>
+
+            <div class="symptom-card info">
+                <div class="symptom-desc" style="font-size: 14px;">
+                    Уважаемая сестра, я понимаю, как тяжело жить в постоянном напряжении, когда твой дом — место, которое должно быть убежищем — становится источником страха и тревоги. Но знайте: <strong>нет такой болезни, которую Аллах не создал бы вместе с лекарством от неё</strong>.
+                    <br><br>
+                    Шариатская Рукия — это оружие верующего. Это не суеверие и не народная медицина — это <strong>Слово Самого Аллаха</strong>, которое разрушает любое колдовство, изгоняет джиннов и возвращает здоровье телу и душе.
+                    <br><br>
+                    Я готов помочь вам пройти этот путь — от диагностики до полного исцеления, ин шаа Аллах. Напишите мне, и мы обсудим вашу ситуацию подробнее.
+                    <br><br>
+                    <em style="color: var(--gold-light);">Да облегчит Аллах ваше положение, дарует исцеление и защитит вашу семью. Амин.</em>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- DUA FOOTER -->
+        <div class="dua-footer">
+            <div class="dua-footer-text">
+                حسبي الله ونعم الوكيل<br>
+                نعم المولى ونعم النصير
+            </div>
+            <div class="dua-footer-sub">
+                «Достаточно нам Аллаха, и Он — лучший Покровитель.<br>
+                Прекрасный Он Покровитель и Прекрасный Помощник»
+            </div>
+            <div style="margin-top: 20px;">
+                <a href="https://t.me/Ruqoq" target="_blank" class="btn btn-primary" style="max-width: 300px; margin: 0 auto;">
+                    <span class="btn-icon">✉</span>Написать Абу Мухаммаду
+                </a>
+            </div>
+            <div style="margin-top: 30px; font-size: 11px; color: var(--text-muted);">
+                Лекарь Абу Мухаммад · Шариатская Рукия<br>
+                Исцеление Кораном и достоверными дуа из Сунны
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
