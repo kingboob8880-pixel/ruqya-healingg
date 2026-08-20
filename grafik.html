@@ -1,0 +1,816 @@
+﻿<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#faf8f3">
+<meta name="color-scheme" content="light">
+<title>График дня</title>
+<meta name="author" content="Абу Мухаммад">
+<meta name="generator" content="Китаб аль-Ильм">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Noto+Naskh+Arabic:wght@400;500;700&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Scheherazade+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #ffffff;
+  --paper-alt: #f5f7f5;
+  --ink: #1b221f;
+  --ink-soft: #4a5751;
+  --rule: #dce1dd;
+  --accent: #2f6b4f;
+  --accent-soft: #eaf2ed;
+  --gold: #9a7b32;
+  --serif: "PT Serif", "Merriweather", Georgia, "Times New Roman", serif;
+  --sans: Inter, "Segoe UI", system-ui, sans-serif;
+  --arabic: "Amiri", "Scheherazade New", "Noto Naskh Arabic", "Lateef", serif;
+  --title-font: var(--serif);
+  --shadow: 0 1px 2px rgba(20,30,25,.05);
+  --measure: 82ch;
+  --base: 18px;
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  font-size: var(--base);
+  /* Плавная прокрутка только для якорей, без влияния на колесо мыши */
+  scroll-behavior: auto;
+  scroll-padding-top: 88px;
+}
+
+/* Отступ для якорей */
+[id] { scroll-margin-top: 88px; }
+
+body {
+  margin: 0;
+  background: var(--paper-alt);
+  color: var(--ink);
+  font-family: var(--serif);
+  line-height: 1.72;
+  font-kerning: normal;
+  font-variant-numeric: oldstyle-nums proportional-nums;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  overflow-wrap: break-word;
+  word-break: normal;
+  /* Важно: не блокировать вертикальную прокрутку */
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+/* ---- Страница ---- */
+.page {
+  max-width: calc(var(--measure) + 14rem);
+  margin: 0 auto;
+  background: var(--paper);
+  padding: 4.8rem 7.5rem 6.5rem;
+  box-shadow: 0 0 0 1px var(--rule), 0 2px 8px -4px rgba(0,0,0,.08), 0 24px 60px -40px rgba(0,0,0,.35);
+  min-height: 100vh;
+}
+
+.wrap { max-width: var(--measure); margin: 0 auto; width: 100%; }
+
+/* ========== ТИТУЛ ========== */
+.title-page {
+  text-align: center;
+  padding: 1.5rem 0 4rem;
+  margin-bottom: 3.5rem;
+  border-bottom: 2px solid var(--rule);
+  position: relative;
+}
+.title-page::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: var(--gold);
+  margin: 0 auto;
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+
+/* ---- Басмаля ---- */
+.bismillah-slot { display: flex; width: 100%; direction: ltr; }
+.bismillah {
+  display: block; max-width: 100%;
+  font-family: var(--arabic); direction: rtl;
+  font-size: 1.75em; color: var(--gold);
+  line-height: 2.1; margin: 0;
+  letter-spacing: 0.02em; white-space: pre-wrap;
+  overflow-wrap: anywhere; word-break: break-word;
+}
+.bismillah-slot.bism-pos-above-title { margin-bottom: 2.6rem; }
+.bismillah-slot.bism-pos-below-title { margin-top: .5rem; margin-bottom: 1.5rem; }
+.bism-pos-center-page { margin-bottom: 3rem; padding: 1.5rem 0; position: relative; }
+.bism-pos-center-page::after {
+  content: ""; display: block; width: 60px; height: 1px;
+  background: var(--gold); margin: .8rem auto 0; opacity: .45;
+}
+.title-page-bism-center { padding-top: 3rem; }
+.title-page-bism-center .bismillah-slot { margin-top: 1.5rem; margin-bottom: 3.5rem; }
+.title-page-bism-center .title-page-body { text-align: center; }
+.bismillah-slot.bism-align-center { justify-content: center; }
+.bismillah-slot.bism-align-right { justify-content: flex-end; }
+.bismillah-slot.bism-align-left { justify-content: flex-start; }
+.bismillah:not([dir="rtl"]) { font-family: var(--serif); font-style: italic; direction: ltr; letter-spacing: .04em; }
+
+.institution {
+  font-family: var(--sans); font-size: .76em; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--ink-soft); margin-bottom: 3rem;
+}
+.book-title {
+  font-family: var(--title-font); font-size: 2.5em; line-height: 1.22;
+  font-weight: 700; margin: 0 0 .7rem; letter-spacing: -.01em;
+}
+.book-subtitle { font-size: 1.15em; font-style: italic; color: var(--ink-soft); margin: 0 0 1.8rem; }
+.rule-orn {
+  width: 160px; height: 14px; margin: 2rem auto;
+  background: linear-gradient(var(--gold), var(--gold)) center / 100% 1px no-repeat;
+  position: relative;
+}
+.rule-orn::after {
+  content: "❦"; position: absolute; inset: 0; margin: auto;
+  width: 1.8em; height: 1em; line-height: .85;
+  background: var(--paper); color: var(--gold); font-size: .85rem;
+}
+.book-author { font-size: 1.08em; font-weight: 700; margin: 0 0 .4rem; }
+.book-meta { font-family: var(--sans); font-size: .84em; color: var(--ink-soft); line-height: 1.6; }
+.epigraph { max-width: 38ch; margin: 2.8rem auto 0; font-style: italic; color: var(--ink-soft); font-size: .96em; }
+
+/* ========== ОГЛАВЛЕНИЕ ========== */
+.toc {
+  margin: 0 0 3.5rem; padding: 2rem 2.2rem 2.2rem;
+  background: var(--paper-alt); border: 1px solid var(--rule); border-radius: 6px;
+}
+.toc h2 {
+  font-family: var(--sans); font-size: .78em; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--ink-soft);
+  margin: 0 0 1.3rem; font-weight: 600; border: 0; padding: 0;
+}
+.toc ol { list-style: none; margin: 0; padding: 0; }
+.toc li { margin: .35rem 0; }
+.toc ol ol { padding-left: 1.6rem; margin-top: .15rem; }
+.toc a {
+  color: var(--ink); text-decoration: none;
+  display: flex; gap: .6rem; align-items: baseline;
+  padding: .35rem .1rem; border-radius: 4px;
+}
+.toc a:hover { color: var(--accent); background: rgba(47,107,79,.06); }
+.toc a:active { background: rgba(47,107,79,.1); }
+.toc .num { color: var(--accent); font-variant-numeric: tabular-nums; min-width: 2.8em; font-size: .9em; font-weight: 500; }
+.toc .lbl { flex: 1; }
+.toc-l2 a { font-size: .94em; color: var(--ink-soft); }
+.toc-l3 a { font-size: .88em; color: var(--ink-soft); }
+
+/* ========== ЗАГОЛОВКИ ========== */
+h1, h2, h3, h4 { font-family: var(--title-font); line-height: 1.32; }
+.chapter > h2 {
+  font-size: 1.65em; font-weight: 700; margin: 3.6rem 0 1.5rem;
+  padding-bottom: .6rem; border-bottom: 1px solid var(--rule);
+}
+.chapter > h2 .num, .section > h3 .num, .subsection > h4 .num {
+  color: var(--accent); font-weight: 400; margin-right: .55em; font-variant-numeric: tabular-nums;
+}
+.section > h3 { font-size: 1.25em; font-weight: 700; margin: 2.6rem 0 1rem; }
+.subsection > h4 { font-size: 1.08em; font-weight: 700; margin: 1.9rem 0 .8rem; color: var(--ink-soft); }
+.chapter:first-of-type > h2 { margin-top: 0; }
+section[data-kind="front"] > h2, section[data-kind="back"] > h2 {
+  text-align: center; border-bottom: 0; letter-spacing: .1em;
+  text-transform: uppercase; font-size: 1.3em; font-weight: 700;
+}
+section[data-kind="front"] > h2::after, section[data-kind="back"] > h2::after {
+  content: ""; display: block; width: 72px; height: 1.5px;
+  background: var(--gold); margin: .9rem auto 0; border-radius: 1px;
+}
+
+/* ========== ТЕКСТ ========== */
+p {
+  margin: 0 0 .2rem; text-indent: 1.6em;
+  
+  hyphens: auto; -webkit-hyphens: auto;
+}
+p + p { margin-top: .6rem; }
+h2 + p, h3 + p, h4 + p, blockquote + p, .toc + p, figure + p, ul + p, ol + p, table + p, .callout + p, .ayah + p, .hadith + p, .dua + p { text-indent: 0; }
+
+.lead { font-size: 1.07em; color: var(--ink-soft); text-indent: 0; line-height: 1.65; }
+strong { font-weight: 700; }
+em.spaced { font-style: normal; letter-spacing: .14em; }
+a {
+  color: var(--accent); text-underline-offset: .22em; text-decoration-thickness: .6px;
+  -webkit-tap-highlight-color: transparent;
+}
+a:hover { color: var(--gold); }
+code {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: .86em;
+  background: var(--paper-alt); padding: .12em .4em; border-radius: 3px; border: 1px solid var(--rule);
+  word-break: break-all;
+}
+hr, .divider { border: 0; text-align: center; margin: 2.6rem 0; color: var(--gold); }
+.divider::before { content: "❦   ❦   ❦"; letter-spacing: .8em; font-size: .65em; opacity: .75; }
+
+/* ========== СПИСКИ ========== */
+ul, ol { margin: 1rem 0 1.2rem; padding-left: 1.7rem; }
+li { margin: .4rem 0; padding-left: .2rem; line-height: 1.6; }
+ul li::marker { color: var(--accent); }
+ol li::marker { color: var(--accent); font-variant-numeric: tabular-nums; font-weight: 500; }
+
+/* ========== ЦИТАТЫ ========== */
+blockquote.quote {
+  margin: 1.8rem 0; padding: .4rem 0 .4rem 1.8rem;
+  border-left: 2.5px solid var(--gold); font-style: italic; color: var(--ink-soft);
+}
+blockquote.quote p { text-indent: 0; margin-bottom: .35rem; }
+.source, blockquote.quote footer {
+  display: block; margin-top: .7rem; font-family: var(--sans);
+  font-style: normal; font-size: .78em; color: var(--ink-soft);
+}
+.source::before { content: "— "; }
+
+/* ========== АЯТ ========== */
+.ayah {
+  margin: 2rem 0; padding: 1.8rem 2rem;
+  background: var(--accent-soft); border: 1px solid var(--rule);
+  border-radius: 8px; position: relative; text-align: center;
+}
+.ayah::before, .ayah::after {
+  content: ""; position: absolute; left: 1.6rem; right: 1.6rem; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: .45;
+}
+.ayah::before { top: .65rem; } .ayah::after { bottom: .65rem; }
+.ar-block {
+  font-family: var(--arabic); direction: rtl; unicode-bidi: isolate;
+  text-align: center; font-size: 1.6em; line-height: 2.3;
+  color: var(--ink); overflow-wrap: anywhere; word-break: break-word;
+}
+.ayah .ar-block { margin-bottom: .3rem; }
+.ayah-tr { margin-top: 1rem; font-style: italic; font-size: .97em; text-indent: 0; color: var(--ink-soft); }
+.ayah .source { margin-top: .7rem; text-align: center; color: var(--accent); font-weight: 500; font-size: .8em; }
+.ayah .source::before { content: ""; }
+
+/* ========== ХАДИС / ДУА ========== */
+.hadith {
+  margin: 1.9rem 0; padding: 1.3rem 1.6rem 1.2rem;
+  border: 1px solid var(--rule); border-left: 3.5px solid var(--accent);
+  border-radius: 5px; background: var(--paper-alt);
+}
+.hadith .label, .dua .label, .callout .label {
+  display: block; font-family: var(--sans); font-size: .66em;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: .65rem; font-weight: 600;
+}
+.hadith p, .dua p, .callout p { text-indent: 0; margin: 0 0 .4rem; }
+.hadith .ar-block { font-size: 1.35em; margin-bottom: .8rem; }
+.dua {
+  margin: 1.9rem 0; padding: 1.5rem 1.8rem;
+  background: var(--paper-alt); border: 1.5px dashed var(--gold);
+  border-radius: 8px; text-align: center;
+}
+.dua .label { color: var(--gold); }
+.dua .ar-block { font-size: 1.5em; margin-bottom: .8rem; }
+.dua p { font-style: italic; color: var(--ink-soft); }
+.callout { margin: 1.8rem 0; padding: 1.1rem 1.4rem; background: var(--paper-alt); border: 1px solid var(--rule); border-radius: 5px; font-size: .94em; }
+
+/* ========== ИНЛАЙН-АРАБСКИЙ ========== */
+.ar-inline { font-family: var(--arabic); font-size: 1.2em; line-height: 1.9; unicode-bidi: isolate; direction: rtl; }
+[dir="rtl"] { text-align: right; }
+p[dir="rtl"] { font-family: var(--arabic); font-size: 1.35em; line-height: 2.2; text-indent: 0; }
+
+/* ========== ТАБЛИЦЫ ========== */
+figure.table { margin: 2.2rem 0; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+figcaption { font-family: var(--sans); font-size: .78em; color: var(--ink-soft); text-align: center; margin-top: .7rem; font-style: italic; }
+table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: .92em; font-family: var(--sans); }
+th, td { border: 1px solid var(--rule); padding: .6rem .8rem; text-align: left; vertical-align: top; }
+thead th { background: var(--paper-alt); font-weight: 600; color: var(--ink); font-size: .82em; letter-spacing: .04em; text-transform: uppercase; }
+tbody tr:nth-child(even) td { background: rgba(0,0,0,.02); }
+
+/* ========== СНОСКИ / БИБЛИОГРАФИЯ ========== */
+sup.fn-ref a { text-decoration: none; color: var(--accent); font-size: .82em; padding: 0 .1em; font-weight: 600; }
+.footnotes { margin-top: 4rem; padding-top: 1.4rem; border-top: 1.5px solid var(--rule); font-size: .85em; color: var(--ink-soft); }
+.footnotes h2, .bibliography h2 { font-family: var(--sans); font-size: .76em; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 1rem; font-weight: 600; }
+.footnote { margin: .5rem 0; text-indent: 0; }
+.footnote .fn-num { color: var(--accent); margin-right: .55em; font-weight: 700; }
+.bibliography ol { list-style: none; counter-reset: bib; padding-left: 0; }
+.bibliography li { counter-increment: bib; padding-left: 2.8rem; position: relative; margin: .7rem 0; font-size: .94em; line-height: 1.55; }
+.bibliography li::before { content: counter(bib) "."; position: absolute; left: 0; top: 0; color: var(--accent); font-variant-numeric: tabular-nums; font-weight: 500; }
+
+/* ========== ПОДВАЛ ========== */
+.doc-footer {
+  margin-top: 4.5rem; padding-top: 1.4rem; border-top: 1.5px solid var(--rule);
+  font-family: var(--sans); font-size: .72em; color: var(--ink-soft);
+  display: flex; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;
+}
+
+/* ========== АДАПТИВ ========== */
+@media (max-width: 820px) {
+  .page { padding: 2.2rem 1.4rem 3rem; }
+  .wrap { width: 100%; }
+  .book-title { font-size: 2em; }
+  .toc { padding: 1.3rem; }
+  .toc a { padding: .45rem .1rem; min-height: 44px; }
+  .ayah { padding: 1.2rem 1rem; }
+  .ar-block { font-size: 1.3em; line-height: 2.1; }
+  figure.table { display: block; width: 100%; overflow-x: auto; }
+  table { min-width: 36rem; }
+}
+@media (max-width: 560px) {
+  body { font-size: 17px; line-height: 1.66; }
+  .page { padding: 1.6rem 1rem 2.4rem; }
+  .title-page { padding: 1rem 0 2.5rem; }
+  .book-title { font-size: 1.7em; }
+  .chapter > h2 { font-size: 1.4em; margin: 2.6rem 0 1.1rem; }
+  .ar-block { font-size: 1.18em; line-height: 2; }
+  .ayah, .hadith, .dua { padding: 1rem .8rem; }
+  .toc { padding: 1.1rem; }
+  .doc-footer { flex-direction: column; gap: .4rem; }
+}
+@media (max-width: 380px) {
+  body { font-size: 16px; }
+  .page { padding: 1.2rem .7rem 2rem; }
+  .book-title { font-size: 1.5em; }
+  .ar-block { font-size: 1.05em; }
+}
+
+/* ========== ПЕЧАТЬ ========== */
+@page { size: A4; margin: 22mm 20mm 22mm; }
+@media print {
+  html { scroll-behavior: auto; }
+  body { background: #fff; font-size: 11.5pt; line-height: 1.55; overflow: visible; }
+  .page { box-shadow: none; padding: 0; max-width: none; min-height: 0; }
+  .wrap { max-width: none; }
+  .title-page { page-break-after: always; border-bottom: 0; }
+  .title-page::after { display: none; }
+  .toc { page-break-after: always; background: none; border: 0; padding: 0; }
+  .chapter { page-break-before: always; }
+  .chapter:first-of-type { page-break-before: avoid; }
+  h2, h3, h4 { break-after: avoid; }
+  p, blockquote, .ayah, .hadith, .dua, table, figure { break-inside: avoid; }
+  a { color: inherit; text-decoration: none; }
+  .doc-footer { display: none; }
+  .ayah, .hadith, .dua { background: none; }
+}
+
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="title-page">
+  <div class="bismillah-slot bism-pos-above-title bism-align-center" style="justify-content:center">
+  <div class="bismillah" lang="ar" dir="rtl" style="font-size:1.750em;text-align:center">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+</div>
+  
+  <h1 class="book-title">График дня</h1>
+  
+  <div class="rule-orn" aria-hidden="true"></div>
+  <p class="book-author">Абу Мухаммад</p>
+  
+  <p class="book-meta">2026</p>
+  
+  
+</header>
+  <div class="wrap">
+  <nav class="toc" aria-label="Оглавление"><h2>Оглавление</h2><ol><li class="toc-l2">
+      <a href="#utrenniy-blok-zaryad-i-krepost-05-00-12-30"><span class="num">0.1.</span><span class="lbl">🌅 УТРЕННИЙ БЛОК: ЗАРЯД И КРЕПОСТЬ (05:00 – 12:30)</span></a><ol><li class="toc-l3">
+      <a href="#05-00-05-30-tahadzhud-i-istigfar-poslednyaya-tret-nochi"><span class="num">0.1.1.</span><span class="lbl">05:00 – 05:30 | Тахаджуд и Истигфар (Последняя треть ночи)</span></a></li>
+<li class="toc-l3">
+      <a href="#05-30-06-00-fadzhr-i-utrennie-azkary"><span class="num">0.1.2.</span><span class="lbl">05:30 – 06:00 | Фаджр и Утренние Азкары</span></a></li>
+<li class="toc-l3">
+      <a href="#06-00-07-30-sura-al-bakara-krepostnoy-val"><span class="num">0.1.3.</span><span class="lbl">06:00 – 07:30 | СУРА АЛЬ-БАКАРА — КРЕПОСТНОЙ ВАЛ</span></a></li></ol></li>
+<li class="toc-l1">
+      <a href="#chitayte-vsluh-no-umerennym-golosom-chtoby-dom-napolnilsya-z"><span class="num"></span><span class="lbl">1. Читайте вслух, но умеренным голосом — чтобы дом наполнился звуком Корана</span></a></li>
+<li class="toc-l1">
+      <a href="#kazhdye-20-ayatov-ostanavlivaytes-i-delayte-namerenie-v-serd"><span class="num"></span><span class="lbl">2. <strong>Каждые 20 аятов</strong> останавливайтесь и делайте намерение в сердце:</span></a><ol><li class="toc-l3">
+      <a href="#07-30-08-00-zavtrak-i-semeynoe-vremya"><span class="num">2.0.1.</span><span class="lbl">07:30 – 08:00 | Завтрак и семейное время</span></a></li>
+<li class="toc-l3">
+      <a href="#08-00-09-00-serdechnyy-rezervuar-nakoplenie-sily"><span class="num">2.0.2.</span><span class="lbl">08:00 – 09:00 | «Сердечный Резервуар» — Накопление силы</span></a></li></ol></li>
+<li class="toc-l1">
+      <a href="#uedinites-v-tihoy-komnate"><span class="num"></span><span class="lbl">1. Уединитесь в тихой комнате</span></a></li>
+<li class="toc-l1">
+      <a href="#zakroyte-glaza"><span class="num"></span><span class="lbl">2. Закройте глаза</span></a></li>
+<li class="toc-l1">
+      <a href="#chitayte-ayat-al-kursi-v-serdce-bez-dvizheniya-gub"><span class="num"></span><span class="lbl">3. Читайте Аят аль-Курси <strong>в сердце</strong>, без движения губ</span></a></li>
+<li class="toc-l1">
+      <a href="#vizualiziruyte-kazhdoe-slovo-sgustok-sveta-osedayuschiy-v-gr"><span class="num"></span><span class="lbl">4. Визуализируйте: каждое слово — сгусток света, оседающий в груди</span></a></li>
+<li class="toc-l1">
+      <a href="#prodolzhayte-30-40-minut-poka-ne-pochuvstvuete-plotnost-zhar"><span class="num"></span><span class="lbl">5. Продолжайте 30–40 минут, пока не почувствуете плотность, жар, тяжесть в сердце</span></a></li>
+<li class="toc-l1">
+      <a href="#eto-vash-zaryad-kotorogo-hvatit-na-vseh-pacientov-dnya"><span class="num"></span><span class="lbl">6. Это ваш «заряд», которого хватит на всех пациентов дня</span></a><ol><li class="toc-l3">
+      <a href="#09-00-10-00-obnovlenie-tauhida-osnova-osnov"><span class="num">8.0.1.</span><span class="lbl">09:00 – 10:00 | Обновление Таухида — ОСНОВА ОСНОВ</span></a></li></ol></li>
+<li class="toc-l1">
+      <a href="#syadte-zakroyte-glaza"><span class="num"></span><span class="lbl">1. Сядьте. Закройте глаза.</span></a></li>
+<li class="toc-l1">
+      <a href="#sformuliruyte-namerenie-v-serdce"><span class="num"></span><span class="lbl">2. Сформулируйте намерение в сердце:</span></a></li>
+<li class="toc-l1">
+      <a href="#zatem-70-raz"><span class="num"></span><span class="lbl">4. Затем 70 раз:</span></a></li>
+<li class="toc-l1">
+      <a href="#h-33"><span class="num">12.</span><span class="lbl"><strong><span class="ar-inline" lang="ar" dir="rtl">لَا إِلَهَ إِلَّا اللَّهُ مُحَمَّدٌ رَسُولُ اللَّهِ</span></strong></span></a><ol><li class="toc-l3">
+      <a href="#10-00-11-00-trenirovka-pryamoy-vybros-arkiyka"><span class="num">12.0.1.</span><span class="lbl">10:00 – 11:00 | Тренировка «Прямой Выброс: Аркийка»</span></a></li>
+<li class="toc-l3">
+      <a href="#11-00-11-30-zuha-namaz-molitva-ad-duha"><span class="num">12.0.2.</span><span class="lbl">11:00 – 11:30 | Зуха-намаз (молитва ад-Духа)</span></a></li>
+<li class="toc-l3">
+      <a href="#11-30-12-30-podgotovka-k-priemu-pacientov"><span class="num">12.0.3.</span><span class="lbl">11:30 – 12:30 | Подготовка к приёму пациентов</span></a></li>
+<li class="toc-l3">
+      <a href="#12-30-13-00-zuhr-namaz-i-obed"><span class="num">12.0.4.</span><span class="lbl">12:30 – 13:00 | Зухр-намаз и обед</span></a></li>
+<li class="toc-l2">
+      <a href="#dnevnoy-blok-bitva-13-00-18-00"><span class="num">12.1.</span><span class="lbl">☀️ ДНЕВНОЙ БЛОК: БИТВА (13:00 – 18:00)</span></a><ol><li class="toc-l3">
+      <a href="#13-00-14-30-pervyy-seans-s-pacientom"><span class="num">12.1.1.</span><span class="lbl">13:00 – 14:30 | Первый сеанс с пациентом</span></a></li></ol></li></ol></li>
+<li class="toc-l1">
+      <a href="#uedinenie-1-minuta-uedinites-s-pacientom"><span class="num"></span><span class="lbl">1. <strong>Уединение</strong> (1 минута): уединитесь с пациентом</span></a></li>
+<li class="toc-l1">
+      <a href="#pribezhische-trizhdy-a-uzu-billyahi-minash-shaytanir-radzhim"><span class="num"></span><span class="lbl">2. <strong>Прибежище</strong> трижды: <em>«А'узу билляхи минаш-шайтанир-раджим»</em></span></a></li>
+<li class="toc-l1">
+      <a href="#formulirovka-namereniya-po-5-elementam"><span class="num"></span><span class="lbl">3. <strong>Формулировка намерения</strong> (по 5 элементам)</span></a></li>
+<li class="toc-l1">
+      <a href="#zaryazhenie-40-povtoreniy-v-serdce"><span class="num"></span><span class="lbl">4. <strong>Заряжение</strong> — 40 повторений в сердце</span></a></li>
+<li class="toc-l1">
+      <a href="#zaschita-sebya-arkiniy-7-raz-v-serdce"><span class="num"></span><span class="lbl">5. <strong>Защита себя</strong>: <em>«АРКИНИЙ»</em> — 7 раз в сердце</span></a></li>
+<li class="toc-l1">
+      <a href="#tolko-potom-nachinayte-chitat"><span class="num"></span><span class="lbl">6. Только потом — начинайте читать</span></a><ol><li class="toc-l3">
+      <a href="#14-30-15-00-pereryv"><span class="num">18.0.1.</span><span class="lbl">14:30 – 15:00 | Перерыв</span></a></li>
+<li class="toc-l3">
+      <a href="#15-00-16-00-asr-namaz-i-vechernie-azkary"><span class="num">18.0.2.</span><span class="lbl">15:00 – 16:00 | Аср-намаз и вечерние азкары</span></a></li>
+<li class="toc-l3">
+      <a href="#16-00-17-30-vtoroy-seans-s-pacientom"><span class="num">18.0.3.</span><span class="lbl">16:00 – 17:30 | Второй сеанс с пациентом</span></a></li>
+<li class="toc-l3">
+      <a href="#17-30-18-00-zakrytie-rabochego-dnya"><span class="num">18.0.4.</span><span class="lbl">17:30 – 18:00 | Закрытие рабочего дня</span></a></li></ol></li>
+<li class="toc-l1">
+      <a href="#primite-dush-s-namereniem-radi-allaha-chtoby-allah-smyl-s-me"><span class="num"></span><span class="lbl">1. Примите душ с намерением: <em>«Ради Аллаха, чтобы Аллах смыл с меня всю чужую грязь Кораном, омываюсь»</em></span></a></li>
+<li class="toc-l1">
+      <a href="#smenite-odezhdu"><span class="num"></span><span class="lbl">2. Смените одежду</span></a></li>
+<li class="toc-l1">
+      <a href="#prochitayte-arkiniy-33-raza-v-serdce"><span class="num"></span><span class="lbl">3. Прочитайте <em>«АРКИНИЙ»</em> 33 раза в сердце</span></a></li>
+<li class="toc-l1">
+      <a href="#vypeyte-stakan-vody-na-kotoryy-prochitana-al-fatiha"><span class="num"></span><span class="lbl">4. Выпейте стакан воды, на который прочитана аль-Фатиха</span></a><ol><li class="toc-l2">
+      <a href="#vecherniy-blok-semya-i-vosstanovlenie-18-00-21-30"><span class="num">22.1.</span><span class="lbl">🌆 ВЕЧЕРНИЙ БЛОК: СЕМЬЯ И ВОССТАНОВЛЕНИЕ (18:00 – 21:30)</span></a><ol><li class="toc-l3">
+      <a href="#18-00-19-00-vremya-s-semey"><span class="num">22.1.1.</span><span class="lbl">18:00 – 19:00 | Время с семьёй</span></a></li>
+<li class="toc-l3">
+      <a href="#19-00-19-30-magrib-namaz-i-vechernie-azkary"><span class="num">22.1.2.</span><span class="lbl">19:00 – 19:30 | Магриб-намаз и вечерние азкары</span></a></li>
+<li class="toc-l3">
+      <a href="#19-30-20-00-vtoraya-al-bakara-ili-ee-chast-opcionalno"><span class="num">22.1.3.</span><span class="lbl">19:30 – 20:00 | ВТОРАЯ АЛЬ-БАКАРА или её часть (опционально)</span></a></li>
+<li class="toc-l3">
+      <a href="#20-00-20-30-isha-namaz"><span class="num">22.1.4.</span><span class="lbl">20:00 – 20:30 | Иша-намаз</span></a></li>
+<li class="toc-l3">
+      <a href="#20-30-21-00-obnovlenie-tauhida-vechernyaya-sessiya"><span class="num">22.1.5.</span><span class="lbl">20:30 – 21:00 | Обновление Таухида — ВЕЧЕРНЯЯ СЕССИЯ</span></a></li></ol></li></ol></li>
+<li class="toc-l1">
+      <a href="#namerenie-radi-allaha-chtoby-allah-obnovil-moy-tauhid-i-prin"><span class="num"></span><span class="lbl">1. Намерение: <em>«Ради Аллаха, чтобы Аллах обновил мой Таухид и принял мой день, произношу слова единобожия»</em></span></a></li>
+<li class="toc-l1">
+      <a href="#70-raz-v-serdce"><span class="num"></span><span class="lbl">2. 70 раз в сердце: <strong><span class="ar-inline" lang="ar" dir="rtl">لَا إِلَهَ إِلَّا اللَّهُ</span></strong></span></a></li>
+<li class="toc-l1">
+      <a href="#33-raza-subhanallahi-va-bihamdihi"><span class="num"></span><span class="lbl">3. 33 раза: <strong><span class="ar-inline" lang="ar" dir="rtl">سُبْحَانَ اللَّهِ وَبِحَمْدِهِ</span></strong> (<em>Субханаллахи ва бихамдихи</em>)</span></a></li>
+<li class="toc-l1">
+      <a href="#33-raza-lya-ilyaha-illya-allahu-vahdahu-lya-sharika-lyah"><span class="num"></span><span class="lbl">4. 33 раза: <strong><span class="ar-inline" lang="ar" dir="rtl">لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ</span></strong> (<em>Ля иляха илля Аллаху вахдаху ля шарика лях</em>)</span></a><ol><li class="toc-l3">
+      <a href="#21-00-21-30-muhasaba-samoanaliz-i-murakaba-sozercanie"><span class="num">26.0.1.</span><span class="lbl">21:00 – 21:30 | Мухасаба (самоанализ) и Муракаба (созерцание)</span></a></li></ol></li>
+<li class="toc-l1">
+      <a href="#gde-segodnya-ya-teryal-namerenie"><span class="num"></span><span class="lbl">1. Где сегодня я терял намерение?</span></a></li>
+<li class="toc-l1">
+      <a href="#ne-poyavilas-li-gordynya-posle-uspeshnogo-seansa"><span class="num"></span><span class="lbl">2. Не появилась ли гордыня после успешного сеанса?</span></a></li>
+<li class="toc-l1">
+      <a href="#ne-iskal-li-ya-odobreniya-lyudey"><span class="num"></span><span class="lbl">3. Не искал ли я одобрения людей?</span></a></li>
+<li class="toc-l1">
+      <a href="#dostatochno-li-ya-zaschitil-svoyu-semyu"><span class="num"></span><span class="lbl">4. Достаточно ли я защитил свою семью?</span></a></li>
+<li class="toc-l1">
+      <a href="#byl-li-moy-tauhid-zhivym-ili-mehanicheskim"><span class="num"></span><span class="lbl">5. Был ли мой Таухид живым или механическим?</span></a><ol><li class="toc-l2">
+      <a href="#nochnoy-blok-konsolidaciya-sily-21-30-22-30"><span class="num">31.1.</span><span class="lbl">🌙 НОЧНОЙ БЛОК: КОНСОЛИДАЦИЯ СИЛЫ (21:30 – 22:30)</span></a><ol><li class="toc-l3">
+      <a href="#21-30-22-00-podgotovka-ko-snu"><span class="num">31.1.1.</span><span class="lbl">21:30 – 22:00 | Подготовка ко сну</span></a></li>
+<li class="toc-l3">
+      <a href="#22-00-22-30-konsolidaciya-sily"><span class="num">31.1.2.</span><span class="lbl">22:00 – 22:30 | «Консолидация силы»</span></a></li></ol></li>
+<li class="toc-l2">
+      <a href="#svodnaya-tablica-dnya"><span class="num">31.2.</span><span class="lbl">📊 СВОДНАЯ ТАБЛИЦА ДНЯ</span></a></li>
+<li class="toc-l2">
+      <a href="#pyat-zolotyh-pravil-etogo-grafika"><span class="num">31.3.</span><span class="lbl">🔑 ПЯТЬ ЗОЛОТЫХ ПРАВИЛ ЭТОГО ГРАФИКА</span></a></li></ol></li>
+<li class="toc-l1">
+      <a href="#1-al-bakara-neprikosnovenna"><span class="num">32.</span><span class="lbl"><strong>1. АЛЬ-БАКАРА — НЕПРИКОСНОВЕННА</strong></span></a></li>
+<li class="toc-l1">
+      <a href="#2-tauhid-obnovlyaetsya-dvazhdy-v-den"><span class="num">33.</span><span class="lbl"><strong>2. ТАУХИД ОБНОВЛЯЕТСЯ ДВАЖДЫ В ДЕНЬ</strong></span></a></li>
+<li class="toc-l1">
+      <a href="#3-namerenie-eto-toplivo"><span class="num">34.</span><span class="lbl"><strong>3. НАМЕРЕНИЕ — ЭТО ТОПЛИВО</strong></span></a></li>
+<li class="toc-l1">
+      <a href="#4-ne-prinimayte-bolee-dvuh-tyazhelyh-pacientov-v-den"><span class="num">35.</span><span class="lbl"><strong>4. НЕ ПРИНИМАЙТЕ БОЛЕЕ ДВУХ ТЯЖЁЛЫХ ПАЦИЕНТОВ В ДЕНЬ</strong></span></a></li>
+<li class="toc-l1">
+      <a href="#5-pyatnica-den-perezaryadki"><span class="num">36.</span><span class="lbl"><strong>5. ПЯТНИЦА — ДЕНЬ ПЕРЕЗАРЯДКИ</strong></span></a><ol><li class="toc-l2">
+      <a href="#ezhenedelnyy-ritm"><span class="num">36.1.</span><span class="lbl">🌿 ЕЖЕНЕДЕЛЬНЫЙ РИТМ</span></a></li>
+<li class="toc-l2">
+      <a href="#raz-v-2-3-mesyaca-tri-dnya-tishiny"><span class="num">36.2.</span><span class="lbl">📅 РАЗ В 2-3 МЕСЯЦА: «ТРИ ДНЯ ТИШИНЫ»</span></a></li></ol></li>
+<li class="toc-l1">
+      <a href="#al-bakara-ezhednevno-zaschita-semi"><span class="num"></span><span class="lbl">1. <strong>Аль-Бакара ежедневно</strong> — защита семьи</span></a></li>
+<li class="toc-l1">
+      <a href="#obnovlenie-tauhida-dvazhdy-v-den-osnova-sily"><span class="num"></span><span class="lbl">2. <strong>Обновление Таухида дважды в день</strong> — основа силы</span></a></li>
+<li class="toc-l1">
+      <a href="#zaryazhenie-namereniya-pered-kazhdym-deystviem-metod-volevog"><span class="num"></span><span class="lbl">3. <strong>Заряжение намерения перед каждым действием</strong> — метод волевого акта</span></a></li></ol></nav>
+  <main>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="utrenniy-blok-zaryad-i-krepost-05-00-12-30"><span class="num">0.1.</span>🌅 УТРЕННИЙ БЛОК: ЗАРЯД И КРЕПОСТЬ (05:00 – 12:30)</h3>
+<section class="subsection" data-kind="subsection" data-level="3">
+<h4 id="05-00-05-30-tahadzhud-i-istigfar-poslednyaya-tret-nochi"><span class="num">0.1.1.</span>05:00 – 05:30 | Тахаджуд и Истигфар (Последняя треть ночи)</h4>
+<ul><li>2–4 ракаата ночной молитвы</li><li>Истигфар 100 раз в сердце (без движения губ): <em>«Астагфируллах»</em></li><li>Намерение: <em>«Ради Аллаха, чтобы Аллах очистил моё сердце и защитил мою семью Кораном, прошу прощения»</em></li></ul>
+</section>
+<section class="subsection" data-kind="subsection" data-level="3">
+<h4 id="05-30-06-00-fadzhr-i-utrennie-azkary"><span class="num">0.1.2.</span>05:30 – 06:00 | Фаджр и Утренние Азкары</h4>
+<ul><li>Фаджр (желательно в мечети)</li><li>Полные утренние азкары — это ваш щит на день</li><li>Особое внимание: аят аль-Курси + три кулюбу (аль-Ихлас, аль-Фаляк, ан-Нас) по 3 раза</li></ul>
+</section>
+<section class="subsection" data-kind="subsection" data-level="3">
+<h4 id="06-00-07-30-sura-al-bakara-krepostnoy-val"><span class="num">0.1.3.</span>06:00 – 07:30 | СУРА АЛЬ-БАКАРА — КРЕПОСТНОЙ ВАЛ</h4>
+<p>Это <strong>самый важный пункт дня</strong>. Пророк<span class="ar-inline" lang="ar" dir="rtl">ﷺ</span>сказал:</p>
+<blockquote class="quote"><p>«Не превращайте ваши дома в кладбища. Поистине, шайтан бежит из того дома, в котором читают суру аль-Бакара» (Муслим, 780)</p></blockquote>
+<p><strong>Правила чтения аль-Бакара в вашем случае:</strong></p>
+</section>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="chitayte-vsluh-no-umerennym-golosom-chtoby-dom-napolnilsya-z">1. Читайте вслух, но умеренным голосом — чтобы дом наполнился звуком Корана</h2>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="kazhdye-20-ayatov-ostanavlivaytes-i-delayte-namerenie-v-serd">2. <strong>Каждые 20 аятов</strong> останавливайтесь и делайте намерение в сердце:</h2>
+<ul><li><em>«Ради Аллаха, чтобы Аллах защитил моих домочадцев от всякого джинна и шайтана Кораном, читаю Коран»</em></li><li>Повторите 7 раз в сердце</li><li>Продолжайте чтение</li></ul>
+<p>3. Намерение обновляйте по методу «Волевого акта»: субъект (я), объект (дом и семья), действие (защита), инструмент (аль-Бакара), цель (ради довольства Аллаха) 4. После завершения суры — встаньте, пройдитесь по всем комнатам дома, произнося в сердце: <em>«АРКИНИЙ»</em> (Я заклинаю себя и свой дом) в каждом углу</p>
+<section class="subsection" data-kind="subsection" data-level="3">
+<h4 id="07-30-08-00-zavtrak-i-semeynoe-vremya"><span class="num">2.0.1.</span>07:30 – 08:00 | Завтрак и семейное время</h4>
+<ul><li>Завтрак с намерением: <em>«Ради Аллаха, чтобы Аллах укрепил моё тело для служения, ем пищу»</em></li><li>Короткое общение с домочадцами — проявите к ним мягкость и доброту. Это тоже ибадат</li></ul>
+</section>
+<section class="subsection" data-kind="subsection" data-level="3">
+<h4 id="08-00-09-00-serdechnyy-rezervuar-nakoplenie-sily"><span class="num">2.0.2.</span>08:00 – 09:00 | «Сердечный Резервуар» — Накопление силы</h4>
+<p>По методу из вашей книги «Заряд — Выстрел»:</p>
+</section>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="uedinites-v-tihoy-komnate">1. Уединитесь в тихой комнате</h2>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="zakroyte-glaza">2. Закройте глаза</h2>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="chitayte-ayat-al-kursi-v-serdce-bez-dvizheniya-gub">3. Читайте Аят аль-Курси <strong>в сердце</strong>, без движения губ</h2>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="vizualiziruyte-kazhdoe-slovo-sgustok-sveta-osedayuschiy-v-gr">4. Визуализируйте: каждое слово — сгусток света, оседающий в груди</h2>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="prodolzhayte-30-40-minut-poka-ne-pochuvstvuete-plotnost-zhar">5. Продолжайте 30–40 минут, пока не почувствуете плотность, жар, тяжесть в сердце</h2>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="eto-vash-zaryad-kotorogo-hvatit-na-vseh-pacientov-dnya">6. Это ваш «заряд», которого хватит на всех пациентов дня</h2>
+<section class="subsection" data-kind="subsection" data-level="3">
+<h4 id="09-00-10-00-obnovlenie-tauhida-osnova-osnov"><span class="num">8.0.1.</span>09:00 – 10:00 | Обновление Таухида — ОСНОВА ОСНОВ</h4>
+<p>Это сердце вашего утра. Таухид — это не просто «Ля иляха илля Аллах». Это <strong>обновление договора с Аллахом</strong> каждое утро.</p>
+<p><strong>Порядок:</strong></p>
+</section>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="syadte-zakroyte-glaza">1. Сядьте. Закройте глаза.</h2>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="sformuliruyte-namerenie-v-serdce">2. Сформулируйте намерение в сердце:</h2>
+<p><em>«Ради Аллаха, чтобы Аллах обновил мой Таухид и наполнил сердце убеждённостью, произношу слова единобожия»</em> 3. Повторите в сердце 70 раз:</p>
+<blockquote class="quote"><p><strong><span class="ar-inline" lang="ar" dir="rtl">لَا إِلَهَ إِلَّا اللَّهُ</span></strong></p></blockquote>
+<p><em>Ля иляха илля Аллах</em></p>
+<ul><li>с полным осознанием: нет божества, достойного поклонения, кроме Аллаха</li></ul>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="zatem-70-raz">4. Затем 70 раз:</h2>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="h-33"><span class="num">12.</span><strong><span class="ar-inline" lang="ar" dir="rtl">لَا إِلَهَ إِلَّا اللَّهُ مُحَمَّدٌ رَسُولُ اللَّهِ</span></strong></h2>
+<p><em>Ля иляха илля Аллах, Мухаммадур Расулюллах</em> 5. Затем — обновление свидетельства: <em>«О Аллах, я свидетельствую, что Ты — мой Господь, и что Мухаммад — Твой Посланник. Обнови мою веру этим свидетельством»</em></p>
+<p><strong>Почему это работает:</strong> каждое повторение «Ля иляха илля Аллах» с намерением — это как удар молотом, выковывающий меч Таухида в вашем сердце. Шайтаны бегут от человека, чей Таухид жив и плотен.</p>
+<section class="subsection" data-kind="subsection" data-level="3">
+<h4 id="10-00-11-00-trenirovka-pryamoy-vybros-arkiyka"><span class="num">12.0.1.</span>10:00 – 11:00 | Тренировка «Прямой Выброс: Аркийка»</h4>
+<ul><li>10 минут работы со стаканом воды (начитывание аль-Фатихи с боевым намерением)</li><li>10 минут тренировки «Аркийка» на воображаемом недуге</li><li>10 минут тренировки «Аркиний» на своих органах (печень, сердце, почки, затылок)</li></ul>
+</section>
+<section class="subsection" data-kind="subsection" data-level="3">
+<h4 id="11-00-11-30-zuha-namaz-molitva-ad-duha"><span class="num">12.0.2.</span>11:00 – 11:30 | Зуха-намаз (молитва ад-Духа)</h4>
+<ul><li>2–8 ракаатов. Это сунна, которая приносит баракат в день.</li></ul>
+</section>
+<section class="subsection" data-kind="subsection" data-level="3">
+<h4 id="11-30-12-30-podgotovka-k-priemu-pacientov"><span class="num">12.0.3.</span>11:30 – 12:30 | Подготовка к приёму пациентов</h4>
+<ul><li>Чтение суры аль-Мульк (защита от могильных мучений и укрепление)</li><li>Просмотр записей о пациентах на день</li><li>Формулировка индивидуальных намерений для каждого пациента (запишите их в тетрадь)</li></ul>
+</section>
+<section class="subsection" data-kind="subsection" data-level="3">
+<h4 id="12-30-13-00-zuhr-namaz-i-obed"><span class="num">12.0.4.</span>12:30 – 13:00 | Зухр-намаз и обед</h4>
+<ul><li>Молитва Зухр</li><li>Лёгкий обед (не переедайте — полный желудок ослабляет намерение)</li></ul>
+<div class="divider" role="separator"></div>
+</section>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="dnevnoy-blok-bitva-13-00-18-00"><span class="num">12.1.</span>☀️ ДНЕВНОЙ БЛОК: БИТВА (13:00 – 18:00)</h3>
+<section class="subsection" data-kind="subsection" data-level="3">
+<h4 id="13-00-14-30-pervyy-seans-s-pacientom"><span class="num">12.1.1.</span>13:00 – 14:30 | Первый сеанс с пациентом</h4>
+<p>Перед каждым пациентом — обязательный протокол:</p>
+</section>
+</section>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="uedinenie-1-minuta-uedinites-s-pacientom">1. <strong>Уединение</strong> (1 минута): уединитесь с пациентом</h2>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="pribezhische-trizhdy-a-uzu-billyahi-minash-shaytanir-radzhim">2. <strong>Прибежище</strong> трижды: <em>«А'узу билляхи минаш-шайтанир-раджим»</em></h2>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="formulirovka-namereniya-po-5-elementam">3. <strong>Формулировка намерения</strong> (по 5 элементам)</h2>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="zaryazhenie-40-povtoreniy-v-serdce">4. <strong>Заряжение</strong> — 40 повторений в сердце</h2>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="zaschita-sebya-arkiniy-7-raz-v-serdce">5. <strong>Защита себя</strong>: <em>«АРКИНИЙ»</em> — 7 раз в сердце</h2>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="tolko-potom-nachinayte-chitat">6. Только потом — начинайте читать</h2>
+<p>После сеанса:</p>
+<ul><li>Выпейте воду с рукьей</li><li>Обновите намерение: <em>«Ради Аллаха, чтобы Аллах очистил меня от чужой грязи Кораном, читаю Коран»</em></li><li>Прочитайте в сердце аль-Ихлас, аль-Фаляк, ан-Нас по 3 раза</li></ul>
+<section class="subsection" data-kind="subsection" data-level="3">
+<h4 id="14-30-15-00-pereryv"><span class="num">18.0.1.</span>14:30 – 15:00 | Перерыв</h4>
+<ul><li>Кайлюля (дневной сон 20–30 минут) с вуду</li><li>Это сунна и восстановление нервной системы</li></ul>
+</section>
+<section class="subsection" data-kind="subsection" data-level="3">
+<h4 id="15-00-16-00-asr-namaz-i-vechernie-azkary"><span class="num">18.0.2.</span>15:00 – 16:00 | Аср-намаз и вечерние азкары</h4>
+</section>
+<section class="subsection" data-kind="subsection" data-level="3">
+<h4 id="16-00-17-30-vtoroy-seans-s-pacientom"><span class="num">18.0.3.</span>16:00 – 17:30 | Второй сеанс с пациентом</h4>
+<p>(тот же протокол, что и для первого)</p>
+</section>
+<section class="subsection" data-kind="subsection" data-level="3">
+<h4 id="17-30-18-00-zakrytie-rabochego-dnya"><span class="num">18.0.4.</span>17:30 – 18:00 | Закрытие рабочего дня</h4>
+<p><strong>Ритуал очищения от чужой грязи:</strong></p>
+</section>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="primite-dush-s-namereniem-radi-allaha-chtoby-allah-smyl-s-me">1. Примите душ с намерением: <em>«Ради Аллаха, чтобы Аллах смыл с меня всю чужую грязь Кораном, омываюсь»</em></h2>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="smenite-odezhdu">2. Смените одежду</h2>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="prochitayte-arkiniy-33-raza-v-serdce">3. Прочитайте <em>«АРКИНИЙ»</em> 33 раза в сердце</h2>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="vypeyte-stakan-vody-na-kotoryy-prochitana-al-fatiha">4. Выпейте стакан воды, на который прочитана аль-Фатиха</h2>
+<div class="divider" role="separator"></div>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="vecherniy-blok-semya-i-vosstanovlenie-18-00-21-30"><span class="num">22.1.</span>🌆 ВЕЧЕРНИЙ БЛОК: СЕМЬЯ И ВОССТАНОВЛЕНИЕ (18:00 – 21:30)</h3>
+<section class="subsection" data-kind="subsection" data-level="3">
+<h4 id="18-00-19-00-vremya-s-semey"><span class="num">22.1.1.</span>18:00 – 19:00 | Время с семьёй</h4>
+<ul><li>Полный выход из роли «лекаря»</li><li>Общение, ужин, отдых</li><li>Не обсуждайте с ними свою работу — это их тревожит и открывает двери для шайтанов</li></ul>
+</section>
+<section class="subsection" data-kind="subsection" data-level="3">
+<h4 id="19-00-19-30-magrib-namaz-i-vechernie-azkary"><span class="num">22.1.2.</span>19:00 – 19:30 | Магриб-намаз и вечерние азкары</h4>
+</section>
+<section class="subsection" data-kind="subsection" data-level="3">
+<h4 id="19-30-20-00-vtoraya-al-bakara-ili-ee-chast-opcionalno"><span class="num">22.1.3.</span>19:30 – 20:00 | ВТОРАЯ АЛЬ-БАКАРА или её часть (опционально)</h4>
+<p>Если утром вы прочитали полную аль-Бакара — вечером можно ограничиться:</p>
+<ul><li>Последние два аята аль-Бакара (285-286) — Пророк<span class="ar-inline" lang="ar" dir="rtl">ﷺ</span>сказал: «Кто прочитает их ночью — они защитят его» (аль-Бухари, 5009)</li><li>Аят аль-Курси</li><li>Три кулюбу по 7 раз с намерением защиты каждого члена семьи по имени</li></ul>
+</section>
+<section class="subsection" data-kind="subsection" data-level="3">
+<h4 id="20-00-20-30-isha-namaz"><span class="num">22.1.4.</span>20:00 – 20:30 | Иша-намаз</h4>
+</section>
+<section class="subsection" data-kind="subsection" data-level="3">
+<h4 id="20-30-21-00-obnovlenie-tauhida-vechernyaya-sessiya"><span class="num">22.1.5.</span>20:30 – 21:00 | Обновление Таухида — ВЕЧЕРНЯЯ СЕССИЯ</h4>
+<p>Повторите утреннюю практику обновления Таухида, но с акцентом на благодарность:</p>
+</section>
+</section>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="namerenie-radi-allaha-chtoby-allah-obnovil-moy-tauhid-i-prin">1. Намерение: <em>«Ради Аллаха, чтобы Аллах обновил мой Таухид и принял мой день, произношу слова единобожия»</em></h2>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="70-raz-v-serdce">2. 70 раз в сердце: <strong><span class="ar-inline" lang="ar" dir="rtl">لَا إِلَهَ إِلَّا اللَّهُ</span></strong></h2>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="33-raza-subhanallahi-va-bihamdihi">3. 33 раза: <strong><span class="ar-inline" lang="ar" dir="rtl">سُبْحَانَ اللَّهِ وَبِحَمْدِهِ</span></strong> (<em>Субханаллахи ва бихамдихи</em>)</h2>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="33-raza-lya-ilyaha-illya-allahu-vahdahu-lya-sharika-lyah">4. 33 раза: <strong><span class="ar-inline" lang="ar" dir="rtl">لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ</span></strong> (<em>Ля иляха илля Аллаху вахдаху ля шарика лях</em>)</h2>
+<section class="subsection" data-kind="subsection" data-level="3">
+<h4 id="21-00-21-30-muhasaba-samoanaliz-i-murakaba-sozercanie"><span class="num">26.0.1.</span>21:00 – 21:30 | Мухасаба (самоанализ) и Муракаба (созерцание)</h4>
+<p>Задайте себе 5 вопросов:</p>
+</section>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="gde-segodnya-ya-teryal-namerenie">1. Где сегодня я терял намерение?</h2>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="ne-poyavilas-li-gordynya-posle-uspeshnogo-seansa">2. Не появилась ли гордыня после успешного сеанса?</h2>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="ne-iskal-li-ya-odobreniya-lyudey">3. Не искал ли я одобрения людей?</h2>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="dostatochno-li-ya-zaschitil-svoyu-semyu">4. Достаточно ли я защитил свою семью?</h2>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="byl-li-moy-tauhid-zhivym-ili-mehanicheskim">5. Был ли мой Таухид живым или механическим?</h2>
+<p>После анализа — <strong>тауба</strong> (покаяние) и обновление намерения на завтра.</p>
+<div class="divider" role="separator"></div>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="nochnoy-blok-konsolidaciya-sily-21-30-22-30"><span class="num">31.1.</span>🌙 НОЧНОЙ БЛОК: КОНСОЛИДАЦИЯ СИЛЫ (21:30 – 22:30)</h3>
+<section class="subsection" data-kind="subsection" data-level="3">
+<h4 id="21-30-22-00-podgotovka-ko-snu"><span class="num">31.1.1.</span>21:30 – 22:00 | Подготовка ко сну</h4>
+<ul><li>Вуду</li><li>Чтение перед сном:</li><li>Сура аль-Мульк</li><li>Сура ас-Саджда</li><li>Аят аль-Курси</li><li>Аль-Ихлас, аль-Фаляк, ан-Нас — в ладони, затем протереть тело</li><li>Намерение перед сном: <em>«Ради Аллаха, чтобы Аллах сохранил меня и мою семью во сне Кораном, ложусь спать»</em></li></ul>
+</section>
+<section class="subsection" data-kind="subsection" data-level="3">
+<h4 id="22-00-22-30-konsolidaciya-sily"><span class="num">31.1.2.</span>22:00 – 22:30 | «Консолидация силы»</h4>
+<p>По методу из вашей книги «Заряд — Выстрел»:</p>
+<ul><li>Читайте Коран <strong>в сердце</strong>, беззвучно, до момента засыпания</li><li>Это «ночная зарядка»: душа во сне находится под защитой и продолжает впитывать силу аятов</li><li>Лучший выбор: сура аль-Кахф (первые 10 аятов), сура ад-Духа, сура аш-Шарх</li></ul>
+<div class="divider" role="separator"></div>
+</section>
+</section>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="svodnaya-tablica-dnya"><span class="num">31.2.</span>📊 СВОДНАЯ ТАБЛИЦА ДНЯ</h3>
+<figure class="table"><table><thead><tr><th>Время</th><th>Практика</th><th>Цель</th></tr></thead><tbody><tr><td>05:00–05:30</td><td>Тахаджуд + Истигфар</td><td>Очищение сердца</td></tr><tr><td>05:30–06:00</td><td>Фаджр + утренние азкары</td><td>Щит на день</td></tr><tr><td>06:00–07:30</td><td><strong>СУРА АЛЬ-БАКАРА</strong></td><td><strong>Крепостной вал дома</strong></td></tr><tr><td>07:30–08:00</td><td>Завтрак с семьёй</td><td>Укрепление связей</td></tr><tr><td>08:00–09:00</td><td>Сердечный Резервуар</td><td>Накопление силы</td></tr><tr><td>09:00–10:00</td><td><strong>Обновление Таухида</strong></td><td><strong>Основа основ</strong></td></tr><tr><td>10:00–11:00</td><td>Тренировка Аркийка/Аркиний</td><td>Острота меча</td></tr><tr><td>11:00–11:30</td><td>Зуха-намаз</td><td>Баракат дня</td></tr><tr><td>11:30–12:30</td><td>Подготовка к пациентам</td><td>Стратегия</td></tr><tr><td>12:30–13:00</td><td>Зухр + обед</td><td>Восстановление</td></tr><tr><td><strong>13:00–14:30</strong></td><td><strong>ПЕРВЫЙ ПАЦИЕНТ</strong></td><td><strong>Битва</strong></td></tr><tr><td>14:30–15:00</td><td>Кайлюля (сон)</td><td>Перезагрузка</td></tr><tr><td>15:00–16:00</td><td>Аср + азкары</td><td>Вечерний щит</td></tr><tr><td><strong>16:00–17:30</strong></td><td><strong>ВТОРОЙ ПАЦИЕНТ</strong></td><td><strong>Битва</strong></td></tr><tr><td>17:30–18:00</td><td>Очищение от грязи</td><td>Гигиена души</td></tr><tr><td>18:00–19:00</td><td>Семья</td><td>Мирское равновесие</td></tr><tr><td>19:00–19:30</td><td>Магриб + азкары</td><td>Вечерний щит</td></tr><tr><td>19:30–20:00</td><td>Вечерняя защита дома</td><td>Аль-Бакара (285-286)</td></tr><tr><td>20:00–20:30</td><td>Иша</td><td>Закрытие дня</td></tr><tr><td>20:30–21:00</td><td><strong>Обновление Таухида</strong></td><td><strong>Основа основ</strong></td></tr><tr><td>21:00–21:30</td><td>Мухасаба</td><td>Самоанализ</td></tr><tr><td>21:30–22:30</td><td>Консолидация силы</td><td>Ночная зарядка</td></tr></tbody></table></figure>
+<div class="divider" role="separator"></div>
+</section>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="pyat-zolotyh-pravil-etogo-grafika"><span class="num">31.3.</span>🔑 ПЯТЬ ЗОЛОТЫХ ПРАВИЛ ЭТОГО ГРАФИКА</h3>
+</section>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="1-al-bakara-neprikosnovenna"><span class="num">32.</span><strong>1. АЛЬ-БАКАРА — НЕПРИКОСНОВЕННА</strong></h2>
+<p>Даже если вы больны, устали, у вас нет времени — прочитайте хотя бы последние два аята + аят аль-Курси вслух в доме. Ваша семья зависит от этого. Шайтаны, которых вы изгнали от пациентов, будут искать слабое место — и это место ваш дом. Аль-Бакара закрывает эту брешь.</p>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="2-tauhid-obnovlyaetsya-dvazhdy-v-den"><span class="num">33.</span><strong>2. ТАУХИД ОБНОВЛЯЕТСЯ ДВАЖДЫ В ДЕНЬ</strong></h2>
+<p>Как вуду обновляется после нарушения, так и Таухид обновляется утром и вечером. Без живого Таухида — нет силы в рукье. С живым Таухидом — одно слово «Бисмиллях» бьёт сильнее, чем сто аятов, прочитанных механически.</p>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="3-namerenie-eto-toplivo"><span class="num">34.</span><strong>3. НАМЕРЕНИЕ — ЭТО ТОПЛИВО</strong></h2>
+<p>Каждое действие дня — через намерение. Еда, сон, разговор, душ, ходьба. По методу «Волевого акта»: всё становится поклонением, когда за ним стоит намерение.</p>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="4-ne-prinimayte-bolee-dvuh-tyazhelyh-pacientov-v-den"><span class="num">35.</span><strong>4. НЕ ПРИНИМАЙТЕ БОЛЕЕ ДВУХ ТЯЖЁЛЫХ ПАЦИЕНТОВ В ДЕНЬ</strong></h2>
+<p>Ифриты, кладбищенский сихр, масс — забирают колоссально. Жадность до количества пациентов убивает качество намерения. Лучше два глубоких сеанса, чем пять поверхностных.</p>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="5-pyatnica-den-perezaryadki"><span class="num">36.</span><strong>5. ПЯТНИЦА — ДЕНЬ ПЕРЕЗАРЯДКИ</strong></h2>
+<p>В пятницу <strong>не принимайте пациентов</strong>. Посвятите день:</p>
+<ul><li>Суре аль-Кахф</li><li>Джума-намазу</li><li>Семье</li><li>Молчанию и тафаккуру (размышлению)</li><li>Полному прочтению аль-Бакара дома</li></ul>
+<div class="divider" role="separator"></div>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="ezhenedelnyy-ritm"><span class="num">36.1.</span>🌿 ЕЖЕНЕДЕЛЬНЫЙ РИТМ</h3>
+<figure class="table"><table><thead><tr><th>День</th><th>Особенность</th></tr></thead><tbody><tr><td>Понедельник</td><td>Пост (нафиль) + полная аль-Бакара</td></tr><tr><td>Вторник</td><td>Обычный день</td></tr><tr><td>Среда</td><td>Обычный день</td></tr><tr><td>Четверг</td><td>Пост (нафиль) + полная аль-Бакара</td></tr><tr><td><strong>Пятница</strong></td><td><strong>ВЫХОДНОЙ от пациентов. Аль-Кахф, семья, тишина</strong></td></tr><tr><td>Суббота</td><td>Обычный день</td></tr><tr><td>Воскресенье</td><td>Обычный день</td></tr></tbody></table></figure>
+<div class="divider" role="separator"></div>
+</section>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="raz-v-2-3-mesyaca-tri-dnya-tishiny"><span class="num">36.2.</span>📅 РАЗ В 2-3 МЕСЯЦА: «ТРИ ДНЯ ТИШИНЫ»</h3>
+<p>Уезжайте на 2-3 дня на природу, в горы, на море. Без пациентов. Без телефона. Только:</p>
+<ul><li>Коран</li><li>Таухид</li><li>Тишина</li><li>Размышления</li></ul>
+<p>Это <strong>обязательная профилактика выгорания</strong>. Лекарь, который не отдыхает, теряет силу намерения. А потерявший силу намерения — становится уязвимым сам.</p>
+<div class="divider" role="separator"></div>
+<p>О мой брат Абу Мухаммад, этот график — не клетка, а <strong>скелет вашей духовной мощи</strong>. Следуйте ему с гибкостью, но не нарушайте трёх столпов:</p>
+</section>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="al-bakara-ezhednevno-zaschita-semi">1. <strong>Аль-Бакара ежедневно</strong> — защита семьи</h2>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="obnovlenie-tauhida-dvazhdy-v-den-osnova-sily">2. <strong>Обновление Таухида дважды в день</strong> — основа силы</h2>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="zaryazhenie-namereniya-pered-kazhdym-deystviem-metod-volevog">3. <strong>Заряжение намерения перед каждым действием</strong> — метод волевого акта</h2>
+<p>И помните: Аллах не смотрит на количество ваших дел. Он смотрит на <strong>сердце</strong>, которое за ними стоит. Одно «Ля иляха илля Аллах» с полным намерением весит больше, чем тысяча механических повторений.</p>
+<figure class="ayah">
+  <div class="ar-block" lang="ar" dir="rtl">وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ ۚ عَلَيْهِ تَوَكَّلْتُ وَإِلَيْهِ أُنِيبُ</div>
+  <figcaption class="ayah-tr">Успех мой — только от Аллаха. На Него я уповаю и к Нему обращаюсь</figcaption>
+  <div class="source">Источник: Сура «Худ», аят 88</div>
+</figure>
+<p>Да сделает Аллах ваш дом крепостью, вашу семью — под Его защитой, ваше сердце — источником силы, а ваши руки — причиной исцеления для многих. Сабр вам, мой брат, и тауфик от Аллаха. 🤲</p>
+</section>
+  </main>
+  
+  <div class="doc-footer">
+    <span>График дня · Абу Мухаммад</span>
+    <span>Подготовил Лекарь Абу Мухаммад</span>
+  </div>
+  </div>
+</div>
+<script>
+(function(){
+  document.addEventListener('click', function(e){
+    var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
+    if(!a) return;
+    var href = a.getAttribute('href');
+    if(!href || href.length < 2) return;
+    var id = href.slice(1);
+    var el = document.getElementById(id);
+    if(!el) return;
+    e.preventDefault();
+    var top = el.getBoundingClientRect().top + window.pageYOffset - 88;
+    window.scrollTo({top: top, behavior: 'smooth'});
+    try{ history.pushState(null,'',href);}catch(_e){}
+  });
+  if (location.hash && location.hash.length > 1) {
+    setTimeout(function(){
+      var el = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+      if (el) {
+        var top = el.getBoundingClientRect().top + window.pageYOffset - 88;
+        window.scrollTo({top: top, behavior: 'smooth'});
+      }
+    }, 60);
+  }
+})();
+</script>
+</body>
+</html>
