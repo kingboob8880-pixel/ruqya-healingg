@@ -1,0 +1,599 @@
+﻿<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#faf8f3">
+<meta name="color-scheme" content="light">
+<title>Qizining nutqini ochish uchun ruqiya qoidalari</title>
+<meta name="author" content="Абу Мухаммад">
+<meta name="generator" content="Китаб аль-Ильм">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Noto+Naskh+Arabic:wght@400;500;700&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Scheherazade+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #ffffff;
+  --paper-alt: #f5f7f5;
+  --ink: #1b221f;
+  --ink-soft: #4a5751;
+  --rule: #dce1dd;
+  --accent: #2f6b4f;
+  --accent-soft: #eaf2ed;
+  --gold: #9a7b32;
+  --serif: "PT Serif", "Merriweather", Georgia, "Times New Roman", serif;
+  --sans: Inter, "Segoe UI", system-ui, sans-serif;
+  --arabic: "Amiri", "Scheherazade New", "Noto Naskh Arabic", "Lateef", serif;
+  --title-font: var(--serif);
+  --shadow: 0 1px 2px rgba(20,30,25,.05);
+  --measure: 75ch;
+  --base: 19px;
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  font-size: var(--base);
+  /* Плавная прокрутка только для якорей, без влияния на колесо мыши */
+  scroll-behavior: auto;
+  scroll-padding-top: 88px;
+}
+
+/* Отступ для якорей */
+[id] { scroll-margin-top: 88px; }
+
+body {
+  margin: 0;
+  background: var(--paper-alt);
+  color: var(--ink);
+  font-family: var(--serif);
+  line-height: 1.72;
+  font-kerning: normal;
+  font-variant-numeric: oldstyle-nums proportional-nums;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  overflow-wrap: break-word;
+  word-break: normal;
+  /* Важно: не блокировать вертикальную прокрутку */
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+/* ---- Страница ---- */
+.page {
+  max-width: calc(var(--measure) + 14rem);
+  margin: 0 auto;
+  background: var(--paper);
+  padding: 4.8rem 7.5rem 6.5rem;
+  box-shadow: 0 0 0 1px var(--rule), 0 2px 8px -4px rgba(0,0,0,.08), 0 24px 60px -40px rgba(0,0,0,.35);
+  min-height: 100vh;
+}
+
+.wrap { max-width: var(--measure); margin: 0 auto; width: 100%; }
+
+/* ========== ТИТУЛ ========== */
+.title-page {
+  text-align: center;
+  padding: 1.5rem 0 4rem;
+  margin-bottom: 3.5rem;
+  border-bottom: 2px solid var(--rule);
+  position: relative;
+}
+.title-page::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: var(--gold);
+  margin: 0 auto;
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+
+/* ---- Басмаля ---- */
+.bismillah-slot { display: flex; width: 100%; direction: ltr; }
+.bismillah {
+  display: block; max-width: 100%;
+  font-family: var(--arabic); direction: rtl;
+  font-size: 1.75em; color: var(--gold);
+  line-height: 2.1; margin: 0;
+  letter-spacing: 0.02em; white-space: pre-wrap;
+  overflow-wrap: anywhere; word-break: break-word;
+}
+.bismillah-slot.bism-pos-above-title { margin-bottom: 2.6rem; }
+.bismillah-slot.bism-pos-below-title { margin-top: .5rem; margin-bottom: 1.5rem; }
+.bism-pos-center-page { margin-bottom: 3rem; padding: 1.5rem 0; position: relative; }
+.bism-pos-center-page::after {
+  content: ""; display: block; width: 60px; height: 1px;
+  background: var(--gold); margin: .8rem auto 0; opacity: .45;
+}
+.title-page-bism-center { padding-top: 3rem; }
+.title-page-bism-center .bismillah-slot { margin-top: 1.5rem; margin-bottom: 3.5rem; }
+.title-page-bism-center .title-page-body { text-align: center; }
+.bismillah-slot.bism-align-center { justify-content: center; }
+.bismillah-slot.bism-align-right { justify-content: flex-end; }
+.bismillah-slot.bism-align-left { justify-content: flex-start; }
+.bismillah:not([dir="rtl"]) { font-family: var(--serif); font-style: italic; direction: ltr; letter-spacing: .04em; }
+
+.institution {
+  font-family: var(--sans); font-size: .76em; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--ink-soft); margin-bottom: 3rem;
+}
+.book-title {
+  font-family: var(--title-font); font-size: 2.5em; line-height: 1.22;
+  font-weight: 700; margin: 0 0 .7rem; letter-spacing: -.01em;
+}
+.book-subtitle { font-size: 1.15em; font-style: italic; color: var(--ink-soft); margin: 0 0 1.8rem; }
+.rule-orn {
+  width: 160px; height: 14px; margin: 2rem auto;
+  background: linear-gradient(var(--gold), var(--gold)) center / 100% 1px no-repeat;
+  position: relative;
+}
+.rule-orn::after {
+  content: "❦"; position: absolute; inset: 0; margin: auto;
+  width: 1.8em; height: 1em; line-height: .85;
+  background: var(--paper); color: var(--gold); font-size: .85rem;
+}
+.book-author { font-size: 1.08em; font-weight: 700; margin: 0 0 .4rem; }
+.book-meta { font-family: var(--sans); font-size: .84em; color: var(--ink-soft); line-height: 1.6; }
+.epigraph { max-width: 38ch; margin: 2.8rem auto 0; font-style: italic; color: var(--ink-soft); font-size: .96em; }
+
+/* ========== ОГЛАВЛЕНИЕ ========== */
+.toc {
+  margin: 0 0 3.5rem; padding: 2rem 2.2rem 2.2rem;
+  background: var(--paper-alt); border: 1px solid var(--rule); border-radius: 6px;
+}
+.toc h2 {
+  font-family: var(--sans); font-size: .78em; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--ink-soft);
+  margin: 0 0 1.3rem; font-weight: 600; border: 0; padding: 0;
+}
+.toc ol { list-style: none; margin: 0; padding: 0; }
+.toc li { margin: .35rem 0; }
+.toc ol ol { padding-left: 1.6rem; margin-top: .15rem; }
+.toc a {
+  color: var(--ink); text-decoration: none;
+  display: flex; gap: .6rem; align-items: baseline;
+  padding: .35rem .1rem; border-radius: 4px;
+}
+.toc a:hover { color: var(--accent); background: rgba(47,107,79,.06); }
+.toc a:active { background: rgba(47,107,79,.1); }
+.toc .num { color: var(--accent); font-variant-numeric: tabular-nums; min-width: 2.8em; font-size: .9em; font-weight: 500; }
+.toc .lbl { flex: 1; }
+.toc-l2 a { font-size: .94em; color: var(--ink-soft); }
+.toc-l3 a { font-size: .88em; color: var(--ink-soft); }
+
+/* ========== ЗАГОЛОВКИ ========== */
+h1, h2, h3, h4 { font-family: var(--title-font); line-height: 1.32; }
+.chapter > h2 {
+  font-size: 1.65em; font-weight: 700; margin: 3.6rem 0 1.5rem;
+  padding-bottom: .6rem; border-bottom: 1px solid var(--rule);
+}
+.chapter > h2 .num, .section > h3 .num, .subsection > h4 .num {
+  color: var(--accent); font-weight: 400; margin-right: .55em; font-variant-numeric: tabular-nums;
+}
+.section > h3 { font-size: 1.25em; font-weight: 700; margin: 2.6rem 0 1rem; }
+.subsection > h4 { font-size: 1.08em; font-weight: 700; margin: 1.9rem 0 .8rem; color: var(--ink-soft); }
+.chapter:first-of-type > h2 { margin-top: 0; }
+section[data-kind="front"] > h2, section[data-kind="back"] > h2 {
+  text-align: center; border-bottom: 0; letter-spacing: .1em;
+  text-transform: uppercase; font-size: 1.3em; font-weight: 700;
+}
+section[data-kind="front"] > h2::after, section[data-kind="back"] > h2::after {
+  content: ""; display: block; width: 72px; height: 1.5px;
+  background: var(--gold); margin: .9rem auto 0; border-radius: 1px;
+}
+
+/* ========== ТЕКСТ ========== */
+p {
+  margin: 0 0 .2rem; text-indent: 1.6em;
+  
+  hyphens: auto; -webkit-hyphens: auto;
+}
+p + p { margin-top: .6rem; }
+h2 + p, h3 + p, h4 + p, blockquote + p, .toc + p, figure + p, ul + p, ol + p, table + p, .callout + p, .ayah + p, .hadith + p, .dua + p { text-indent: 0; }
+
+.lead { font-size: 1.07em; color: var(--ink-soft); text-indent: 0; line-height: 1.65; }
+strong { font-weight: 700; }
+em.spaced { font-style: normal; letter-spacing: .14em; }
+a {
+  color: var(--accent); text-underline-offset: .22em; text-decoration-thickness: .6px;
+  -webkit-tap-highlight-color: transparent;
+}
+a:hover { color: var(--gold); }
+code {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: .86em;
+  background: var(--paper-alt); padding: .12em .4em; border-radius: 3px; border: 1px solid var(--rule);
+  word-break: break-all;
+}
+hr, .divider { border: 0; text-align: center; margin: 2.6rem 0; color: var(--gold); }
+.divider::before { content: "❦   ❦   ❦"; letter-spacing: .8em; font-size: .65em; opacity: .75; }
+
+/* ========== СПИСКИ ========== */
+ul, ol { margin: 1rem 0 1.2rem; padding-left: 1.7rem; }
+li { margin: .4rem 0; padding-left: .2rem; line-height: 1.6; }
+ul li::marker { color: var(--accent); }
+ol li::marker { color: var(--accent); font-variant-numeric: tabular-nums; font-weight: 500; }
+
+/* ========== ЦИТАТЫ ========== */
+blockquote.quote {
+  margin: 1.8rem 0; padding: .4rem 0 .4rem 1.8rem;
+  border-left: 2.5px solid var(--gold); font-style: italic; color: var(--ink-soft);
+}
+blockquote.quote p { text-indent: 0; margin-bottom: .35rem; }
+.source, blockquote.quote footer {
+  display: block; margin-top: .7rem; font-family: var(--sans);
+  font-style: normal; font-size: .78em; color: var(--ink-soft);
+}
+.source::before { content: "— "; }
+
+/* ========== АЯТ ========== */
+.ayah {
+  margin: 2rem 0; padding: 1.8rem 2rem;
+  background: var(--accent-soft); border: 1px solid var(--rule);
+  border-radius: 8px; position: relative; text-align: center;
+}
+.ayah::before, .ayah::after {
+  content: ""; position: absolute; left: 1.6rem; right: 1.6rem; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: .45;
+}
+.ayah::before { top: .65rem; } .ayah::after { bottom: .65rem; }
+.ar-block {
+  font-family: var(--arabic); direction: rtl; unicode-bidi: isolate;
+  text-align: center; font-size: 1.6em; line-height: 2.3;
+  color: var(--ink); overflow-wrap: anywhere; word-break: break-word;
+}
+.ayah .ar-block { margin-bottom: .3rem; }
+.ayah-tr { margin-top: 1rem; font-style: italic; font-size: .97em; text-indent: 0; color: var(--ink-soft); }
+.ayah .source { margin-top: .7rem; text-align: center; color: var(--accent); font-weight: 500; font-size: .8em; }
+.ayah .source::before { content: ""; }
+
+/* ========== ХАДИС / ДУА ========== */
+.hadith {
+  margin: 1.9rem 0; padding: 1.3rem 1.6rem 1.2rem;
+  border: 1px solid var(--rule); border-left: 3.5px solid var(--accent);
+  border-radius: 5px; background: var(--paper-alt);
+}
+.hadith .label, .dua .label, .callout .label {
+  display: block; font-family: var(--sans); font-size: .66em;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: .65rem; font-weight: 600;
+}
+.hadith p, .dua p, .callout p { text-indent: 0; margin: 0 0 .4rem; }
+.hadith .ar-block { font-size: 1.35em; margin-bottom: .8rem; }
+.dua {
+  margin: 1.9rem 0; padding: 1.5rem 1.8rem;
+  background: var(--paper-alt); border: 1.5px dashed var(--gold);
+  border-radius: 8px; text-align: center;
+}
+.dua .label { color: var(--gold); }
+.dua .ar-block { font-size: 1.5em; margin-bottom: .8rem; }
+.dua p { font-style: italic; color: var(--ink-soft); }
+.callout { margin: 1.8rem 0; padding: 1.1rem 1.4rem; background: var(--paper-alt); border: 1px solid var(--rule); border-radius: 5px; font-size: .94em; }
+
+/* ========== ИНЛАЙН-АРАБСКИЙ ========== */
+.ar-inline { font-family: var(--arabic); font-size: 1.2em; line-height: 1.9; unicode-bidi: isolate; direction: rtl; }
+[dir="rtl"] { text-align: right; }
+p[dir="rtl"] { font-family: var(--arabic); font-size: 1.35em; line-height: 2.2; text-indent: 0; }
+
+/* ========== ТАБЛИЦЫ ========== */
+figure.table { margin: 2.2rem 0; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+figcaption { font-family: var(--sans); font-size: .78em; color: var(--ink-soft); text-align: center; margin-top: .7rem; font-style: italic; }
+table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: .92em; font-family: var(--sans); }
+th, td { border: 1px solid var(--rule); padding: .6rem .8rem; text-align: left; vertical-align: top; }
+thead th { background: var(--paper-alt); font-weight: 600; color: var(--ink); font-size: .82em; letter-spacing: .04em; text-transform: uppercase; }
+tbody tr:nth-child(even) td { background: rgba(0,0,0,.02); }
+
+/* ========== СНОСКИ / БИБЛИОГРАФИЯ ========== */
+sup.fn-ref a { text-decoration: none; color: var(--accent); font-size: .82em; padding: 0 .1em; font-weight: 600; }
+.footnotes { margin-top: 4rem; padding-top: 1.4rem; border-top: 1.5px solid var(--rule); font-size: .85em; color: var(--ink-soft); }
+.footnotes h2, .bibliography h2 { font-family: var(--sans); font-size: .76em; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 1rem; font-weight: 600; }
+.footnote { margin: .5rem 0; text-indent: 0; }
+.footnote .fn-num { color: var(--accent); margin-right: .55em; font-weight: 700; }
+.bibliography ol { list-style: none; counter-reset: bib; padding-left: 0; }
+.bibliography li { counter-increment: bib; padding-left: 2.8rem; position: relative; margin: .7rem 0; font-size: .94em; line-height: 1.55; }
+.bibliography li::before { content: counter(bib) "."; position: absolute; left: 0; top: 0; color: var(--accent); font-variant-numeric: tabular-nums; font-weight: 500; }
+
+/* ========== ПОДВАЛ ========== */
+.doc-footer {
+  margin-top: 4.5rem; padding-top: 1.4rem; border-top: 1.5px solid var(--rule);
+  font-family: var(--sans); font-size: .72em; color: var(--ink-soft);
+  display: flex; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;
+}
+
+/* ========== АДАПТИВ ========== */
+@media (max-width: 820px) {
+  .page { padding: 2.2rem 1.4rem 3rem; }
+  .wrap { width: 100%; }
+  .book-title { font-size: 2em; }
+  .toc { padding: 1.3rem; }
+  .toc a { padding: .45rem .1rem; min-height: 44px; }
+  .ayah { padding: 1.2rem 1rem; }
+  .ar-block { font-size: 1.3em; line-height: 2.1; }
+  figure.table { display: block; width: 100%; overflow-x: auto; }
+  table { min-width: 36rem; }
+}
+@media (max-width: 560px) {
+  body { font-size: 17px; line-height: 1.66; }
+  .page { padding: 1.6rem 1rem 2.4rem; }
+  .title-page { padding: 1rem 0 2.5rem; }
+  .book-title { font-size: 1.7em; }
+  .chapter > h2 { font-size: 1.4em; margin: 2.6rem 0 1.1rem; }
+  .ar-block { font-size: 1.18em; line-height: 2; }
+  .ayah, .hadith, .dua { padding: 1rem .8rem; }
+  .toc { padding: 1.1rem; }
+  .doc-footer { flex-direction: column; gap: .4rem; }
+}
+@media (max-width: 380px) {
+  body { font-size: 16px; }
+  .page { padding: 1.2rem .7rem 2rem; }
+  .book-title { font-size: 1.5em; }
+  .ar-block { font-size: 1.05em; }
+}
+
+/* ========== ПЕЧАТЬ ========== */
+@page { size: A4; margin: 22mm 20mm 22mm; }
+@media print {
+  html { scroll-behavior: auto; }
+  body { background: #fff; font-size: 11.5pt; line-height: 1.55; overflow: visible; }
+  .page { box-shadow: none; padding: 0; max-width: none; min-height: 0; }
+  .wrap { max-width: none; }
+  .title-page { page-break-after: always; border-bottom: 0; }
+  .title-page::after { display: none; }
+  .toc { page-break-after: always; background: none; border: 0; padding: 0; }
+  .chapter { page-break-before: always; }
+  .chapter:first-of-type { page-break-before: avoid; }
+  h2, h3, h4 { break-after: avoid; }
+  p, blockquote, .ayah, .hadith, .dua, table, figure { break-inside: avoid; }
+  a { color: inherit; text-decoration: none; }
+  .doc-footer { display: none; }
+  .ayah, .hadith, .dua { background: none; }
+}
+
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="title-page">
+  <div class="bismillah-slot bism-pos-above-title bism-align-center" style="justify-content:center">
+  <div class="bismillah" lang="ar" dir="rtl" style="font-size:1.750em;text-align:center">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+</div>
+  
+  <h1 class="book-title">Qizining nutqini ochish uchun ruqiya qoidalari</h1>
+  
+  <div class="rule-orn" aria-hidden="true"></div>
+  <p class="book-author">Абу Мухаммад</p>
+  
+  <p class="book-meta">2026</p>
+  
+  
+</header>
+  <div class="wrap">
+  <nav class="toc" aria-label="Оглавление"><h2>Оглавление</h2><ol><li class="toc-l1">
+      <a href="#vvedenie"><span class="num">1.</span><span class="lbl">Введение</span></a></li>
+<li class="toc-l1">
+      <a href="#glava-1-asosiy-tushuncha-nima-uchun-bo-yin-va-ensa"><span class="num"></span><span class="lbl">Глава 1. Asosiy tushuncha: Nima uchun bo'yin va ensa?</span></a></li>
+<li class="toc-l1">
+      <a href="#glava-2-tayyorgarlik-bosqichi"><span class="num"></span><span class="lbl">Глава 2. Tayyorgarlik bosqichi</span></a><ol><li class="toc-l2">
+      <a href="#tahorat-oling"><span class="num"></span><span class="lbl">2.1. Tahorat oling</span></a></li>
+<li class="toc-l2">
+      <a href="#xonani-tayyorlang"><span class="num"></span><span class="lbl">2.2. Xonani tayyorlang</span></a></li>
+<li class="toc-l2">
+      <a href="#o-zingizni-himoya-qiling"><span class="num"></span><span class="lbl">2.3. O'zingizni himoya qiling</span></a></li></ol></li>
+<li class="toc-l1">
+      <a href="#glava-3-niyyat-shakllantirish"><span class="num"></span><span class="lbl">Глава 3. Niyyat shakllantirish</span></a><ol><li class="toc-l2">
+      <a href="#yuragingizda-maqsadni-tuting"><span class="num"></span><span class="lbl">3.1. Yuragingizda maqsadni tuting</span></a></li></ol></li>
+<li class="toc-l1">
+      <a href="#glava-4-asosiy-amal-bo-yin-va-ensani-davolash"><span class="num"></span><span class="lbl">Глава 4. Asosiy amal: Bo'yin va ensani davolash</span></a><ol><li class="toc-l2">
+      <a href="#qo-lingizni-joylashtiring"><span class="num"></span><span class="lbl">4.1. Qo'lingizni joylashtiring</span></a></li>
+<li class="toc-l2">
+      <a href="#yuragingizda-buyruq-bering"><span class="num"></span><span class="lbl">4.2. Yuragingizda buyruq bering</span></a></li>
+<li class="toc-l2">
+      <a href="#maxsus-niyatlarni-takrorlang"><span class="num"></span><span class="lbl">4.3. Maxsus niyatlarni takrorlang</span></a></li></ol></li>
+<li class="toc-l1">
+      <a href="#nutqni-ochish-alloh-uning-nutqini-ochsin-7-marta"><span class="num"></span><span class="lbl">1. Nutqni ochish: Alloh uning nutqini ochsin (7 marta).</span></a></li>
+<li class="toc-l1">
+      <a href="#nutqni-to-g-rilash-alloh-uning-nutqini-to-g-rilasin-7-marta"><span class="num"></span><span class="lbl">2. Nutqni to'g'rilash: Alloh uning nutqini to'g'rilasin (7 marta).</span></a></li>
+<li class="toc-l1">
+      <a href="#tugunlarni-yechish-alloh-barcha-tugunlarni-yechsin-7-marta"><span class="num"></span><span class="lbl">3. Tugunlarni yechish: Alloh barcha tugunlarni yechsin (7 marta).</span></a><ol><li class="toc-l2">
+      <a href="#qur-on-oyatlarini-o-qish"><span class="num"></span><span class="lbl">4.4. Qur'on oyatlarini o'qish</span></a></li>
+<li class="toc-l2">
+      <a href="#dam-solish-va-surtish"><span class="num"></span><span class="lbl">4.5. Dam solish va surtish</span></a></li></ol></li>
+<li class="toc-l1">
+      <a href="#glava-5-kundalik-tartib"><span class="num"></span><span class="lbl">Глава 5. Kundalik tartib</span></a></li>
+<li class="toc-l1">
+      <a href="#glava-6-qizingiz-uchun-qo-shimcha-amallar"><span class="num"></span><span class="lbl">Глава 6. Qizingiz uchun qo'shimcha amallar</span></a><ol><li class="toc-l2">
+      <a href="#suvga-dam-solish"><span class="num"></span><span class="lbl">6.1. Suvga dam solish</span></a></li>
+<li class="toc-l2">
+      <a href="#zaytun-yog-iga-dam-solish"><span class="num"></span><span class="lbl">6.2. Zaytun yog'iga dam solish</span></a></li>
+<li class="toc-l2">
+      <a href="#baqara-surasini-o-qish"><span class="num"></span><span class="lbl">6.3. Baqara surasini o'qish</span></a></li></ol></li>
+<li class="toc-l1">
+      <a href="#glava-7-muhim-eslatmalar"><span class="num"></span><span class="lbl">Глава 7. Muhim eslatmalar</span></a></li>
+<li class="toc-l1">
+      <a href="#glava-8-allohdan-so-rash-uchun-dua"><span class="num"></span><span class="lbl">Глава 8. Allohdan so'rash uchun dua</span></a></li>
+<li class="toc-l1">
+      <a href="#zaklyuchenie"><span class="num">13.</span><span class="lbl">Заключение</span></a></li></ol></nav>
+  <main>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="vvedenie"><span class="num">1.</span>Введение</h2>
+<p>Assalomu alaykum va rahmatullohi va barakatuh, hurmatli ona.</p>
+<p>Men Abu Muhammad, shariat bo'yicha ruqiya bilan shug'ullanuvchi tabibman. Sizning qizingizning nutq muammosi haqida eshitdim. Inshoolloh, Allohning izni bilan, bu qo'llanma orqali siz o'z farzandingizga yordam bera olasiz.</p>
+<p>Bu usul payg'ambarimiz Muhammad sollallohu alayhi vasallamning sunnatlariga asoslangan bo'lib, faqat Qur'on oyatlari va Allohning ismlari orqali amalga oshiriladi.</p>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="glava-1-asosiy-tushuncha-nima-uchun-bo-yin-va-ensa">Глава 1. Asosiy tushuncha: Nima uchun bo'yin va ensa?</h2>
+<p>Qizilog'ingizning nutq muammosi shaytoniy to'siqlar yoki sehr tufayli bo'lishi mumkin. Bo'yin va ensa (boshning orqa qismi) — bu shaytonlar joylashadigan asosiy joy. Ular bu yerdan turib, til va nutqqa ta'sir qiladi.</p>
+<p>Qur'onda Alloh taolo Muso alayhissalom haqida aytadi:</p>
+<figure class="ayah">
+  <div class="ar-block" lang="ar" dir="rtl">وَاحْلُلْ عُقْدَةً مِّن لِّسَانِي يَفْقَهُوا قَوْلِي</div>
+  <figcaption class="ayah-tr">Va tilimdan tugunni yech, so'zimni tushunsinlar<br>И развяжи узел на моем языке, чтобы они поняли мою речь</figcaption>
+  <div class="source">Источник: Сура «Та Ха», аяты 27-28</div>
+</figure>
+<p>Bu oyatlar aynan nutq muammolari uchun nozil bo'lgan.</p>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="glava-2-tayyorgarlik-bosqichi">Глава 2. Tayyorgarlik bosqichi</h2>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="tahorat-oling">2.1. Tahorat oling</h3>
+<p>Har bir seansdan oldin toza tahorat oling. Tahorat — bu ruhiy qurol.</p>
+</section>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="xonani-tayyorlang">2.2. Xonani tayyorlang</h3>
+<ul><li>Tinch joy tanlang</li><li>Telefoni o'chiring</li><li>Qizingizni tinch holatda o'tkazing yoki yotqizing</li></ul>
+</section>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="o-zingizni-himoya-qiling">2.3. O'zingizni himoya qiling</h3>
+<p>Avval o'zingizga quyidagilarni o'qing: 1. Oyatal Kursiy (1 marta) 2. Ixlos surasi (3 marta) 3. Falaq surasi (3 marta) 4. Nos surasi (3 marta)</p>
+</section>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="glava-3-niyyat-shakllantirish">Глава 3. Niyyat shakllantirish</h2>
+<aside class="callout"><span class="label">Примечание</span><p>Ruqiya faqat so'z emas, bu — niyyat va irodaning harakati. Niyyatsiz o'qilgan Qur'on — bu faqat ovoz. Niyyat bilan o'qilgan Qur'on — bu qurol.</p></aside>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="yuragingizda-maqsadni-tuting">3.1. Yuragingizda maqsadni tuting</h3>
+<p>Yuragingizda (ichingizda, lablaringizni qimirlatmay) quyidagi niyyatni tuting: Alloh uchun, Alloh Qur'on orqali qizimning nutqini ochsin, to'g'rilasin va barcha tugunlarni yechsin deb, Qur'on o'qiyapman.</p>
+<p>Bu niyyatni yuragingizda 40 marta takrorlang. Har safar takrorlaganda, niyyat kuchayib, zich bo'lib boradi. Ko'kragingizda issiqlik yoki og'irlik his qilasiz — bu niyyatning kuchi.</p>
+</section>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="glava-4-asosiy-amal-bo-yin-va-ensani-davolash">Глава 4. Asosiy amal: Bo'yin va ensani davolash</h2>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="qo-lingizni-joylashtiring">4.1. Qo'lingizni joylashtiring</h3>
+<p>O'ng qo'lingizni qizilog'ingizning ensasiga (boshning orqa qismi, bo'yin bilan tutashgan joy) qo'ying. Chap qo'lingizni esa bo'yinining old qismiga (tomoqqa yaqin, lekin bosmay) qo'ying.</p>
+</section>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="yuragingizda-buyruq-bering">4.2. Yuragingizda buyruq bering</h3>
+<p>Ichingizda, yuragingiz bilan qizingizning bo'yin va ensasiga buyruq bering: Arqiniy! (Men o'zimni va qizimni Alloh nomi bilan damlayapman). Bu buyruqni 7 marta yuragingizda takrorlang.</p>
+</section>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="maxsus-niyatlarni-takrorlang">4.3. Maxsus niyatlarni takrorlang</h3>
+<p>Endi quyidagi uchta niyatni navbatma-navbat, har birini 7 martadan yuragingizda takrorlang:</p>
+</section>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="nutqni-ochish-alloh-uning-nutqini-ochsin-7-marta">1. Nutqni ochish: Alloh uning nutqini ochsin (7 marta).</h2>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="nutqni-to-g-rilash-alloh-uning-nutqini-to-g-rilasin-7-marta">2. Nutqni to'g'rilash: Alloh uning nutqini to'g'rilasin (7 marta).</h2>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="tugunlarni-yechish-alloh-barcha-tugunlarni-yechsin-7-marta">3. Tugunlarni yechish: Alloh barcha tugunlarni yechsin (7 marta).</h2>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="qur-on-oyatlarini-o-qish">4.4. Qur'on oyatlarini o'qish</h3>
+<p>Niyyat kuchaygandan keyin, quyidagi oyatlarni ovoz chiqarib o'qing. Har bir oyatni o'qiyotganda, qo'lingiz ensada va bo'yinda bo'lsin:</p>
+<figure class="ayah">
+  <div class="ar-block" lang="ar" dir="rtl">رَبِّ اشْرَحْ لِي صَدْرِي وَيَسِّرْ لِي أَمْرِي وَاحْلُلْ عُقْدَةً مِّن لِّسَانِي يَفْقَهُوا قَوْلِي</div>
+  <figcaption class="ayah-tr">Robbi-shroh liy sodriy va yassir liy amriy vahlul 'uqdatan min lisoniy yafqohu qouli<br>Robbim, ko'nglimni keng qil, ishimni oson qil, tilimdan tugunni yech, so'zimni tushunsinlar<br>Господь мой! Раскрой для меня грудь мою, облегчи мне дело мое, развяжи узел на моем языке, чтобы они поняли мою речь</figcaption>
+  <div class="source">O'qish tartibi: 7 marta</div>
+</figure>
+<figure class="ayah">
+  <div class="ar-block" lang="ar" dir="rtl">اخْرُجْ مِنْهَا فَإِنَّكَ رَجِيمٌ</div>
+  <figcaption class="ayah-tr">Uhrux minha fa innaka rojiym<br>Undan chiq, albatta sen quvilgansan<br>Выйди из нее, ибо ты изгнан<br>(O'qish tartibi: 7 marta, ichingizda qattiq buyruq bering: Ey shayton, bu qizning tilidan va bo'yinidan Allohning izni bilan chiq!)</figcaption>
+  <div class="source">Источник: Сура «аль-Хиджр», аят 34</div>
+</figure>
+<figure class="ayah">
+  <div class="ar-block" lang="ar" dir="rtl">فَوَقَعَ الْحَقُّ وَبَطَلَ مَا كَانُوا يَعْمَلُونَ</div>
+  <figcaption class="ayah-tr">Favaqo'al haqqu va batalo ma kanu ya'malun<br>Haq keldi va botil yo'qoldi, ular qilayotgan ishlari bekor bo'ldi<br>И явилась истина, и тщетным оказалось то, что они совершали</figcaption>
+  <div class="source">O'qish tartibi: 7 marta</div>
+</figure>
+</section>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="dam-solish-va-surtish">4.5. Dam solish va surtish</h3>
+<p>Oyatlar tugagandan keyin:</p>
+<ol><li>Qo'llaringizni og'zingizga yaqinlashtiring.</li><li>Ixlos, Falaq, Nos suralarini bir martadan o'qing.</li><li>Qo'llaringizga puflang.</li><li>O'sha qo'llar bilan qizingizning ensasini, bo'yinini, yuzini va ko'krak qafasini yaxshilab surting.</li></ol>
+</section>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="glava-5-kundalik-tartib">Глава 5. Kundalik tartib</h2>
+<p>Bu amalni har kuni quyidagi tartibda bajaring:</p>
+<figure class="table"><table><thead><tr><th>Vaqt</th><th>Amal</th><th>Davomiyligi</th></tr></thead><tbody><tr><td>Ertalab</td><td>Bomdod namozidan keyin to'liq seans</td><td>20 daqiqa</td></tr><tr><td>Kechqurun</td><td>Shom namozidan keyin to'liq seans</td><td>20 daqiqa</td></tr><tr><td>Kechasi</td><td>Yotishdan oldin yengil seans (faqat niyat va surtish)</td><td>10 daqiqa</td></tr></tbody></table></figure>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="glava-6-qizingiz-uchun-qo-shimcha-amallar">Глава 6. Qizingiz uchun qo'shimcha amallar</h2>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="suvga-dam-solish">6.1. Suvga dam solish</h3>
+<p>Katta shisha suv tayyorlang. Har kuni ertalab suvga qarab turing, yuragingizda niyat qiling: Alloh bu suvni qizimning nutqini ochish uchun shifo qilsin. Fotiha surasini 7 marta, Oyatal Kursiyni 3 marta, Ixlos, Falaq, Nos suralarini 3 martadan o'qing. Bu suvdan qizingizga har kuni ichiring va yuzini yuvdiring.</p>
+</section>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="zaytun-yog-iga-dam-solish">6.2. Zaytun yog'iga dam solish</h3>
+<p>Zaytun yog'ini oling va yuqoridagi tartibda dam soling. Har kuni kechasi qizingizning ensasini, bo'yinini va ko'krak qafasini shu yog' bilan massaj qiling.</p>
+</section>
+<section class="section" data-kind="section" data-level="2">
+<h3 id="baqara-surasini-o-qish">6.3. Baqara surasini o'qish</h3>
+<p>Har kuni uyda Baqara surasini o'qib turing (ovoz chiqarib). Bu shaytonlarni uydan haydaydi va qizingizni himoya qiladi.</p>
+</section>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="glava-7-muhim-eslatmalar">Глава 7. Muhim eslatmalar</h2>
+<p>1. Sabr qiling. Bu jarayon bir necha hafta yoki oy davom etishi mumkin. Allohning izni bilan natija bo'ladi.</p>
+<ol><li>Muntazamlik. Har kuni, uzluksiz bajaring. Bir kun tashlasangiz, shayton qaytib keladi.</li><li>Gumon qilmang. Ishlaydimi? deb shubhalanmang. Allohning so'zi ishlamay qolmaydi.</li><li>Qizingizga mehr bering. Seans paytida uni erkalang, tinchlantiring.</li><li>O'zingizni himoya qiling. Har seansdan keyin o'zingizga ham dam soling.</li></ol>
+<aside class="callout"><span class="label">Примечание</span><p>Tibbiy tekshiruv: Agar 2-3 oy ichida hech qanday o'zgarish bo'lmasa, qizingizni logoped va nevropatologga ko'rsating. Ruqiya va tibbiyot birgalikda ishlashi mumkin.</p></aside>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="glava-8-allohdan-so-rash-uchun-dua">Глава 8. Allohdan so'rash uchun dua</h2>
+<p>Har seans oxirida bu duoni o'qing:</p>
+<aside class="dua">
+  <span class="label">Дуа</span>
+  <div class="ar-block" lang="ar" dir="rtl">اللَّهُمَّ اشْفِ ابْنَتِي، وَافْتَحْ لِسَانَهَا، وَاحْلُلْ عُقْدَةً مِنْ لِسَانِهَا، وَأَذْهِبْ عَنْهَا كُلَّ شَيْطَانٍ وَكُلِّ سِحْرٍ وَكُلِّ عَيْنٍ</div>
+  <p>Allohumma-shfiy ibnatiy, vaftah lisonaha, vahlul 'uqdatan min lisoniha, va azhib 'anha kulla shaytonin va kulli sihrin va kulli 'ayn</p>
+<p>Allohim, qizimga shifo ber, tilini och, tilidagi tugunni yech, undan har bir shaytonni, har sehrni va har ko'z tegishini olib tashla</p>
+<p>О Аллах, исцели мою дочь, открой ее язык, развяжи узел на ее языке и удали от нее всякого шайтана, всякое колдовство и всякий сглаз</p>
+  <div class="source">Источник: Мольба Абу Мухаммада</div>
+</aside>
+</section>
+<section class="chapter" data-kind="chapter" data-level="1">
+<h2 id="zaklyuchenie"><span class="num">13.</span>Заключение</h2>
+<p>Hurmatsiz ona, sizning qizingiz Allohning amanati. Siz bu amalni bajarayotganingizda, Alloh sizga yordam beradi. Payg'ambarimiz sollallohu alayhi vasallam aytdilar:</p>
+<blockquote class="hadith">
+  <span class="label">Хадис</span>
+  <div class="ar-block" lang="ar" dir="rtl">إِنَّ اللَّهَ لَمْ يُنْزِلْ دَاءً إِلَّا أَنْزَلَ لَهُ شِفَاءً</div>
+  <p>Har bir kasallikning davosi bor. Agar davo kasallikka to'g'ri kelsa, Allohning izni bilan tuzaladi</p>
+<p>Поистине, Аллах не низвел ни одной болезни, не низведя для нее исцеления</p>
+  <footer class="source">Источник: аль-Бухари, № 5678</footer>
+</blockquote>
+<p>Siz to'g'ri yo'ldasiz. Faqat sabr qiling, ixlos bilan bajaring va Allohdan so'rang. Alloh sizga va qizilog'ingizga yengillik bersin. Omin!</p>
+</section>
+  </main>
+  
+  <div class="doc-footer">
+    <span>Qizining nutqini ochish uchun ruqiya qoidalari · Абу Мухаммад</span>
+    <span>Подготовил Лекарь Абу Мухаммад</span>
+  </div>
+  </div>
+</div>
+<script>
+(function(){
+  document.addEventListener('click', function(e){
+    var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
+    if(!a) return;
+    var href = a.getAttribute('href');
+    if(!href || href.length < 2) return;
+    var id = href.slice(1);
+    var el = document.getElementById(id);
+    if(!el) return;
+    e.preventDefault();
+    var top = el.getBoundingClientRect().top + window.pageYOffset - 88;
+    window.scrollTo({top: top, behavior: 'smooth'});
+    try{ history.pushState(null,'',href);}catch(_e){}
+  });
+  if (location.hash && location.hash.length > 1) {
+    setTimeout(function(){
+      var el = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+      if (el) {
+        var top = el.getBoundingClientRect().top + window.pageYOffset - 88;
+        window.scrollTo({top: top, behavior: 'smooth'});
+      }
+    }, 60);
+  }
+})();
+</script>
+</body>
+</html>
