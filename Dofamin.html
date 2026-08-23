@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Игровой театр — манифест Kyro(dendiiii) | von group</title>
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="apple-touch-icon" href="favicon.png" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=JetBrains+Mono:wght@400;600&display=swap" />
+    <style>
+        /* ===== ROOT ===== */
+        :root {
+            --bg-primary: #0a0a12;
+            --bg-secondary: #12121f;
+            --bg-card: #1a1a2e;
+            --bg-card-hover: #1f1f35;
+            --accent: #e94560;
+            --accent2: #0f3460;
+            --accent3: #533483;
+            --gold: #f0c040;
+            --gold-dim: #c9a030;
+            --text: #e8e8f0;
+            --text-dim: #9898b0;
+            --text-bright: #ffffff;
+            --border: #2a2a45;
+            --success: #00c853;
+            --warning: #ff9800;
+            --danger: #f44336;
+            --gradient1: linear-gradient(135deg, #e94560, #533483);
+            --gradient2: linear-gradient(135deg, #0f3460, #533483);
+            --gradient3: linear-gradient(135deg, #f0c040, #e94560);
+            --gradient4: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--gradient1);
+            border-radius: 4px;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem 1.5rem;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(233, 69, 96, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 50%, rgba(83, 52, 131, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(240, 192, 64, 0.08) 0%, transparent 40%);
+            pointer-events: none;
+            animation: pulse-bg 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse-bg {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .hero-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gold);
+            background: rgba(240, 192, 64, 0.12);
+            border: 1px solid rgba(240, 192, 64, 0.30);
+            padding: 0.4rem 1.2rem;
+            border-radius: 100px;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.6rem, 9vw, 5.5rem);
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            background: var(--gradient1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+            line-height: 1.1;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero h1 .highlight {
+            background: var(--gradient3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-sub {
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            color: var(--text-dim);
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero-hook {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            color: var(--text-bright);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            padding: 1.2rem 1.8rem;
+            background: rgba(233, 69, 96, 0.08);
+            border: 2px solid rgba(233, 69, 96, 0.25);
+            border-radius: 12px;
+            font-weight: 600;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem 2.5rem;
+            justify-content: center;
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .hero-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .hero-meta .accent-text {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .hero-meta .gold-text {
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        .scroll-hint {
+            margin-top: 3rem;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            letter-spacing: 0.1em;
+            animation: pulse 2s ease-in-out infinite;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; transform: translateY(0); }
+            50% { opacity: 1; transform: translateY(5px); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== CONTAINER ===== */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 1.5rem 4rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== SECTION ===== */
+        section {
+            margin-top: 5rem;
+        }
+
+        .section-tag {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent);
+            background: rgba(233, 69, 96, 0.12);
+            border: 1px solid rgba(233, 69, 96, 0.25);
+            padding: 0.3rem 1rem;
+            border-radius: 100px;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: clamp(1.8rem, 5vw, 2.6rem);
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.2rem;
+            line-height: 1.2;
+        }
+
+        h2 .accent {
+            color: var(--accent);
+        }
+
+        h2 .gold {
+            color: var(--gold);
+        }
+
+        .lead {
+            font-size: 1.15rem;
+            color: var(--text-dim);
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--accent);
+            padding-left: 1.5rem;
+            font-weight: 500;
+        }
+
+        /* ===== CARD ===== */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem 2.25rem;
+            margin-bottom: 1.75rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gradient1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover {
+            background: var(--bg-card-hover);
+            border-color: rgba(233, 69, 96, 0.35);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(233, 69, 96, 0.15);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .card h3 .emoji {
+            font-size: 1.6rem;
+        }
+
+        .card p {
+            color: var(--text-dim);
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
+        }
+
+        .card p:last-child {
+            margin-bottom: 0;
+        }
+
+        .card ul {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0 0.5rem;
+        }
+
+        .card ul li {
+            position: relative;
+            padding-left: 1.75rem;
+            color: var(--text-dim);
+            margin-bottom: 0.6rem;
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        .card ul li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: 900;
+            font-size: 1.2rem;
+        }
+
+        .card .highlight-box {
+            background: rgba(233, 69, 96, 0.08);
+            border-left: 4px solid var(--accent);
+            padding: 1rem 1.5rem;
+            border-radius: 0 12px 12px 0;
+            margin: 1rem 0 0.5rem;
+            color: var(--text);
+            font-style: italic;
+            font-size: 1.05rem;
+            font-weight: 500;
+        }
+
+        .card .gold-box {
+            background: rgba(240, 192, 64, 0.08);
+            border-left: 4px solid var(--gold);
+            padding: 1rem 1.5rem;
+            border-radius: 0 12px 12px 0;
+            margin: 1rem 0 0.5rem;
+            color: var(--text);
+            font-size: 1.05rem;
+            font-weight: 600;
+        }
+
+        .card .story-box {
+            background: rgba(102, 126, 234, 0.08);
+            border: 2px solid rgba(102, 126, 234, 0.25);
+            padding: 1.25rem 1.5rem;
+            border-radius: 12px;
+            margin: 1.25rem 0 0.5rem;
+            color: var(--text);
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .card .story-box strong {
+            color: var(--gold);
+        }
+
+        /* ===== QUOTE ===== */
+        .quote-block {
+            background: rgba(83, 52, 131, 0.12);
+            border: 2px solid rgba(83, 52, 131, 0.30);
+            border-radius: 16px;
+            padding: 2rem 2.5rem;
+            margin: 2.5rem 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .quote-block::before {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            left: 30px;
+            font-size: 5rem;
+            color: var(--accent3);
+            opacity: 0.3;
+            font-family: Georgia, serif;
+        }
+
+        .quote-block p {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--text-bright);
+            line-height: 1.7;
+        }
+
+        .quote-block .author {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            font-weight: 600;
+        }
+
+        /* ===== GRID ===== */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+       /* ===== NUMBER LIST ===== */
+.card ul.number-list {
+    counter-reset: item;
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 0.5rem;
+}
+
+.card ul.number-list li {
+    counter-increment: item;
+    position: relative;
+    padding-left: 3.75rem;      /* текст начинается правее кружка */
+    margin-bottom: 1.5rem;
+    color: var(--text-dim);
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+.card ul.number-list li::before {
+    content: counter(item);    /* цифра 1, 2, 3… вместо «▸ */
+    position: absolute;
+    left: 0;
+    top: 0.15rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    min-width: 2.5rem;         /* кружок не сжимается */
+    background: var(--gradient1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 1.2rem;
+    color: var(--text-bright);
+    box-shadow: 0 4px 12px rgba(233, 69, 96, 0.35);
+}
+
+        /* ===== DIVIDER ===== */
+        .divider {
+            width: 80px;
+            height: 3px;
+            background: var(--gradient1);
+            margin: 4rem auto 3rem;
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .divider::after {
+            content: '◆';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--bg-primary);
+            padding: 0 0.5rem;
+            color: var(--accent);
+            font-size: 1rem;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 600px) {
+            .hero h1 {
+                font-size: 2.4rem;
+            }
+            .card {
+                padding: 1.5rem 1.25rem;
+            }
+            .hero-meta {
+                gap: 0.8rem 1.5rem;
+                font-size: 0.8rem;
+            }
+            .lead {
+                font-size: 1.05rem;
+                padding-left: 1.25rem;
+            }
+            .quote-block {
+                padding: 1.5rem;
+            }
+            .quote-block p {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* ===== ANIMATIONS ===== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.8s ease forwards;
+        }
+
+        .fade-in-d1 { animation-delay: 0.1s; }
+        .fade-in-d2 { animation-delay: 0.2s; }
+        .fade-in-d3 { animation-delay: 0.3s; }
+        .fade-in-d4 { animation-delay: 0.4s; }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            text-align: center;
+            padding: 3rem 1.5rem 2rem;
+            border-top: 1px solid var(--border);
+            margin-top: 4rem;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        .footer a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        .footer a:hover {
+            color: var(--gold);
+            text-decoration: underline;
+        }
+
+        .footer .badge {
+            display: inline-block;
+            background: rgba(233, 69, 96, 0.12);
+            border: 1px solid rgba(233, 69, 96, 0.25);
+            padding: 0.3rem 0.8rem;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HERO ===== -->
+    <header class="hero">
+        <div class="hero-badge">🎭 von group — игровой театр</div>
+        <h1>
+            Игровой <span class="highlight">театр</span><br />
+            манифест <span class="highlight">Kyro</span>
+        </h1>
+        <p class="hero-sub">
+            Как мы превращаем обычные катки в кино с драмой, дофамином и голдой
+        </p>
+        <div class="hero-hook">
+            💡 Знаешь это чувство, когда победа не радует, а поражение бесит?<br />
+            Я нашёл способ вернуть огонь в каждый матч. И это не про рейтинг.
+        </div>
+        <div class="hero-meta">
+            <span>👤 <span class="accent-text">Kyro(dendiiii)</span></span>
+            <span>🎯 <span class="gold-text">∞</span> дофамина</span>
+            <span>⚔️ <span class="gold-text">5</span> ролей</span>
+            <span>💬 <span class="gold-text">∞</span> диалогов</span>
+        </div>
+        <div class="scroll-hint">ЛИСТАЙ ВНИЗ ↓</div>
+    </header>
+
+    <!-- ===== CONTENT ===== -->
+    <main class="container">
+
+        <!-- ===== INTRO ===== -->
+        <section class="fade-in">
+            <div class="section-tag">пролог</div>
+            <h2>Привет, я <span class="accent">Kyro</span></h2>
+            <p class="lead">
+                Если ты читаешь это, значит, тебе тоже надоело тупо кликать по миньонам и героям в надежде, что рейтинг сам собой поползёт вверх. Да, победа — приятно, но где тот самый огонь, от которого сердце колотится, а пальцы дрожат над клавиатурой?
+            </p>
+            <div class="card">
+                <div class="story-box">
+                    <strong>История из жизни:</strong> Недавно я играл с тиммейткой, и она сказала: <em>«Меня обидел этот Госсен на миду»</em>. Я ответил: <em>«Госсен, тебе конец, я иду за тобой»</em>. И знаешь что? Каждый следующий килл стал личной местью. Я чувствовал азарт, которого не было годами. В тот момент я понял — игра это не про цифры, это про эмоции.
+                </div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- ===== PROBLEM ===== -->
+        <section class="fade-in fade-in-d1">
+            <div class="section-tag">проблема</div>
+            <h2>Механика <span class="gold">без души</span></h2>
+            <p class="lead">
+                Когда мы играем «по шаблону» — фармим, пушим, деремся за рошана — мозг быстро привыкает. Мы получаем скудную порцию дофамина только за победу, а поражение выбивает из колеи. Но есть нюанс: <strong>игра — это социальный опыт</strong>.
+            </p>
+            <div class="card">
+                <h3><span class="emoji">🧠</span> Что происходит в мозге?</h3>
+                <p>Игры активируют дофаминовые пути, создавая чувство удовольствия и усиливая мотивацию. Но когда действия становятся рутиной, мозг перестаёт реагировать. Нам нужна новизна, драма, смысл.</p>
+                <div class="highlight-box">
+                    Если мы наполним игру смыслом, диалогами и ролями, каждый тимфайт превратится в сцену из блокбастера. И дофамин польётся рекой.
+                </div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- ===== IDEA ===== -->
+        <section class="fade-in fade-in-d2">
+            <div class="section-tag">идея</div>
+            <h2>Игровой театр с <span class="accent">полным погружением</span></h2>
+            <p class="lead">
+                Я предложил своей тиммейтке играть не просто в «убей врага», а в историю. Но почему ограничиваться одним человеком?
+            </p>
+            <div class="card">
+                <h3><span class="emoji">🎬</span> Концепция: команда как актёрская труппа</h3>
+                <p>
+                    Представьте: вы играете впятером (или даже с друзьями в лобби), и каждый участник получает свою роль. И необязательно только мстить. Можно создавать общие цели, подбадривать друг друга и даже торговаться за фраги.
+                </p>
+                <div class="gold-box">
+                    Каждый матч становится маленьким фильмом, где мы сами сценаристы, режиссёры и актёры одновременно.
+                </div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- ===== HOW IT WORKS ===== -->
+        <section class="fade-in fade-in-d3">
+            <div class="section-tag">как это работает</div>
+            <h2>На практике <span class="gold">(от моего лица)</span></h2>
+
+            <!-- 1. Роли -->
+            <div class="card">
+                <h3><span class="emoji">🎭</span> 1. Роли для всей банды</h3>
+                <p>Мы распределяем амплуа перед игрой или прямо в пике:</p>
+                <ul>
+                    <li><strong>Я — главный мститель / охотник.</strong> Моя задача — реагировать на крики о помощи и устранять обидчиков. Когда кто-то пишет <em>«Меня убили!»</em>, я уже лечу на помощь.</li>
+                    <li><strong>Девушки в команде (у нас их часто 3–4)</strong> — «принцессы» или «искусительницы». Они могут просить защиты, но также и требовать ресурсы: <em>«Киро, подари мне этого килла, я хочу купить сапоги!»</em> — и я, как истинный джентльмен, подвожу врага под удар, оставляя его на добивание.</li>
+                    <li><strong>Парни</strong> — «стратеги» или «хранители голды». Они следят за экономикой, кричат: <em>«Не трогайте крипов, я коплю на ультимейт!»</em>, а мы все вместе оберегаем их фарм.</li>
+                </ul>
+            </div>
+
+            <!-- 2. Диалоги -->
+            <div class="card">
+                <h3><span class="emoji">💬</span> 2. Диалоги, которые создают атмосферу</h3>
+                <p>Вместо сухих пингов мы общаемся так, будто мы в одной таверне:</p>
+                <ul>
+                    <li><em>«Милая, бери крипов, для тебя я оставляю»</em> — когда я добиваю крипов до последнего удара и отхожу, чтобы она получила золото.</li>
+                    <li><em>«Пока не добавишь третьего килла в мою копилку, я не буду рада»</em> — девушка ставит условие, и я горю желанием выполнить его.</li>
+                    <li><em>«Ребята, давайте зажмём их в лесу, я хочу увидеть, как они паникуют»</em> — парень предлагает план, и мы разыгрываем засаду с комментариями.</li>
+                </ul>
+                <div class="highlight-box">
+                    <strong>Важно:</strong> не просто говорить, а <strong>делать это искренне</strong>. Когда я пишу в чат: <em>«Этот дабл-килл для тебя, моя королева»</em>, я действительно чувствую прилив азарта — потому что теперь у меня есть зритель и оценка.
+                </div>
+            </div>
+
+            <!-- 3. Голда -->
+            <div class="card">
+                <h3><span class="emoji">💰</span> 3. Голда как валюта внимания</h3>
+                <p>Мы ввели правило: <strong>каждый крупный источник золота (баунти, рошан, башня) должен быть «подарен»</strong>. Например:</p>
+                <ul>
+                    <li>Я убиваю вражеского керри и пишу: <em>«Этот 500-голдовый бонус — твой, Алиса, бери и радуй меня своей улыбкой»</em>.</li>
+                    <li>Если кто-то просит: <em>«Денди, отдай мне ластхит на крипе, я хочу купить БКБ»</em>, я делаю это, потому что знаю — дальше он использует БКБ в мою защиту, и это становится общей победой.</li>
+                </ul>
+                <div class="gold-box">
+                    <strong>Голда превращается из цифры в инструмент взаимодействия.</strong> Мы не просто фармим, мы делимся, торгуемся, шантажируем друг друга (в шутку) — и каждый тиммейт чувствует свою значимость.
+                </div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- ===== DOPAMINE ===== -->
+        <section class="fade-in fade-in-d4">
+            <div class="section-tag">почему это работает</div>
+            <h2>Почему это даёт <span class="accent">тонны дофамина</span></h2>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3><span class="emoji">🎢</span> Эмоциональные качели</h3>
+                    <p>Когда ты мстишь за подругу, в твоих действиях есть драма. Если ты не успеваешь — она расстраивается, и ты горишь желанием исправиться. Если успеваешь — ты герой. Это создаёт эмоциональные американские горки, которые держат в напряжении весь матч.</p>
+                </div>
+                <div class="card">
+                    <h3><span class="emoji">🤝</span> Социальная связь</h3>
+                    <p>Команда перестаёт быть набором аватаров. Вы начинаете запоминать стиль речи друг друга, шутить, подкалывать. Даже поражение переживается легче, потому что вы вместе создали историю, которую будете вспоминать.</p>
+                </div>
+                <div class="card">
+                    <h3><span class="emoji">⚡</span> Стимул для импакта</h3>
+                    <p>Обычно мы убиваем ради статистики. Но когда тебя просят <em>«подари мне килл»</em> — ты стараешься сделать это красиво, с финтом, чтобы потом услышать: <em>«Вау, как ты это сделал?»</em>. Это поднимает планку игры на новый уровень.</p>
+                </div>
+                <div class="card">
+                    <h3><span class="emoji">🛡️</span> Убирает токсичность</h3>
+                    <p>Когда мы все «в ролях», агрессия уходит в игру против врагов, а внутри команды царит поддержка. Даже если мидер проиграл линию, мы говорим: <em>«Ничего, мы тебя вытащим, просто попроси помощи»</em>. Токсичность исчезает.</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- ===== CHALLENGES ===== -->
+        <section class="fade-in fade-in-d1">
+            <div class="section-tag">квесты и челленджи</div>
+            <h2>Расширение: не только спасение, <span class="gold">но и совместные челленджи</span></h2>
+            <p class="lead">Мы добавили несколько «квестов» на матч, чтобы игра стала ещё интереснее.</p>
+
+            <div class="card">
+                <h3><span class="emoji">🏆</span> Примеры квестов:</h3>
+                <ul class="number-list">
+                    <li><strong>Король киллов:</strong> <em>«Кто первый нафармит 10 убийств, тот получает звание "Король киллов" и право заказать ужин у остальных»</em>. Это создаёт здоровую конкуренцию внутри команды.</li>
+                    <li><strong>Мемная смерть:</strong> <em>«Если я умру три раза подряд, вы все должны написать в общий чат "Бедный Денди, мы тебя любим"»</em> — это добавляет юмора и снимает напряжение в трудные моменты.</li>
+                    <li><strong>Спецоперация:</strong> <em>«Давайте устроим загон на топ-лейне: я пугаю их, а вы встречаете с тыла»</em> — и мы разыгрываем это как настоящую военную операцию с позывными и координацией.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3><span class="emoji">💡</span> Придумай свои квесты!</h3>
+                <p>Главное — чтобы квесты были весёлыми, достижимыми и создавали общую историю. Можно придумывать их прямо по ходу матча, реагируя на ситуацию.</p>
+                <div class="story-box">
+                    <strong>Пример из последней катки:</strong> Мы проиграли две линии, и я предложил: <em>«Давайте устроим "Операцию Возмездие" — каждый, кто убьёт врага, должен крикнуть в голосовой чат "За Родину!"»</em>. В итоге мы развернули игру, а запись нашего голосового чата стала мемом в нашей группе.
+                </div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- ===== CALL TO ACTION ===== -->
+        <section class="fade-in fade-in-d2">
+            <div class="section-tag">призыв к действию</div>
+            <h2>Попробуйте <span class="accent">хотя бы одну катку</span></h2>
+            <p class="lead">
+                Подключите своих тиммейтов — девушек и парней, найдите в каждом уникальную роль. Говорите друг другу комплименты, требуйте килы, следите за голдой как за общей казной. Уверяю, вы удивитесь, насколько ярче станет игра.
+            </p>
+
+            <div class="card">
+                <h3><span class="emoji">🎯</span> С чего начать?</h3>
+                <ul class="number-list">
+                    <li><strong>Собери команду.</strong> Найди 2-3 человека, которые готовы попробовать. Лучше начать с друзьями, которые тебя поймут.</li>
+                    <li><strong>Распредели роли.</strong> Обсудите перед игрой, кто будет мстителем, кто принцессой, кто стратегом. Можно меняться ролями каждый матч.</li>
+                    <li><strong>Создай атмосферу.</strong> Начни с простых фраз: <em>«Я иду за тобой»</em>, <em>«Этот килл для тебя»</em>. Не стесняйся, втягивайся постепенно.</li>
+                    <li><strong>Добавь квесты.</strong> Придумайте 1-2 квеста на матч. Это может быть что-то простое вроде «кто больше украдёт крипов».</li>
+                    <li><strong>Получай удовольствие.</strong> Не гонись за победой — гонись за эмоциями. Даже поражение может стать эпичной историей.</li>
+                </ul>
+            </div>
+
+            <div class="quote-block">
+                <p>«Я, Kyro, теперь не могу иначе. Каждый матч — это маленький фильм, где мы сами сценаристы. И поверьте, победа в таком фильме стоит намного дороже, чем сотня безликих вин.»</p>
+                <div class="author">— Kyro(dendiiii)</div>
+            </div>
+
+            <div class="card" style="text-align: center; border-color: var(--gold); background: rgba(240, 192, 64, 0.08);">
+                <p style="font-size: 1.3rem; font-weight: 800; color: var(--gold); margin-bottom: 0.5rem;">
+                    ⚡ Попробуйте. И пусть дофамин будет с вами. ⚡
+                </p>
+                <p style="color: var(--text-dim); font-size: 1rem;">
+                    Начните сегодня. Первая катка изменит всё.
+                </p>
+            </div>
+        </section>
+
+        <!-- ===== FOOTER ===== -->
+        <footer class="footer">
+            <p>
+                Составитель: <a href="https://t.me/kyrolab" target="_blank">Kyro(dendiiii)</a><br />
+                <span class="badge">von group · 2026</span>
+            </p>
+            <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--text-dim);">
+                Игровой театр — манифест
+            </p>
+        </footer>
+
+    </main>
+
+</body>
+</html>
